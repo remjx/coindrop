@@ -1,6 +1,7 @@
 import useSWR from 'swr'
 import Link from 'next/link'
 import { useUser } from '../utils/auth/useUser'
+import Logo from '../components/logo/Logo';
 
 const fetcher = (url, token) =>
   fetch(url, {
@@ -31,6 +32,7 @@ const Index = () => {
 
   return (
     <div>
+      <Logo />
       <div>
         <p>You're signed in. Email: {user.email}</p>
         <p
