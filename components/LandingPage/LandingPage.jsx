@@ -1,7 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex, Button, useTheme, Heading, Text, Input, InputGroup, InputLeftAddon } from '@chakra-ui/core'
-import Logo from '../logo/Logo';
+import { Box, Flex, Button, useTheme, Heading, Text, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel } from '@chakra-ui/core'
+import Logo from '../Logo/Logo';
+
+const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color }) => (
+    <Box mx={1} my={1}>
+        <Tag size="lg">
+            <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
+            <TagLabel>{label}</TagLabel>
+        </Tag>
+    </Box>
+)
 
 const index = (props) => {
     const theme = useTheme();
@@ -35,7 +44,7 @@ const index = (props) => {
                     Your shareable landing page for one-time payments and donations
                 </Heading>
                 <Text textAlign="center">
-                    Let your users choose their most convenient way to pay you
+                    Create a list of all your addresses. Let the sender choose how to pay.
                 </Text>
                 <Flex
                     align="center"
@@ -48,6 +57,7 @@ const index = (props) => {
                         <Input roundedLeft="0" placeholder="username" />
                     </InputGroup>
                     <Button
+                        ml={1}
                         variantColor="orange"
                     >
                         Create
@@ -57,8 +67,21 @@ const index = (props) => {
                     fontSize="xs"
                     textAlign="center"
                 >
-                    Username can be changed later
+                    username can be changed later
                 </Text>
+                <Text>
+                    Supports
+                </Text>
+                <Flex>
+                    <PaymentMethodTag label="PayPal" iconName="paypal" color="#00457C" />
+                    <PaymentMethodTag label="Venmo" iconName="venmo" color="#3D95CE" iconSize="32px" />
+                    <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
+                    <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
+                    <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                    <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
+                    <PaymentMethodTag label="Monero" iconName="monero" color="" />
+                    <PaymentMethodTag label="Zcash" iconName="zcash" color="#000000" />
+                </Flex>
             </Box>
         </Box>
     );
