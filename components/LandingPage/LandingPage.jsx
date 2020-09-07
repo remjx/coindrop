@@ -7,7 +7,7 @@ const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color }) => (
     <Box mx={1} my={1}>
         <Tag size="lg">
             <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
-            <TagLabel>{label}</TagLabel>
+            <TagLabel py={1}>{label}</TagLabel>
         </Tag>
     </Box>
 )
@@ -18,6 +18,8 @@ const index = (props) => {
         <Box
             maxW="960px"
             mx="auto"
+            px={4}
+            mb={6}
         >
             <Flex
                 id="navbar"
@@ -44,7 +46,7 @@ const index = (props) => {
                     Your shareable landing page for one-time payments and donations
                 </Heading>
                 <Text textAlign="center">
-                    Create a list of all your addresses. Let the sender choose how to pay.
+                    Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
                 <Flex
                     align="center"
@@ -72,15 +74,27 @@ const index = (props) => {
                 <Text>
                     Supports
                 </Text>
-                <Flex>
+                <Flex wrap="wrap">
                     <PaymentMethodTag label="PayPal" iconName="paypal" color="#00457C" />
                     <PaymentMethodTag label="Venmo" iconName="venmo" color="#3D95CE" iconSize="32px" />
+                    <PaymentMethodTag label="CashApp" iconName="cashapp" />
+                    <PaymentMethodTag label="Zelle" iconName="zelle" color="#6C16D4" />
+                    <PaymentMethodTag label="Google Pay" iconName="googlepay" />
+                    <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
+                    <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
                     <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
                     <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
                     <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                    <PaymentMethodTag label="Ethereum" iconName="ethereum" />
+                    <PaymentMethodTag label="Monero" iconName="monero" />
+                    <PaymentMethodTag label="Zcash" iconName="zcash" />
+                    <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
+                    <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
                     <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
-                    <PaymentMethodTag label="Monero" iconName="monero" color="" />
-                    <PaymentMethodTag label="Zcash" iconName="zcash" color="#000000" />
+                    <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
+                    <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
+                    <PaymentMethodTag label="Decred" iconName="decred" />
+                    <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
                 </Flex>
             </Box>
         </Box>
