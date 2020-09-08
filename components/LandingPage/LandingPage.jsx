@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex, Button, useTheme, Heading, Text, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel } from '@chakra-ui/core'
+import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
 
 const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color }) => (
@@ -28,16 +28,24 @@ const index = (props) => {
             >
                 <Logo />
                 <Flex>
-                    <Button>
+                    <Button mr={2}>
                         Log in
                     </Button>
+                    <Menu>
+                        <MenuButton as={Button}>
+                            <Icon name="hamburgerMenu" />
+                        </MenuButton>
+                        <MenuList>
+                            <MenuItem>About</MenuItem>
+                        </MenuList>
+                    </Menu>
                 </Flex>
             </Flex>
             <Box
                 border="1px solid"
                 padding="10px"
                 boxShadow={`5px 10px ${theme.colors.gray['200']}`}
-                mt={6}
+                my={6}
             >
                 <Heading
                     textAlign="center"
@@ -56,7 +64,7 @@ const index = (props) => {
                 >
                     <InputGroup>
                         <InputLeftAddon children="coindrop.to/" />
-                        <Input roundedLeft="0" placeholder="username" />
+                        <Input roundedLeft="0" placeholder="your-piggybank-name" />
                     </InputGroup>
                     <Button
                         ml={1}
@@ -65,16 +73,15 @@ const index = (props) => {
                         Create
                     </Button>
                 </Flex>
-                <Text
-                    fontSize="xs"
-                    textAlign="center"
-                >
-                    username can be changed later
+                <Text fontSize="xs" textAlign="center">
+                    (You can create multiple piggybanks to share with different audiences)
                 </Text>
-                <Text>
-                    Supports
-                </Text>
-                <Flex wrap="wrap">
+            </Box>
+            <Box>
+                <Heading as="h3" size="md" textAlign="center" >
+                    Supported apps
+                </Heading>
+                <Flex wrap="wrap" justify="center" mt={3}>
                     <PaymentMethodTag label="PayPal" iconName="paypal" color="#00457C" />
                     <PaymentMethodTag label="Venmo" iconName="venmo" color="#3D95CE" iconSize="32px" />
                     <PaymentMethodTag label="CashApp" iconName="cashapp" />
@@ -82,19 +89,24 @@ const index = (props) => {
                     <PaymentMethodTag label="Google Pay" iconName="googlepay" />
                     <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
                     <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
+                    <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
+                </Flex>
+                <Heading as="h3" size="md" textAlign="center" mt={3} >
+                    Supported cryptocurrencies
+                </Heading>
+                <Flex wrap="wrap" justify="center">
                     <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
                     <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
                     <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
-                    <PaymentMethodTag label="Ethereum" iconName="ethereum" />
+                    <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
                     <PaymentMethodTag label="Monero" iconName="monero" />
                     <PaymentMethodTag label="Zcash" iconName="zcash" />
+                    <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                     <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
                     <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
-                    <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
                     <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
                     <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
                     <PaymentMethodTag label="Decred" iconName="decred" />
-                    <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
                 </Flex>
             </Box>
         </Box>
