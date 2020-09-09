@@ -1,4 +1,5 @@
 import { theme as chakraTheme } from '@chakra-ui/core'
+import { customIcons } from '../components/Icons/CustomIcons';
 
 const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` }
 
@@ -9,11 +10,37 @@ const theme = {
   colors: {
     ...chakraTheme.colors,
     black: '#16161D',
+    mainGray: "#6C6B6F",
+    orange: {
+      50: "#FFFAF0",
+      100: "#FEEBC8",
+      200: "#FBD38D",
+      300: "#F6AD55",
+      400: "#ED8936",
+      500: "#FF9E1F", // button default
+      600: "#ED8936", // button hovered
+      700: "#9C4221",
+      800: "#7B341E",
+      900: "#652B19"
+    },
+    gray: {
+      50: "#F5F5F5",
+      100: "#EBEBEB",
+      200: "#E0E0E1",
+      300: "#CCCBCD",
+      400: "#AEACAF",
+      500: "#6C6B6F",
+      600: "#656468",
+      700: "#5B5A5E",
+      800: "#515053",
+      900: "#3D3C3E"
+    },
   },
   fonts,
   breakpoints,
   icons: {
     ...chakraTheme.icons,
+    ...customIcons,
     logo: {
       path: (
         <svg
