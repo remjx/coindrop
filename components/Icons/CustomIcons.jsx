@@ -31,7 +31,7 @@ export const customIcons = {
                 fill="#F7C551"
                 id="path86"
                 d="M1263.05,2297.61c-569.6,0-1034.57-465.43-1034.57-1034.56,0-569.6,465.44-1034.57,1034.57-1034.57,569.6,0,1034.56,465.44,1034.56,1034.57C2297.61,1832.65,1832.65,2297.61,1263.05,2297.61Z"
-                class="cls-1" />
+                className="cls-1" />
             <path
                 fill="#000"
                 id="path88"
@@ -44,8 +44,8 @@ export const customIcons = {
         viewBox: "0 0 2500 2500"
     },
     dash: {
-        path: <g fill="currentColor" id="Layer_2" dataName="Layer 2">
-            <g id="Layer_1-2" dataName="Layer 1">
+        path: <g fill="currentColor" id="Layer_2" dataname="Layer 2">
+            <g id="Layer_1-2" dataname="Layer 1">
                 <path className="cls-1" d="M336.25 0h-186.9l-15.5 86.6 168.7.2c83.1 0 107.6 30.2 106.9 80.2-.4 25.6-11.5 69-16.3 83.1-12.8 37.5-39.1 80.2-137.7 80.1l-164-.1L76 416.8h186.5c65.8 0 93.7-7.7 123.4-21.3 65.7-30.5 104.8-95.3 120.5-179.9C529.65 89.6 500.65 0 336.25 0"/>
                 <path className="cls-1" d="M68.7 164.9c-49 0-56 31.9-60.6 51.2C2 241.3 0 251.6 0 251.6h191.4c49 0 56-31.9 60.6-51.2 6.1-25.2 8.1-35.5 8.1-35.5z"/>
                 </g>

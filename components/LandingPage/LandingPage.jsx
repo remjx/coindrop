@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import NextLink from 'next/link';
 import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
 
@@ -28,9 +29,13 @@ const index = (props) => {
             >
                 <Logo />
                 <Flex>
-                    <Button mr={2}>
-                        Log in
-                    </Button>
+                    <NextLink href="/auth">
+                        <Button
+                            mr={2}
+                        >
+                            Log in
+                        </Button>
+                    </NextLink>
                     <Menu>
                         <MenuButton as={Button}>
                             <Icon name="hamburgerMenu" />
