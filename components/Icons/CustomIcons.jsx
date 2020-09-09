@@ -114,7 +114,7 @@ export const customIcons = {
     },
     decred: {
         path: <g>
-            <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="-7558.051" y1="912.335" x2="-7500.722" y2="912.335" gradientTransform="translate(7603.2 -872.83)"><stop offset="0" stop-color="#62d0c9"/><stop offset="1" stop-color="#7de2ac"/></linearGradient>
+            <linearGradient id="a" gradientUnits="userSpaceOnUse" x1="-7558.051" y1="912.335" x2="-7500.722" y2="912.335" gradientTransform="translate(7603.2 -872.83)"><stop offset="0" stopColor="#62d0c9"/><stop offset="1" stopColor="#7de2ac"/></linearGradient>
             <path d="M45.1 49.1h25.3c9.4 0 17.1-7.6 17.1-17.1s-7.6-17-17-17h-8.1L45.1 0h25.3c17.7-.1 32.1 14.2 32.1 31.9.1 13.1-7.9 24.9-20.1 29.8l20 17.3H79.6L45.1 49.1z" fill="url(#a)"/>
             <path d="M57.5 30H32.2c-9.4 0-17.1 7.6-17.1 17.1s7.6 17.1 17.1 17.1h8.1l17.2 15H32.2C14.5 79.2.1 64.9 0 47.3c-.1-13.2 7.9-25 20.1-29.9L.1 0H23l34.5 30z" fill="#4971fa"/>
             <linearGradient id="b" gradientUnits="userSpaceOnUse" x1="-7603.021" y1="912.381" x2="-7545.691" y2="912.381" gradientTransform="translate(7603.2 -872.83)">

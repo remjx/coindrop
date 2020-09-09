@@ -46,6 +46,7 @@ const index = (props) => {
                 padding="10px"
                 boxShadow={`5px 10px ${theme.colors.gray['200']}`}
                 my={6}
+                py={6}
             >
                 <Heading
                     textAlign="center"
@@ -53,7 +54,7 @@ const index = (props) => {
                 >
                     Your shareable landing page for one-time payments and donations
                 </Heading>
-                <Text textAlign="center">
+                <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
                 <Flex
@@ -64,7 +65,7 @@ const index = (props) => {
                 >
                     <InputGroup>
                         <InputLeftAddon children="coindrop.to/" />
-                        <Input roundedLeft="0" placeholder="your-piggybank-name" />
+                        <Input roundedLeft="0" placeholder="your-piggybank-url" />
                     </InputGroup>
                     <Button
                         ml={1}
@@ -73,11 +74,12 @@ const index = (props) => {
                         Create
                     </Button>
                 </Flex>
-                <Text fontSize="xs" textAlign="center">
-                    (You can create multiple piggybanks to share with different audiences)
-                </Text>
+                {/* <Text fontSize="xs" textAlign="center">
+                    You can create multiple piggybanks for different audiences
+                </Text> */}
             </Box>
             <Box>
+                <Text textAlign="center"><b>All</b> apps and cryptocurrencies are supported</Text>
                 <Heading as="h3" size="md" textAlign="center" >
                     Supported apps
                 </Heading>
