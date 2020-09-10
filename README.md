@@ -10,7 +10,7 @@ Senders and receivers of money need to agree on medium of exchange. With so many
 
 Coindrop allows the receiver to list *all* their available forms of payment, and the sender to choose which one to use according to their preference (typically to maximize convenience and minimize transaction fees).
 
-Receivers create a Coindrop address e.g. (coindrop.to/satoshi-nakamoto)[https://coindrop.to/satoshi-nakamoto] and publish/share their Coindrop address anywhere as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the same simplicity.
+Receivers create a Coindrop address e.g. <coindrop.to/satoshi-nakamoto> and publish/share their Coindrop address anywhere as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the same simplicity.
 
 ## Principles 🙏🏻
 
