@@ -16,7 +16,7 @@ const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color, tagVarian
 const AddTag = () =>
     <NextLink href="/add" passHref>
         <Link>
-            <PaymentMethodTag label="Add" iconName="add" tagVariantColor="green" />
+            <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
         </Link>
     </NextLink>
 ;
@@ -60,7 +60,7 @@ const index = (props) => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    Your shareable landing page for one-time payments and donations
+                    A shareable landing page for peer-to-peer payments
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
@@ -88,7 +88,7 @@ const index = (props) => {
                 mt={8}
                 mb={4}
             >
-                Coindrop supports virtually all...
+                Coindrop supports virtually all:
             </Text>
             <Flex direction={['column', 'row']}>
                 <Box>
@@ -104,6 +104,7 @@ const index = (props) => {
                         <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
                         <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
+                        <PaymentMethodTag label="Money Button" iconName="moneybutton" />
                         <AddTag />
                     </Flex>
                 </Box>
@@ -115,10 +116,10 @@ const index = (props) => {
                         <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
                         <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
                         <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                        <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                         <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
                         <PaymentMethodTag label="Monero" iconName="monero" />
                         <PaymentMethodTag label="Zcash" iconName="zcash" />
-                        <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                         <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
                         <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
                         <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
