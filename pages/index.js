@@ -2,11 +2,12 @@ import { useRouter } from 'next/router';
 import LandingPage from '../components/LandingPage/LandingPage';
 import { useUser } from '../utils/auth/useUser';
 
-export default () => {
+const index = () => {
     const router = useRouter();
-    const { user, logout } = useUser();
-    console.log('user', user);
+    const { user } = useUser();
     if (!user) return <LandingPage />
     router.push('/dashboard');
     return null;
 }
+
+export default index;

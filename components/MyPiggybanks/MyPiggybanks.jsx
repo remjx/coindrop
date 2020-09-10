@@ -14,7 +14,6 @@ const MyPiggybanks = (props) => {
             });
         });
     });
-    console.log('data:', data)
     return (
         <Text>
             test

@@ -4,14 +4,22 @@ import NextLink from 'next/link';
 import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
 
-const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color }) => (
+const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color, tagVariantColor }) => (
     <Box mx={1} my={1}>
-        <Tag size="lg">
+        <Tag size="lg" variantColor={tagVariantColor}>
             <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
             <TagLabel py={1}>{label}</TagLabel>
         </Tag>
     </Box>
 )
+
+const AddTag = () =>
+    <NextLink href="/add" passHref>
+        <Link>
+            <PaymentMethodTag label="Add" iconName="add" tagVariantColor="green" />
+        </Link>
+    </NextLink>
+;
 
 const index = (props) => {
     const theme = useTheme();
@@ -28,7 +36,7 @@ const index = (props) => {
                 justify="space-between"
             >
                 <Logo />
-                <Flex>
+                <Flex align="center">
                     <NextLink href="/auth">
                         <Button
                             mr={2}
@@ -36,15 +44,9 @@ const index = (props) => {
                             Log in
                         </Button>
                     </NextLink>
-                    <Menu>
-                        <MenuButton as={Button}>
-                            <Icon name="hamburgerMenu" />
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>About</MenuItem>
-                            <MenuItem>Github</MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <Link href="https://github.com" target="_blank" rel="noreferrer">
+                    <Icon name="github" size="32px" color={theme.colors.gray['500']} />
+                    </Link>
                 </Flex>
             </Flex>
             <Box
@@ -80,10 +82,14 @@ const index = (props) => {
                         Create
                     </Button>
                 </Flex>
-                {/* <Text fontSize="xs" textAlign="center">
-                    You can create multiple piggybanks for different audiences
-                </Text> */}
             </Box>
+            <Text
+                textAlign="center"
+                mt={8}
+                mb={4}
+            >
+                Coindrop supports virtually all...
+            </Text>
             <Flex direction={['column', 'row']}>
                 <Box>
                     <Heading as="h3" size="md" textAlign="center" >
@@ -98,6 +104,7 @@ const index = (props) => {
                         <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
                         <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
+                        <AddTag />
                     </Flex>
                 </Box>
                 <Box>
@@ -117,12 +124,10 @@ const index = (props) => {
                         <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
                         <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
                         <PaymentMethodTag label="Decred" iconName="decred" />
+                        <AddTag />
                     </Flex>
                 </Box>
             </Flex>
-            <Text textAlign="center" fontSize="xl">
-                    Virtually all apps and cryptocurrencies are supported. Request one to be added here.
-            </Text>
         </Box>
     );
 };
