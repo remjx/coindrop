@@ -71,7 +71,7 @@ const index = (props) => {
                 >
                     <InputGroup>
                         <InputLeftAddon children="coindrop.to/" />
-                        <Input roundedLeft="0" placeholder="your-piggybank-url" />
+                        <Input roundedLeft="0" placeholder="my-piggybank-url" />
                     </InputGroup>
                     <Button
                         ml={1}
@@ -84,9 +84,6 @@ const index = (props) => {
                     You can create multiple piggybanks for different audiences
                 </Text> */}
             </Box>
-            <Text textAlign="center" fontSize="xl">
-                    Virtually all apps and cryptocurrencies are supported:
-            </Text>
             <Flex direction={['column', 'row']}>
                 <Box>
                     <Heading as="h3" size="md" textAlign="center" >
@@ -104,10 +101,10 @@ const index = (props) => {
                     </Flex>
                 </Box>
                 <Box>
-                    <Heading as="h3" size="md" textAlign="center" mt={3} >
+                    <Heading as="h3" size="md" textAlign="center" >
                         Cryptocurrencies
                     </Heading>
-                    <Flex wrap="wrap" justify="center">
+                    <Flex wrap="wrap" justify="center" mt={3}>
                         <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
                         <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
                         <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
@@ -123,6 +120,9 @@ const index = (props) => {
                     </Flex>
                 </Box>
             </Flex>
+            <Text textAlign="center" fontSize="xl">
+                    Virtually all apps and cryptocurrencies are supported. Request one to be added here.
+            </Text>
         </Box>
     );
 };
