@@ -26,15 +26,15 @@ Any form of payment address can be listed on your piggybank page. Coindrop will 
 * Against the law
 * Unsafe or insecure
 
-## Contributions 🙋‍♂️🙋‍♀️
-
-This Github repository welcomes pull requests for new features, enhancements, and bug fixes. Thank you!
-
 ## Legal notes 👮
 
 The use of Coindrop does not exclude the user from any legal requirements regarding payment methods and acceptance. Users are responsible for understanding and complying with all applicable laws from their jurisdictions.
 
 Coindrop provides a page of addresses that users maintain, but is not responsible for any loss that occurs as the result of using this service.
+
+## Contributions 🙋‍♂️🙋‍♀️
+
+This Github repository welcomes pull requests for new features, enhancements, and bug fixes. Thank you!
 
 ## Maintainers 🛠️
 
