@@ -10,7 +10,7 @@ Senders and receivers of money need to agree on medium of exchange. With so many
 
 Coindrop allows the receiver to list *all* their available forms of payment, and the sender to choose which one to use according to their preference (typically to maximize convenience and minimize transaction fees).
 
-Receivers create a Coindrop address e.g. [coindrop\.to/satoshi-nakamoto](https://coindrop.to/satoshi-nakamoto) and publish/share their it as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the same simplicity.
+Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/share it as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the simplicity of a single link.
 
 ## Principles 🙏🏻
 
@@ -20,7 +20,7 @@ The Coindrop project is built according to the following principles:
 
 This software is open-source licensed under the [GNU General Public License v3.0](LICENSE) to give users confidence that their account information and payment addresses are not being tampered with. This application is deployed directly to https://coindrop.to without alteration. 
 
-### Unbias 
+### Unbias ❤
 
 Any form of payment address can be listed on your piggybank page. Coindrop will never delist a payment method unless it is:
 * Against the law
