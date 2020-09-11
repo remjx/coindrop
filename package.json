@@ -19,7 +19,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-firebaseui": "4.1.0",
-    "react-icons": "^3.11.0",
     "swr": "0.2.3"
   },
   "license": "MIT"
