@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
+import { useUser } from '../../utils/auth/useUser';
 
 const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -23,6 +25,12 @@ const AddTag = () =>
 
 const index = (props) => {
     const theme = useTheme();
+    const router = useRouter();
+    const { user } = useUser();
+    console.log('index user', user);
+    if (user) {
+        router.push('/dashboard');
+    }
     return (
         <Box
             maxW="960px"

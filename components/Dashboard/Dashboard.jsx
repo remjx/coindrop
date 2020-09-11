@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router'
 import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
-import Logo from '../Logo/Logo';
-import { useUser } from '../../utils/auth/useUser'
+import Logo from '../logo/Logo';
+import { useUser } from '../../utils/auth/useUser';
 
 const Dashboard = (props) => {
     const theme = useTheme();
     const router = useRouter();
     const { user, logout } = useUser();
+    console.log('dashboard user', user);
+    if (!user) {
+        router.push('/');
+        return null;
+    }
     return (
         <Box
             maxW="960px"
