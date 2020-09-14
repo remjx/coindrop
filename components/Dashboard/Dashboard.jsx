@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router'
 import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
-import Logo from '../logo/Logo';
+import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
+import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 
 const Dashboard = (props) => {
     const theme = useTheme();
     const router = useRouter();
     const { user, logout } = useUser();
-    console.log('dashboard user', user);
-    if (!user) {
-        router.push('/');
-        return null;
-    }
+    useDidMountEffect(() => {
+        if (!user) {
+            router.push('/');
+        }
+    })
+    if (!user) return null;
     return (
         <Box
             maxW="960px"

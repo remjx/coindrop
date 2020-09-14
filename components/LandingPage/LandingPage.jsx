@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
+import AuthModal from '../Auth/AuthModal';
 
 const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -24,14 +25,60 @@ const AddTag = () =>
 ;
 
 const index = (props) => {
+    const {
+        isOpen: isAuthOpen,
+        onOpen: onAuthOpen,
+        onClose: onAuthClose,
+    } = useDisclosure();
     const theme = useTheme();
     const router = useRouter();
+    useEffect(() => {
+        if (router.pathname === '/auth') {
+            onAuthOpen();
+        } else {
+            onAuthClose();
+        }
+    });
     const { user } = useUser();
-    console.log('index user', user);
-    if (user) {
-        router.push('/dashboard');
+    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
+        if (user && !isAwaitingLoginToSubmit) {
+            router.push('/dashboard');
+        }
+    })
+    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
+    const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
+    const [isAwaitingLoginToSubmit, setIsAwaitingLoginToSubmit] = useState();
+    console.log('isAwaitingLoginToSubmit', isAwaitingLoginToSubmit)
+    async function submitUrl() {
+        console.log('submitting url', candidatePiggybankPath);
+        setSubmitStatus('submitting');
+        setTimeout(() => setSubmitStatus('success'), 2000);
     }
+    const handleCreateUrl = () => {
+        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-z]+[\w-]+[a-zA-z0-9]+$/);
+        if (isInvalid) {
+            setIsCandidatePiggybankPathInvalid(true);
+        } else {
+            if (user) {
+                submitUrl();
+            } else {
+                setIsAwaitingLoginToSubmit(true);
+                router.push('/auth');
+            }
+        }
+    }
+    const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
+    useEffect(() => {
+        if (isAwaitingLoginToSubmit && !!user) {
+            handleCreateUrl();
+        }
+    })
     return (
+        <>
+        <AuthModal
+            isOpen={isAuthOpen}
+            onClose={onAuthClose}
+        />
         <Box
             maxW="960px"
             mx="auto"
@@ -81,20 +128,40 @@ const index = (props) => {
                 >
                     <InputGroup>
                         <InputLeftAddon children="coindrop.to/" />
-                        <Input roundedLeft="0" placeholder="my-piggybank-url" />
+                        <Input
+                            roundedLeft="0"
+                            placeholder="my-piggybank-url"
+                            onChange={(e) => {
+                                setCandidatePiggybankPath(e.target.value)
+                                setIsCandidatePiggybankPathInvalid(false)
+                            }}
+                            value={candidatePiggybankPath}
+                            isInvalid={isCandidatePiggybankPathInvalid}
+                        />
                     </InputGroup>
                     <Button
                         ml={1}
                         variantColor="orange"
+                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
+                        onClick={handleCreateUrl}
                     >
                         Create
                     </Button>
                 </Flex>
+                {isCandidatePiggybankPathInvalid && (
+                    <Text
+                        color="red.500"
+                        textAlign="center"
+                    >
+                        Invalid input. Allowed characters are a-z, A-Z, -, and _.
+                    </Text>
+                )}
             </Box>
             <Text
                 textAlign="center"
                 mt={8}
                 mb={4}
+                fontSize="xl"
             >
                 Coindrop supports virtually all:
             </Text>
@@ -138,6 +205,7 @@ const index = (props) => {
                 </Box>
             </Flex>
         </Box>
+        </>
     );
 };
 

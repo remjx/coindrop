@@ -21,8 +21,7 @@ const useUser = () => {
       .auth()
       .signOut()
       .then(() => {
-        // Sign-out successful.
-        router.push('/auth')
+        router.push('/')
       })
       .catch((e) => {
         console.error(e)
@@ -42,13 +41,13 @@ const useUser = () => {
         removeUserCookie()
         setUser()
       }
-    })
+    }) 
 
     const userFromCookie = getUserFromCookie()
-    if (!userFromCookie) {
-      router.push('/')
-      return
-    }
+    // if (!userFromCookie) {
+    //   router.push('/')
+    //   return
+    // }
     setUser(userFromCookie)
 
     return () => {
