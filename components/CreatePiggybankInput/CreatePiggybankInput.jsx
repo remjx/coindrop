@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
 
@@ -13,7 +14,19 @@ const CreatePiggybankInput = () => {
     const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
     async function submitUrl() { // TODO: make real
         setSubmitStatus('submitting');
-        setTimeout(() => setSubmitStatus('success'), 2000);
+        const data = {
+            piggybankName: candidatePiggybankPath,
+        };
+        const headers = {
+            token: user.token,
+        };
+        try {
+            const response = await axios.post('/api/createPiggybank', data, { headers });
+            console.log('response.data', response.data);
+            setSubmitStatus('success');
+        } catch (error) {
+            setSubmitStatus('error');
+        }
     }
     const handleCreateUrl = () => {
         const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
@@ -24,14 +37,12 @@ const CreatePiggybankInput = () => {
         } else {
             setIsAwaitingLoginToSubmit(true);
             if (router.pathname !== '/auth') {
-                console.log('pushing to /auth from CreatePiggybankInput');
                 router.push('/auth');
             }
         }
     };
     useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
         if (user && !isAwaitingLoginToSubmit && router.pathname !== '/dashboard') {
-            console.log('pushing to /dashboard from CreatePiggybankInput');
             router.push('/dashboard');
         }
     });

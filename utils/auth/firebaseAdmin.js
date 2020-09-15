@@ -1,8 +1,8 @@
 import * as admin from 'firebase-admin';
 
-export const verifyIdToken = (token) => {
-  const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY;
+const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY;
 
+function initialize() {
   if (!admin.apps.length) {
     admin.initializeApp({
       credential: admin.credential.cert({
@@ -14,11 +14,18 @@ export const verifyIdToken = (token) => {
       databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
     });
   }
-
+}
+export const verifyIdToken = (token) => {
+  initialize();
   return admin
     .auth()
     .verifyIdToken(token)
     .catch((error) => {
       throw error;
     });
+};
+
+export const db = () => {
+  initialize();
+  return admin.firestore();
 };

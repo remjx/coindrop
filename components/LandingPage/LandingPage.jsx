@@ -52,6 +52,9 @@ const index = () => {
             onAuthClose();
         }
     });
+    useEffect(() => {
+        router.prefetch('/dashboard');
+    }, []);
     return (
         <>
         <AuthModal
