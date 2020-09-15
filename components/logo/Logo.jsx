@@ -3,7 +3,7 @@ import { Flex, Image, Text, useTheme } from '@chakra-ui/core';
 
 const Logo = () => {
     const theme = useTheme();
-    const logoSize = ["48px", "64px"]
+    const logoSize = ["48px", "64px"];
     return (
         <Flex ml={2} align="center">
             <Image src="/piggy-question-256.png" width={logoSize} height={logoSize} />
@@ -18,6 +18,6 @@ const Logo = () => {
             </Text>
         </Flex>
     );
-}
+};
 
 export default Logo;

@@ -1,9 +1,9 @@
-import { theme as chakraTheme } from '@chakra-ui/core'
-import { customIcons } from '../components/Icons/CustomIcons';
+import { theme as chakraTheme } from '@chakra-ui/core';
+import { customIcons } from "./Icons/CustomIcons";
 
-const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` }
+const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` };
 
-const breakpoints = ['40em', '52em', '64em']
+const breakpoints = ['40em', '52em', '64em'];
 
 const theme = {
   ...chakraTheme,
@@ -21,7 +21,7 @@ const theme = {
       600: "#ED8936", // button hovered
       700: "#9C4221",
       800: "#7B341E",
-      900: "#652B19"
+      900: "#652B19",
     },
     gray: {
       50: "#F5F5F5",
@@ -33,7 +33,7 @@ const theme = {
       600: "#656468",
       700: "#5B5A5E",
       800: "#515053",
-      900: "#3D3C3E"
+      900: "#3D3C3E",
     },
     darkGray: {
       50: "#6C6B6F",
@@ -46,7 +46,7 @@ const theme = {
       700: "#1F1E1F",
       800: "#151415",
       900: "#0A0A0A",
-    }
+    },
   },
   fonts,
   breakpoints,
@@ -72,6 +72,6 @@ const theme = {
       viewBox: '0 0 3000 3163',
     },
   },
-}
+};
 
 export default theme;

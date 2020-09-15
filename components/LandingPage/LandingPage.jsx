@@ -1,31 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { List, ListItem, ListIcon } from "@chakra-ui/core";
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
-import { useUser } from '../../utils/auth/useUser';
 import AuthModal from '../Auth/AuthModal';
+import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 
-const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color, tagVariantColor }) => (
+const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
         <Tag size="lg" variantColor={tagVariantColor}>
             <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
             <TagLabel py={1}>{label}</TagLabel>
         </Tag>
     </Box>
-)
+);
+PaymentMethodTag.propTypes = {
+    label: PropTypes.string.isRequired,
+    iconSize: PropTypes.string,
+    iconName: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    tagVariantColor: PropTypes.string,
+};
+PaymentMethodTag.defaultProps = {
+    iconSize: "16px",
+    tagVariantColor: undefined,
+    color: undefined,
+};
 
-const AddTag = () =>
+const AddTag = () => (
     <NextLink href="/add" passHref>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <Link>
             <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
         </Link>
     </NextLink>
-;
+);
 
-const index = (props) => {
+const index = () => {
     const {
         isOpen: isAuthOpen,
         onOpen: onAuthOpen,
@@ -40,40 +52,6 @@ const index = (props) => {
             onAuthClose();
         }
     });
-    const { user } = useUser();
-    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
-        if (user && !isAwaitingLoginToSubmit) {
-            router.push('/dashboard');
-        }
-    })
-    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
-    const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
-    const [isAwaitingLoginToSubmit, setIsAwaitingLoginToSubmit] = useState();
-    console.log('isAwaitingLoginToSubmit', isAwaitingLoginToSubmit)
-    async function submitUrl() {
-        console.log('submitting url', candidatePiggybankPath);
-        setSubmitStatus('submitting');
-        setTimeout(() => setSubmitStatus('success'), 2000);
-    }
-    const handleCreateUrl = () => {
-        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
-        if (isInvalid) {
-            setIsCandidatePiggybankPathInvalid(true);
-        } else {
-            if (user) {
-                submitUrl();
-            } else {
-                setIsAwaitingLoginToSubmit(true);
-                router.push('/auth');
-            }
-        }
-    }
-    const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
-    useEffect(() => {
-        if (isAwaitingLoginToSubmit && !!user) {
-            handleCreateUrl();
-        }
-    })
     return (
         <>
         <AuthModal
@@ -96,10 +74,12 @@ const index = (props) => {
                     <NextLink href="/auth">
                         <Button
                             mr={2}
+                            isDisabled={router.pathname === '/auth'}
                         >
                             Log in
                         </Button>
                     </NextLink>
+                    {/* TODO: Update github link */}
                     <Link href="https://github.com" target="_blank" rel="noreferrer">
                     <Icon name="github" size="32px" color={theme.colors.gray['500']} />
                     </Link>
@@ -121,50 +101,7 @@ const index = (props) => {
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
-                <Flex
-                    align="center"
-                    justify="center"
-                    mt={4}
-                    mb={1}
-                >
-                    <InputGroup>
-                        <InputLeftAddon children="coindrop.to/" />
-                        <Input
-                            roundedLeft="0"
-                            placeholder="my-piggybank-url"
-                            onChange={(e) => {
-                                setCandidatePiggybankPath(e.target.value)
-                                setIsCandidatePiggybankPathInvalid(false)
-                            }}
-                            value={candidatePiggybankPath}
-                            isInvalid={isCandidatePiggybankPathInvalid}
-                        />
-                    </InputGroup>
-                    <Button
-                        ml={1}
-                        variantColor="orange"
-                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
-                        onClick={handleCreateUrl}
-                    >
-                        Create
-                    </Button>
-                </Flex>
-                {isCandidatePiggybankPathInvalid &&(
-                    <Text
-                        textAlign="center"
-                    >
-                        Your URL is required to:
-                        <Text>
-                            <List styleType="disc">
-                                <ListItem>Start with a letter</ListItem>
-                                <ListItem>Only include letters, numbers, -, and _</ListItem>
-                                <ListItem>End with a letter or number</ListItem>
-                                <ListItem>Have maximum length of 32 characters</ListItem>
-                            </List>
-                        </Text>
-                        
-                    </Text>
-                )}
+                <CreatePiggybankInput />
             </Box>
             <Text
                 textAlign="center"
@@ -176,7 +113,7 @@ const index = (props) => {
             </Text>
             <Flex direction={['column', 'row']}>
                 <Box>
-                    <Heading as="h3" size="md" textAlign="center" >
+                    <Heading as="h3" size="md" textAlign="center">
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
@@ -193,7 +130,7 @@ const index = (props) => {
                     </Flex>
                 </Box>
                 <Box>
-                    <Heading as="h3" size="md" textAlign="center" >
+                    <Heading as="h3" size="md" textAlign="center">
                         Cryptocurrencies
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
@@ -216,14 +153,6 @@ const index = (props) => {
         </Box>
         </>
     );
-};
-
-index.propTypes = {
-
-};
-
-index.defaultProps = {
-
 };
 
 export default index;

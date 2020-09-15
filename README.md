@@ -4,7 +4,7 @@ A shareable landing page for peer-to-peer payments
 
 ## Motivation ❓
 
-Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use. Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction in the case of donations.
+Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use. Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction in the case of donations. 
 
 ## Solution ✔️
 

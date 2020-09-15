@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { db } from '../../utils/client/db';
 import { Text } from '@chakra-ui/core';
+import { db } from '../../utils/client/db';
 
 const MyPiggybanks = (props) => {
     const { } = props;

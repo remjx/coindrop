@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalFooter, ModalHeader, Button } from '@chakra-ui/core';
+import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader } from '@chakra-ui/core';
 import FirebaseAuth from './FirebaseAuth';
 
 const AuthModal = (props) => {
@@ -23,7 +23,7 @@ const AuthModal = (props) => {
 };
 
 AuthModal.propTypes = {
-    isOpen: PropTypes.bool,
+    isOpen: PropTypes.bool.isRequired,
 };
 
 AuthModal.defaultProps = {

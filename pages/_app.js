@@ -1,4 +1,4 @@
-import { ThemeProvider, CSSReset } from '@chakra-ui/core'
+import { ThemeProvider, CSSReset } from '@chakra-ui/core';
 
 import theme from '../components/theme';
 
@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
         <CSSReset />
         <Component {...pageProps} />
     </ThemeProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

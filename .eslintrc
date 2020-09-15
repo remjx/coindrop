@@ -1,0 +1,116 @@
+{
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true,
+    },
+    "extends": [
+        "airbnb"
+    ],
+    "plugins": [
+        "no-only-tests",
+        "react-hooks"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "extends": [
+                "plugin:@typescript-eslint/eslint-recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "plugins": [
+                "@typescript-eslint"
+            ],
+            "rules": {
+                "@typescript-eslint/no-var-requires": "warn"
+            }
+        },
+        {
+            "files": ["*.test.js", "*.spec.js", "*.test.jsx", "*.spec.jsx"],
+            "extends": [
+                "plugin:jest/recommended"
+            ],
+            "plugins": ["jest"]
+        }
+    ],
+    "rules": {
+        "arrow-parens": 0,
+        "arrow-body-style": "warn",
+        "indent": 0,
+        "no-param-reassign": "warn",
+        "no-plusplus": "warn",
+        "max-len": [
+            "off",
+            {
+                "code": 100,
+                "comments": 120
+            }
+        ],
+        "object-curly-newline": 0,
+        "object-curly-spacing": 0,
+        "import/prefer-default-export": 0,
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                ".jsx",
+                ".tsx"
+                ]
+            }
+        ],
+        "no-console": "warn",
+        "react/jsx-indent-props": "off",
+        "react/jsx-indent": "off",
+        "jsx-quotes": 0,
+        "quotes": [
+            "off",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "linebreak-style": ["off", "windows"],
+        "no-async-promise-executor": "warn",
+        "global-require": "warn",
+        "no-underscore-dangle": "off",
+        "no-only-tests/no-only-tests": "error",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+        ],
+        "@typescript-eslint/no-var-requires": "warn",
+        "no-restricted-syntax": "warn",
+        "react/jsx-props-no-spreading": "warn",
+        "no-nested-ternary": "warn",
+        "import/no-extraneous-dependencies": [
+            "error",
+            {"devDependencies": [
+                "**/*.test.js",
+                "**/*.spec.js",
+                "**/*.test.jsx",
+                "**/*.spec.jsx",
+                "./client/setupTests.js"
+            ]}
+        ],
+        "import/no-unresolved": "error",
+        "import/no-named-as-default": "off",
+        "import/no-named-as-default-member": "off",
+        "camelcase": "off"
+    },
+      "settings": {
+          "import/resolver": {
+              "node": {
+                  "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    }
+}
+  

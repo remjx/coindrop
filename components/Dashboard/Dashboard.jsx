@@ -1,20 +1,20 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router'
-import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
+import { useRouter } from 'next/router';
+import { Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
+import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 
-const Dashboard = (props) => {
-    const theme = useTheme();
+const Dashboard = () => {
     const router = useRouter();
     const { user, logout } = useUser();
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
         }
-    })
+    });
     if (!user) return null;
     return (
         <Box
@@ -40,7 +40,6 @@ const Dashboard = (props) => {
                             <MenuItem
                                 onClick={() => {
                                     logout();
-                                    router.push('/');
                                 }}
                             >
                                 Log out
@@ -49,7 +48,12 @@ const Dashboard = (props) => {
                     </Menu>
                 </Flex>
             </Flex>
-            This is the user dashboard for {user && user.email}
+            <Text textAlign="center">
+                This is the user dashboard for
+                {' '}
+                {user && user.email}
+            </Text>
+            <CreatePiggybankInput />
         </Box>
     );
 };
