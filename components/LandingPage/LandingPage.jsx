@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { List, ListItem, ListIcon } from "@chakra-ui/core";
 import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
@@ -55,7 +56,7 @@ const index = (props) => {
         setTimeout(() => setSubmitStatus('success'), 2000);
     }
     const handleCreateUrl = () => {
-        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-z]+[\w-]+[a-zA-z0-9]+$/);
+        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
         } else {
@@ -148,12 +149,20 @@ const index = (props) => {
                         Create
                     </Button>
                 </Flex>
-                {isCandidatePiggybankPathInvalid && (
+                {isCandidatePiggybankPathInvalid &&(
                     <Text
-                        color="red.500"
                         textAlign="center"
                     >
-                        Invalid input. Allowed characters are a-z, A-Z, -, and _.
+                        Your URL is required to:
+                        <Text>
+                            <List styleType="disc">
+                                <ListItem>Start with a letter</ListItem>
+                                <ListItem>Only include letters, numbers, -, and _</ListItem>
+                                <ListItem>End with a letter or number</ListItem>
+                                <ListItem>Have maximum length of 32 characters</ListItem>
+                            </List>
+                        </Text>
+                        
                     </Text>
                 )}
             </Box>
