@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
@@ -7,9 +7,12 @@ import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+    const { initialUserOwnedPiggybanks } = props;
+    const [userOwnedPiggybanks, setUserOwnedPiggybanks] = useState(initialUserOwnedPiggybanks);
     const router = useRouter();
     const { user, logout } = useUser();
+    console.log('user', user)
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
@@ -57,6 +60,13 @@ const Dashboard = () => {
         </Box>
     );
 };
+
+// Dashboard.getInitialProps = async (ctx) => {
+//     console.log('ctx', ctx);
+//     return {
+//         initialUserOwnedPiggybanks,
+//     };
+// };
 
 Dashboard.propTypes = {
 

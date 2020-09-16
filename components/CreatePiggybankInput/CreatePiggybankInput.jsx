@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
 
-const CreatePiggybankInput = () => {
+const CreatePiggybankInput = (props) => {
+    const { updatePiggybankList } = props;
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
@@ -21,8 +22,9 @@ const CreatePiggybankInput = () => {
             token: user.token,
         };
         try {
-            const response = await axios.post('/api/createPiggybank', data, { headers });
-            console.log('response.data', response.data);
+            await axios.post('/api/updatePiggybank', data, { headers });
+            // TODO: test this function
+            updatePiggybankList();
             setSubmitStatus('success');
         } catch (error) {
             setSubmitStatus('error');
@@ -103,6 +105,7 @@ const CreatePiggybankInput = () => {
 };
 
 CreatePiggybankInput.propTypes = {
+    updatePiggybankList: PropTypes.func.isRequired,
 };
 
 CreatePiggybankInput.defaultProps = {
