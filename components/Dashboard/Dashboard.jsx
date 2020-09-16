@@ -6,10 +6,9 @@ import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import UserOwnedPiggybanks from './UserOwnedPiggybanks';
 
-const Dashboard = (props) => {
-    const { initialUserOwnedPiggybanks } = props;
-    const [userOwnedPiggybanks, setUserOwnedPiggybanks] = useState(initialUserOwnedPiggybanks);
+const Dashboard = () => {
     const router = useRouter();
     const { user, logout } = useUser();
     console.log('user', user)
@@ -57,16 +56,10 @@ const Dashboard = (props) => {
                 {user && user.email}
             </Text>
             <CreatePiggybankInput />
+            {user?.id && <UserOwnedPiggybanks uid={user.id} />}
         </Box>
     );
 };
-
-// Dashboard.getInitialProps = async (ctx) => {
-//     console.log('ctx', ctx);
-//     return {
-//         initialUserOwnedPiggybanks,
-//     };
-// };
 
 Dashboard.propTypes = {
 
