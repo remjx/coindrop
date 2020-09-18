@@ -45,15 +45,19 @@ const CreatePiggybankInput = (props) => {
         }
     };
     useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
-        if (user && !isAwaitingLoginToSubmit && router.pathname !== '/dashboard') {
+        if (
+            user
+            && !isAwaitingLoginToSubmit // TODO: Is this needed?
+            && router.pathname !== '/dashboard'
+        ) {
             router.push('/dashboard');
         }
-    });
+    }, [user, isAwaitingLoginToSubmit, router]);
     useEffect(() => {
         if (isAwaitingLoginToSubmit && !!user) {
             handleCreateUrl();
         }
-    });
+    }, [isAwaitingLoginToSubmit, user]);
     return (
         <>
             <Flex
