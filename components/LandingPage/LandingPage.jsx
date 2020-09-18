@@ -1,20 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex, Button, useTheme, Heading, Text, Link, Input, InputGroup, InputLeftAddon, Icon, Tag, TagIcon, TagLabel, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core'
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
+import AuthModal from '../Auth/AuthModal';
+import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 
-const PaymentMethodTag = ({ label, iconName, iconSize = "16px", color }) => (
+const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
-        <Tag size="lg">
+        <Tag size="lg" variantColor={tagVariantColor}>
             <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
             <TagLabel py={1}>{label}</TagLabel>
         </Tag>
     </Box>
-)
+);
+PaymentMethodTag.propTypes = {
+    label: PropTypes.string.isRequired,
+    iconSize: PropTypes.string,
+    iconName: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    tagVariantColor: PropTypes.string,
+};
+PaymentMethodTag.defaultProps = {
+    iconSize: "16px",
+    tagVariantColor: undefined,
+    color: undefined,
+};
 
-const index = (props) => {
+const AddTag = () => (
+    <NextLink href="/add" passHref>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+        <Link>
+            <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
+        </Link>
+    </NextLink>
+);
+
+const index = () => {
+    const {
+        isOpen: isAuthOpen,
+        onOpen: onAuthOpen,
+        onClose: onAuthClose,
+    } = useDisclosure();
     const theme = useTheme();
+    const router = useRouter();
+    useEffect(() => {
+        if (router.pathname === '/auth') {
+            onAuthOpen();
+        } else {
+            onAuthClose();
+        }
+    });
+    useEffect(() => {
+        router.prefetch('/dashboard');
+    }, []);
     return (
+        <>
+        <AuthModal
+            isOpen={isAuthOpen}
+            onClose={onAuthClose}
+        />
         <Box
             maxW="960px"
             mx="auto"
@@ -27,19 +73,19 @@ const index = (props) => {
                 justify="space-between"
             >
                 <Logo />
-                <Flex>
-                    <Button mr={2}>
-                        Log in
-                    </Button>
-                    <Menu>
-                        <MenuButton as={Button}>
-                            <Icon name="hamburgerMenu" />
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>About</MenuItem>
-                            <MenuItem>Github</MenuItem>
-                        </MenuList>
-                    </Menu>
+                <Flex align="center">
+                    <NextLink href="/auth">
+                        <Button
+                            mr={2}
+                            isDisabled={router.pathname === '/auth'}
+                        >
+                            Log in
+                        </Button>
+                    </NextLink>
+                    {/* TODO: Update github link */}
+                    <Link href="https://github.com" target="_blank" rel="noreferrer">
+                    <Icon name="github" size="32px" color={theme.colors.gray['500']} />
+                    </Link>
                 </Flex>
             </Flex>
             <Box
@@ -53,38 +99,24 @@ const index = (props) => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    Your shareable landing page for one-time payments and donations
+                    A shareable landing page for peer-to-peer payments
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
-                <Flex
-                    align="center"
-                    justify="center"
-                    mt={4}
-                    mb={1}
-                >
-                    <InputGroup>
-                        <InputLeftAddon children="coindrop.to/" />
-                        <Input roundedLeft="0" placeholder="your-piggybank-url" />
-                    </InputGroup>
-                    <Button
-                        ml={1}
-                        variantColor="orange"
-                    >
-                        Create
-                    </Button>
-                </Flex>
-                {/* <Text fontSize="xs" textAlign="center">
-                    You can create multiple piggybanks for different audiences
-                </Text> */}
+                <CreatePiggybankInput />
             </Box>
-            <Text textAlign="center" fontSize="xl">
-                    Virtually all apps and cryptocurrencies are supported:
+            <Text
+                textAlign="center"
+                mt={8}
+                mb={4}
+                fontSize="xl"
+            >
+                Coindrop supports virtually all:
             </Text>
             <Flex direction={['column', 'row']}>
                 <Box>
-                    <Heading as="h3" size="md" textAlign="center" >
+                    <Heading as="h3" size="md" textAlign="center">
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
@@ -96,38 +128,34 @@ const index = (props) => {
                         <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
                         <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
+                        <PaymentMethodTag label="Money Button" iconName="moneybutton" />
+                        <AddTag />
                     </Flex>
                 </Box>
                 <Box>
-                    <Heading as="h3" size="md" textAlign="center" mt={3} >
+                    <Heading as="h3" size="md" textAlign="center">
                         Cryptocurrencies
                     </Heading>
-                    <Flex wrap="wrap" justify="center">
+                    <Flex wrap="wrap" justify="center" mt={3}>
                         <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
                         <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
                         <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                        <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                         <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
                         <PaymentMethodTag label="Monero" iconName="monero" />
                         <PaymentMethodTag label="Zcash" iconName="zcash" />
-                        <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                         <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
                         <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
                         <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
                         <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
                         <PaymentMethodTag label="Decred" iconName="decred" />
+                        <AddTag />
                     </Flex>
                 </Box>
             </Flex>
         </Box>
+        </>
     );
-};
-
-index.propTypes = {
-
-};
-
-index.defaultProps = {
-
 };
 
 export default index;

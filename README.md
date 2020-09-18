@@ -1,37 +1,41 @@
-# Example: Firebase authentication with a serverless API
+# Coindrop 🐖
 
-This example includes Firebase authentication and serverless [API routes](https://nextjs.org/docs/api-routes/introduction).
+A shareable landing page for peer-to-peer payments
 
-## How to use
+## Motivation ❓
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) or [npx](https://github.com/zkat/npx#readme) to bootstrap the example:
+Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use. Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction in the case of donations. 
 
-```bash
-npx create-next-app --example with-firebase-authentication with-firebase-authentication-app
-# or
-yarn create next-app --example with-firebase-authentication with-firebase-authentication-app
-```
+## Solution ✔️
 
-## Configuration
+Coindrop allows the receiver to list *all* their available forms of payment, and the sender to choose which one to use according to their preference (typically to maximize convenience and minimize transaction fees).
 
-Set up Firebase:
+Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/share it as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the simplicity of a single link.
 
-- Create a project at the [Firebase console](https://console.firebase.google.com/).
-- Copy the contents of `.env.local.example` into a new file called `.env.local`
-- Get your account credentials from the Firebase console at _Project settings > Service accounts_, where you can click on _Generate new private key_ and download the credentials as a json file. It will contain keys such as `project_id`, `client_email` and `client_id`. Set them as environment variables in the `.env.local` file at the root of this project.
-- Get your authentication credentials from the Firebase console under _Project settings > General> Your apps_ Add a new web app if you don't already have one. Under _Firebase SDK snippet_ choose _Config_ to get the configuration as JSON. It will include keys like `apiKey`, `authDomain` and `databaseUrl`. Set the appropriate environment variables in the `.env.local` file at the root of this project.
-- Go to **Develop**, click on **Authentication** and in the **Sign-in method** tab enable authentication for the app.
+## Principles 🙏🏻
 
-Install it and run:
+The Coindrop project is built according to the following principles:
 
-```bash
-npm install
-npm run dev
-# or
-yarn
-yarn dev
-```
+### Transparency 👀
 
-Deploy it to the cloud with [Vercel](https://vercel.com/import?filter=next.js&utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+This software is open-source licensed under the [GNU General Public License v3.0](LICENSE) to give users confidence that their account information and payment addresses are not being tampered with. This application is deployed directly to https://coindrop.to without alteration. 
 
-After deploying, copy the deployment URL and navigate to your Firebase project's Authentication tab. Scroll down in the page to "Authorized domains" and add that URL to the list.
+### Unbias ❤
+
+Any form of payment address can be listed on your piggybank page. Coindrop will never delist a payment method unless it is:
+* Against the law
+* Unsafe or insecure
+
+## Legal notes 👮
+
+The use of Coindrop does not exclude the user from any legal requirements regarding payment methods and acceptance. Users are responsible for understanding and complying with all applicable laws from their jurisdictions.
+
+Coindrop provides a page of addresses that users maintain, but is not responsible for any loss that occurs as the result of using this service.
+
+## Contributions 🙋‍♂️🙋‍♀️
+
+This Github repository welcomes pull requests for new features, enhancements, and bug fixes. Thank you!
+
+## Maintainers 🛠️
+
+* [Mark Jackson](https://twitter.com/markjackson02)
