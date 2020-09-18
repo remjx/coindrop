@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { mutate } from 'swr';
+import Cookies from 'js-cookie';
 
 const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, user, isTriggered, setIsTriggered) => {
     const [submitStatus, setSubmitStatus] = useState('idle');
@@ -17,6 +18,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             setSubmitStatus('success');
             setCandidatePiggybankPath('');
             mutate(user.id);
+            Cookies.remove('pendingLoginCreatePiggybankPath');
         } catch (error) {
             setSubmitStatus('error');
         }

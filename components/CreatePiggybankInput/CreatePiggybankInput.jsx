@@ -26,40 +26,40 @@ const CreatePiggybankInput = () => {
         }
     }
     return (
-        <>
-            <form>
-                <Flex
-                    align="center"
-                    justify="center"
-                    mt={4}
-                    mb={1}
+        <form>
+            <Flex
+                align="center"
+                justify="center"
+                mt={4}
+                mb={1}
+            >
+                <InputGroup>
+                    <InputLeftAddon>
+                        coindrop.to/
+                    </InputLeftAddon>
+                    <Input
+                        roundedLeft="0"
+                        placeholder="my-piggybank-url"
+                        onChange={(e) => {
+                            setCandidatePiggybankPath(e.target.value);
+                            setIsCandidatePiggybankPathInvalid(false);
+                        }}
+                        value={candidatePiggybankPath}
+                        isInvalid={isCandidatePiggybankPathInvalid}
+                    />
+                </InputGroup>
+                <Button
+                    ml={1}
+                    variantColor="orange"
+                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
+                    isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
+                    loadingText="Creating"
+                    onClick={handleCreateUrl}
+                    type="submit"
                 >
-                    <InputGroup>
-                        <InputLeftAddon>
-                            coindrop.to/
-                        </InputLeftAddon>
-                        <Input
-                            roundedLeft="0"
-                            placeholder="my-piggybank-url"
-                            onChange={(e) => {
-                                setCandidatePiggybankPath(e.target.value);
-                                setIsCandidatePiggybankPathInvalid(false);
-                            }}
-                            value={candidatePiggybankPath}
-                            isInvalid={isCandidatePiggybankPathInvalid}
-                        />
-                    </InputGroup>
-                    <Button
-                        ml={1}
-                        variantColor="orange"
-                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
-                        onClick={handleCreateUrl}
-                        type="submit"
-                    >
-                        Create
-                    </Button>
-                </Flex>
-            </form>
+                    Create
+                </Button>
+            </Flex>
             {isCandidatePiggybankPathInvalid && (
                 <Text
                     textAlign="center"
@@ -75,7 +75,7 @@ const CreatePiggybankInput = () => {
                     </Text>
                 </Text>
             )}
-        </>
+        </form>
     );
 };
 
