@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Heading, Spinner, Stack } from '@chakra-ui/core';
+import { Text, Box, Heading, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../utils/client/db';
 
 async function fetchUserOwnedPiggybanks(uid) {
@@ -62,7 +62,7 @@ const UserOwnedPiggybanks = (props) => {
     };
     return (
         <Box>
-            <Heading>
+            <Heading textAlign="center">
                 My Piggybanks
             </Heading>
             <PiggybankContent />
@@ -72,6 +72,7 @@ const UserOwnedPiggybanks = (props) => {
 
 UserOwnedPiggybanks.propTypes = {
     uid: PropTypes.string.isRequired,
+    userEmail: PropTypes.string.isRequired,
 };
 
 UserOwnedPiggybanks.defaultProps = {

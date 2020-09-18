@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
+import { Heading, Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
@@ -33,8 +33,8 @@ const Dashboard = () => {
                 <Logo />
                 <Flex>
                     <Menu>
-                        <MenuButton as={Button}>
-                            <Icon name="hamburgerMenu" />
+                        <MenuButton as={Button} rightIcon="chevron-down">
+                            {user?.email ?? 'Menu'}
                         </MenuButton>
                         <MenuList>
                             <MenuItem>About</MenuItem>
@@ -50,13 +50,15 @@ const Dashboard = () => {
                     </Menu>
                 </Flex>
             </Flex>
-            <Text textAlign="center">
-                This is the user dashboard for
-                {' '}
-                {user && user.email}
-            </Text>
+            {user?.id && (
+                <UserOwnedPiggybanks
+                    uid={user.id}
+                />
+            )}
+            <Heading textAlign="center">
+                Create New Piggybank
+            </Heading>
             <CreatePiggybankInput />
-            {user?.id && <UserOwnedPiggybanks uid={user.id} />}
         </Box>
     );
 };

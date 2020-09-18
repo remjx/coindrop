@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
+import { CreatePiggybankContext } from '../AppContext/AppContext';
 
 const CreatePiggybankInput = (props) => {
     const { updatePiggybankList } = props;
     const { user } = useUser();
     const router = useRouter();
-    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
+    const { candidatePiggybankPath, setCandidatePiggybankPath } = useContext(CreatePiggybankContext);
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
     const [isAwaitingLoginToSubmit, setIsAwaitingLoginToSubmit] = useState();
     const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
@@ -79,7 +80,7 @@ const CreatePiggybankInput = (props) => {
                 <Button
                     ml={1}
                     variantColor="orange"
-                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
+                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
                     onClick={handleCreateUrl}
                 >
                     Create
