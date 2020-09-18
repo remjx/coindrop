@@ -1,4 +1,3 @@
-import React from 'react';
 // If the icon's viewBox is `0 0 24 24`, you can ignore `viewBox`
 // https://cryptologos.cc/
 

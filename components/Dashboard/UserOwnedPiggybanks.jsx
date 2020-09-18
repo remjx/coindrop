@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
 import { Text, Box, Heading, Spinner, Stack } from '@chakra-ui/core';
