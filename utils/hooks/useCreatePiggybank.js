@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { mutate } from 'swr';
-import Cookies from 'js-cookie';
+import { CreatePiggybankContext } from '../../components/AppContext/AppContext';
 
 const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, user, isTriggered, setIsTriggered) => {
     const [submitStatus, setSubmitStatus] = useState('idle');
+    const [error, setError] = useState();
+    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     async function triggerCreation() {
         setSubmitStatus('submitting');
+        setError(null);
         const data = {
             piggybankName: candidatePiggybankPath,
         };
@@ -18,9 +21,21 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             setSubmitStatus('success');
             setCandidatePiggybankPath('');
             mutate(user.id);
-            Cookies.remove('pendingLoginCreatePiggybankPath');
-        } catch (error) {
+            setPendingLoginCreatePiggybankPath(null);
+        } catch (err) {
             setSubmitStatus('error');
+            setError(err.statusText);
+            if (err.response) {
+                if (err.response.status === 409) {
+                    setError('A piggybank with this name already exists.');
+                } else {
+                    setError('Server error. Please try again.');
+                }
+              } else if (err.request) {
+                setError('Request timed out. Please try again.');
+              } else {
+                setError('Error sending request. Please try again.');
+              }
         }
         setIsTriggered(false);
     }
@@ -29,7 +44,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             triggerCreation();
         }
     }, [isTriggered, user]);
-    return { submitStatus };
+    return { submitStatus, error, setError };
 };
 
 export default useCreatePiggybank;

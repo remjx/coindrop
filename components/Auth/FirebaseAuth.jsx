@@ -1,4 +1,3 @@
-/* globals window */
 import { useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
@@ -15,10 +14,9 @@ const firebaseAuthConfig = {
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
-  signInSuccessUrl: '/dashboard',
   credentialHelper: 'none',
   callbacks: {
-    signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
+    signInSuccessWithAuthResult: async ({ user }) => {
       const userData = mapUserData(user);
       setUserCookie(userData);
     },

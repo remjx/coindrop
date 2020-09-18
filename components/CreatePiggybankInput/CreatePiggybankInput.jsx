@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
+import { CreatePiggybankContext } from '../AppContext/AppContext';
 
 const CreatePiggybankInput = () => {
     const { user } = useUser();
@@ -12,7 +12,8 @@ const CreatePiggybankInput = () => {
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const { submitStatus } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
+    const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
     async function handleCreateUrl(event) {
         event.preventDefault();
         const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
@@ -21,7 +22,7 @@ const CreatePiggybankInput = () => {
         } else if (user) {
             setIsCreateTriggered(true);
         } else if (router.pathname !== '/auth') {
-            Cookies.set('pendingLoginCreatePiggybankPath', candidatePiggybankPath);
+            setPendingLoginCreatePiggybankPath(candidatePiggybankPath);
             router.push('/auth');
         }
     }
@@ -41,11 +42,12 @@ const CreatePiggybankInput = () => {
                         roundedLeft="0"
                         placeholder="my-piggybank-url"
                         onChange={(e) => {
+                            setError(null);
                             setCandidatePiggybankPath(e.target.value);
                             setIsCandidatePiggybankPathInvalid(false);
                         }}
                         value={candidatePiggybankPath}
-                        isInvalid={isCandidatePiggybankPathInvalid}
+                        isInvalid={isCandidatePiggybankPathInvalid || !!error}
                     />
                 </InputGroup>
                 <Button
@@ -60,6 +62,11 @@ const CreatePiggybankInput = () => {
                     Create
                 </Button>
             </Flex>
+            {error && (
+                <Text textAlign="center" color="red.500">
+                    {error}
+                </Text>
+            )}
             {isCandidatePiggybankPathInvalid && (
                 <Text
                     textAlign="center"
