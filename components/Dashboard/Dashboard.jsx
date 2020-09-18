@@ -24,7 +24,6 @@ const Dashboard = () => {
     });
     useEffect(() => {
         const pendingLoginCreatePiggybankPath = Cookies.get('pendingLoginCreatePiggybankPath');
-        console.log('pendingLoginCreatePiggybankPath cookie', pendingLoginCreatePiggybankPath)
         if (pendingLoginCreatePiggybankPath) {
             setCandidatePiggybankPath(pendingLoginCreatePiggybankPath);
             setIsCreateTriggered(true);
