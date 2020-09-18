@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Text, Box, Heading, Spinner, Stack } from '@chakra-ui/core';
+import { Box, Heading, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../utils/client/db';
 
 async function fetchUserOwnedPiggybanks(uid) {
@@ -15,7 +15,6 @@ async function fetchUserOwnedPiggybanks(uid) {
             piggybankName: piggybank.id,
         });
     });
-    console.log('piggybankData', piggybankData);
     return piggybankData;
 }
 
@@ -53,7 +52,12 @@ const UserOwnedPiggybanks = (props) => {
         if (data) {
             return (
                 <PiggybankContainer>
-                    {data.map(piggybank => <Piggybank name={piggybank.piggybankName} />)}
+                    {data.map(piggybank => (
+                        <Piggybank
+                            key={piggybank.piggybankName}
+                            name={piggybank.piggybankName}
+                        />
+                    ))}
                 </PiggybankContainer>
             );
         }
@@ -71,7 +75,6 @@ const UserOwnedPiggybanks = (props) => {
 
 UserOwnedPiggybanks.propTypes = {
     uid: PropTypes.string.isRequired,
-    userEmail: PropTypes.string.isRequired,
 };
 
 UserOwnedPiggybanks.defaultProps = {

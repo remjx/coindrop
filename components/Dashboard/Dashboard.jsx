@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Heading, Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
+import { Heading, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import Cookies from 'js-cookie';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
@@ -11,12 +12,17 @@ import UserOwnedPiggybanks from './UserOwnedPiggybanks';
 const Dashboard = () => {
     const router = useRouter();
     const { user, logout } = useUser();
-    console.log('user', user)
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
         }
     });
+    useEffect(() => {
+        const pendingLoginCreatePiggybankPath = Cookies.get('pendingLoginCreatePiggybankPath');
+        if (pendingLoginCreatePiggybankPath) {
+            
+        }
+    }, []);
     if (!user) return null;
     return (
         <Box

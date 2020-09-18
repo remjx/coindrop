@@ -6,6 +6,7 @@ import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, 
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import { useUser } from '../../utils/auth/useUser';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -45,16 +46,25 @@ const index = () => {
     } = useDisclosure();
     const theme = useTheme();
     const router = useRouter();
+    const { user } = useUser();
     useEffect(() => {
         if (router.pathname === '/auth') {
             onAuthOpen();
         } else {
             onAuthClose();
         }
-    });
+    }, [router.pathname]);
     useEffect(() => {
         router.prefetch('/dashboard');
     }, []);
+    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
+        if (
+            user
+            && router.pathname !== '/dashboard'
+        ) {
+            router.push('/dashboard');
+        }
+    }, [user, router.pathname]);
     return (
         <>
         <AuthModal
