@@ -12,22 +12,20 @@ function PiggybankListItem({ name }) {
             borderWidth="1px"
             mt={3}
             justify="space-between"
+            wrap="wrap"
         >
             <Box>
                 <Heading fontSize="xl">{name}</Heading>
-                <Text>{link}</Text>
+                {/* <Text>{link}</Text> */}
             </Box>
-            <Flex>
-                <Button leftIcon="view" mx={1}>
-                    Preview
-                </Button>
-                <Button leftIcon="edit" mx={1}>
-                    Edit
-                </Button>
-                <Button leftIcon={hasCopied ? "check" : "link"} mx={1} onClick={onCopy}>
+            <Flex wrap="wrap">
+                <Button leftIcon={hasCopied ? "check" : "link"} m={1} onClick={onCopy}>
                     {hasCopied ? "Copied!" : "Copy Link"}
                 </Button>
-                <Button leftIcon="settings" mx={1}>
+                <Button leftIcon="view" m={1}>
+                    View / Edit
+                </Button>
+                <Button leftIcon="settings" m={1}>
                     Settings
                 </Button>
             </Flex>
