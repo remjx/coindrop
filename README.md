@@ -2,7 +2,7 @@
 
 Create a shareable list of addresses for peer-to-peer payments
 
-## Motivation ❓
+## Problem ❓
 
 Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use.
 
