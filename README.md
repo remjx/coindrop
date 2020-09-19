@@ -14,7 +14,7 @@ Coindrop allows the receiver to list all their available forms of payment, and t
 
 Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/send the link as a substitute any time they would normally publish/send payment address(es) individually.
 
-## When/where to use it? 🕒
+### When/where to use it? 🕒
 
 * Does someone owe you money? ✔️ Send them your Coindrop link
 * Would you like to accept donations? ✔️ Create a Coindrop for your brand and share it on your website or social media profile
