@@ -50,7 +50,7 @@ As mentioned above, this software is licensed under the [GNU General Public Lice
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
-Ideas, new features, and bug fixes are welcome!
+Ideas, new features, and bug fixes are welcome.
 
 Start a discussion [**TODO: Insert discussions page**] or create a pull request with any changes you would like.
 
