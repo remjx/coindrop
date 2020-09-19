@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Heading, Spinner, Stack } from '@chakra-ui/core';
-import { db } from '../../utils/client/db';
+import { Box, Flex, Heading, Spinner, Stack } from '@chakra-ui/core';
+import { db } from '../../../utils/client/db';
+import PiggybankListItem from './PiggybankListItem';
 
 async function fetchUserOwnedPiggybanks(uid) {
     const piggybanks = await db.collection('piggybanks').where('owner_uid', '==', uid).get();
@@ -18,29 +19,6 @@ async function fetchUserOwnedPiggybanks(uid) {
     return piggybankData;
 }
 
-function Piggybank({ name }) {
-    return (
-        <Box p={5} shadow="md" borderWidth="1px" mt={3}>
-            <Heading fontSize="xl">{name}</Heading>
-            {/* <Text mt={4}>{desc}</Text> */}
-        </Box>
-    );
-}
-Piggybank.propTypes = {
-    name: PropTypes.string.isRequired,
-};
-
-function PiggybankContainer({ children }) {
-    return (
-        <Stack spacing={8} my={4}>
-            {children}
-        </Stack>
-    );
-}
-PiggybankContainer.propTypes = {
-    children: PropTypes.element.isRequired,
-};
-
 const UserOwnedPiggybanks = (props) => {
     const { uid } = props;
     const { data, error } = useSWR(uid, fetchUserOwnedPiggybanks);
@@ -51,14 +29,14 @@ const UserOwnedPiggybanks = (props) => {
         }
         if (data) {
             return (
-                <PiggybankContainer>
+                <Stack spacing={8} my={4}>
                     {data.map(piggybank => (
-                        <Piggybank
+                        <PiggybankListItem
                             key={piggybank.piggybankName}
                             name={piggybank.piggybankName}
                         />
                     ))}
-                </PiggybankContainer>
+                </Stack>
             );
         }
         return <Spinner size="lg" />;
