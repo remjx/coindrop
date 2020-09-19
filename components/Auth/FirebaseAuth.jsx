@@ -16,9 +16,11 @@ const firebaseAuthConfig = {
   ],
   credentialHelper: 'none',
   callbacks: {
-    signInSuccessWithAuthResult: async ({ user }) => {
+    // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
+    signInSuccessWithAuthResult: ({ user }) => {
       const userData = mapUserData(user);
       setUserCookie(userData);
+      return false;
     },
   },
 };
