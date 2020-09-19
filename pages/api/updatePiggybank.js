@@ -32,35 +32,17 @@ const createPiggybank = async (req, res) => {
 
 const updatePiggybank = async (req, res) => {
   try {
-    const { piggybankName, field, value } = req.body;
-    // TODO: Ensure field is in list of approved apps/coins
-    const { email } = req.headers;
-    const piggybank = await db()
-      .collection('piggybanks')
-      .doc(piggybankName)
-      .get();
-    console.log('piggybank:', piggybank);
-    // TODO: check that user is owner of this piggybank
-    // Make update
-      // .set({ [field]: value });
-    return res.status(200).end();
-  } catch (error) {
-    console.log(error);
-    return res.status(500).end();
-  }
-};
-
-const deletePiggybank = async (req, res) => {
-  try {
-    const { piggybankName } = req.body;
-    const { email } = req.headers;
-    const piggybank = await db()
-      .collection('piggybanks')
-      .doc(piggybankName)
-      .get();
-    console.log('piggybank:', piggybank);
-    // TODO: check that user is owner of this piggybank
-    // Delete
+    // const { piggybankName, field, value } = req.body;
+    // // TODO: Ensure field is in list of approved apps/coins
+    // const { email } = req.headers;
+    // const piggybank = await db()
+    //   .collection('piggybanks')
+    //   .doc(piggybankName)
+    //   .get();
+    // console.log('piggybank:', piggybank);
+    // // TODO: check that user is owner of this piggybank
+    // // Make update
+    //   // .set({ [field]: value });
     return res.status(200).end();
   } catch (error) {
     console.log(error);
@@ -71,7 +53,6 @@ const deletePiggybank = async (req, res) => {
 const handler = nc()
     .use(requireFirebaseToken)
     .post(createPiggybank)
-    .put(updatePiggybank)
-    .delete(deletePiggybank);
+    .put(updatePiggybank);
 
 export default handler;

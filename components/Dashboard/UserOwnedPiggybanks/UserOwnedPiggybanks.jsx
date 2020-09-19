@@ -34,6 +34,7 @@ const UserOwnedPiggybanks = (props) => {
                         <PiggybankListItem
                             key={piggybank.piggybankName}
                             name={piggybank.piggybankName}
+                            uid={uid}
                         />
                     ))}
                 </Stack>

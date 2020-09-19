@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Text, Flex, Heading, Button, useClipboard } from '@chakra-ui/core';
+import { useUser } from '../../../utils/auth/useUser';
+import DeleteButton from './PiggybankListItem/DeleteButton';
 
 function PiggybankListItem({ name }) {
+    const { user } = useUser();
     const link = `coindrop.to/${name}`;
     const { onCopy, hasCopied } = useClipboard(link);
     return (
@@ -16,18 +19,21 @@ function PiggybankListItem({ name }) {
         >
             <Box>
                 <Heading fontSize="xl">{name}</Heading>
-                {/* <Text>{link}</Text> */}
             </Box>
             <Flex wrap="wrap">
                 <Button leftIcon={hasCopied ? "check" : "link"} m={1} onClick={onCopy}>
-                    {hasCopied ? "Copied!" : "Copy Link"}
+                    {hasCopied ? "Copied" : "Copy Link"}
                 </Button>
                 <Button leftIcon="view" m={1}>
                     View / Edit
                 </Button>
-                <Button leftIcon="settings" m={1}>
+                {/* <Button leftIcon="settings" m={1}>
                     Settings
-                </Button>
+                </Button> */}
+                <DeleteButton
+                    name={name}
+                    user={user}
+                />
             </Flex>
         </Flex>
     );

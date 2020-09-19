@@ -8,6 +8,7 @@ const requireFirebaseToken = async (req, res, next) => {
         req.headers.uid = verifiedIdToken.uid;
         return next();
     } catch (error) {
+        console.log(error);
         return res.status(401).send('You are unauthorized');
     }
 };
