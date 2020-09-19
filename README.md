@@ -1,6 +1,6 @@
 # Coindrop 🐖💰
 
-Create a shareable list of addresses for peer-to-peer payments
+Create your shareable list of addresses for peer-to-peer payments
 
 ## Problem ❓
 
