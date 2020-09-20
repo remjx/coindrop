@@ -1,6 +1,8 @@
 import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggybankPage';
 import { db } from '../utils/auth/firebaseAdmin';
 
+// TODO: change this to static regeneration
+
 export async function getServerSideProps(context) {
     const { piggybankName } = context.params;
     let addresses = {};
@@ -10,12 +12,12 @@ export async function getServerSideProps(context) {
         .doc(piggybankName)
         .get();
       if (piggybank.exists) {
-        addresses = piggybank.data();
+        addresses = Object.entries(piggybank.data()).filter(([field]) => field.startsWith('address_'));
       }
     } catch (error) {
       console.log('error in getServerSideProps', error);
+      // TODO: return error page
     }
-    console.log('addresses:', addresses);
     return {
       props: {
         addresses,

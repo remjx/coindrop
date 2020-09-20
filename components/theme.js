@@ -10,6 +10,7 @@ const theme = {
   colors: {
     ...chakraTheme.colors,
     black: '#16161D',
+    logoPrimary: '#FFB655',
     mainGray: "#6C6B6F",
     orange: {
       50: "#FFFAF0",

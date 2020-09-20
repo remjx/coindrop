@@ -17,7 +17,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             token: user.token,
         };
         try {
-            await axios.post('/api/updatePiggybank', data, { headers });
+            await axios.post('/api/createPiggybank', data, { headers });
             setSubmitStatus('success');
             setCandidatePiggybankPath('');
             mutate(user.id);
@@ -28,6 +28,8 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             if (err.response) {
                 if (err.response.status === 409) {
                     setError('A piggybank with this name already exists.');
+                } else if (err.response.status === 406) {
+                    setError('You\'ve reached the maximum number of piggybanks. Contact support to increase your limit.');
                 } else {
                     setError('Server error. Please try again.');
                 }

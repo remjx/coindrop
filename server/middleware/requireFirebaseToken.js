@@ -4,7 +4,6 @@ const requireFirebaseToken = async (req, res, next) => {
     try {
         const {token} = req.headers;
         const verifiedIdToken = await verifyIdToken(token);
-        req.headers.email = verifiedIdToken.email;
         req.headers.uid = verifiedIdToken.uid;
         return next();
     } catch (error) {

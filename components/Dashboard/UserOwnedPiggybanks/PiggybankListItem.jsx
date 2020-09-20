@@ -21,7 +21,12 @@ function PiggybankListItem({ name }) {
                 <Heading fontSize="xl">{name}</Heading>
             </Box>
             <Flex wrap="wrap">
-                <Button leftIcon={hasCopied ? "check" : "link"} m={1} onClick={onCopy}>
+                <Button
+                    leftIcon={hasCopied ? "check" : "link"}
+                    m={1}
+                    onClick={onCopy}
+                    variantColor={hasCopied ? "green" : undefined}
+                >
                     {hasCopied ? "Copied" : "Copy Link"}
                 </Button>
                 <Button leftIcon="view" m={1}>

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@chakra-ui/core';
-import axios from 'axios';
 import { mutate } from 'swr';
+import { db } from '../../../../utils/client/db';
 
 const DeleteButton = (props) => {
     const { name, user } = props;
@@ -14,7 +14,10 @@ const DeleteButton = (props) => {
         }
         try {
             setIsDeleting(true);
-            await axios.post('/api/deletePiggybank', { name }, { headers: { token: user.token } });
+            await db
+                .collection('piggybanks')
+                .doc(name)
+                .delete();
             mutate(user.id);
         } catch (err) {
             setAwaitingDeleteConfirmation(false);
@@ -39,7 +42,7 @@ const DeleteButton = (props) => {
             isLoading={isDeleting}
             loadingText="Deleting"
         >
-            {awaitingDeleteConfirmation ? "Confirm Delete" : "Delete"}
+            {awaitingDeleteConfirmation ? "Confirm" : "Delete"}
         </Button>
     );
 };

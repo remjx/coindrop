@@ -5,7 +5,10 @@ import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 
 async function fetchUserOwnedPiggybanks(uid) {
-    const piggybanks = await db.collection('piggybanks').where('owner_uid', '==', uid).get();
+    const piggybanks = await db
+        .collection('piggybanks')
+        .where('owner_uid', '==', uid)
+        .get();
     if (piggybanks.empty) {
         console.log('No matching documents.');
         return [];
