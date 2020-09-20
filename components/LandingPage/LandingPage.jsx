@@ -114,7 +114,12 @@ const index = () => {
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
-                <CreatePiggybankInput />
+                <Box
+                    mt={4}
+                    mb={1}
+                >
+                    <CreatePiggybankInput />
+                </Box>
             </Box>
             <Text
                 textAlign="center"

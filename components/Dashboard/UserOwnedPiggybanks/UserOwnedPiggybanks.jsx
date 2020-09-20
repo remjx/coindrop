@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { Box, Flex, Heading, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
+import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 
 async function fetchUserOwnedPiggybanks(uid) {
     const piggybanks = await db
@@ -31,6 +32,7 @@ const UserOwnedPiggybanks = (props) => {
             return `Error getting piggybank data, please try refreshing the page.`;
         }
         if (data) {
+            const numActivePiggybanks = data.length;
             return (
                 <Stack spacing={8} my={4}>
                     {data.map(piggybank => (
@@ -40,6 +42,9 @@ const UserOwnedPiggybanks = (props) => {
                             uid={uid}
                         />
                     ))}
+                    <AddPiggybankListItem
+                        numActivePiggybanks={numActivePiggybanks}
+                    />
                 </Stack>
             );
         }

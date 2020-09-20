@@ -1,8 +1,7 @@
 import nc from 'next-connect';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
-
-const maxPiggybanksPerUser = 10;
+import { maxPiggybanksPerUser } from '../../src/settings';
 
 const piggybankExistsErrorMessage = 'A piggybank with this name already exists.';
 async function isPiggybankNameNonexistant(piggybankName) {

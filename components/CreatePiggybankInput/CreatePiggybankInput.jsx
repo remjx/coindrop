@@ -31,8 +31,6 @@ const CreatePiggybankInput = () => {
             <Flex
                 align="center"
                 justify="center"
-                mt={4}
-                mb={1}
             >
                 <InputGroup>
                     <InputLeftAddon>

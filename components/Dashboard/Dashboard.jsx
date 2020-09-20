@@ -72,10 +72,6 @@ const Dashboard = () => {
                     uid={user.id}
                 />
             )}
-            <Heading textAlign="center">
-                Create New Piggybank
-            </Heading>
-            <CreatePiggybankInput />
         </Box>
     );
 };
