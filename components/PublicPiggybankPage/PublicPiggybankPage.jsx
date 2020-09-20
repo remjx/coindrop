@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Text, Box } from '@chakra-ui/core';
+import { Heading, Text, Box } from '@chakra-ui/core';
 import { useUser } from '../../utils/auth/useUser';
-import Logo from '../Logo/Logo';
 import Footer from './Footer';
 import PaymentMethodRow from './PaymentMethodRow';
+import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 
 // TODO: if visited piggybank is users own piggybank, dont render public version, instead render editable version
 
@@ -13,15 +13,24 @@ import PaymentMethodRow from './PaymentMethodRow';
     //   // .set({ [field]: value });
 
 const PublicPiggybankPage = (props) => {
-    const { addresses } = props;
+    const { piggybankData } = props;
+    const {
+        tagline_name: taglineName,
+        tagline_description: taglineDescription,
+    } = piggybankData;
+    const addresses = Object.entries(piggybankData).filter(([field]) => field.startsWith('address_'));
     const router = useRouter();
     const user = useUser();
-    console.log('router', router)
     return (
         <Box
             maxW="960px"
             mx="auto"
         >
+            {user && <ManagePiggybankBar />}
+            <Heading textAlign="center">
+                <Heading as="span" color="orange.500">{taglineName} is </Heading>
+                {taglineDescription}
+            </Heading>
             <Text>
                 {addresses.map(([addressField, addressValue]) => (
                     <PaymentMethodRow
@@ -36,7 +45,7 @@ const PublicPiggybankPage = (props) => {
 };
 
 PublicPiggybankPage.propTypes = {
-    addresses: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+    piggybankData: PropTypes.object.isRequired,
 };
 
 PublicPiggybankPage.defaultProps = {

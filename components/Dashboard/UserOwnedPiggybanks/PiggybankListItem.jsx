@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Flex, Heading, Button, useClipboard } from '@chakra-ui/core';
+import NextLink from 'next/link';
+import { Link, Box, Text, Flex, Heading, Button, useClipboard } from '@chakra-ui/core';
 import { useUser } from '../../../utils/auth/useUser';
 import DeleteButton from './PiggybankListItem/DeleteButton';
 
@@ -25,16 +26,21 @@ function PiggybankListItem({ name }) {
                     leftIcon={hasCopied ? "check" : "link"}
                     m={1}
                     onClick={onCopy}
-                    variantColor={hasCopied ? "green" : undefined}
                 >
                     {hasCopied ? "Copied" : "Copy Link"}
                 </Button>
-                <Button leftIcon="view" m={1}>
-                    View / Edit
-                </Button>
-                {/* <Button leftIcon="settings" m={1}>
-                    Settings
-                </Button> */}
+                <NextLink href={`/${name}`} passHref>
+                    <Link style={{textDecoration: 'none'}}>
+                        <Button
+                            leftIcon="view"
+                            m={1}
+                            // onClick={(e) => e.preventDefault()}
+                            role="link"
+                        >
+                            View / Edit
+                        </Button>
+                    </Link>
+                </NextLink>
                 <DeleteButton
                     name={name}
                     user={user}

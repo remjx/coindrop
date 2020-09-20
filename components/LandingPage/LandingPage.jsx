@@ -135,13 +135,13 @@ const index = () => {
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="PayPal" iconName="paypal" color="#00457C" />
-                        <PaymentMethodTag label="Venmo" iconName="venmo" color="#3D95CE" iconSize="32px" />
+                        <PaymentMethodTag label="PayPal" iconName="paypal" />
+                        <PaymentMethodTag label="Venmo" iconName="venmo" iconSize="32px" />
                         <PaymentMethodTag label="CashApp" iconName="cashapp" />
-                        <PaymentMethodTag label="Zelle" iconName="zelle" color="#6C16D4" />
+                        <PaymentMethodTag label="Zelle" iconName="zelle" />
                         <PaymentMethodTag label="Google Pay" iconName="googlepay" />
-                        <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
-                        <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
+                        <PaymentMethodTag label="Apple Pay" iconName="applepay" />
+                        <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
                         <PaymentMethodTag label="Money Button" iconName="moneybutton" />
                         <AddTag />
@@ -152,17 +152,17 @@ const index = () => {
                         Cryptocurrencies
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
-                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
-                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                        <PaymentMethodTag label="Bitcoin" iconName="btc" />
+                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" iconSize="22px" />
+                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" />
                         <PaymentMethodTag label="Ethereum" iconName="ethereum" />
-                        <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
+                        <PaymentMethodTag label="Litecoin" iconName="litecoin" />
                         <PaymentMethodTag label="Monero" iconName="monero" />
                         <PaymentMethodTag label="Zcash" iconName="zcash" />
-                        <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
-                        <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
+                        <PaymentMethodTag label="Dash" iconName="dash" />
+                        <PaymentMethodTag label="Tezos" iconName="tezos" />
                         <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
-                        <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
+                        <PaymentMethodTag label="Cardano" iconName="cardano" />
                         <PaymentMethodTag label="Decred" iconName="decred" />
                         <AddTag />
                     </Flex>
