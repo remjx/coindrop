@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Heading, Text, Box, Flex, Link, Stack, useTheme } from '@chakra-ui/core';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core'
 import { useUser } from '../../utils/auth/useUser';
-import Footer from './Footer';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import paymentMethods from '../../src/paymentMethods';
+import PoweredByCoindropLink from './PoweredByCoindropLink';
 
 // TODO: if visited piggybank is users own piggybank, dont render public version, instead render editable version
 
@@ -13,15 +15,15 @@ import paymentMethods from '../../src/paymentMethods';
     // // Make update
     //   // .set({ [field]: value });
 
+const themeColorOptions = ["orange", "red", "purple", "green", "teal", "blue", "cyan", "pink", "yellow"];
+
 const PublicPiggybankPage = (props) => {
     const { piggybankData } = props;
     const theme = useTheme();
     const {
         tagline_name: taglineName,
-        tagline_description: taglineDescription,
-        description,
         website,
-        accentColor = theme.colors.orange['500'],
+        accent_color: accentColor = "orange",
     } = piggybankData;
     const allAddressFields = Object.entries(piggybankData);
     // TODO: Make a test for this to ensure that if "address_" format ever changes, it doesn't impact this logic. Or set the substr length to be equal to the prefix length.
@@ -30,7 +32,6 @@ const PublicPiggybankPage = (props) => {
     const addresses = allAddressFields
         .filter(([field]) => (field.startsWith('address_') && !field.endsWith(addressIsPreferredSuffix)))
         .map(([field, value]) => [field.substr(isAddressFieldPrefix.length), value]);
-    console.log('addresses', addresses);
     const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
         const addressFieldName = item[0];
         if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
@@ -51,6 +52,7 @@ const PublicPiggybankPage = (props) => {
                 paymentMethod={paymentMethod}
                 paymentMethodValue={paymentMethodValue}
                 isPreferred={preferredPaymentMethodIds.includes(paymentMethod)}
+                accentColor={accentColor}
             />
         ));
     }
@@ -66,12 +68,17 @@ const PublicPiggybankPage = (props) => {
                 mx={3}
             >
                 <Heading textAlign="center">
-                    Choose a payment method to pay 
-                    <Link href={website}> { /* TODO: fix href */}
+                    {'Choose a payment method to pay '}
+                    <Link href={website} target="_blank" rel="noreferrer">
                         <Heading
                             as="span"
-                            color={accentColor}
+                            color={theme.colors[accentColor]['500']}
                             textDecoration="underline"
+                            css={css`
+                                &:hover {
+                                    color: ${theme.colors[accentColor]['600']};
+                                }
+                            `}
                         >
                                 {taglineName}
                         </Heading>
@@ -85,7 +92,9 @@ const PublicPiggybankPage = (props) => {
             <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
                 {renderPaymentMethodButtonFromAddresses(otherAddresses)}
             </Stack>
-            <Footer />
+            <PoweredByCoindropLink
+                accentColor={accentColor}
+            />
         </Box>
     );
 };
