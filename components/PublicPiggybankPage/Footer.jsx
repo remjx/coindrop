@@ -1,23 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Flex } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 
-const Footer = (props) => {
-    const { } = props;
-    return (
-        <Flex justify="center">
-            <PoweredByCoindropLink />
-        </Flex>
-    );
-};
-
-Footer.propTypes = {
-
-};
-
-Footer.defaultProps = {
-
-};
+const Footer = () => (
+    <Box
+        textAlign="center"
+        mt={6}
+    >
+        <PoweredByCoindropLink />
+    </Box>
+);
 
 export default Footer;

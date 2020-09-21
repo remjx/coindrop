@@ -7,6 +7,7 @@ import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
+import { githubUrl } from '../../src/settings';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -92,9 +93,8 @@ const index = () => {
                             Log in
                         </Button>
                     </NextLink>
-                    {/* TODO: Update github link */}
-                    <Link href="https://github.com" target="_blank" rel="noreferrer">
-                    <Icon name="github" size="32px" color={theme.colors.gray['500']} />
+                    <Link href={githubUrl} target="_blank" rel="noreferrer">
+                        <Icon name="github" size="32px" color={theme.colors.gray['500']} />
                     </Link>
                 </Flex>
             </Flex>

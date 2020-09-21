@@ -1,25 +1,23 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link as ChakraLink, Flex, Text, useTheme, Button } from '@chakra-ui/core';
-import Logo from '../Logo/Logo';
+import { Link as ChakraLink, Flex, Text, useTheme, Button, Icon } from '@chakra-ui/core';
 
 const PoweredByCoindropLink = () => {
-    const { colors: { logoPrimary }} = useTheme();
+    const { colors: { orange }} = useTheme();
     return (
         <NextLink href="/" passHref>
             <ChakraLink style={{textDecoration: "none"}}>
                 <Button variant="outline">
                     <Flex align="center">
+                        <Icon mr={1} name="github" />
                         <Text
                             textAlign="center"
                             fontFamily="Changa"
+                            fontWeight="300"
                         >
                             Powered by
                             <span
                                 style={{
-                                    color: logoPrimary,
-                                    fontWeight: "500",
+                                    color: orange['500'], // TODO: Use user accent color if exists
                                 }}
                             >
                                 {' Coindrop'}
@@ -30,14 +28,6 @@ const PoweredByCoindropLink = () => {
             </ChakraLink>
         </NextLink>
     );
-};
-
-PoweredByCoindropLink.propTypes = {
-
-};
-
-PoweredByCoindropLink.defaultProps = {
-
 };
 
 export default PoweredByCoindropLink;

@@ -4,20 +4,20 @@ import { paymentMethodNames } from '../../src/paymentMethods';
 
 const PaymentMethodButton = (props) => {
     const theme = useTheme();
-    const { addressField, addressValue } = props;
-    // TODO: Make a test for this to ensure that if "address_" format ever changes, it doesn't impact this logic. Or set the substr length to be equal to the prefix length.
-    const paymentMethod = addressField.substr(8);
+    const { paymentMethod, paymentMethodValue, isPreferred } = props;
+    const accentColor = theme.colors.orange['500'];
     return (
         <PseudoBox
             as="button"
             lineHeight="1.2"
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
-            border="1px"
+            border={isPreferred ? "2px" : "1px"}
             rounded="2px"
             fontSize="18px"
             fontWeight="semibold"
-            bg={theme.colors.gray['100']}
-            borderColor={theme.colors.gray['300']}
+            bg="white"
+            // TODO: use user's accentColor if isPreferred
+            borderColor={isPreferred ? accentColor : theme.colors.gray['300']}
             p={4}
             m={2}
             shadow="md"
@@ -33,17 +33,26 @@ const PaymentMethodButton = (props) => {
                 <Icon name={paymentMethod} size="32px" />
                 <Text ml={2}>{paymentMethodNames[paymentMethod]}</Text>
             </Flex>
+            {isPreferred && (
+                <Text
+                    fontSize="xs"
+                    color={theme.colors.gray['500']}
+                >
+                    Preferred
+                </Text>
+            )}
         </PseudoBox>
     );
 };
 
 PaymentMethodButton.propTypes = {
-    addressField: PropTypes.string.isRequired,
-    addressValue: PropTypes.string.isRequired,
+    paymentMethod: PropTypes.string.isRequired,
+    paymentMethodValue: PropTypes.string.isRequired,
+    isPreferred: PropTypes.bool,
 };
 
 PaymentMethodButton.defaultProps = {
-
+    isPreferred: false,
 };
 
 export default PaymentMethodButton;
