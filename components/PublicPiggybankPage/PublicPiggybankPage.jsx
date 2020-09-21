@@ -8,6 +8,7 @@ import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import paymentMethods from '../../src/paymentMethods';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
+import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 
 // TODO: if visited piggybank is users own piggybank, dont render public version, instead render editable version
 
@@ -21,7 +22,7 @@ const PublicPiggybankPage = (props) => {
     const { piggybankData } = props;
     const theme = useTheme();
     const {
-        tagline_name: taglineName,
+        user_display_name: userDisplayName,
         website,
         accent_color: accentColor = "orange",
     } = piggybankData;
@@ -57,45 +58,51 @@ const PublicPiggybankPage = (props) => {
         ));
     }
     return (
-        <Box
-            maxW="960px"
-            mx="auto"
+        <PublicPiggybankDataProvider
+            data={{
+                ...piggybankData,
+            }}
         >
-            {user && <ManagePiggybankBar />}
             <Box
-                padding="10px"
-                my={2}
-                mx={3}
+                maxW="960px"
+                mx="auto"
             >
-                <Heading textAlign="center">
-                    {'Choose a payment method to pay '}
-                    <Link href={website} target="_blank" rel="noreferrer">
-                        <Heading
-                            as="span"
-                            color={theme.colors[accentColor]['500']}
-                            textDecoration="underline"
-                            css={css`
-                                &:hover {
-                                    color: ${theme.colors[accentColor]['600']};
-                                }
-                            `}
-                        >
-                                {taglineName}
-                        </Heading>
-                    </Link>
-                    :
-                </Heading>
+                {user && <ManagePiggybankBar />}
+                <Box
+                    padding="10px"
+                    my={2}
+                    mx={3}
+                >
+                    <Heading textAlign="center">
+                        {'Choose a payment method to pay '}
+                        <Link href={website} target="_blank" rel="noreferrer">
+                            <Heading
+                                as="span"
+                                color={theme.colors[accentColor]['500']}
+                                textDecoration="underline"
+                                css={css`
+                                    &:hover {
+                                        color: ${theme.colors[accentColor]['600']};
+                                    }
+                                `}
+                            >
+                                    {userDisplayName}
+                            </Heading>
+                        </Link>
+                        :
+                    </Heading>
+                </Box>
+                <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                    {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
+                </Stack>
+                <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                    {renderPaymentMethodButtonFromAddresses(otherAddresses)}
+                </Stack>
+                <PoweredByCoindropLink
+                    accentColor={accentColor}
+                />
             </Box>
-            <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
-            </Stack>
-            <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                {renderPaymentMethodButtonFromAddresses(otherAddresses)}
-            </Stack>
-            <PoweredByCoindropLink
-                accentColor={accentColor}
-            />
-        </Box>
+        </PublicPiggybankDataProvider>
     );
 };
 

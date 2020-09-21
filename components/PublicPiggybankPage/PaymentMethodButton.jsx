@@ -1,11 +1,22 @@
 import PropTypes from 'prop-types';
-import { Icon, Text, Flex, useTheme, PseudoBox } from '@chakra-ui/core';
+import { useDisclosure, Icon, Text, Flex, useTheme, PseudoBox } from '@chakra-ui/core';
 import { paymentMethodNames } from '../../src/paymentMethods';
+import PaymentMethodButtonModal from './PaymentMethodButtonModal';
 
 const PaymentMethodButton = (props) => {
     const theme = useTheme();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const { paymentMethod, paymentMethodValue, isPreferred, accentColor } = props;
+    const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     return (
+        <>
+        <PaymentMethodButtonModal
+            isOpen={isOpen}
+            onClose={onClose}
+            paymentMethod={paymentMethod}
+            paymentMethodDisplayName={paymentMethodDisplayName}
+            paymentMethodValue={paymentMethodValue}
+        />
         <PseudoBox
             as="button"
             lineHeight="1.2"
@@ -29,10 +40,11 @@ const PaymentMethodButton = (props) => {
                 transform: "scale(0.96)",
                 // TODO: This is somehow getting a black border, should be accentColor.
             }}
+            onClick={onOpen}
         >
             <Flex align="center">
                 <Icon name={paymentMethod} size="32px" />
-                <Text ml={2}>{paymentMethodNames[paymentMethod]}</Text>
+                <Text ml={2}>{paymentMethodDisplayName}</Text>
             </Flex>
             {isPreferred && (
                 <Text
@@ -43,6 +55,7 @@ const PaymentMethodButton = (props) => {
                 </Text>
             )}
         </PseudoBox>
+        </>
     );
 };
 

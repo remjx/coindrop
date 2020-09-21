@@ -144,6 +144,7 @@ const index = () => {
                         <PaymentMethodTag label="Facebook Pay" iconName="facebookPay" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalPay" />
                         <PaymentMethodTag label="Money Button" iconName="moneyButton" />
+                        <PaymentMethodTag label="HandCash" iconName="handCash" />
                         <AddTag />
                     </Flex>
                 </Box>

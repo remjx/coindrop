@@ -6,7 +6,7 @@ export const CreatePiggybankContext = createContext();
 const AppContext = ({ children }) => {
     const [pendingLoginCreatePiggybankPath, setPendingLoginCreatePiggybankPath] = useState('');
     return (
-        <CreatePiggybankContext.Provider value={{ pendingLoginCreatePiggybankPath, setPendingLoginCreatePiggybankPath}}>
+        <CreatePiggybankContext.Provider value={{ pendingLoginCreatePiggybankPath, setPendingLoginCreatePiggybankPath }}>
             {children}
         </CreatePiggybankContext.Provider>
     );
