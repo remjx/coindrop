@@ -46,7 +46,7 @@ const PublicPiggybankPage = (props) => {
     const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
     const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
     const router = useRouter();
-    const user = useUser();
+    const { user } = useUser();
     function renderPaymentMethodButtonFromAddresses(addrs) {
         return addrs.map(([paymentMethod, paymentMethodValue]) => (
             <PaymentMethodButton
@@ -67,7 +67,7 @@ const PublicPiggybankPage = (props) => {
                 maxW="960px"
                 mx="auto"
             >
-                {user && <ManagePiggybankBar />}
+                {user?.id && <ManagePiggybankBar />}
                 <Box
                     padding="10px"
                     my={2}

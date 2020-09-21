@@ -27,17 +27,16 @@ function PiggybankListItem({ name }) {
                     m={1}
                     onClick={onCopy}
                 >
-                    {hasCopied ? "Copied" : "Copy Link"}
+                    {hasCopied ? "Copied Link" : "Share"}
                 </Button>
                 <NextLink href={`/${name}`} passHref>
                     <Link style={{textDecoration: 'none'}}>
                         <Button
                             leftIcon="view"
                             m={1}
-                            // onClick={(e) => e.preventDefault()}
                             role="link"
                         >
-                            View / Edit
+                            View
                         </Button>
                     </Link>
                 </NextLink>

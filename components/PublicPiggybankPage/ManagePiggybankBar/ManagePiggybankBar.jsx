@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link as ChakraLink, Button, Flex, Icon } from '@chakra-ui/core';
+import { Link as ChakraLink, Button, Flex, Icon, useDisclosure } from '@chakra-ui/core';
+import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 
 const LinkButton = ({ href, children, ...rest }) => (
     <NextLink href={href} passHref>
@@ -15,18 +16,28 @@ const LinkButton = ({ href, children, ...rest }) => (
 
 const ManagePiggybankBar = (props) => {
     const { } = props;
+    const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     return (
+        <>
+        <EditPiggybankModal
+            isOpen={isEditOpen}
+            onClose={onEditClose}
+        />
         <Flex
-            justify="space-between"
-            backgroundColor="gray.100"
+            justify="space-around"
+            mt={2}
         >
-            <LinkButton href="/dashboard" leftIcon="home">
+            <LinkButton href="/dashboard" leftIcon="arrow-back">
                 Dashboard
             </LinkButton>
-            <LinkButton href={"/"} leftIcon="edit">
+            <Button
+                leftIcon="edit"
+                onClick={onEditOpen}
+            >
                 Edit
-            </LinkButton>
+            </Button>
         </Flex>
+        </>
     );
 };
 

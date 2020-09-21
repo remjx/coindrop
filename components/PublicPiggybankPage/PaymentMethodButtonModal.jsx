@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/core';
+import { Flex, Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/core';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
 
 const PaymentMethodButtonModal = (props) => {
@@ -27,16 +27,19 @@ const PaymentMethodButtonModal = (props) => {
                 mb={3}
                 mx="auto"
             >
-                <Text
-                    textAlign="center"
-                >
+                <Flex align="center">
                     <Icon
                         mr={2}
                         name={paymentMethod}
                         size="48px"
                     />
-                    {paymentMethodValue}
-                </Text>
+                    <Text
+                        wordBreak="break-all"
+                        textAlign="center"
+                    >
+                        {paymentMethodValue}
+                    </Text>
+                </Flex>
                 <Box
                     my={2}
                     textAlign="center"
