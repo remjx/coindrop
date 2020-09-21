@@ -32,7 +32,7 @@ PaymentMethodTag.defaultProps = {
 const AddTag = () => (
     <NextLink href="/add" passHref>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <Link>
+        <Link style={{textDecoration: "none"}}>
             <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
         </Link>
     </NextLink>
@@ -135,15 +135,15 @@ const index = () => {
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="PayPal" iconName="paypal" />
+                        <PaymentMethodTag label="PayPal" iconName="payPal" />
                         <PaymentMethodTag label="Venmo" iconName="venmo" iconSize="32px" />
-                        <PaymentMethodTag label="CashApp" iconName="cashapp" />
+                        <PaymentMethodTag label="CashApp" iconName="cashApp" />
                         <PaymentMethodTag label="Zelle" iconName="zelle" />
-                        <PaymentMethodTag label="Google Pay" iconName="googlepay" />
-                        <PaymentMethodTag label="Apple Pay" iconName="applepay" />
-                        <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" />
-                        <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
-                        <PaymentMethodTag label="Money Button" iconName="moneybutton" />
+                        <PaymentMethodTag label="Google Pay" iconName="googlePay" />
+                        <PaymentMethodTag label="Apple Pay" iconName="applePay" />
+                        <PaymentMethodTag label="Facebook Pay" iconName="facebookPay" />
+                        <PaymentMethodTag label="Metal Pay" iconName="metalPay" />
+                        <PaymentMethodTag label="Money Button" iconName="moneyButton" />
                         <AddTag />
                     </Flex>
                 </Box>
@@ -152,9 +152,9 @@ const index = () => {
                         Cryptocurrencies
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="Bitcoin" iconName="btc" />
-                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" iconSize="22px" />
-                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" />
+                        <PaymentMethodTag label="Bitcoin" iconName="bitcoinBTC" />
+                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoinBCH" iconSize="22px" />
+                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinBSV" />
                         <PaymentMethodTag label="Ethereum" iconName="ethereum" />
                         <PaymentMethodTag label="Litecoin" iconName="litecoin" />
                         <PaymentMethodTag label="Monero" iconName="monero" />
