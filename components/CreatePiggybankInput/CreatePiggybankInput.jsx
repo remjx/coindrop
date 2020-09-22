@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { CreatePiggybankContext } from '../AppContext/AppContext';
+import { piggybankPathRegex } from '../../src/settings';
 
 const CreatePiggybankInput = () => {
     const { user } = useUser();
@@ -16,7 +17,7 @@ const CreatePiggybankInput = () => {
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
     async function handleCreateUrl(event) {
         event.preventDefault();
-        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
+        const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
@@ -37,6 +38,7 @@ const CreatePiggybankInput = () => {
                         coindrop.to/
                     </InputLeftAddon>
                     <Input
+                        maxLength="32"
                         roundedLeft="0"
                         placeholder="my-piggybank-url"
                         onChange={(e) => {

@@ -16,8 +16,6 @@ import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
     // // Make update
     //   // .set({ [field]: value });
 
-const themeColorOptions = ["orange", "red", "purple", "green", "teal", "blue", "cyan", "pink", "yellow"];
-
 const PublicPiggybankPage = (props) => {
     const { piggybankData } = props;
     const theme = useTheme();
