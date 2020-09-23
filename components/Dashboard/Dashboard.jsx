@@ -6,7 +6,6 @@ import { mutate } from 'swr';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
-import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { CreatePiggybankContext } from '../AppContext/AppContext';

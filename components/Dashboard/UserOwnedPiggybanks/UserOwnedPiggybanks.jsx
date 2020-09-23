@@ -17,14 +17,13 @@ async function fetchUserOwnedPiggybanks(uid) {
     const piggybankData = [];
     piggybanks.forEach(piggybank => {
         piggybankData.push({
-            piggybankName: piggybank.id,
+            id: piggybank.id,
         });
     });
     return piggybankData;
 }
 
-const UserOwnedPiggybanks = (props) => {
-    const { uid } = props;
+const UserOwnedPiggybanks = ({ uid }) => {
     const { data, error } = useSWR(uid, fetchUserOwnedPiggybanks);
     const PiggybankContent = () => {
         if (error) {
@@ -37,8 +36,8 @@ const UserOwnedPiggybanks = (props) => {
                 <Stack spacing={8} my={4}>
                     {data.map(piggybank => (
                         <PiggybankListItem
-                            key={piggybank.piggybankName}
-                            name={piggybank.piggybankName}
+                            key={piggybank.id}
+                            id={piggybank.id}
                             uid={uid}
                         />
                     ))}
