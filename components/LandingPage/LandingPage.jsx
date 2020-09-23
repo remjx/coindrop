@@ -109,7 +109,13 @@ const index = () => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    A shareable landing page for peer-to-peer payments
+                    {'Your '}
+                    <span
+                        style={{textDecoration: "underline"}}
+                    >
+                        free
+                    </span>
+                    {' public website for peer-to-peer payments'}
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.

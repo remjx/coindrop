@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import { db } from '../../../../utils/client/db';
 
 const DeleteButton = (props) => {
-    const { name, user } = props;
+    const { id, uid } = props;
     const [awaitingDeleteConfirmation, setAwaitingDeleteConfirmation] = useState();
     const [isDeleting, setIsDeleting] = useState();
     async function handleDelete() {
@@ -16,9 +16,9 @@ const DeleteButton = (props) => {
             setIsDeleting(true);
             await db
                 .collection('piggybanks')
-                .doc(name)
+                .doc(id)
                 .delete();
-            mutate(user.id);
+            mutate(uid);
         } catch (err) {
             setAwaitingDeleteConfirmation(false);
         }
@@ -48,12 +48,8 @@ const DeleteButton = (props) => {
 };
 
 DeleteButton.propTypes = {
-    name: PropTypes.string.isRequired,
-    user: PropTypes.object,
-};
-
-DeleteButton.defaultProps = {
-    user: null,
+    id: PropTypes.string.isRequired,
+    uid: PropTypes.string.isRequired,
 };
 
 export default DeleteButton;
