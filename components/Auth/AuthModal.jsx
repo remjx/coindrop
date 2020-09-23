@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader } from '@chakra-ui/core';
@@ -9,7 +8,10 @@ const AuthModal = (props) => {
     const router = useRouter();
     const onClose = () => router.push('/');
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal
+            isOpen={isOpen}
+            onClose={onClose}
+        >
             <ModalOverlay />
             <ModalContent>
             <ModalHeader textAlign="center">Sign in to continue</ModalHeader>

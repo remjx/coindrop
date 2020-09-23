@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -6,6 +6,8 @@ import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, 
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import { useUser } from '../../utils/auth/useUser';
+import { githubUrl } from '../../src/settings';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -31,7 +33,7 @@ PaymentMethodTag.defaultProps = {
 const AddTag = () => (
     <NextLink href="/add" passHref>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <Link>
+        <Link style={{textDecoration: "none"}}>
             <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
         </Link>
     </NextLink>
@@ -45,16 +47,25 @@ const index = () => {
     } = useDisclosure();
     const theme = useTheme();
     const router = useRouter();
+    const { user } = useUser();
     useEffect(() => {
         if (router.pathname === '/auth') {
             onAuthOpen();
         } else {
             onAuthClose();
         }
-    });
+    }, [router.pathname]);
     useEffect(() => {
         router.prefetch('/dashboard');
     }, []);
+    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
+        if (
+            user
+            && router.pathname !== '/dashboard'
+        ) {
+            router.push('/dashboard');
+        }
+    }, [user, router.pathname]);
     return (
         <>
         <AuthModal
@@ -82,9 +93,8 @@ const index = () => {
                             Log in
                         </Button>
                     </NextLink>
-                    {/* TODO: Update github link */}
-                    <Link href="https://github.com" target="_blank" rel="noreferrer">
-                    <Icon name="github" size="32px" color={theme.colors.gray['500']} />
+                    <Link href={githubUrl} target="_blank" rel="noreferrer">
+                        <Icon name="github" size="32px" color={theme.colors.gray['500']} />
                     </Link>
                 </Flex>
             </Flex>
@@ -104,7 +114,12 @@ const index = () => {
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
                 </Text>
-                <CreatePiggybankInput />
+                <Box
+                    mt={4}
+                    mb={1}
+                >
+                    <CreatePiggybankInput />
+                </Box>
             </Box>
             <Text
                 textAlign="center"
@@ -120,15 +135,16 @@ const index = () => {
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="PayPal" iconName="paypal" color="#00457C" />
-                        <PaymentMethodTag label="Venmo" iconName="venmo" color="#3D95CE" iconSize="32px" />
-                        <PaymentMethodTag label="CashApp" iconName="cashapp" />
-                        <PaymentMethodTag label="Zelle" iconName="zelle" color="#6C16D4" />
-                        <PaymentMethodTag label="Google Pay" iconName="googlepay" />
-                        <PaymentMethodTag label="Apple Pay" iconName="applepay" color="#000" />
-                        <PaymentMethodTag label="Facebook Pay" iconName="facebookpay" color="#4267B2" />
-                        <PaymentMethodTag label="Metal Pay" iconName="metalpay" />
-                        <PaymentMethodTag label="Money Button" iconName="moneybutton" />
+                        <PaymentMethodTag label="PayPal" iconName="payPal" />
+                        <PaymentMethodTag label="Venmo" iconName="venmo" iconSize="32px" />
+                        <PaymentMethodTag label="CashApp" iconName="cashApp" />
+                        <PaymentMethodTag label="Zelle" iconName="zelle" />
+                        <PaymentMethodTag label="Google Pay" iconName="googlePay" />
+                        <PaymentMethodTag label="Apple Pay" iconName="applePay" />
+                        <PaymentMethodTag label="Facebook Pay" iconName="facebookPay" />
+                        <PaymentMethodTag label="Metal Pay" iconName="metalPay" />
+                        <PaymentMethodTag label="Money Button" iconName="moneyButton" />
+                        {/* <PaymentMethodTag label="HandCash" iconName="handCash" /> */}
                         <AddTag />
                     </Flex>
                 </Box>
@@ -137,17 +153,17 @@ const index = () => {
                         Cryptocurrencies
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="Bitcoin" iconName="btc" color="#F7931A" />
-                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoincash" color="#5DCB79" iconSize="22px" />
-                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinsv" color="#EAB41E" />
+                        <PaymentMethodTag label="Bitcoin" iconName="bitcoinBTC" />
+                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoinBCH" iconSize="22px" />
+                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinBSV" />
                         <PaymentMethodTag label="Ethereum" iconName="ethereum" />
-                        <PaymentMethodTag label="Litecoin" iconName="litecoin" color="#345d9d" />
+                        <PaymentMethodTag label="Litecoin" iconName="litecoin" />
                         <PaymentMethodTag label="Monero" iconName="monero" />
                         <PaymentMethodTag label="Zcash" iconName="zcash" />
-                        <PaymentMethodTag label="Dash" iconName="dash" color="#008DE4" />
-                        <PaymentMethodTag label="Tezos" iconName="tezos" color="#2C7DF7" />
+                        <PaymentMethodTag label="Dash" iconName="dash" />
+                        <PaymentMethodTag label="Tezos" iconName="tezos" />
                         <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
-                        <PaymentMethodTag label="Cardano" iconName="cardano" color="#0033AD" />
+                        <PaymentMethodTag label="Cardano" iconName="cardano" />
                         <PaymentMethodTag label="Decred" iconName="decred" />
                         <AddTag />
                     </Flex>

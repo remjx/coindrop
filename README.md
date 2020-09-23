@@ -1,40 +1,60 @@
-# Coindrop 🐖
+# Coindrop 🐖💰
 
-A shareable landing page for peer-to-peer payments
+Create your shareable list of addresses for peer-to-peer payments
 
-## Motivation ❓
+## Problem ❓
 
-Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use. Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction in the case of donations. 
+Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use.
+
+Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction. 
 
 ## Solution ✔️
 
-Coindrop allows the receiver to list *all* their available forms of payment, and the sender to choose which one to use according to their preference (typically to maximize convenience and minimize transaction fees).
+Coindrop allows the receiver to list all their available forms of payment, and the sender can choose which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
 
-Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/share it as a substitute for publishing a single payment address or multiple addresses individually. For example, by replacing a user's CashApp $cashtag in their Twitter profile with their Coindrop address, they can reap the benefits of all possible payment methods with the simplicity of a single link.
+Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/send the link as a substitute any time they would normally publish/send payment address(es) individually.
+
+### When/where to use it? 🕒
+
+* Does someone owe you money? ✔️ Send them your Coindrop link
+* Would you like to accept donations? ✔️ Create a Coindrop for your brand and share it on your website or social media profile
+* Do you provide services to customers in the real world and want to receive tips? ✔️ Add your Coindrop link to your business card
 
 ## Principles 🙏🏻
 
 The Coindrop project is built according to the following principles:
 
-### Transparency 👀
+### Open-source 👀
 
-This software is open-source licensed under the [GNU General Public License v3.0](LICENSE) to give users confidence that their account information and payment addresses are not being tampered with. This application is deployed directly to https://coindrop.to without alteration. 
+This software is licensed under the [GNU General Public License v3.0](LICENSE).
 
-### Unbias ❤
+This brings many benefits to the user:
 
-Any form of payment address can be listed on your piggybank page. Coindrop will never delist a payment method unless it is:
+* **Security**. Confidence that account information and payment addresses are not being tampered with since the source code is public and auditable. This application is deployed to https://coindrop.to and hosted on [Vercel](https://vercel.com/).
+* **New Features**. Ideas for new features can be voted on and developed by community members. Users can even deploy their own version of Coindrop if they want to make custom enhancements.
+* **Future-Proof**. You will be able to export your piggybank data if you ever decide to switch to another app to host your piggybank pages.
+
+### Support for all payment methods 🌎
+
+Virtually any payment method with an address can be listed on your piggybank page. Coindrop will never delist a payment method unless it is:
 * Against the law
 * Unsafe or insecure
 
 ## Legal notes 👮
 
-The use of Coindrop does not exclude the user from any legal requirements regarding payment methods and acceptance. Users are responsible for understanding and complying with all applicable laws from their jurisdictions.
+The use of Coindrop does not exempt the user from any legal requirements that may apply when using this service. Users are responsible for understanding and complying with all applicable laws from their jurisdictions.
 
-Coindrop provides a page of addresses that users maintain, but is not responsible for any loss that occurs as the result of using this service.
+By using this software, users acknowledge that the maintainers of this project are not liable for any loss of funds that may occur as the result of using this service.
+
+As mentioned above, this software is licensed under the [GNU General Public License v3.0](LICENSE). In short, this means you can do almost anything you want with this software except distribute closed source versions.
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
-This Github repository welcomes pull requests for new features, enhancements, and bug fixes. Thank you!
+Ideas, new features, and bug fixes are welcome.
+
+Start a discussion [**TODO: Insert discussions page**] or create a pull request with any changes you would like.
+
+Thank you!
 
 ## Maintainers 🛠️
 

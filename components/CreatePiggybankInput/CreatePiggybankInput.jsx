@@ -1,90 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
+import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
+import { CreatePiggybankContext } from '../AppContext/AppContext';
+import { piggybankPathRegex } from '../../src/settings';
 
-const CreatePiggybankInput = (props) => {
-    const { updatePiggybankList } = props;
+const CreatePiggybankInput = () => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
-    const [isAwaitingLoginToSubmit, setIsAwaitingLoginToSubmit] = useState();
-    const [submitStatus, setSubmitStatus] = useState('idle'); // idle, submitting, success, error
-    async function submitUrl() { // TODO: make real
-        setSubmitStatus('submitting');
-        const data = {
-            piggybankName: candidatePiggybankPath,
-        };
-        const headers = {
-            token: user.token,
-        };
-        try {
-            await axios.post('/api/updatePiggybank', data, { headers });
-            // TODO: test this function
-            updatePiggybankList();
-            setSubmitStatus('success');
-        } catch (error) {
-            setSubmitStatus('error');
-        }
-    }
-    const handleCreateUrl = () => {
-        const isInvalid = !candidatePiggybankPath.match(/^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/);
+    const [isCreateTriggered, setIsCreateTriggered] = useState(false);
+    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
+    const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    async function handleCreateUrl(event) {
+        event.preventDefault();
+        const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
-            submitUrl();
-        } else {
-            setIsAwaitingLoginToSubmit(true);
-            if (router.pathname !== '/auth') {
-                router.push('/auth');
-            }
+            setIsCreateTriggered(true);
+        } else if (router.pathname !== '/auth') {
+            setPendingLoginCreatePiggybankPath(candidatePiggybankPath);
+            router.push('/auth');
         }
-    };
-    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
-        if (user && !isAwaitingLoginToSubmit && router.pathname !== '/dashboard') {
-            router.push('/dashboard');
-        }
-    });
-    useEffect(() => {
-        if (isAwaitingLoginToSubmit && !!user) {
-            handleCreateUrl();
-        }
-    });
+    }
     return (
-        <>
+        <form>
             <Flex
                 align="center"
                 justify="center"
-                mt={4}
-                mb={1}
             >
                 <InputGroup>
                     <InputLeftAddon>
                         coindrop.to/
                     </InputLeftAddon>
                     <Input
+                        maxLength="32"
                         roundedLeft="0"
                         placeholder="my-piggybank-url"
                         onChange={(e) => {
+                            setError(null);
                             setCandidatePiggybankPath(e.target.value);
                             setIsCandidatePiggybankPathInvalid(false);
                         }}
                         value={candidatePiggybankPath}
-                        isInvalid={isCandidatePiggybankPathInvalid}
+                        isInvalid={isCandidatePiggybankPathInvalid || !!error}
                     />
                 </InputGroup>
                 <Button
                     ml={1}
                     variantColor="orange"
-                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
+                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
+                    isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
+                    loadingText="Creating"
                     onClick={handleCreateUrl}
+                    type="submit"
                 >
                     Create
                 </Button>
             </Flex>
+            {error && (
+                <Text textAlign="center" color="red.500">
+                    {error}
+                </Text>
+            )}
             {isCandidatePiggybankPathInvalid && (
                 <Text
                     textAlign="center"
@@ -100,12 +82,11 @@ const CreatePiggybankInput = (props) => {
                     </Text>
                 </Text>
             )}
-        </>
+        </form>
     );
 };
 
 CreatePiggybankInput.propTypes = {
-    updatePiggybankList: PropTypes.func.isRequired,
 };
 
 CreatePiggybankInput.defaultProps = {

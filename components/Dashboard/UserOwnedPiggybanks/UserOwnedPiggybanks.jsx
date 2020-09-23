@@ -1,11 +1,15 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Heading, Spinner, Stack } from '@chakra-ui/core';
-import { db } from '../../utils/client/db';
+import { Box, Flex, Heading, Spinner, Stack } from '@chakra-ui/core';
+import { db } from '../../../utils/client/db';
+import PiggybankListItem from './PiggybankListItem';
+import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 
 async function fetchUserOwnedPiggybanks(uid) {
-    const piggybanks = await db.collection('piggybanks').where('owner_uid', '==', uid).get();
+    const piggybanks = await db
+        .collection('piggybanks')
+        .where('owner_uid', '==', uid)
+        .get();
     if (piggybanks.empty) {
         console.log('No matching documents.');
         return [];
@@ -16,32 +20,8 @@ async function fetchUserOwnedPiggybanks(uid) {
             piggybankName: piggybank.id,
         });
     });
-    console.log('piggybankData', piggybankData);
     return piggybankData;
 }
-
-function Piggybank({ name }) {
-    return (
-        <Box p={5} shadow="md" borderWidth="1px" mt={3}>
-            <Heading fontSize="xl">{name}</Heading>
-            {/* <Text mt={4}>{desc}</Text> */}
-        </Box>
-    );
-}
-Piggybank.propTypes = {
-    name: PropTypes.string.isRequired,
-};
-
-function PiggybankContainer({ children }) {
-    return (
-        <Stack spacing={8} my={4}>
-            {children}
-        </Stack>
-    );
-}
-PiggybankContainer.propTypes = {
-    children: PropTypes.element.isRequired,
-};
 
 const UserOwnedPiggybanks = (props) => {
     const { uid } = props;
@@ -52,17 +32,27 @@ const UserOwnedPiggybanks = (props) => {
             return `Error getting piggybank data, please try refreshing the page.`;
         }
         if (data) {
+            const numActivePiggybanks = data.length;
             return (
-                <PiggybankContainer>
-                    {data.map(piggybank => <Piggybank name={piggybank.piggybankName} />)}
-                </PiggybankContainer>
+                <Stack spacing={8} my={4}>
+                    {data.map(piggybank => (
+                        <PiggybankListItem
+                            key={piggybank.piggybankName}
+                            name={piggybank.piggybankName}
+                            uid={uid}
+                        />
+                    ))}
+                    <AddPiggybankListItem
+                        numActivePiggybanks={numActivePiggybanks}
+                    />
+                </Stack>
             );
         }
         return <Spinner size="lg" />;
     };
     return (
         <Box>
-            <Heading>
+            <Heading textAlign="center">
                 My Piggybanks
             </Heading>
             <PiggybankContent />

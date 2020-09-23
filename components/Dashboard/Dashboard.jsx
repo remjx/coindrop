@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Box, Flex, Button, Icon, Menu, MenuButton, MenuList, MenuItem, Text } from '@chakra-ui/core';
+import { Heading, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { mutate } from 'swr';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
-import UserOwnedPiggybanks from './UserOwnedPiggybanks';
+import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
+import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
+import { CreatePiggybankContext } from '../AppContext/AppContext';
 
 const Dashboard = () => {
     const router = useRouter();
     const { user, logout } = useUser();
-    console.log('user', user)
+    const [isCreateTriggered, setIsCreateTriggered] = useState(false);
+    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState();
+    const { pendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
+    const { submitStatus } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
         }
     });
+    useEffect(() => {
+        if (pendingLoginCreatePiggybankPath) {
+            setCandidatePiggybankPath(pendingLoginCreatePiggybankPath);
+            setIsCreateTriggered(true);
+        }
+    }, []);
+    useEffect(() => {
+        if (submitStatus === 'success' && user) {
+            mutate(user.id);
+        }
+    }, [submitStatus]);
     if (!user) return null;
     return (
         <Box
@@ -33,8 +50,8 @@ const Dashboard = () => {
                 <Logo />
                 <Flex>
                     <Menu>
-                        <MenuButton as={Button}>
-                            <Icon name="hamburgerMenu" />
+                        <MenuButton as={Button} rightIcon="chevron-down">
+                            {user?.email ?? 'Menu'}
                         </MenuButton>
                         <MenuList>
                             <MenuItem>About</MenuItem>
@@ -50,13 +67,11 @@ const Dashboard = () => {
                     </Menu>
                 </Flex>
             </Flex>
-            <Text textAlign="center">
-                This is the user dashboard for
-                {' '}
-                {user && user.email}
-            </Text>
-            <CreatePiggybankInput />
-            {user?.id && <UserOwnedPiggybanks uid={user.id} />}
+            {user?.id && (
+                <UserOwnedPiggybanks
+                    uid={user.id}
+                />
+            )}
         </Box>
     );
 };
