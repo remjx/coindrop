@@ -109,13 +109,7 @@ const index = () => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    {'Your '}
-                    <span
-                        style={{textDecoration: "underline"}}
-                    >
-                        free
-                    </span>
-                    {' public website for peer-to-peer payments'}
+                    Your free public website for peer-to-peer payments
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Create a list of your addresses. Let the sender choose how to pay you.
@@ -150,6 +144,7 @@ const index = () => {
                         <PaymentMethodTag label="Facebook Pay" iconName="facebookPay" />
                         <PaymentMethodTag label="Metal Pay" iconName="metalPay" />
                         <PaymentMethodTag label="Money Button" iconName="moneyButton" />
+                        <PaymentMethodTag label="HandCash" iconName="handCash" />
                         {/* <PaymentMethodTag label="HandCash" iconName="handCash" /> */}
                         <AddTag />
                     </Flex>
