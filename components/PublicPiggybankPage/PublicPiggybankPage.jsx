@@ -14,6 +14,13 @@ import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 // Create separate page for editing?
     // // Make update
     //   // .set({ [field]: value });
+export const addressFieldPrefix = "address_";
+export const addressIsPreferredSuffix = 'is_preferred';
+export function getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName) {
+    return addressFieldName
+        .substr(0, addressFieldName.length - addressIsPreferredSuffix.length - 1)
+        .substr(addressFieldPrefix.length);
+}
 
 const PublicPiggybankPage = (props) => {
     const { piggybankDbData } = props;
@@ -25,23 +32,19 @@ const PublicPiggybankPage = (props) => {
     } = piggybankDbData;
     const allAddressFields = Object.entries(piggybankDbData);
     // TODO: Make a test for this to ensure that if "address_" format ever changes, it doesn't impact this logic. Or set the substr length to be equal to the prefix length.
-    const isAddressFieldPrefix = "address_";
-    const addressIsPreferredSuffix = 'is_preferred';
     const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
         const addressFieldName = item[0];
         if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
             return result;
         }
         return result
-            .concat(addressFieldName
-                .substr(0, addressFieldName.length - addressIsPreferredSuffix.length - 1)
-                .substr(isAddressFieldPrefix.length));
+            .concat(getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName));
     }, []);
     const addresses = allAddressFields
-        .filter(([field]) => (field.startsWith('address_') && !field.endsWith(addressIsPreferredSuffix)))
-        .map(([field, value]) => {
-            const paymentMethodId = field.substr(isAddressFieldPrefix.length);
-            return [paymentMethodId, value, preferredPaymentMethodIds.includes(paymentMethodId)];
+        .filter(([field]) => (field.startsWith(addressFieldPrefix) && !field.endsWith(addressIsPreferredSuffix)))
+        .map(([field, address]) => {
+            const paymentMethodId = field.substr(addressFieldPrefix.length);
+            return [paymentMethodId, address];
         });
     const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
     const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
@@ -49,6 +52,7 @@ const PublicPiggybankPage = (props) => {
     function renderPaymentMethodButtonFromAddresses(addrs) {
         return addrs.map(([paymentMethod, paymentMethodValue]) => (
             <PaymentMethodButton
+                key={paymentMethod}
                 paymentMethod={paymentMethod}
                 paymentMethodValue={paymentMethodValue}
                 isPreferred={preferredPaymentMethodIds.includes(paymentMethod)}
@@ -56,15 +60,11 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
-    const piggybankDerivedData = {
-        addresses,
-    };
     const initialSetupComplete = addresses.length > 0;
     return (
         <PublicPiggybankDataProvider
             data={{
                 ...piggybankDbData,
-                ...piggybankDerivedData,
             }}
         >
             <Box
