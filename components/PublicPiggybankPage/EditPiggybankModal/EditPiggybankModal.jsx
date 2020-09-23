@@ -108,7 +108,10 @@ const EditPiggybankModal = (props) => {
                     console.log('ITEM', item)
                     return (
                         <>
-                            <Select name={`addressData[test].address`} />
+                            <Text>{item.id}</Text>
+                            <Input name={`addressData[${index}].id`} ref={register()} defaultValue={item.id} />
+                            <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
+                            <Input name={`addressData[${index}].isPreferred`} ref={register()} defaultValue={item.isPreferred} />
                         </>
                     );
                 })}
@@ -156,181 +159,180 @@ const EditPiggybankModal = (props) => {
         >
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>Page Settings</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
+                <ModalHeader>Page Settings</ModalHeader>
+                <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl isRequired>
-                        <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
-                        <InputGroup>
-                            <InputLeftAddon>
-                                coindrop.to/
-                            </InputLeftAddon>
-                            <Input
-                                id="input-piggybankId"
-                                maxLength="32"
-                                roundedLeft="0"
-                                onChange={(e) => {
-                                    // TODO: use debounce
-                                }}
-                                // isInvalid={}
-                                ref={register}
-                                name="piggybankId"
-                            />
-                            <InputRightElement>
-                                <Icon name="check" color="green.500" />
-                                <Box>
-                                    <Spinner size="sm" />
-                                </Box>
-                                <Icon name="not-allowed" color="red.500" />
-                            </InputRightElement>
-                        </InputGroup>
-                    </FormControl>
-                    <FormControl
-                        isRequired
-                        mt={formControlTopMargin}
-                    >
-                        <FormLabel
-                            htmlFor="input-accentColor"
+                    <ModalBody>
+                        <FormControl isRequired>
+                            <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
+                            <InputGroup>
+                                <InputLeftAddon>
+                                    coindrop.to/
+                                </InputLeftAddon>
+                                <Input
+                                    id="input-piggybankId"
+                                    maxLength="32"
+                                    roundedLeft="0"
+                                    onChange={(e) => {
+                                        // TODO: use debounce
+                                    }}
+                                    // isInvalid={}
+                                    ref={register}
+                                    name="piggybankId"
+                                />
+                                <InputRightElement>
+                                    <Icon name="check" color="green.500" />
+                                    <Box>
+                                        <Spinner size="sm" />
+                                    </Box>
+                                    <Icon name="not-allowed" color="red.500" />
+                                </InputRightElement>
+                            </InputGroup>
+                        </FormControl>
+                        <FormControl
+                            isRequired
+                            mt={formControlTopMargin}
                         >
-                            Theme
-                        </FormLabel>
-                        <Flex wrap="wrap" justify="center">
-                            {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
-                                <Box
-                                    key={colorName}
-                                    as="button"
-                                    bg={hexCode}
-                                    w="36px"
-                                    h="36px"
-                                    borderRadius="50%"
-                                    mx={1}
-                                    my={1}
-                                    onClick={handleAccentColorChange}
-                                    data-colorname={colorName}
-                                >
-                                    {accentColor === colorName && (
-                                        <Icon name="check" color="#FFF" />
-                                    )}
-                                </Box>
-                            ))}
+                            <FormLabel
+                                htmlFor="input-accentColor"
+                            >
+                                Theme
+                            </FormLabel>
+                            <Flex wrap="wrap" justify="center">
+                                {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
+                                    <Box
+                                        key={colorName}
+                                        as="button"
+                                        bg={hexCode}
+                                        w="36px"
+                                        h="36px"
+                                        borderRadius="50%"
+                                        mx={1}
+                                        my={1}
+                                        onClick={handleAccentColorChange}
+                                        data-colorname={colorName}
+                                    >
+                                        {accentColor === colorName && (
+                                            <Icon name="check" color="#FFF" />
+                                        )}
+                                    </Box>
+                                ))}
 
-                        </Flex>
-                    </FormControl>
-                    <FormControl
-                        isRequired
-                        mt={formControlTopMargin}
-                    >
-                        <FormLabel
-                            htmlFor="input-name"
+                            </Flex>
+                        </FormControl>
+                        <FormControl
+                            isRequired
+                            mt={formControlTopMargin}
                         >
-                            Name
-                        </FormLabel>
-                        <Input
-                            id="input-name"
-                            name="name"
-                            ref={register}
-                            onBlur={() => console.log('ON BLUR!')}
-                        />
-                    </FormControl>
-                    <FormControl
-                        isRequired
-                        mt={formControlTopMargin}
-                    >
-                        <FormLabel
-                            htmlFor="input-verb"
+                            <FormLabel
+                                htmlFor="input-name"
+                            >
+                                Name
+                            </FormLabel>
+                            <Input
+                                id="input-name"
+                                name="name"
+                                ref={register}
+                                onBlur={() => console.log('ON BLUR!')}
+                            />
+                        </FormControl>
+                        <FormControl
+                            isRequired
+                            mt={formControlTopMargin}
                         >
-                            Payment action name
-                        </FormLabel>
-                        <Select
-                            id="input-verb"
-                            name="verb"
-                            ref={register}
+                            <FormLabel
+                                htmlFor="input-verb"
+                            >
+                                Payment action name
+                            </FormLabel>
+                            <Select
+                                id="input-verb"
+                                name="verb"
+                                ref={register}
+                            >
+                                <option value="pay">Pay</option>
+                                <option value="donate to">Donate to</option>
+                                <option value="support">Support</option>
+                            </Select>
+                        </FormControl>
+                        <FormControl
+                            mt={formControlTopMargin}
                         >
-                            <option value="pay">Pay</option>
-                            <option value="donate to">Donate to</option>
-                            <option value="support">Support</option>
-                        </Select>
-                    </FormControl>
-                    <FormControl
-                        mt={formControlTopMargin}
-                    >
-                        <FormLabel
-                            htmlFor="input-website"
+                            <FormLabel
+                                htmlFor="input-website"
+                            >
+                                Website
+                            </FormLabel>
+                            <Input
+                                id="input-website"
+                                name="website"
+                                ref={register}
+                                placeholder="http://"
+                                type="url"
+                            />
+                        </FormControl>
+                        <FormControl
+                            mt={formControlTopMargin}
                         >
-                            Website
-                        </FormLabel>
-                        <Input
-                            id="input-website"
-                            name="website"
-                            ref={register}
-                            placeholder="http://"
-                            type="url"
-                        />
-                    </FormControl>
-                    <FormControl
-                        mt={formControlTopMargin}
-                    >
-                        <FormLabel
-                            htmlFor="input-paymentmethods"
-                        >
-                            Payment Methods
-                        </FormLabel>
-                        <PaymentMethodsInputs />
-                    </FormControl>
-                    {name && accentColor && verb && (
-                        <>
-                        <FormLabel
-                            htmlFor="input-verb"
-                        >
-                            Preview
-                        </FormLabel>
-                        <FormHelperText textAlign="center">
-                            {'"Choose a payment method to '}
-                            {verb ?? 'pay'}
-                            {' '}
-                            {website ? (
-                                <Link href={website}>
+                            <FormLabel
+                                htmlFor="input-paymentmethods"
+                            >
+                                Payment Methods
+                            </FormLabel>
+                            <PaymentMethodsInputs />
+                        </FormControl>
+                        {name && accentColor && verb && (
+                            <>
+                            <FormLabel
+                                htmlFor="input-verb"
+                            >
+                                Preview
+                            </FormLabel>
+                            <FormHelperText textAlign="center">
+                                {'"Choose a payment method to '}
+                                {verb ?? 'pay'}
+                                {' '}
+                                {website ? (
+                                    <Link href={website}>
+                                        <Text
+                                            as="span"
+                                            fontWeight="bold"
+                                            color={colors[accentColor]['500']}
+                                            textDecoration="underline"
+                                        >
+                                            {name}
+                                        </Text>
+                                    </Link>
+                                ) : (
                                     <Text
                                         as="span"
                                         fontWeight="bold"
                                         color={colors[accentColor]['500']}
-                                        textDecoration="underline"
                                     >
                                         {name}
                                     </Text>
-                                </Link>
-                            ) : (
-                                <Text
-                                    as="span"
-                                    fontWeight="bold"
-                                    color={colors[accentColor]['500']}
-                                >
-                                    {name}
-                                </Text>
-                            )}
-                            &quot;
-                        </FormHelperText>
-                        </>
-                    )}
+                                )}
+                                &quot;
+                            </FormHelperText>
+                            </>
+                        )}
+                    </ModalBody>
+                    <ModalFooter align="center" mx="auto">
+                        <Button
+                            variant="ghost"
+                            onClick={onClose}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            variantColor="green"
+                            mx={1}
+                            type="submit"
+                        >
+                            Submit
+                        </Button>
+                    </ModalFooter>
                 </form>
-            </ModalBody>
-
-            <ModalFooter align="center" mx="auto">
-                <Button
-                    variant="ghost"
-                    onClick={onClose}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    variantColor="green"
-                    mx={1}
-                    onClick={onClose}
-                >
-                    Submit
-                </Button>
-            </ModalFooter>
             </ModalContent>
         </Modal>
     );
