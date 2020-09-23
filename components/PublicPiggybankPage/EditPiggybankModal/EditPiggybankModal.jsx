@@ -38,6 +38,8 @@ const EditPiggybankModal = (props) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { query: { piggybankName } } = useRouter();
     const data = useContext(PublicPiggybankData);
+    console.log('data', data)
+    const { addresses } = data;
     const { register, handleSubmit, setValue, getValues, watch, errors } = useForm();
     watch();
     const onSubmit = (data) => null;
@@ -48,10 +50,23 @@ const EditPiggybankModal = (props) => {
         register("accentColor");
     }, [register]);
     useEffect(() => {
-        setValue("accentColor", data.accentColor ?? 'orange'); // does this do anything?
+        setValue("accentColor", data.accent_color ?? 'orange'); // does this do anything?
     }, []);
     const { name, accentColor, verb, website } = getValues(["name", "accentColor", "verb", "website"]);
     const formControlTopMargin = 2;
+    const PaymentMethodsInputs = () => {
+        return (
+            <>
+                {addresses.map(([paymentMethodId, value, isPreferred]) => (
+                    <Flex>
+                        <Text>{paymentMethodId}</Text>
+                        <Text>{value}</Text>
+                        <Text>{isPreferred ? 'isPreferred' : 'isNotPreferred'}</Text>
+                    </Flex>
+                ))}
+            </>
+        )
+    };
     return (
         <Modal
             isOpen={isOpen}
@@ -172,6 +187,16 @@ const EditPiggybankModal = (props) => {
                             type="url"
                         />
                     </FormControl>
+                    <FormControl
+                        mt={formControlTopMargin}
+                    >
+                        <FormLabel
+                            htmlFor="input-paymentmethods"
+                        >
+                            Payment Methods
+                        </FormLabel>
+                        <PaymentMethodsInputs />
+                    </FormControl>
                     {name && accentColor && verb && (
                         <>
                         <FormLabel
@@ -179,7 +204,7 @@ const EditPiggybankModal = (props) => {
                         >
                             Preview
                         </FormLabel>
-                        <FormHelperText id="email-helper-text" textAlign="center">
+                        <FormHelperText textAlign="center">
                             {'"Choose a payment method to '}
                             {verb ?? 'pay'}
                             {' '}
@@ -218,7 +243,7 @@ const EditPiggybankModal = (props) => {
                     Cancel
                 </Button>
                 <Button
-                    variantColor={accentColor}
+                    variantColor="green"
                     mx={1}
                     onClick={onClose}
                 >

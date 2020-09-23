@@ -16,20 +16,17 @@ import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
     //   // .set({ [field]: value });
 
 const PublicPiggybankPage = (props) => {
-    const { piggybankData } = props;
+    const { piggybankDbData } = props;
     const theme = useTheme();
     const {
         user_display_name: userDisplayName,
         website,
         accent_color: accentColor = "orange",
-    } = piggybankData;
-    const allAddressFields = Object.entries(piggybankData);
+    } = piggybankDbData;
+    const allAddressFields = Object.entries(piggybankDbData);
     // TODO: Make a test for this to ensure that if "address_" format ever changes, it doesn't impact this logic. Or set the substr length to be equal to the prefix length.
     const isAddressFieldPrefix = "address_";
     const addressIsPreferredSuffix = 'is_preferred';
-    const addresses = allAddressFields
-        .filter(([field]) => (field.startsWith('address_') && !field.endsWith(addressIsPreferredSuffix)))
-        .map(([field, value]) => [field.substr(isAddressFieldPrefix.length), value]);
     const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
         const addressFieldName = item[0];
         if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
@@ -40,6 +37,12 @@ const PublicPiggybankPage = (props) => {
                 .substr(0, addressFieldName.length - addressIsPreferredSuffix.length - 1)
                 .substr(isAddressFieldPrefix.length));
     }, []);
+    const addresses = allAddressFields
+        .filter(([field]) => (field.startsWith('address_') && !field.endsWith(addressIsPreferredSuffix)))
+        .map(([field, value]) => {
+            const paymentMethodId = field.substr(isAddressFieldPrefix.length);
+            return [paymentMethodId, value, preferredPaymentMethodIds.includes(paymentMethodId)];
+        });
     const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
     const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
     const { user } = useUser();
@@ -53,11 +56,15 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
+    const piggybankDerivedData = {
+        addresses,
+    };
     const initialSetupComplete = addresses.length > 0;
     return (
         <PublicPiggybankDataProvider
             data={{
-                ...piggybankData,
+                ...piggybankDbData,
+                ...piggybankDerivedData,
             }}
         >
             <Box
@@ -127,7 +134,7 @@ const PublicPiggybankPage = (props) => {
 };
 
 PublicPiggybankPage.propTypes = {
-    piggybankData: PropTypes.object.isRequired,
+    piggybankDbData: PropTypes.object.isRequired,
 };
 
 PublicPiggybankPage.defaultProps = {

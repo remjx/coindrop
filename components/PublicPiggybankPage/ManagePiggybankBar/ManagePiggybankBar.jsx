@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link as ChakraLink, Button, Flex, Icon, useDisclosure } from '@chakra-ui/core';
+import { Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/core';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 
+/* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (
     <NextLink href={href} passHref>
         <ChakraLink style={{textDecoration: "none"}}>
@@ -13,9 +13,13 @@ const LinkButton = ({ href, children, ...rest }) => (
         </ChakraLink>
     </NextLink>
 );
+LinkButton.propTypes = {
+    href: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired,
+};
+/* eslint-enable react/jsx-props-no-spreading */
 
 const ManagePiggybankBar = ({ editButtonOptions }) => {
-    console.log('editButtonOptions', editButtonOptions)
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     return (
         <>
