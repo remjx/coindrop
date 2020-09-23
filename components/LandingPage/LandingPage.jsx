@@ -8,6 +8,7 @@ import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { githubUrl } from '../../src/settings';
+import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -66,6 +67,16 @@ const index = () => {
             router.push('/dashboard');
         }
     }, [user, router.pathname]);
+    const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
+    const PaymentMethodTags = ({ category }) => paymentMethodCategoriesArr
+        .filter(([paymentMethodId, paymentMethodCategory]) => paymentMethodCategory === category)
+        .map(([paymentMethodId]) => (
+            <PaymentMethodTag
+                label={paymentMethodNames[paymentMethodId]}
+                iconName={paymentMethodId}
+                iconSize={paymentMethodId === 'venmo' ? "32px" : paymentMethodId === 'bitcoinBCH' ? "22px" : undefined}
+            />
+        ));
     return (
         <>
         <AuthModal
@@ -135,17 +146,7 @@ const index = () => {
                         Apps
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="PayPal" iconName="payPal" />
-                        <PaymentMethodTag label="Venmo" iconName="venmo" iconSize="32px" />
-                        <PaymentMethodTag label="CashApp" iconName="cashApp" />
-                        <PaymentMethodTag label="Zelle" iconName="zelle" />
-                        <PaymentMethodTag label="Google Pay" iconName="googlePay" />
-                        <PaymentMethodTag label="Apple Pay" iconName="applePay" />
-                        <PaymentMethodTag label="Facebook Pay" iconName="facebookPay" />
-                        <PaymentMethodTag label="Metal Pay" iconName="metalPay" />
-                        <PaymentMethodTag label="Money Button" iconName="moneyButton" />
-                        <PaymentMethodTag label="HandCash" iconName="handCash" />
-                        {/* <PaymentMethodTag label="HandCash" iconName="handCash" /> */}
+                        <PaymentMethodTags category="app" />
                         <AddTag />
                     </Flex>
                 </Box>
@@ -154,18 +155,7 @@ const index = () => {
                         Cryptocurrencies
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTag label="Bitcoin" iconName="bitcoinBTC" />
-                        <PaymentMethodTag label="Bitcoin Cash" iconName="bitcoinBCH" iconSize="22px" />
-                        <PaymentMethodTag label="Bitcoin SV" iconName="bitcoinBSV" />
-                        <PaymentMethodTag label="Ethereum" iconName="ethereum" />
-                        <PaymentMethodTag label="Litecoin" iconName="litecoin" />
-                        <PaymentMethodTag label="Monero" iconName="monero" />
-                        <PaymentMethodTag label="Zcash" iconName="zcash" />
-                        <PaymentMethodTag label="Dash" iconName="dash" />
-                        <PaymentMethodTag label="Tezos" iconName="tezos" />
-                        <PaymentMethodTag label="Dogecoin" iconName="dogecoin" />
-                        <PaymentMethodTag label="Cardano" iconName="cardano" />
-                        <PaymentMethodTag label="Decred" iconName="decred" />
+                        <PaymentMethodTags category="cryptocurrency" />
                         <AddTag />
                     </Flex>
                 </Box>
