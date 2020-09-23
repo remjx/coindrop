@@ -66,7 +66,7 @@ const PublicPiggybankPage = (props) => {
             >
                 {user?.id && (
                     <ManagePiggybankBar
-                        editButtonOptions={{
+                        editButtonOptions={initialSetupComplete ? undefined : {
                             text: 'Set up',
                             color: 'green',
                             iconName: 'settings',
