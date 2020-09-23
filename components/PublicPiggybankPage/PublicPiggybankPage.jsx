@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 import { Heading, Text, Box, Flex, Link, Stack, useTheme } from '@chakra-ui/core';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
@@ -43,7 +42,6 @@ const PublicPiggybankPage = (props) => {
     }, []);
     const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
     const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
-    const router = useRouter();
     const { user } = useUser();
     function renderPaymentMethodButtonFromAddresses(addrs) {
         return addrs.map(([paymentMethod, paymentMethodValue]) => (
@@ -55,6 +53,7 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
+    const initialSetupComplete = addresses.length > 0;
     return (
         <PublicPiggybankDataProvider
             data={{
@@ -65,49 +64,63 @@ const PublicPiggybankPage = (props) => {
                 maxW="960px"
                 mx="auto"
             >
-                {user?.id && <ManagePiggybankBar />}
-                <Box
-                    padding="10px"
-                    my={2}
-                    mx={3}
-                >
-                    <Heading textAlign="center">
-                        {'Choose a payment method to pay '}
-                        {website ? (
-                            <Link href={website} target="_blank" rel="noreferrer">
-                                <Heading
-                                    as="span"
-                                    color={theme.colors[accentColor]['500']}
-                                    textDecoration="underline"
-                                    css={css`
-                                        &:hover {
-                                            color: ${theme.colors[accentColor]['600']};
-                                        }
-                                    `}
-                                >
-                                        {userDisplayName}
-                                </Heading>
-                            </Link>
-                        ) : (
-                            <Heading
-                                as="span"
-                                color={theme.colors[accentColor]['500']}
-                            >
-                                    {userDisplayName}
+                {user?.id && (
+                    <ManagePiggybankBar
+                        editButtonOptions={{
+                            text: 'Set up',
+                            color: 'green',
+                            iconName: 'settings',
+                        }}
+                    />
+                )}
+                {initialSetupComplete ? (
+                    <Box id="initial-setup-complete">
+                        <Box
+                            padding="10px"
+                            my={2}
+                            mx={3}
+                        >
+                            <Heading textAlign="center">
+                                {'Choose a payment method to pay '}
+                                {website ? (
+                                    <Link href={website} target="_blank" rel="noreferrer">
+                                        <Heading
+                                            as="span"
+                                            color={theme.colors[accentColor]['500']}
+                                            textDecoration="underline"
+                                            css={css`
+                                                &:hover {
+                                                    color: ${theme.colors[accentColor]['600']};
+                                                }
+                                            `}
+                                        >
+                                                {userDisplayName}
+                                        </Heading>
+                                    </Link>
+                                ) : (
+                                    <Heading
+                                        as="span"
+                                        color={theme.colors[accentColor]['500']}
+                                    >
+                                            {userDisplayName}
+                                    </Heading>
+                                )}
+                                :
                             </Heading>
-                        )}
-                        :
-                    </Heading>
-                </Box>
-                <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                    {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
-                </Stack>
-                <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                    {renderPaymentMethodButtonFromAddresses(otherAddresses)}
-                </Stack>
-                <PoweredByCoindropLink
-                    accentColor={accentColor}
-                />
+                        </Box>
+                        <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                            {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
+                        </Stack>
+                        <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                            {renderPaymentMethodButtonFromAddresses(otherAddresses)}
+                        </Stack>
+                        <PoweredByCoindropLink
+                            accentColor={accentColor}
+                        />
+                    </Box>
+                ) : (
+                    <Heading mt={4} textAlign="center">This piggybank has not been set up yet.</Heading>
+                )}
             </Box>
         </PublicPiggybankDataProvider>
     );
@@ -115,11 +128,9 @@ const PublicPiggybankPage = (props) => {
 
 PublicPiggybankPage.propTypes = {
     piggybankData: PropTypes.object.isRequired,
-    accentColor: PropTypes.string,
 };
 
 PublicPiggybankPage.defaultProps = {
-    accentColor: "orange",
 };
 
 export default PublicPiggybankPage;

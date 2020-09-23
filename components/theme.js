@@ -1,6 +1,18 @@
 import { theme as chakraTheme } from '@chakra-ui/core';
 import customIcons from "./Icons/CustomIcons";
 
+export const publicPiggybankThemeColorOptions = [
+  "red",
+  "pink",
+  "orange",
+  "yellow",
+  "green",
+  "teal",
+  "cyan",
+  "blue",
+  "purple",
+];
+
 const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` };
 
 const breakpoints = ['40em', '52em', '64em'];
