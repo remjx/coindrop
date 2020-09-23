@@ -2,6 +2,11 @@ import { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import {
+    Accordion,
+    AccordionItem,
+    AccordionHeader,
+    AccordionPanel,
+    AccordionIcon,
     Box,
     Flex,
     Button,
@@ -32,6 +37,7 @@ import { piggybankPathRegex } from '../../../src/settings';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../PublicPiggybankPage';
+import { paymentMethodNames } from '../../../src/paymentMethods';
 
 function convertPiggybankDataToAddressData(piggybankData) {
     const obj = Object.entries(piggybankData)
@@ -97,22 +103,72 @@ const EditPiggybankModal = (props) => {
     useEffect(() => {
         register("accentColor");
     }, [register]);
-    const { name, accentColor, verb, website, addressData } = getValues(["name", "accentColor", "verb", "website", "addressData"]);
-    console.log('addressData', addressData);
+    const { name, accentColor, verb, website } = getValues(["name", "accentColor", "verb", "website"]);
     const formControlTopMargin = 2;
     const PaymentMethodsInputs = () => {
         console.log('FIELDS', fields);
         return (
-            <>
+            <Accordion
+                allowToggle
+                defaultIndex={!paymentMethodNames[fields[fields.length - 1].id] ? fields.length - 1 : -1}
+            >
                 {fields.map((item, index) => {
-                    console.log('ITEM', item)
+                    console.log('ITEM', item, !paymentMethodNames[item.id])
                     return (
-                        <>
-                            <Text>{item.id}</Text>
-                            <Input name={`addressData[${index}].id`} ref={register()} defaultValue={item.id} />
-                            <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
-                            <Input name={`addressData[${index}].isPreferred`} ref={register()} defaultValue={item.isPreferred} />
-                        </>
+                        <AccordionItem
+                            key={item.id}
+                        >
+                            <AccordionHeader>
+                                <Flex flex="1" textAlign="left" align="center">
+                                    <Icon mr={2} name={item.id} />
+                                    {paymentMethodNames[item.id] ?? 'New payment method'}
+                                    {item.isPreferred && (
+                                        <>
+                                        <Icon
+                                            ml={2}
+                                            name="star"
+                                            size="16px"
+                                            color={colors.yellow['400']}
+                                        />
+                                        <Text
+                                            as="span"
+                                            fontSize="xs"
+                                            ml={1}
+                                        >
+                                            <i>Preferred</i>
+                                        </Text>
+                                        </>
+                                    )}
+                                </Flex>
+                                <AccordionIcon />
+                            </AccordionHeader>
+                            <AccordionPanel pb={4}>
+                                <Select
+                                    name={`addressData[${index}].id`}
+                                    ref={register()}
+                                    defaultValue={item.id}
+                                >
+                                    {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
+                                        <option value={paymentMethodId}>{paymentMethodName}</option>
+                                    ))}
+                                </Select>
+                                <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
+                                <Input name={`addressData[${index}].isPreferred`} ref={register()} defaultValue={item.isPreferred} />
+                                <Flex
+                                    justify="flex-end"
+                                    mt={1}
+                                >
+                                    <Button
+                                        onClick={() => remove(index)}
+                                        leftIcon="delete"
+                                        variantColor="red"
+                                        size="sm"
+                                    >
+                                        Remove
+                                    </Button>
+                                </Flex>
+                            </AccordionPanel>
+                        </AccordionItem>
                     );
                 })}
                 {/* {Object.entries(addressData).map(([paymentMethodId, paymentMethodData]) => (
@@ -145,10 +201,7 @@ const EditPiggybankModal = (props) => {
                         <Button onClick={() => remove(paymentMethodId)}>Delete</Button>
                     </li>
                 */}
-                <Flex>
-                    <Button onClick={() => append({ address: "testAddress", isPreferred: true })}><Icon name="add" /></Button>
-                </Flex>
-            </>
+            </Accordion>
         );
     };
     return (
@@ -280,6 +333,19 @@ const EditPiggybankModal = (props) => {
                                 Payment Methods
                             </FormLabel>
                             <PaymentMethodsInputs />
+                            <Flex
+                                justify="center"
+                                mt={2}
+                            >
+                                <Button
+                                    onClick={() => append({ address: "", isPreferred: false })}
+                                    leftIcon="add"
+                                    variant="ghost"
+                                    size="sm"
+                                >
+                                    Add payment method
+                                </Button>
+                            </Flex>
                         </FormControl>
                         {name && accentColor && verb && (
                             <>
