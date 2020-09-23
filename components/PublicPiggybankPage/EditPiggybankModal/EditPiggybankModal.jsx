@@ -21,7 +21,10 @@ import {
     InputLeftAddon,
     InputRightElement,
     Icon,
+    Link,
     Spinner,
+    Select,
+    Text,
     useTheme,
 } from "@chakra-ui/core";
 import { useForm } from "react-hook-form";
@@ -46,16 +49,20 @@ const EditPiggybankModal = (props) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { query: { piggybankName } } = useRouter();
     const data = useContext(PublicPiggybankData);
-    const { register, handleSubmit, setValue, getValues, errors } = useForm();
+    const { register, handleSubmit, setValue, getValues, watch, errors } = useForm();
+    watch();
     const onSubmit = (data) => null;
     const handleAccentColorChange = (e) => {
         setValue("accentColor", e.target.dataset.colorname);
     };
     useEffect(() => {
         register("accentColor");
-        setValue("accentColor", data.accentColor); // does this do anything?
     }, [register]);
-    const selectedColor = getValues("accentColor");
+    useEffect(() => {
+        setValue("accentColor", data.accentColor ?? 'orange'); // does this do anything?
+    }, []);
+    const { name, accentColor, verb, website } = getValues(["name", "accentColor", "verb", "website"]);
+    const formControlTopMargin = 2;
     return (
         <Modal
             isOpen={isOpen}
@@ -95,23 +102,14 @@ const EditPiggybankModal = (props) => {
                             </InputRightElement>
                         </InputGroup>
                     </FormControl>
-                    <FormControl isRequired>
-                        <FormLabel
-                            htmlFor="input-name"
-                        >
-                            Name
-                        </FormLabel>
-                        <Input
-                            id="input-name"
-                            name="name"
-                            onBlur={() => console.log('ON BLUR!')}
-                        />
-                    </FormControl>
-                    <FormControl isRequired>
+                    <FormControl
+                        isRequired
+                        mt={formControlTopMargin}
+                    >
                         <FormLabel
                             htmlFor="input-accentColor"
                         >
-                            Theme Color
+                            Theme
                         </FormLabel>
                         <Flex wrap="wrap" justify="center">
                             {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
@@ -126,7 +124,7 @@ const EditPiggybankModal = (props) => {
                                     onClick={handleAccentColorChange}
                                     data-colorname={colorName}
                                 >
-                                    {selectedColor === colorName && (
+                                    {accentColor === colorName && (
                                         <Icon name="check" color="#FFF" />
                                     )}
                                 </Box>
@@ -134,13 +132,104 @@ const EditPiggybankModal = (props) => {
 
                         </Flex>
                     </FormControl>
+                    <FormControl
+                        isRequired
+                        mt={formControlTopMargin}
+                    >
+                        <FormLabel
+                            htmlFor="input-name"
+                        >
+                            Name
+                        </FormLabel>
+                        <Input
+                            id="input-name"
+                            name="name"
+                            ref={register}
+                            onBlur={() => console.log('ON BLUR!')}
+                        />
+                    </FormControl>
+                    <FormControl
+                        isRequired
+                        mt={formControlTopMargin}
+                    >
+                        <FormLabel
+                            htmlFor="input-verb"
+                        >
+                            Payment action name
+                        </FormLabel>
+                        <Select
+                            id="input-verb"
+                            name="verb"
+                            ref={register}
+                        >
+                            <option value="pay">Pay</option>
+                            <option value="donate to">Donate to</option>
+                            <option value="support">Support</option>
+                        </Select>
+                    </FormControl>
+                    <FormControl
+                        mt={formControlTopMargin}
+                    >
+                        <FormLabel
+                            htmlFor="input-website"
+                        >
+                            Website
+                        </FormLabel>
+                        <Input
+                            id="input-website"
+                            name="website"
+                            ref={register}
+                            placeholder="http://"
+                            type="url"
+                        />
+                    </FormControl>
+                    {name && accentColor && verb && (
+                        <>
+                        <FormLabel
+                            htmlFor="input-verb"
+                        >
+                            Preview
+                        </FormLabel>
+                        <FormHelperText id="email-helper-text" textAlign="center">
+                            {'"Choose a payment method to '}
+                            {verb ?? 'pay'}
+                            {' '}
+                            {website ? (
+                                <Link href={website}>
+                                    <Text
+                                        as="span"
+                                        fontWeight="bold"
+                                        color={colors[accentColor]['500']}
+                                        textDecoration="underline"
+                                    >
+                                        {name}
+                                    </Text>
+                                </Link>
+                            ) : (
+                                <Text
+                                    as="span"
+                                    fontWeight="bold"
+                                    color={colors[accentColor]['500']}
+                                >
+                                    {name}
+                                </Text>
+                            )}
+                            &quot;
+                        </FormHelperText>
+                        </>
+                    )}
                 </form>
             </ModalBody>
 
             <ModalFooter align="center" mx="auto">
-                <Button variant="ghost">Cancel</Button>
                 <Button
-                    variantColor={selectedColor}
+                    variant="ghost"
+                    onClick={onClose}
+                >
+                    Cancel
+                </Button>
+                <Button
+                    variantColor={accentColor}
                     mx={1}
                     onClick={onClose}
                 >
