@@ -12,6 +12,7 @@ const AddPiggybankListItem = (props) => {
             return (
                 <Button
                     leftIcon="add"
+                    borderRadius="10px"
                     mt={3}
                     onClick={() => setShowInput(true)}
                 >
@@ -23,6 +24,7 @@ const AddPiggybankListItem = (props) => {
             <Flex
                 p={5}
                 borderWidth="2px"
+                borderRadius="10px"
                 borderStyle="dotted"
                 mt={3}
                 justify="center"

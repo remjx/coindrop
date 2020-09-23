@@ -73,20 +73,29 @@ const PublicPiggybankPage = (props) => {
                 >
                     <Heading textAlign="center">
                         {'Choose a payment method to pay '}
-                        <Link href={website} target="_blank" rel="noreferrer">
+                        {website ? (
+                            <Link href={website} target="_blank" rel="noreferrer">
+                                <Heading
+                                    as="span"
+                                    color={theme.colors[accentColor]['500']}
+                                    textDecoration="underline"
+                                    css={css`
+                                        &:hover {
+                                            color: ${theme.colors[accentColor]['600']};
+                                        }
+                                    `}
+                                >
+                                        {userDisplayName}
+                                </Heading>
+                            </Link>
+                        ) : (
                             <Heading
                                 as="span"
                                 color={theme.colors[accentColor]['500']}
-                                textDecoration="underline"
-                                css={css`
-                                    &:hover {
-                                        color: ${theme.colors[accentColor]['600']};
-                                    }
-                                `}
                             >
                                     {userDisplayName}
                             </Heading>
-                        </Link>
+                        )}
                         :
                     </Heading>
                 </Box>
