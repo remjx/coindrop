@@ -30,18 +30,7 @@ import {
 import { useForm } from "react-hook-form";
 import { piggybankPathRegex } from '../../../src/settings';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
-
-const themeColorOptions = [
-    "red",
-    "pink",
-    "orange",
-    "yellow",
-    "green",
-    "teal",
-    "cyan",
-    "blue",
-    "purple",
-];
+import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 
 const EditPiggybankModal = (props) => {
     const { isOpen, onClose } = props;
@@ -71,7 +60,7 @@ const EditPiggybankModal = (props) => {
         >
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader>Edit</ModalHeader>
+            <ModalHeader>Page Settings</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <form onSubmit={handleSubmit(onSubmit)}>

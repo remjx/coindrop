@@ -14,8 +14,8 @@ const LinkButton = ({ href, children, ...rest }) => (
     </NextLink>
 );
 
-const ManagePiggybankBar = (props) => {
-    const { } = props;
+const ManagePiggybankBar = ({ editButtonOptions }) => {
+    console.log('editButtonOptions', editButtonOptions)
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     return (
         <>
@@ -31,10 +31,11 @@ const ManagePiggybankBar = (props) => {
                 Dashboard
             </LinkButton>
             <Button
-                leftIcon="edit"
+                leftIcon={editButtonOptions.iconName}
                 onClick={onEditOpen}
+                variantColor={editButtonOptions.color}
             >
-                Edit
+                {editButtonOptions.text}
             </Button>
         </Flex>
         </>
@@ -42,11 +43,19 @@ const ManagePiggybankBar = (props) => {
 };
 
 ManagePiggybankBar.propTypes = {
-
+    editButtonOptions: PropTypes.shape({
+        text: PropTypes.string.isRequired,
+        color: PropTypes.string.isRequired,
+        iconName: PropTypes.string.isRequired,
+    }),
 };
 
 ManagePiggybankBar.defaultProps = {
-
+    editButtonOptions: {
+        text: 'Edit',
+        color: undefined,
+        iconName: "edit",
+    },
 };
 
 export default ManagePiggybankBar;
