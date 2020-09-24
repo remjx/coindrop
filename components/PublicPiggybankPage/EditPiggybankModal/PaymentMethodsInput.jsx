@@ -34,7 +34,7 @@ import {
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames } from '../../../src/paymentMethods';
 
-const PaymentMethodsInput = ({ fields, control, register, remove }) => {
+const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const addressDataWatch = useWatch({
         control,
@@ -42,17 +42,15 @@ const PaymentMethodsInput = ({ fields, control, register, remove }) => {
     });
     console.log('FIELDS', fields);
     console.log('ADDRESS DATA', addressDataWatch)
-    if (fields.length < 1) return 'No payment methods definet yet.';
+    if (fields.length < 1) return 'No payment methods defined yet.';
     return (
+        <>
         <Accordion
             allowToggle
-            // defaultIndex={!paymentMethodNames[addressDataWatch[addressDataWatch.length - 1]] ? addressDataWatch.length - 1 : -1}
+            defaultIndex={-1}
         >
             {fields.map((item, index) => {
-                console.log();
                 const watchedData = addressDataWatch.find(element => element.id === item.id);
-                console.log('watchedData', watchedData);
-                console.log('watchedData?.isPreferred', watchedData?.isPreferred);
                 return (
                     <AccordionItem
                         key={item.id}
@@ -95,17 +93,22 @@ const PaymentMethodsInput = ({ fields, control, register, remove }) => {
                                     defaultValue={paymentMethodNames[item.value] ? item.value : 'default-blank'}
                                 >
                                     <option hidden disabled value="default-blank">Select a payment method</option>
+                                    {/* return null from map if paymentMethodId exists as a watchedData.value */}
                                     {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
                                         <option
                                             key={paymentMethodId}
                                             value={paymentMethodId}
+                                            style={{display: addressDataWatch.map(addressData => addressData.value).includes(paymentMethodId) ? "none" : undefined }}
                                         >
                                             {paymentMethodName}
                                         </option>
                                     ))}
                                 </Select>
                             </Box>
-                            <Box mx={3}>
+                            <Box
+                                mx={3}
+                                display={paymentMethodNames[watchedData?.value] ? "block" : "none"}
+                            >
                                 <FormLabel htmlFor={`addressData[${index}].address`}>Address</FormLabel>
                                 <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
                                 <Box
@@ -121,28 +124,43 @@ const PaymentMethodsInput = ({ fields, control, register, remove }) => {
                                         Preferred
                                     </Checkbox>
                                 </Box>
-                                <Flex
-                                    justify="flex-end"
-                                    mt={1}
-                                >
-                                    <Button
-                                        onClick={() => {
-                                            console.log('index', index);
-                                            remove(index);
-                                        }}
-                                        leftIcon="delete"
-                                        variantColor="red"
-                                        size="sm"
-                                    >
-                                        Remove
-                                    </Button>
-                                </Flex>
                             </Box>
+                            <Flex
+                                justify="flex-end"
+                                mt={1}
+                            >
+                                <Button
+                                    onClick={() => {
+                                        console.log('index', index);
+                                        remove(index);
+                                    }}
+                                    leftIcon="delete"
+                                    variantColor="red"
+                                    size="sm"
+                                >
+                                    Remove
+                                </Button>
+                            </Flex>
                         </AccordionPanel>
                     </AccordionItem>
                 );
             })}
         </Accordion>
+        <Flex
+            justify="center"
+            mt={2}
+        >
+            <Button
+                onClick={() => append({ value: "", address: "", isPreferred: false })}
+                leftIcon="add"
+                variant="ghost"
+                size="sm"
+                isDisabled={!paymentMethodNames[addressDataWatch[addressDataWatch.length - 1].value]}
+            >
+                Add payment method
+            </Button>
+        </Flex>
+        </>
     );
 };
 
@@ -151,6 +169,7 @@ PaymentMethodsInput.propTypes = {
     register: PropTypes.any.isRequired,
     fields: PropTypes.arrayOf(PropTypes.object),
     remove: PropTypes.func.isRequired,
+    append: PropTypes.func.isRequired,
 };
 
 PaymentMethodsInput.defaultProps = {

@@ -244,21 +244,8 @@ const EditPiggybankModal = (props) => {
                                 register={register}
                                 defaultValue={initialAddressDataFieldArray}
                                 remove={remove}
+                                append={append}
                             />
-                            <Flex
-                                justify="center"
-                                mt={2}
-                            >
-                                {/* TODO: only allow 1 new payment line at a time... only append if id="default-awaiting" does not exist */ }
-                                <Button
-                                    onClick={() => append({ address: "testAddr", isPreferred: false })}
-                                    leftIcon="add"
-                                    variant="ghost"
-                                    size="sm"
-                                >
-                                    Add payment method
-                                </Button>
-                            </Flex>
                         </FormControl>
                         {name && accentColor && verb && (
                             <>
