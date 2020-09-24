@@ -52,6 +52,7 @@ const PaymentMethodsInput = ({ fields, control, register, remove }) => {
                 console.log();
                 const watchedData = addressDataWatch.find(element => element.id === item.id);
                 console.log('watchedData', watchedData);
+                console.log('watchedData?.isPreferred', watchedData?.isPreferred);
                 return (
                     <AccordionItem
                         key={item.id}
@@ -113,7 +114,8 @@ const PaymentMethodsInput = ({ fields, control, register, remove }) => {
                                     <Checkbox
                                         name={`addressData[${index}].isPreferred`}
                                         ref={register()}
-                                        defaultValue={item.isPreferred === 'true'}
+                                        defaultValue={`${watchedData?.isPreferred === 'true'}`}
+                                        defaultIsChecked={watchedData?.isPreferred}
                                         mt={1}
                                     >
                                         Preferred
