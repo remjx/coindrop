@@ -43,6 +43,7 @@ import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPay
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
+import { sortByAlphabeticalThenIsPreferred } from './util';
 
 function convertPiggybankDataToAddressData(piggybankData) {
     const obj = Object.entries(piggybankData)
@@ -69,13 +70,16 @@ function convertPiggybankDataToAddressData(piggybankData) {
         }
         return result;
     }, {});
-    const arr = Object.entries(obj)
+    let arr = Object.entries(obj)
     .map(([paymentMethodId, paymentMethodData]) => ({
         id: uuidv4(),
         value: paymentMethodId,
         ...paymentMethodData,
         ...(!paymentMethodData.isPreferred) && { isPreferred: false },
     }));
+    console.log('pre-sort', JSON.stringify(arr))
+    arr = sortByAlphabeticalThenIsPreferred(arr);
+    console.log('post-sort', arr)
     return arr;
 }
 
@@ -100,7 +104,6 @@ const EditPiggybankModal = (props) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "addressData",
-        // defaultValue: initialAddressDataFieldArray,
     });
     const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]);
     const onSubmit = (formData) => console.log('submitting data', formData);
@@ -110,7 +113,6 @@ const EditPiggybankModal = (props) => {
     useEffect(() => {
         register("accentColor");
     }, [register]);
-    const [confirmingRemovalForPaymentMethod, setConfirmingRemovalForPaymentMethod] = useState();
     const formControlTopMargin = 2;
     return (
         <Modal

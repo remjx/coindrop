@@ -1,18 +1,3 @@
-/* <Text>{item.id}</Text>
-<Input key={item.id} name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
-<Button
-    onClick={() => {
-        console.log('index', index);
-        remove(index);
-    }}
-    leftIcon="delete"
-    variantColor="red"
-    size="sm"
->
-    Remove
-</Button>
-</> */
-
 import PropTypes from 'prop-types';
 import {
     Accordion,
@@ -40,8 +25,6 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
         control,
         name: 'addressData',
     });
-    console.log('FIELDS', fields);
-    console.log('ADDRESS DATA', addressDataWatch)
     if (fields.length < 1) return 'No payment methods defined yet.';
     return (
         <>
@@ -49,7 +32,8 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
             allowToggle
             defaultIndex={-1}
         >
-            {fields.map((item, index) => {
+            {fields
+                .map((item, index) => {
                 const watchedData = addressDataWatch.find(element => element.id === item.id);
                 return (
                     <AccordionItem

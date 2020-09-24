@@ -44,7 +44,6 @@ StatusIcon.propTypes = {
 };
 
 const EditUrlInput = ({ register, value }) => {
-    console.log('candidate value:', value);
     const { query: { piggybankName: currentPiggybankId }} = useRouter();
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
@@ -54,7 +53,6 @@ const EditUrlInput = ({ register, value }) => {
             if (debouncedValue) {
                 setIsValidating(true);
                 isUrlAvailable(debouncedValue).then(result => {
-                    console.log('result', result);
                     setIsValidating(false);
                     setIsValid(result);
                 });
