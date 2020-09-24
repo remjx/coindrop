@@ -1,6 +1,7 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
 import {
     Accordion,
     AccordionItem,
@@ -30,14 +31,17 @@ import {
     Spinner,
     Select,
     Text,
+    RadioGroup,
+    Radio,
     useTheme,
 } from "@chakra-ui/core";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+import { useForm, useFieldArray, useWatch } from "react-hook-form";
 import { piggybankPathRegex } from '../../../src/settings';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
-import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../PublicPiggybankPage';
+import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../util';
 import { paymentMethodNames } from '../../../src/paymentMethods';
+import PaymentMethodsInput from './PaymentMethodsInput';
 
 function convertPiggybankDataToAddressData(piggybankData) {
     const obj = Object.entries(piggybankData)
@@ -66,8 +70,10 @@ function convertPiggybankDataToAddressData(piggybankData) {
     }, {});
     const arr = Object.entries(obj)
     .map(([paymentMethodId, paymentMethodData]) => ({
-        id: paymentMethodId,
+        id: uuidv4(),
+        value: paymentMethodId,
         ...paymentMethodData,
+        ...(!paymentMethodData.isPreferred) && { isPreferred: false },
     }));
     return arr;
 }
@@ -79,8 +85,7 @@ const EditPiggybankModal = (props) => {
     const { query: { piggybankName: initialPiggybankId } } = useRouter();
     const data = useContext(PublicPiggybankData);
     const initialAddressDataFieldArray = convertPiggybankDataToAddressData(data);
-
-    console.log('initialAddressDataFieldArray', initialAddressDataFieldArray)
+    useEffect(() => console.log('initialAddressDataFieldArray', initialAddressDataFieldArray), []);
     const { register, handleSubmit, setValue, getValues, watch, control, errors } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
@@ -94,8 +99,9 @@ const EditPiggybankModal = (props) => {
     const { fields, append, remove } = useFieldArray({
         control,
         name: "addressData",
+        // defaultValue: initialAddressDataFieldArray,
     });
-    watch();
+    const { name, accentColor, verb, website } = watch(["name", "accentColor", "verb", "website"]);
     const onSubmit = (formData) => console.log('submitting data', formData);
     const handleAccentColorChange = (e) => {
         setValue("accentColor", e.target.dataset.colorname);
@@ -103,112 +109,14 @@ const EditPiggybankModal = (props) => {
     useEffect(() => {
         register("accentColor");
     }, [register]);
-    const { name, accentColor, verb, website } = getValues(["name", "accentColor", "verb", "website"]);
+    const [confirmingRemovalForPaymentMethod, setConfirmingRemovalForPaymentMethod] = useState();
     const formControlTopMargin = 2;
-    const PaymentMethodsInputs = () => {
-        console.log('FIELDS', fields);
-        return (
-            <Accordion
-                allowToggle
-                defaultIndex={!paymentMethodNames[fields[fields.length - 1].id] ? fields.length - 1 : -1}
-            >
-                {fields.map((item, index) => {
-                    console.log('ITEM', item, !paymentMethodNames[item.id])
-                    return (
-                        <AccordionItem
-                            key={item.id}
-                        >
-                            <AccordionHeader>
-                                <Flex flex="1" textAlign="left" align="center">
-                                    <Icon mr={2} name={item.id} />
-                                    {paymentMethodNames[item.id] ?? 'New payment method'}
-                                    {item.isPreferred && (
-                                        <>
-                                        <Icon
-                                            ml={2}
-                                            name="star"
-                                            size="16px"
-                                            color={colors.yellow['400']}
-                                        />
-                                        <Text
-                                            as="span"
-                                            fontSize="xs"
-                                            ml={1}
-                                        >
-                                            <i>Preferred</i>
-                                        </Text>
-                                        </>
-                                    )}
-                                </Flex>
-                                <AccordionIcon />
-                            </AccordionHeader>
-                            <AccordionPanel pb={4}>
-                                <Select
-                                    name={`addressData[${index}].id`}
-                                    ref={register()}
-                                    defaultValue={item.id}
-                                >
-                                    {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
-                                        <option value={paymentMethodId}>{paymentMethodName}</option>
-                                    ))}
-                                </Select>
-                                <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
-                                <Input name={`addressData[${index}].isPreferred`} ref={register()} defaultValue={item.isPreferred} />
-                                <Flex
-                                    justify="flex-end"
-                                    mt={1}
-                                >
-                                    <Button
-                                        onClick={() => remove(index)}
-                                        leftIcon="delete"
-                                        variantColor="red"
-                                        size="sm"
-                                    >
-                                        Remove
-                                    </Button>
-                                </Flex>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    );
-                })}
-                {/* {Object.entries(addressData).map(([paymentMethodId, paymentMethodData]) => (
-                    <Box>
-                        <Flex>
-                            <Text>{paymentMethodId}</Text>
-                            <Text>{paymentMethodData.address}</Text>
-                            <Text>{paymentMethodData.isPreferred ? 'is preferred' : 'not preferred'}</Text>
-                        </Flex>
-                    </Box>
-                ))} */}
-                {/* 
-                    <li key={paymentMethodId}>
-                        <input
-                            name={`paymentMethods[${paymentMethodId}].paymentMethod`}
-                            ref={register()}
-                            defaultValue={value} // make sure to set up defaultValue
-                        />
-                        <Controller
-                            as={<input />}
-                            name={`paymentMethods[${paymentMethodId}].value`}
-                            control={control}
-                            defaultValue={value} // make sure to set up defaultValue
-                        />
-                        <input
-                            name={`paymentMethods[${paymentMethodId}].isPreferred`}
-                            ref={register()}
-                            defaultValue={isPreferred} // make sure to set up defaultValue
-                        />
-                        <Button onClick={() => remove(paymentMethodId)}>Delete</Button>
-                    </li>
-                */}
-            </Accordion>
-        );
-    };
     return (
         <Modal
             isOpen={isOpen}
             onClose={onClose}
             size="xl"
+            closeOnOverlayClick={false}
         >
             <ModalOverlay />
             <ModalContent>
@@ -243,7 +151,6 @@ const EditPiggybankModal = (props) => {
                             </InputGroup>
                         </FormControl>
                         <FormControl
-                            isRequired
                             mt={formControlTopMargin}
                         >
                             <FormLabel
@@ -270,7 +177,6 @@ const EditPiggybankModal = (props) => {
                                         )}
                                     </Box>
                                 ))}
-
                             </Flex>
                         </FormControl>
                         <FormControl
@@ -332,13 +238,20 @@ const EditPiggybankModal = (props) => {
                             >
                                 Payment Methods
                             </FormLabel>
-                            <PaymentMethodsInputs />
+                            <PaymentMethodsInput
+                                fields={fields}
+                                control={control}
+                                register={register}
+                                defaultValue={initialAddressDataFieldArray}
+                                remove={remove}
+                            />
                             <Flex
                                 justify="center"
                                 mt={2}
                             >
+                                {/* TODO: only allow 1 new payment line at a time... only append if id="default-awaiting" does not exist */ }
                                 <Button
-                                    onClick={() => append({ address: "", isPreferred: false })}
+                                    onClick={() => append({ address: "testAddr", isPreferred: false })}
                                     leftIcon="add"
                                     variant="ghost"
                                     size="sm"

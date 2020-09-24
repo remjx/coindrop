@@ -8,19 +8,13 @@ import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import paymentMethods from '../../src/paymentMethods';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
+import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from './util';
 
 // TODO: if visited piggybank is users own piggybank, dont render public version, instead render editable version
 
 // Create separate page for editing?
     // // Make update
     //   // .set({ [field]: value });
-export const addressFieldPrefix = "address_";
-export const addressIsPreferredSuffix = 'is_preferred';
-export function getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName) {
-    return addressFieldName
-        .substr(0, addressFieldName.length - addressIsPreferredSuffix.length - 1)
-        .substr(addressFieldPrefix.length);
-}
 
 const PublicPiggybankPage = (props) => {
     const { piggybankDbData } = props;

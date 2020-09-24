@@ -1,0 +1,81 @@
+<Accordion
+    allowToggle
+    defaultIndex={!paymentMethodNames[fields[fields.length - 1]] ? fields.length - 1 : -1}
+>
+    {fields.map((item, index) => {
+        console.log();
+        return (
+            <AccordionItem
+                key={item.id}
+            >
+                <AccordionHeader>
+                    <Flex flex="1" textAlign="left" align="center">
+                        <Icon mr={2} name={item.id} />
+                        {paymentMethodNames[item.id] ?? 'New payment method'}
+                        {item.isPreferred && (
+                            <>
+                            <Icon
+                                ml={2}
+                                name="star"
+                                size="16px"
+                                color={colors.yellow['400']}
+                            />
+                            <Text
+                                as="span"
+                                fontSize="xs"
+                                ml={1}
+                            >
+                                <i>Preferred</i>
+                            </Text>
+                            </>
+                        )}
+                    </Flex>
+                    <AccordionIcon />
+                </AccordionHeader>
+                <AccordionPanel pb={4}>
+                    {!paymentMethodNames[item.id] ? (
+                        <Select
+                            name={`addressData[${index}].id`}
+                            ref={register()}
+                            defaultValue={paymentMethodNames[item.id] ? item.id : 'default-blank'}
+                        >
+                            <option hidden disabled selected value="default-blank">Select a payment method</option>
+                            {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
+                                <option value={paymentMethodId}>{paymentMethodName}</option>
+                            ))}
+                        </Select>
+                    ) : (
+                        <Box mx={3}>
+                        <FormLabel htmlFor={`addressData[${index}].address`}>Address</FormLabel>
+                        <Input name={`addressData[${index}].address`} ref={register()} defaultValue={item.address} />
+                        {/* TODO: try wrapping this in Controller to prevent 'name not set' error */}
+                        {/* <FormLabel htmlFor={`addressData[${index}].address`}>Is Preferred</FormLabel>
+                        <RadioGroup
+                            name={`addressData[${index}].isPreferred`}
+                            ref={register()}
+                            defaultValue={item.isPreferred}
+                            isInline
+                        >
+                            <Radio value={true}>Yes</Radio>
+                            <Radio value={false}>No</Radio>
+                        </RadioGroup> */}
+                        </Box>
+                    )}
+                    <Flex
+                        justify="flex-end"
+                        mt={1}
+                    >
+                        {/* <Button
+                            onClick={confirmingRemovalForPaymentMethod === item.id ? () => remove(index) : setConfirmingRemovalForPaymentMethod(item.id)}
+                            leftIcon="delete"
+                            variantColor={confirmingRemovalForPaymentMethod === item.id ? "red" : undefined}
+                            size="sm"
+                        >
+                            Remove
+                        </Button> */}
+                    </Flex>
+                </AccordionPanel>
+            </AccordionItem>
+        );
+    })}
+</Accordion>

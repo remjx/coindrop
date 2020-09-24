@@ -15,7 +15,7 @@ const LinkButton = ({ href, children, ...rest }) => (
 );
 LinkButton.propTypes = {
     href: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
+    children: PropTypes.string.isRequired,
 };
 /* eslint-enable react/jsx-props-no-spreading */
 
@@ -49,7 +49,7 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
 ManagePiggybankBar.propTypes = {
     editButtonOptions: PropTypes.shape({
         text: PropTypes.string.isRequired,
-        color: PropTypes.string.isRequired,
+        color: PropTypes.string,
         iconName: PropTypes.string.isRequired,
     }),
 };
