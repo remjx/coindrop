@@ -42,6 +42,7 @@ import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../the
 import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../util';
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
+import EditUrlInput from './EditUrlInput';
 
 function convertPiggybankDataToAddressData(piggybankData) {
     const obj = Object.entries(piggybankData)
@@ -101,7 +102,7 @@ const EditPiggybankModal = (props) => {
         name: "addressData",
         // defaultValue: initialAddressDataFieldArray,
     });
-    const { name, accentColor, verb, website } = watch(["name", "accentColor", "verb", "website"]);
+    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]);
     const onSubmit = (formData) => console.log('submitting data', formData);
     const handleAccentColorChange = (e) => {
         setValue("accentColor", e.target.dataset.colorname);
@@ -126,29 +127,10 @@ const EditPiggybankModal = (props) => {
                     <ModalBody>
                         <FormControl isRequired>
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
-                            <InputGroup>
-                                <InputLeftAddon>
-                                    coindrop.to/
-                                </InputLeftAddon>
-                                <Input
-                                    id="input-piggybankId"
-                                    maxLength="32"
-                                    roundedLeft="0"
-                                    onChange={(e) => {
-                                        // TODO: use debounce
-                                    }}
-                                    // isInvalid={}
-                                    ref={register}
-                                    name="piggybankId"
-                                />
-                                <InputRightElement>
-                                    <Icon name="check" color="green.500" />
-                                    <Box>
-                                        <Spinner size="sm" />
-                                    </Box>
-                                    <Icon name="not-allowed" color="red.500" />
-                                </InputRightElement>
-                            </InputGroup>
+                            <EditUrlInput
+                                register={register}
+                                value={piggybankId}
+                            />
                         </FormControl>
                         <FormControl
                             mt={formControlTopMargin}

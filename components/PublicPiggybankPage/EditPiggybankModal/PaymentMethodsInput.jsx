@@ -93,7 +93,6 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                                     defaultValue={paymentMethodNames[item.value] ? item.value : 'default-blank'}
                                 >
                                     <option hidden disabled value="default-blank">Select a payment method</option>
-                                    {/* return null from map if paymentMethodId exists as a watchedData.value */}
                                     {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
                                         <option
                                             key={paymentMethodId}
