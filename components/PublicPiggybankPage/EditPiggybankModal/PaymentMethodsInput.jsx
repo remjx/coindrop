@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import {
     Accordion,
     AccordionItem,
@@ -22,11 +23,11 @@ import { sortByAlphabeticalThenIsPreferred } from './util';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
-const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
+const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const paymentMethodsDataWatch = useWatch({
         control,
-        name: 'paymentMethods',
+        name: fieldArrayName,
     });
     console.log('fields', fields)
     console.log('paymentMethodsDataWatch', paymentMethodsDataWatch);
@@ -39,9 +40,10 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                 allowToggle
                 defaultIndex={-1}
             >
-                {sortByAlphabeticalThenIsPreferred(fields)
+                {
+                sortByAlphabeticalThenIsPreferred(fields) // TODO: re-enable this sort
                     .map((item, index) => {
-                    const watchedData = paymentMethodsDataWatch.find(element => element.paymentMethodId === item.paymentMethodId);
+                    const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
                     console.log('watchedData', watchedData);
                     return (
                         <AccordionItem
@@ -53,7 +55,7 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                                         <Icon mr={2} name={watchedData?.paymentMethodId} />
                                         {paymentMethodNames[watchedData?.paymentMethodId] ?? 'New payment method'}
                                     </Flex>
-                                    {(watchedData?.isPreferred) && (
+                                    {watchedData?.isPreferred && (
                                         <Flex>
                                             <Icon
                                                 ml={2}
@@ -76,24 +78,26 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                             <AccordionPanel pb={4}>
                                 <input
                                     ref={register()}
-                                    name={`paymentMethods[${index}].id`}
+                                    name={`${fieldArrayName}[${index}].id`}
                                     defaultValue={item.id}
                                     style={{display: 'none'}}
                                 />
-                                <Box display={paymentMethodNames[watchedData?.paymentMethodId] ? "none" : "block"}>
+                                <Box
+                                    display={paymentMethodNames[watchedData?.paymentMethodId] ? "none" : "block"}
+                                >
                                     <Select
-                                        name={`paymentMethods[${index}].paymentMethodId`}
+                                        name={`${fieldArrayName}[${index}].paymentMethodId`}
                                         ref={register()}
                                         defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
                                     >
                                         <option hidden disabled value="default-blank">Select a payment method</option>
-                                        {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodName]) => (
+                                        {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodDisplayName]) => (
                                             <option
                                                 key={paymentMethodId}
                                                 value={paymentMethodId}
                                                 style={{display: paymentMethodsDataWatch.map(paymentMethods => paymentMethods.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
                                             >
-                                                {paymentMethodName}
+                                                {paymentMethodDisplayName}
                                             </option>
                                         ))}
                                     </Select>
@@ -102,16 +106,16 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                                     mx={3}
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "block" : "none"}
                                 >
-                                    <FormLabel htmlFor={`paymentMethods[${index}].address`}>Address</FormLabel>
-                                    <Input name={`paymentMethods[${index}].address`} ref={register()} defaultValue={item.address} />
+                                    <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
+                                    <Input name={`${fieldArrayName}[${index}].address`} ref={register()} defaultValue={item.address} />
                                     <Box
                                         textAlign="center"
                                     >
                                         <Checkbox
-                                            name={`paymentMethods[${index}].isPreferred`}
+                                            name={`${fieldArrayName}[${index}].isPreferred`}
                                             ref={register()}
-                                            defaultValue={`${watchedData?.isPreferred === 'true'}`}
-                                            defaultIsChecked={watchedData?.isPreferred}
+                                            defaultValue={item?.isPreferred}
+                                            defaultIsChecked={item?.isPreferred}
                                             mt={1}
                                         >
                                             Preferred
@@ -146,12 +150,7 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
             mt={2}
         >
             <Button
-                onClick={() => append({
-                    // id = uuidv4() automatically added by react-hook-form
-                    paymentMethodId: "default-blank",
-                    address: "",
-                    isPreferred: false,
-                })}
+                onClick={() => append({})}
                 leftIcon="add"
                 variant="ghost"
                 size="sm"
@@ -170,6 +169,7 @@ PaymentMethodsInput.propTypes = {
     fields: PropTypes.arrayOf(PropTypes.object),
     remove: PropTypes.func.isRequired,
     append: PropTypes.func.isRequired,
+    fieldArrayName: PropTypes.string.isRequired,
 };
 
 PaymentMethodsInput.defaultProps = {

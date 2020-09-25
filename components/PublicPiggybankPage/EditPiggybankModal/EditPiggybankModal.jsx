@@ -59,23 +59,20 @@ const EditPiggybankModal = (props) => {
             paymentMethods: initialPaymentMethodsDataFieldArray,
         },
     });
+    const paymentMethodsFieldArrayName = "paymentMethods";
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "paymentMethods",
+        name: paymentMethodsFieldArrayName,
     });
     const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched?
     const isUrlUnchanged = initialPiggybankId === piggybankId;
     const onSubmit = (formData) => {
-        // TODO:
+        // TODO: remove id field?
         console.log('raw form data', formData);
-        const formattedFormData = formatFormDataForDb(formData);
-        console.log('formattedFormData', formattedFormData);
         if (isUrlUnchanged) {
             // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
-            
         } else {
             // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
-
         }
     };
     const handleAccentColorChange = (e) => {
@@ -198,6 +195,7 @@ const EditPiggybankModal = (props) => {
                                 register={register}
                                 remove={remove}
                                 append={append}
+                                fieldArrayName={paymentMethodsFieldArrayName}
                             />
                         </FormControl>
                     </ModalBody>
