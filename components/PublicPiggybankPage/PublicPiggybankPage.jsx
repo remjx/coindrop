@@ -1,31 +1,23 @@
 import PropTypes from 'prop-types';
-import { Heading, Text, Box, Flex, Link, Stack, useTheme } from '@chakra-ui/core';
+import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/core';
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core'
+import { css, jsx } from '@emotion/core';
 import { useUser } from '../../utils/auth/useUser';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
-import paymentMethods from '../../src/paymentMethods';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from './util';
-
-// TODO: if visited piggybank is users own piggybank, dont render public version, instead render editable version
-
-// Create separate page for editing?
-    // // Make update
-    //   // .set({ [field]: value });
 
 const PublicPiggybankPage = (props) => {
     const { piggybankDbData } = props;
     const theme = useTheme();
     const {
-        user_display_name: userDisplayName,
+        name,
         website,
         accent_color: accentColor = "orange",
     } = piggybankDbData;
     const allAddressFields = Object.entries(piggybankDbData);
-    // TODO: Make a test for this to ensure that if "address_" format ever changes, it doesn't impact this logic. Or set the substr length to be equal to the prefix length.
     const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
         const addressFieldName = item[0];
         if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
@@ -95,7 +87,7 @@ const PublicPiggybankPage = (props) => {
                                                 }
                                             `}
                                         >
-                                                {userDisplayName}
+                                                {name}
                                         </Heading>
                                     </Link>
                                 ) : (
@@ -103,7 +95,7 @@ const PublicPiggybankPage = (props) => {
                                         as="span"
                                         color={theme.colors[accentColor]['500']}
                                     >
-                                            {userDisplayName}
+                                            {name}
                                     </Heading>
                                 )}
                                 :

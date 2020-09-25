@@ -56,9 +56,9 @@ ManagePiggybankBar.propTypes = {
 
 ManagePiggybankBar.defaultProps = {
     editButtonOptions: {
-        text: 'Edit',
+        text: 'Configure',
         color: undefined,
-        iconName: "edit",
+        iconName: "settings",
     },
 };
 
