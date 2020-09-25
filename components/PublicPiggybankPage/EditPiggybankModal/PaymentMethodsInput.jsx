@@ -19,6 +19,8 @@ import {
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames } from '../../../src/paymentMethods';
 
+// TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
+
 const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const addressDataWatch = useWatch({
@@ -41,24 +43,26 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                     >
                         <AccordionHeader>
                             <Flex flex="1" textAlign="left" align="center">
-                                <Icon mr={2} name={watchedData?.value} />
-                                {paymentMethodNames[watchedData?.value] ?? 'New payment method'}
+                                <Flex mr={1}>
+                                    <Icon mr={2} name={watchedData?.value} />
+                                    {paymentMethodNames[watchedData?.value] ?? 'New payment method'}
+                                </Flex>
                                 {(watchedData?.isPreferred) && (
-                                    <>
-                                    <Icon
-                                        ml={2}
-                                        name="star"
-                                        size="16px"
-                                        color={colors.yellow['400']}
-                                    />
-                                    <Text
-                                        as="span"
-                                        fontSize="xs"
-                                        ml={1}
-                                    >
-                                        <i>Preferred</i>
-                                    </Text>
-                                    </>
+                                    <Flex>
+                                        <Icon
+                                            ml={2}
+                                            name="star"
+                                            size="16px"
+                                            color={colors.yellow['400']}
+                                        />
+                                        <Text
+                                            as="span"
+                                            fontSize="xs"
+                                            ml={1}
+                                        >
+                                            <i>Preferred</i>
+                                        </Text>
+                                    </Flex>
                                 )}
                             </Flex>
                             <AccordionIcon />
@@ -118,10 +122,11 @@ const PaymentMethodsInput = ({ fields, control, register, remove, append }) => {
                                         remove(index);
                                     }}
                                     leftIcon="delete"
-                                    variantColor="red"
+                                    // variantColor="red"
                                     size="sm"
                                 >
-                                    Remove
+                                    {'Remove '}
+                                    {paymentMethodNames[watchedData?.value]}
                                 </Button>
                             </Flex>
                         </AccordionPanel>

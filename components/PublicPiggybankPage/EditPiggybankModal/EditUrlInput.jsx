@@ -41,6 +41,7 @@ StatusIcon.propTypes = {
     debouncedValue: PropTypes.string.isRequired,
     isValidating: PropTypes.bool.isRequired,
     isValid: PropTypes.bool.isRequired,
+    currentPiggybankId: PropTypes.string.isRequired,
 };
 
 const EditUrlInput = ({ register, value }) => {
@@ -50,7 +51,7 @@ const EditUrlInput = ({ register, value }) => {
     const debouncedValue = useDebounce(value, 1500);
     useEffect(
         () => {
-            if (debouncedValue) {
+            if (debouncedValue && debouncedValue !== currentPiggybankId) {
                 setIsValidating(true);
                 isUrlAvailable(debouncedValue).then(result => {
                     setIsValidating(false);
@@ -60,6 +61,7 @@ const EditUrlInput = ({ register, value }) => {
         },
         [debouncedValue],
     );
+    const isUrlUnchanged = value === currentPiggybankId;
     return (
         <InputGroup>
             <InputLeftAddon>
@@ -69,7 +71,7 @@ const EditUrlInput = ({ register, value }) => {
                 id="input-piggybankId"
                 maxLength="32"
                 roundedLeft="0"
-                isInvalid={!isValid && !isValidating && value === debouncedValue && !(value === currentPiggybankId)}
+                isInvalid={!isValid && !isValidating && value === debouncedValue && !isUrlUnchanged}
                 ref={register}
                 name="piggybankId"
             />

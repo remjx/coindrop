@@ -3,11 +3,6 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import {
-    Accordion,
-    AccordionItem,
-    AccordionHeader,
-    AccordionPanel,
-    AccordionIcon,
     Box,
     Flex,
     Button,
@@ -20,19 +15,9 @@ import {
     ModalCloseButton,
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Input,
-    InputGroup,
-    InputLeftAddon,
-    InputRightElement,
     Icon,
-    Link,
-    Spinner,
     Select,
-    Text,
-    RadioGroup,
-    Radio,
     useTheme,
 } from "@chakra-ui/core";
 import { useForm, useFieldArray, useWatch } from "react-hook-form";
@@ -44,6 +29,35 @@ import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
 import { sortByAlphabeticalThenIsPreferred } from './util';
+
+function formatFormDataForDb(formData) {
+    // return Object.entries(formData).reduce((result, item) => {
+
+    // }, {});
+    const {
+        piggybankId,
+        addressData,
+        ...rest
+    } = formData;
+    const reducedAddressData = addressData.reduce((result, item) => {
+        const { value, address, isPreferred } = item;
+        const isValidPaymentMethod = paymentMethodNames[value];
+        if (!isValidPaymentMethod) return result;
+        return {
+            ...result,
+            [`${addressFieldPrefix}${value}`]: address,
+            [`${addressFieldPrefix}${value}${addressIsPreferredSuffix}`]: isPreferred,
+        };
+    }, {});
+    console.log('reduced', reducedAddressData);
+    return {
+        piggybankId,
+        data: {
+            reducedAddressData,
+            ...rest,
+        },
+    };
+}
 
 function convertPiggybankDataToAddressData(piggybankData) {
     const obj = Object.entries(piggybankData)
@@ -77,9 +91,7 @@ function convertPiggybankDataToAddressData(piggybankData) {
         ...paymentMethodData,
         ...(!paymentMethodData.isPreferred) && { isPreferred: false },
     }));
-    console.log('pre-sort', JSON.stringify(arr))
     arr = sortByAlphabeticalThenIsPreferred(arr);
-    console.log('post-sort', arr)
     return arr;
 }
 
@@ -106,7 +118,20 @@ const EditPiggybankModal = (props) => {
         name: "addressData",
     });
     const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]);
-    const onSubmit = (formData) => console.log('submitting data', formData);
+    const isUrlUnchanged = initialPiggybankId === piggybankId;
+    const onSubmit = (formData) => {
+        // TODO:
+        console.log('raw form data', formData);
+        const formattedFormData = formatFormDataForDb(formData);
+        console.log('formattedFormData', formattedFormData);
+        if (isUrlUnchanged) {
+            // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
+            
+        } else {
+            // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
+
+        }
+    };
     const handleAccentColorChange = (e) => {
         setValue("accentColor", e.target.dataset.colorname);
     };
@@ -123,7 +148,7 @@ const EditPiggybankModal = (props) => {
         >
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Page Settings</ModalHeader>
+                <ModalHeader>Settings</ModalHeader>
                 <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
@@ -176,7 +201,6 @@ const EditPiggybankModal = (props) => {
                                 id="input-name"
                                 name="name"
                                 ref={register}
-                                onBlur={() => console.log('ON BLUR!')}
                             />
                         </FormControl>
                         <FormControl
@@ -231,41 +255,6 @@ const EditPiggybankModal = (props) => {
                                 append={append}
                             />
                         </FormControl>
-                        {name && accentColor && verb && (
-                            <>
-                            <FormLabel
-                                htmlFor="input-verb"
-                            >
-                                Preview
-                            </FormLabel>
-                            <FormHelperText textAlign="center">
-                                {'"Choose a payment method to '}
-                                {verb ?? 'pay'}
-                                {' '}
-                                {website ? (
-                                    <Link href={website}>
-                                        <Text
-                                            as="span"
-                                            fontWeight="bold"
-                                            color={colors[accentColor]['500']}
-                                            textDecoration="underline"
-                                        >
-                                            {name}
-                                        </Text>
-                                    </Link>
-                                ) : (
-                                    <Text
-                                        as="span"
-                                        fontWeight="bold"
-                                        color={colors[accentColor]['500']}
-                                    >
-                                        {name}
-                                    </Text>
-                                )}
-                                &quot;
-                            </FormHelperText>
-                            </>
-                        )}
                     </ModalBody>
                     <ModalFooter align="center" mx="auto">
                         <Button
