@@ -7,5 +7,15 @@ module.exports = {
           "next/babel",
         ],
       },
+      development: {
+        presets: [
+          "next/babel",
+        ],
+      },
+      production: {
+        presets: [
+          "next/babel",
+        ],
+      },
     },
 };
