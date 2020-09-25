@@ -120,10 +120,14 @@ const index = () => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    Your free public website for peer-to-peer payments
+                    {'Your '}
+                    <span style={{textDecoration: "underline"}}>
+                        no-fee
+                    </span>
+                    {' website for peer-to-peer payments'}
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Create a list of your addresses. Let the sender choose how to pay you.
+                    Create a list of your addresses. Let the sender choose how to pay you directly.
                 </Text>
                 <Box
                     mt={4}

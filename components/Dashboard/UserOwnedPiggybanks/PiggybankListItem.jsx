@@ -39,7 +39,7 @@ function PiggybankListItem({ id, uid }) {
                     </Link>
                 </NextLink>
                 <DeleteButton
-                    name={id}
+                    id={id}
                     uid={uid}
                 />
             </Flex>

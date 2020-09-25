@@ -32,13 +32,7 @@ const AddPiggybankListItem = (props) => {
                 align="center"
             >
                 {/* <Heading size="md" textAlign="center">Add new</Heading> */}
-                <CreatePiggybankInput />
-                <Button
-                    onClick={() => setShowInput(false)}
-                    ml={1}
-                >
-                    Cancel
-                </Button>
+                <CreatePiggybankInput setShowInput={setShowInput} />
             </Flex>
         );
     }
