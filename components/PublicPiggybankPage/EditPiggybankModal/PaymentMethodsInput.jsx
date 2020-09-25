@@ -108,15 +108,14 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                 >
                                     <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
                                     <Input name={`${fieldArrayName}[${index}].address`} ref={register()} defaultValue={item.address} />
-                                    <Box
-                                        textAlign="center"
-                                    >
+                                    <Box>
                                         <Checkbox
                                             name={`${fieldArrayName}[${index}].isPreferred`}
                                             ref={register()}
                                             defaultValue={item?.isPreferred}
                                             defaultIsChecked={item?.isPreferred}
                                             mt={1}
+                                            variantColor="yellow"
                                         >
                                             Preferred
                                         </Checkbox>
