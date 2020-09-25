@@ -3,15 +3,15 @@
 export function sortByAlphabeticalThenIsPreferred(arr) {
     return arr
     .sort((a, b) => {
-        const { value: aValue, isPreferred: aIsPreferred } = a;
-        const { value: bValue, isPreferred: bIsPreferred } = b;
+        const { paymentMethodId: aPaymentMethodId, isPreferred: aIsPreferred } = a;
+        const { paymentMethodId: bPaymentMethodId, isPreferred: bIsPreferred } = b;
         if (aIsPreferred && !bIsPreferred) {
             return -1;
         }
         if (bIsPreferred && !aIsPreferred) {
             return 1;
         }
-        if (aValue < bValue) {
+        if (aPaymentMethodId < bPaymentMethodId) {
             return -1;
         }
         return 1;

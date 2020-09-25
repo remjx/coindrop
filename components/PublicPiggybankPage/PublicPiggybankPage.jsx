@@ -7,51 +7,34 @@ import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
-import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from './util';
 
 const PublicPiggybankPage = (props) => {
     const { piggybankDbData } = props;
     const theme = useTheme();
+    const { user } = useUser();
     const {
         name,
         website,
-        accent_color: accentColor = "orange",
+        accentColor = "orange",
     } = piggybankDbData;
-    const allAddressFields = Object.entries(piggybankDbData);
-    const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
-        const addressFieldName = item[0];
-        if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
-            return result;
-        }
-        return result
-            .concat(getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName));
-    }, []);
-    const addresses = allAddressFields
-        .filter(([field]) => (field.startsWith(addressFieldPrefix) && !field.endsWith(addressIsPreferredSuffix)))
-        .map(([field, address]) => {
-            const paymentMethodId = field.substr(addressFieldPrefix.length);
-            return [paymentMethodId, address];
-        });
-    const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
-    const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
-    const { user } = useUser();
-    function renderPaymentMethodButtonFromAddresses(addrs) {
-        return addrs.map(([paymentMethod, paymentMethodValue]) => (
+    const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods);
+    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
+    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
+    function PaymentMethodButtonsFromEntries({ entries }) {
+        return entries.map(([paymentMethodId, data]) => (
             <PaymentMethodButton
-                key={paymentMethod}
-                paymentMethod={paymentMethod}
-                paymentMethodValue={paymentMethodValue}
-                isPreferred={preferredPaymentMethodIds.includes(paymentMethod)}
+                key={paymentMethodId}
+                paymentMethod={paymentMethodId}
+                paymentMethodValue={data.address}
+                isPreferred={data.isPreferred}
                 accentColor={accentColor}
             />
         ));
     }
-    const initialSetupComplete = addresses.length > 0;
+    const initialSetupComplete = pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
-            data={{
-                ...piggybankDbData,
-            }}
+            data={piggybankDbData}
         >
             <Box
                 maxW="960px"
@@ -102,10 +85,14 @@ const PublicPiggybankPage = (props) => {
                             </Heading>
                         </Box>
                         <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                            {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
+                            <PaymentMethodButtonsFromEntries
+                                entries={preferredAddresses}
+                            />
                         </Stack>
                         <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                            {renderPaymentMethodButtonFromAddresses(otherAddresses)}
+                            <PaymentMethodButtonsFromEntries
+                                entries={otherAddresses}
+                            />
                         </Stack>
                         <PoweredByCoindropLink
                             accentColor={accentColor}

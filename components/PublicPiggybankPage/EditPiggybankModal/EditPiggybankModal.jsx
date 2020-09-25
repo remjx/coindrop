@@ -20,79 +20,25 @@ import {
     Select,
     useTheme,
 } from "@chakra-ui/core";
-import { useForm, useFieldArray, useWatch } from "react-hook-form";
-import { piggybankPathRegex } from '../../../src/settings';
+import { useForm, useFieldArray } from "react-hook-form";
+import { piggybankPathRegex } from '../../../src/settings'; // use for validation
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
-import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../util';
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
-import { sortByAlphabeticalThenIsPreferred } from './util';
 
 function formatFormDataForDb(formData) {
-    // return Object.entries(formData).reduce((result, item) => {
-
-    // }, {});
-    const {
-        piggybankId,
-        addressData,
-        ...rest
-    } = formData;
-    const reducedAddressData = addressData.reduce((result, item) => {
-        const { value, address, isPreferred } = item;
-        const isValidPaymentMethod = paymentMethodNames[value];
-        if (!isValidPaymentMethod) return result;
-        return {
-            ...result,
-            [`${addressFieldPrefix}${value}`]: address,
-            [`${addressFieldPrefix}${value}${addressIsPreferredSuffix}`]: isPreferred,
-        };
-    }, {});
-    console.log('reduced', reducedAddressData);
-    return {
-        piggybankId,
-        data: {
-            reducedAddressData,
-            ...rest,
-        },
-    };
+    // the only thing needed to be done here is potentially remove a "default-blank" payment method.
 }
 
-function convertPiggybankDataToAddressData(piggybankData) {
-    const obj = Object.entries(piggybankData)
-    .reduce((result, [field, value]) => {
-        if (field.startsWith(addressFieldPrefix)) {
-            if (field.endsWith(addressIsPreferredSuffix)) {
-                const paymentMethodId = getPaymentMethodIdFromPaymentMethodIsPreferredField(field);
-                return {
-                    ...result,
-                    [paymentMethodId]: {
-                        ...result[paymentMethodId],
-                        isPreferred: value,
-                    },
-                };
-            }
-            const paymentMethodId = field.substr(addressFieldPrefix.length);
-            return {
-                ...result,
-                [paymentMethodId]: {
-                    ...result[paymentMethodId],
-                    address: value,
-                },
-            };
-        }
-        return result;
-    }, {});
-    let arr = Object.entries(obj)
+function convertPaymentMethodsDataToFieldArray(paymentMethods) {
+    return Object.entries(paymentMethods)
     .map(([paymentMethodId, paymentMethodData]) => ({
-        id: uuidv4(),
-        value: paymentMethodId,
+        id: uuidv4(), // react-hook-form requires unchanging id
+        paymentMethodId,
         ...paymentMethodData,
-        ...(!paymentMethodData.isPreferred) && { isPreferred: false },
     }));
-    arr = sortByAlphabeticalThenIsPreferred(arr);
-    return arr;
 }
 
 const EditPiggybankModal = (props) => {
@@ -100,24 +46,24 @@ const EditPiggybankModal = (props) => {
     const { colors } = useTheme();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { query: { piggybankName: initialPiggybankId } } = useRouter();
-    const data = useContext(PublicPiggybankData);
-    const initialAddressDataFieldArray = convertPiggybankDataToAddressData(data);
-    useEffect(() => console.log('initialAddressDataFieldArray', initialAddressDataFieldArray), []);
+    const dbPiggybankData = useContext(PublicPiggybankData);
+    const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(dbPiggybankData.paymentMethods);
+    useEffect(() => console.log('initialPaymentMethodsDataFieldArray', initialPaymentMethodsDataFieldArray), []);
     const { register, handleSubmit, setValue, getValues, watch, control, errors } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
-            accentColor: data.accent_color ?? 'orange',
-            website: data.website ?? '',
-            name: data.name ?? '',
-            verb: data.verb ?? 'pay',
-            addressData: initialAddressDataFieldArray,
+            accentColor: dbPiggybankData.accentColor ?? 'orange',
+            website: dbPiggybankData.website ?? '',
+            name: dbPiggybankData.name ?? '',
+            verb: dbPiggybankData.verb ?? 'pay',
+            paymentMethods: initialPaymentMethodsDataFieldArray,
         },
     });
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "addressData",
+        name: "paymentMethods",
     });
-    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]);
+    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched?
     const isUrlUnchanged = initialPiggybankId === piggybankId;
     const onSubmit = (formData) => {
         // TODO:
@@ -250,7 +196,6 @@ const EditPiggybankModal = (props) => {
                                 fields={fields}
                                 control={control}
                                 register={register}
-                                defaultValue={initialAddressDataFieldArray}
                                 remove={remove}
                                 append={append}
                             />
