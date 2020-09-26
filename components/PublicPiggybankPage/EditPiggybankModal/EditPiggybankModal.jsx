@@ -28,11 +28,7 @@ import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
 
-function formatFormDataForDb(formData) {
-    // the only thing needed to be done here is potentially remove a "default-blank" payment method.
-}
-
-function convertPaymentMethodsDataToFieldArray(paymentMethods) {
+function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
     .map(([paymentMethodId, paymentMethodData]) => ({
         id: uuidv4(), // react-hook-form requires unchanging id
@@ -69,6 +65,11 @@ const EditPiggybankModal = (props) => {
     const onSubmit = (formData) => {
         // TODO: remove id field?
         console.log('raw form data', formData);
+        const dataToSubmit = { ...formData };
+        Object.keys(formData.paymentMethods).forEach(paymentMethodId => {
+            delete dataToSubmit.paymentMethods[paymentMethodId].id; // react-hook-form id is transitory
+        });
+        console.log('dataToSubmit', dataToSubmit);
         if (isUrlUnchanged) {
             // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
         } else {

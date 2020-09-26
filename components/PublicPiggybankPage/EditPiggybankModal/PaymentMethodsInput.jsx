@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 import {
     Accordion,
     AccordionItem,
@@ -19,7 +18,7 @@ import {
 } from "@chakra-ui/core";
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames } from '../../../src/paymentMethods';
-import { sortByAlphabeticalThenIsPreferred } from './util';
+import { sortByIsPreferredThenAlphabetical } from './util';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -29,8 +28,6 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         control,
         name: fieldArrayName,
     });
-    console.log('fields', fields)
-    console.log('paymentMethodsDataWatch', paymentMethodsDataWatch);
     return (
         <>
         {fields.length < 1
@@ -41,13 +38,12 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 defaultIndex={-1}
             >
                 {
-                sortByAlphabeticalThenIsPreferred(fields) // TODO: re-enable this sort
+                sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
                     .map((item, index) => {
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
-                    console.log('watchedData', watchedData);
                     return (
                         <AccordionItem
-                            key={item.paymentMethodId}
+                            key={item.id}
                         >
                             <AccordionHeader>
                                 <Flex flex="1" textAlign="left" align="center">
@@ -90,7 +86,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         ref={register()}
                                         defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
                                     >
-                                        <option hidden disabled value="default-blank">Select a payment method</option>
+                                        <option hidden disabled value="default-blank">Select a payment method...</option>
                                         {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodDisplayName]) => (
                                             <option
                                                 key={paymentMethodId}
@@ -153,7 +149,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 leftIcon="add"
                 variant="ghost"
                 size="sm"
-                isDisabled={fields.length > 0 && !paymentMethodNames[paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1].paymentMethodId]}
+                isDisabled={fields.length > 0 && !paymentMethodNames[paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.paymentMethodId]}
             >
                 Add payment method
             </Button>

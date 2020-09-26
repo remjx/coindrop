@@ -16,8 +16,9 @@ const PublicPiggybankPage = (props) => {
         name,
         website,
         accentColor = "orange",
+        verb,
     } = piggybankDbData;
-    const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods);
+    const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
     function PaymentMethodButtonsFromEntries({ entries }) {
@@ -31,7 +32,7 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
-    const initialSetupComplete = pagePaymentMethodsDataEntries.length > 0;
+    const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
             data={piggybankDbData}

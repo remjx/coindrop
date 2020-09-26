@@ -122,12 +122,12 @@ const index = () => {
                 >
                     {'Your '}
                     <span style={{textDecoration: "underline"}}>
-                        no-fee
+                        zero-fee
                     </span>
-                    {' website for peer-to-peer payments'}
+                    {' website for receiving payments'}
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Create a list of your addresses. Let the sender choose how to pay you directly.
+                    Create a list of addresses. Let the sender choose how to pay you.
                 </Text>
                 <Box
                     mt={4}

@@ -1,6 +1,6 @@
-import { sortByAlphabeticalThenIsPreferred } from './util';
+import { sortByIsPreferredThenAlphabetical } from './util';
 
-describe('sortByAlphabeticalThenIsPreferred', () => {
+describe('sortByIsPreferredThenAlphabetical', () => {
     test('sorts correctly', () => {
         const inputArr = [
             {
@@ -46,7 +46,7 @@ describe('sortByAlphabeticalThenIsPreferred', () => {
                 isPreferred: false,
             },
         ];
-        const result = sortByAlphabeticalThenIsPreferred(inputArr);
+        const result = sortByIsPreferredThenAlphabetical(inputArr);
         expect(result).toMatchObject(outputArr);
     });
 
@@ -95,7 +95,7 @@ describe('sortByAlphabeticalThenIsPreferred', () => {
                 isPreferred: false,
             },
         ];
-        const result = sortByAlphabeticalThenIsPreferred(inputArr);
+        const result = sortByIsPreferredThenAlphabetical(inputArr);
         expect(result).toMatchObject(outputArr);
     });
 
@@ -164,7 +164,7 @@ describe('sortByAlphabeticalThenIsPreferred', () => {
                isPreferred: false,
             },
         ];
-        const result = sortByAlphabeticalThenIsPreferred(inputArr);
+        const result = sortByIsPreferredThenAlphabetical(inputArr);
         expect(result).toMatchObject(outputArr);
     });
 });
