@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link, Box, Flex, Heading, Button } from '@chakra-ui/core';
+import { Link, Box, Flex, Heading, Button, useTheme } from '@chakra-ui/core';
 import DeleteButton from './PiggybankListItem/DeleteButton';
 import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
 function PiggybankListItem({ id, uid }) {
+    const { colors } = useTheme();
     const publicUrl = `coindrop.to/${id}`;
     return (
         <Flex
@@ -15,9 +16,13 @@ function PiggybankListItem({ id, uid }) {
             mt={3}
             justify="space-between"
             wrap="wrap"
+            align="center"
         >
             <Box>
-                <Heading fontSize="xl">{id}</Heading>
+                <Heading fontSize="xl">
+                    <span style={{color: colors.gray['400']}}>coindrop.to/</span>
+                    {id}
+                </Heading>
             </Box>
             <Flex wrap="wrap">
                 <Box

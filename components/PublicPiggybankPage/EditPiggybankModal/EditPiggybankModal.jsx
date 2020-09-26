@@ -42,13 +42,14 @@ function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
 
 const EditPiggybankModal = (props) => {
     const { isOpen, onClose } = props;
+    const [isSubmitting, setIsSubmitting] = useState();
     const { colors } = useTheme();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
     console.log('DB PIGGYBANK DATA', piggybankDbData);
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
-    const { register, handleSubmit, setValue, getValues, watch, control, errors, unregister } = useForm({
+    const { register, handleSubmit, setValue, watch, control, errors, unregister } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
             accentColor: piggybankDbData.accentColor ?? 'orange',
@@ -67,6 +68,7 @@ const EditPiggybankModal = (props) => {
     const isUrlUnchanged = initialPiggybankId === piggybankId;
     const onSubmit = async (formData) => {
         try {
+            setIsSubmitting(true);
             console.log('raw form data', formData);
             const dataToSubmit = {
                 ...formData,
@@ -85,9 +87,8 @@ const EditPiggybankModal = (props) => {
                     piggybankData: dataToSubmit,
                 });
             }
+            await refreshPiggybankDbData(initialPiggybankId);
             onClose();
-            refreshPiggybankDbData(initialPiggybankId);
-            routerPush(`/${formData.piggybankId}`); // refreshes data from db
         } catch (error) {
             // TODO: set error
             throw new Error(error);
@@ -100,11 +101,6 @@ const EditPiggybankModal = (props) => {
     useEffect(() => {
         register("accentColor");
     }, [register]);
-    useEffect(() => {
-        if (!isOpen) {
-            unregister(paymentMethodsFieldArrayName);
-        }
-    }, [isOpen]);
     const formControlTopMargin = 2;
     return (
         <Modal
@@ -234,6 +230,8 @@ const EditPiggybankModal = (props) => {
                             variantColor="green"
                             mx={1}
                             type="submit"
+                            isLoading={isSubmitting}
+                            loadingText="Submitting"
                         >
                             Submit
                         </Button>

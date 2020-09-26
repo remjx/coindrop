@@ -23,14 +23,15 @@ LinkButton.propTypes = {
 
 const ManagePiggybankBar = ({ editButtonOptions }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
-    const { colors: orange } = useTheme();
     const { query: { piggybankName }} = useRouter();
     return (
         <>
-        <EditPiggybankModal
-            isOpen={isEditOpen}
-            onClose={onEditClose}
-        />
+        {isEditOpen && ( // this conditional is needed to force remount of form so latest values are used
+            <EditPiggybankModal
+                isOpen={isEditOpen}
+                onClose={onEditClose}
+            />
+        )}
         <Flex
             justify="space-around"
             mt={2}
