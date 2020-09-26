@@ -17,7 +17,6 @@ const PublicPiggybankPage = (props) => {
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
     const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
-    console.log('piggybankDbData STATE', piggybankDbData)
     async function refreshPiggybankDbData(piggybankId) {
         try {
             const piggybankRef = await db

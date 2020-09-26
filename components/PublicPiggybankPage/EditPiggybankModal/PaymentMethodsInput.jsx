@@ -89,15 +89,22 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
                                     >
                                         <option hidden disabled value="default-blank">Select a payment method...</option>
-                                        {Object.entries(paymentMethodNames).map(([paymentMethodId, paymentMethodDisplayName]) => (
-                                            <option
-                                                key={paymentMethodId}
-                                                value={paymentMethodId}
-                                                style={{display: paymentMethodsDataWatch.map(paymentMethods => paymentMethods.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
-                                            >
-                                                {paymentMethodDisplayName}
-                                            </option>
-                                        ))}
+                                        {Object.entries(paymentMethodNames)
+                                            .sort((a, b) => {
+                                                const [aId] = a;
+                                                const [bId] = b;
+                                                return aId < bId ? -1 : 1;
+                                            })
+                                            .map(([paymentMethodId, paymentMethodDisplayName]) => (
+                                                <option
+                                                    key={paymentMethodId}
+                                                    value={paymentMethodId}
+                                                    style={{display: paymentMethodsDataWatch.map(paymentMethods => paymentMethods.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
+                                                >
+                                                    {paymentMethodDisplayName}
+                                                </option>
+                                            ))
+                                        }
                                     </Select>
                                 </Box>
                                 <Box
