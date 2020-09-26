@@ -27,6 +27,7 @@ import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../the
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
+import { convertPaymentMethodsFieldArrayToDbMap } from './util';
 
 function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
@@ -63,12 +64,8 @@ const EditPiggybankModal = (props) => {
     const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched?
     const isUrlUnchanged = initialPiggybankId === piggybankId;
     const onSubmit = (formData) => {
-        // TODO: remove id field?
         console.log('raw form data', formData);
-        const dataToSubmit = { ...formData };
-        Object.keys(formData.paymentMethods).forEach(paymentMethodId => {
-            delete dataToSubmit.paymentMethods[paymentMethodId].id; // react-hook-form id is transitory
-        });
+        const dataToSubmit = convertPaymentMethodsFieldArrayToDbMap(formData);
         console.log('dataToSubmit', dataToSubmit);
         if (isUrlUnchanged) {
             // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)

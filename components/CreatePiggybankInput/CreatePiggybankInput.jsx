@@ -7,7 +7,7 @@ import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { CreatePiggybankContext } from '../AppContext/AppContext';
 import { piggybankPathRegex } from '../../src/settings';
 
-const CreatePiggybankInput = ({ setShowInput }) => {
+const CreatePiggybankInput = ({ onCancel }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
@@ -61,12 +61,14 @@ const CreatePiggybankInput = ({ setShowInput }) => {
                 >
                     Create
                 </Button>
-                <Button
-                    onClick={() => setShowInput(false)}
-                    ml={1}
-                >
-                    Cancel
-                </Button>
+                {onCancel && (
+                    <Button
+                        onClick={onCancel}
+                        ml={1}
+                    >
+                        Cancel
+                    </Button>
+                )}
             </Flex>
             {error && (
                 <Text textAlign="center" color="red.500">
@@ -93,11 +95,11 @@ const CreatePiggybankInput = ({ setShowInput }) => {
 };
 
 CreatePiggybankInput.propTypes = {
-    setShowInput: PropTypes.func.isRequired,
+    onCancel: PropTypes.func,
 };
 
 CreatePiggybankInput.defaultProps = {
-
+    onCancel: null,
 };
 
 export default CreatePiggybankInput;

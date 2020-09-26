@@ -31,8 +31,7 @@ const AddPiggybankListItem = (props) => {
                 wrap="wrap"
                 align="center"
             >
-                {/* <Heading size="md" textAlign="center">Add new</Heading> */}
-                <CreatePiggybankInput setShowInput={setShowInput} />
+                <CreatePiggybankInput onCancel={() => setShowInput(false)} />
             </Flex>
         );
     }
