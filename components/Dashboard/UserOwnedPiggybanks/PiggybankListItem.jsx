@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link, Box, Flex, Heading, Button, useClipboard } from '@chakra-ui/core';
+import { Link, Box, Flex, Heading, Button } from '@chakra-ui/core';
 import DeleteButton from './PiggybankListItem/DeleteButton';
+import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
 function PiggybankListItem({ id, uid }) {
     const publicUrl = `coindrop.to/${id}`;
-    const { onCopy, hasCopied } = useClipboard(publicUrl);
     return (
         <Flex
             p={5}
@@ -20,28 +20,33 @@ function PiggybankListItem({ id, uid }) {
                 <Heading fontSize="xl">{id}</Heading>
             </Box>
             <Flex wrap="wrap">
-                <Button
-                    leftIcon={hasCopied ? "check" : "link"}
+                <Box
                     m={1}
-                    onClick={onCopy}
                 >
-                    {hasCopied ? "Copied Link" : "Share"}
-                </Button>
-                <NextLink href={`/${id}`} passHref>
-                    <Link style={{textDecoration: 'none'}}>
-                        <Button
-                            leftIcon="view"
-                            m={1}
-                            role="link"
-                        >
-                            View
-                        </Button>
-                    </Link>
-                </NextLink>
-                <DeleteButton
-                    id={id}
-                    uid={uid}
-                />
+                    <CopyLinkShareButton textToCopy={publicUrl} />
+                </Box>
+                <Box
+                    m={1}
+                >
+                    <NextLink href={`/${id}`} passHref>
+                        <Link style={{textDecoration: 'none'}}>
+                            <Button
+                                leftIcon="view"
+                                role="link"
+                            >
+                                View
+                            </Button>
+                        </Link>
+                    </NextLink>
+                </Box>
+                <Box
+                    m={1}
+                >
+                    <DeleteButton
+                        id={id}
+                        uid={uid}
+                    />
+                </Box>
             </Flex>
         </Flex>
     );

@@ -45,16 +45,16 @@ const EditPiggybankModal = (props) => {
     const { colors } = useTheme();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
-    const dbPiggybankData = useContext(PublicPiggybankData);
-    console.log('DB PIGGYBANK DATA', dbPiggybankData);
-    const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(dbPiggybankData.paymentMethods);
-    const { register, handleSubmit, setValue, getValues, watch, control, errors } = useForm({
+    const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    console.log('DB PIGGYBANK DATA', piggybankDbData);
+    const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
+    const { register, handleSubmit, setValue, getValues, watch, control, errors, unregister } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
-            accentColor: dbPiggybankData.accentColor ?? 'orange',
-            website: dbPiggybankData.website ?? '',
-            name: dbPiggybankData.name ?? '',
-            verb: dbPiggybankData.verb ?? 'pay',
+            accentColor: piggybankDbData.accentColor ?? 'orange',
+            website: piggybankDbData.website ?? '',
+            name: piggybankDbData.name ?? '',
+            verb: piggybankDbData.verb ?? 'pay',
             paymentMethods: initialPaymentMethodsDataFieldArray,
         },
     });
@@ -63,7 +63,7 @@ const EditPiggybankModal = (props) => {
         control,
         name: paymentMethodsFieldArrayName,
     });
-    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched?
+    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched if not showing Preview?
     const isUrlUnchanged = initialPiggybankId === piggybankId;
     const onSubmit = async (formData) => {
         try {
@@ -71,12 +71,12 @@ const EditPiggybankModal = (props) => {
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods),
-                owner_uid: dbPiggybankData.owner_uid,
+                owner_uid: piggybankDbData.owner_uid,
             };
             console.log('dataToSubmit', dataToSubmit);
             if (isUrlUnchanged) {
                 // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
-                await db.collection('piggybanks').doc(formData.piggybankId).set(dataToSubmit);
+                await db.collection('piggybanks').doc(formData.piggybankId).set(dataToSubmit); // TODO: does this return the document? if so, instead of routerPush'ing below, can manually set the data without refetching from db.
             } else {
                 // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
                 await db.collection('piggybanks').doc(formData.piggybankId).delete();
@@ -86,18 +86,25 @@ const EditPiggybankModal = (props) => {
                 });
             }
             onClose();
-            routerPush(`/${formData.piggybankId}`);
+            refreshPiggybankDbData(initialPiggybankId);
+            routerPush(`/${formData.piggybankId}`); // refreshes data from db
         } catch (error) {
             // TODO: set error
             throw new Error(error);
         }
     };
     const handleAccentColorChange = (e) => {
+        e.preventDefault();
         setValue("accentColor", e.target.dataset.colorname);
     };
     useEffect(() => {
         register("accentColor");
     }, [register]);
+    useEffect(() => {
+        if (!isOpen) {
+            unregister(paymentMethodsFieldArrayName);
+        }
+    }, [isOpen]);
     const formControlTopMargin = 2;
     return (
         <Modal
@@ -177,7 +184,7 @@ const EditPiggybankModal = (props) => {
                                 name="verb"
                                 ref={register}
                             >
-                                <option value="pay">Pay</option>
+                                <option value="pay">Pay</option> {/* TODO: Where are these mapped to what is displayed? */}
                                 <option value="donate to">Donate to</option>
                                 <option value="support">Support</option>
                             </Select>

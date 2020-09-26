@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/core';
 /** @jsx jsx */
@@ -8,12 +9,29 @@ import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 import { sortArrayByEntriesKeyAlphabetical } from './util';
+import { db } from '../../utils/client/db';
 
 const PublicPiggybankPage = (props) => {
     // TODO: useSwr to refresh piggybankDbData after initial load
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
-    const { piggybankDbData } = props;
+    const { initialPiggybankDbData } = props;
+    const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
+    console.log('piggybankDbData STATE', piggybankDbData)
+    async function refreshPiggybankDbData(piggybankId) {
+        try {
+            const piggybankRef = await db
+                .collection('piggybanks')
+                .doc(piggybankId)
+                .get();
+            if (piggybankRef.exists) {
+                const data = piggybankRef.data();
+                setPiggybankDbData(data);
+            }
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
     const theme = useTheme();
     const { user } = useUser();
     const {
@@ -22,7 +40,6 @@ const PublicPiggybankPage = (props) => {
         accentColor = "orange",
         verb,
     } = piggybankDbData;
-    console.log('piggybankDbData at top', piggybankDbData)
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
@@ -42,7 +59,10 @@ const PublicPiggybankPage = (props) => {
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
-            data={piggybankDbData}
+            data={{
+                piggybankDbData,
+                refreshPiggybankDbData,
+            }}
         >
             <Box
                 maxW="960px"
@@ -115,7 +135,7 @@ const PublicPiggybankPage = (props) => {
 };
 
 PublicPiggybankPage.propTypes = {
-    piggybankDbData: PropTypes.object.isRequired,
+    initialPiggybankDbData: PropTypes.object.isRequired,
 };
 
 PublicPiggybankPage.defaultProps = {

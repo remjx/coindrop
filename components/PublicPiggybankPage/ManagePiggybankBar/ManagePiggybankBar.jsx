@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/core';
+import { useRouter } from 'next/router';
+import { Link as ChakraLink, Button, Flex, useDisclosure, useTheme } from '@chakra-ui/core';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
+import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
 /* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (
@@ -21,6 +23,8 @@ LinkButton.propTypes = {
 
 const ManagePiggybankBar = ({ editButtonOptions }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
+    const { colors: orange } = useTheme();
+    const { query: { piggybankName }} = useRouter();
     return (
         <>
         <EditPiggybankModal
@@ -34,6 +38,7 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
             <LinkButton href="/dashboard" leftIcon="arrow-back">
                 Dashboard
             </LinkButton>
+            <CopyLinkShareButton textToCopy={`coindrop.to/${piggybankName}`} />
             <Button
                 leftIcon={editButtonOptions.iconName}
                 onClick={onEditOpen}

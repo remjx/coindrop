@@ -49,7 +49,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                         >
                             <AccordionHeader>
                                 <Flex flex="1" textAlign="left" align="center">
-                                    <Flex mr={1}>
+                                    <Flex mr={1} align="center">
                                         <Icon mr={2} name={watchedData?.paymentMethodId} />
                                         {paymentMethodNames[watchedData?.paymentMethodId] ?? 'New payment method'}
                                     </Flex>
