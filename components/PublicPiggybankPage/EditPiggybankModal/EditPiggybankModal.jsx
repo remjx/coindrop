@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/core";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
+import { isEqual } from 'lodash';
 import { piggybankPathRegex } from '../../../src/settings'; // use for validation
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
@@ -45,13 +46,21 @@ const EditPiggybankModal = (props) => {
     const { isOpen, onClose } = props;
     const [isSubmitting, setIsSubmitting] = useState();
     const { colors } = useTheme();
-    const { token } = useUser();
+    const { user } = useUser();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
     console.log('DB PIGGYBANK DATA', piggybankDbData);
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
-    const { register, handleSubmit, setValue, watch, control, errors, unregister } = useForm({
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        control,
+        errors,
+        formState: { isDirty },
+    } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
             accentColor: piggybankDbData.accentColor ?? 'orange',
@@ -66,12 +75,15 @@ const EditPiggybankModal = (props) => {
         control,
         name: paymentMethodsFieldArrayName,
     });
-    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched if not showing Preview?
-    const isUrlUnchanged = initialPiggybankId === piggybankId;
+    const {
+        accentColor: watchedAccentColor,
+        piggybankId: watchedPiggybankId,
+    } = watch(["accentColor", "piggybankId"]);
+    const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
-            console.log('raw form data', formData);
+            console.log('user.token', user.token);
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
@@ -79,7 +91,7 @@ const EditPiggybankModal = (props) => {
             };
             console.log('dataToSubmit', dataToSubmit);
             if (isUrlUnchanged) {
-                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit); // TODO: does this return the document? if so, instead of routerPush'ing below, can manually set the data without refetching from db.
+                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
                 await refreshPiggybankDbData(initialPiggybankId);
             } else {
                 await db.collection('piggybanks').doc(initialPiggybankId).delete();
@@ -90,7 +102,7 @@ const EditPiggybankModal = (props) => {
                         piggybankData: dataToSubmit,
                     },
                     {
-                        token,
+                        token: user.token,
                     },
                 );
                 console.log('response.data', response.data);
@@ -129,7 +141,7 @@ const EditPiggybankModal = (props) => {
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
                                 register={register}
-                                value={piggybankId}
+                                value={watchedPiggybankId}
                             />
                         </FormControl>
                         <FormControl
@@ -154,7 +166,7 @@ const EditPiggybankModal = (props) => {
                                         onClick={handleAccentColorChange}
                                         data-colorname={colorName}
                                     >
-                                        {accentColor === colorName && (
+                                        {watchedAccentColor === colorName && (
                                             <Icon name="check" color="#FFF" />
                                         )}
                                     </Box>
@@ -242,6 +254,7 @@ const EditPiggybankModal = (props) => {
                             type="submit"
                             isLoading={isSubmitting}
                             loadingText="Submitting"
+                            isDisabled={!isDirty}
                         >
                             Submit
                         </Button>
