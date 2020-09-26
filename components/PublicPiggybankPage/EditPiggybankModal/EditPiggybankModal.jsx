@@ -28,6 +28,8 @@ import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
 import { convertPaymentMethodsFieldArrayToDbMap } from './util';
+import { db } from '../../../utils/client/db';
+import axios from 'axios';
 
 function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
@@ -42,10 +44,10 @@ const EditPiggybankModal = (props) => {
     const { isOpen, onClose } = props;
     const { colors } = useTheme();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
-    const { query: { piggybankName: initialPiggybankId } } = useRouter();
+    const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const dbPiggybankData = useContext(PublicPiggybankData);
+    console.log('DB PIGGYBANK DATA', dbPiggybankData);
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(dbPiggybankData.paymentMethods);
-    useEffect(() => console.log('initialPaymentMethodsDataFieldArray', initialPaymentMethodsDataFieldArray), []);
     const { register, handleSubmit, setValue, getValues, watch, control, errors } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
@@ -63,14 +65,31 @@ const EditPiggybankModal = (props) => {
     });
     const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]); // TODO: do these need to be watched?
     const isUrlUnchanged = initialPiggybankId === piggybankId;
-    const onSubmit = (formData) => {
-        console.log('raw form data', formData);
-        const dataToSubmit = convertPaymentMethodsFieldArrayToDbMap(formData);
-        console.log('dataToSubmit', dataToSubmit);
-        if (isUrlUnchanged) {
-            // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
-        } else {
-            // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
+    const onSubmit = async (formData) => {
+        try {
+            console.log('raw form data', formData);
+            const dataToSubmit = {
+                ...formData,
+                paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods),
+                owner_uid: dbPiggybankData.owner_uid,
+            };
+            console.log('dataToSubmit', dataToSubmit);
+            if (isUrlUnchanged) {
+                // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
+                await db.collection('piggybanks').doc(formData.piggybankId).set(dataToSubmit);
+            } else {
+                // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
+                await db.collection('piggybanks').doc(formData.piggybankId).delete();
+                const response = await axios.post('/api/createPiggybank', {
+                    piggybankName: formData.piggybankId, // TODO: rename this to piggybankId
+                    piggybankData: dataToSubmit,
+                });
+            }
+            onClose();
+            routerPush(`/${formData.piggybankId}`);
+        } catch (error) {
+            // TODO: set error
+            throw new Error(error);
         }
     };
     const handleAccentColorChange = (e) => {

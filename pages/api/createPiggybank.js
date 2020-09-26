@@ -29,7 +29,10 @@ async function isUserUnderPiggybankLimit(uid) {
 
 const createPiggybank = async (req, res) => {
   try {
-    const { piggybankName } = req.body;
+    const {
+      piggybankName, // TODO: rename this to piggybankId
+      piggybankData,
+    } = req.body;
     const { uid } = req.headers;
     await Promise.all([
       isPiggybankNameNonexistant(piggybankName),
@@ -40,6 +43,7 @@ const createPiggybank = async (req, res) => {
     .doc(piggybankName)
     .set({
       owner_uid: uid,
+      ...piggybankData,
     });
     return res.status(200).end();
   } catch (error) {

@@ -7,8 +7,12 @@ import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
+import { sortArrayByEntriesKeyAlphabetical } from './util';
 
 const PublicPiggybankPage = (props) => {
+    // TODO: useSwr to refresh piggybankDbData after initial load
+    // TODO: Split out Edit modal into new page?
+    // TODO: alphabetize list of payment methods
     const { piggybankDbData } = props;
     const theme = useTheme();
     const { user } = useUser();
@@ -18,11 +22,14 @@ const PublicPiggybankPage = (props) => {
         accentColor = "orange",
         verb,
     } = piggybankDbData;
+    console.log('piggybankDbData at top', piggybankDbData)
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
     function PaymentMethodButtonsFromEntries({ entries }) {
-        return entries.map(([paymentMethodId, data]) => (
+        return entries
+        .sort(sortArrayByEntriesKeyAlphabetical)
+        .map(([paymentMethodId, data]) => (
             <PaymentMethodButton
                 key={paymentMethodId}
                 paymentMethod={paymentMethodId}

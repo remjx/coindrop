@@ -28,6 +28,8 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         control,
         name: fieldArrayName,
     });
+    console.log('FIELDS', fields);
+    console.log('DATA WATCH', paymentMethodsDataWatch);
     return (
         <>
         {fields.length < 1

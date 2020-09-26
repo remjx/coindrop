@@ -120,14 +120,14 @@ const index = () => {
                     textAlign="center"
                     color={theme.colors.gray['700']}
                 >
-                    {'Your '}
+                    {'Create a '}
                     <span style={{textDecoration: "underline"}}>
                         zero-fee
                     </span>
                     {' website for receiving payments'}
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Create a list of addresses. Let the sender choose how to pay you.
+                    Enter your list of addresses. Let the sender choose how to pay you.
                 </Text>
                 <Box
                     mt={4}
