@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Text, Icon, Heading, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { Text, Icon, Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
 import { mutate } from 'swr';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
@@ -57,14 +57,20 @@ const Dashboard = () => {
                             </Text>
                         </MenuButton>
                         <MenuList placement="bottom-end">
-                            <MenuItem>
-                                <Flex
-                                    align="center"
-                                >
-                                    <Icon mr={2} name="github" />
-                                    About
-                                </Flex>
-                            </MenuItem>
+                            <Link
+                                href="https://github.com/markjackson02/coindrop#coindrop-"
+                                target="_blank"
+                                style={{textDecoration: "none"}}
+                            >
+                                <MenuItem>
+                                        <Flex
+                                            align="center"
+                                        >
+                                            <Icon mr={2} name="github" />
+                                            About
+                                        </Flex>
+                                </MenuItem>
+                            </Link>
                             <MenuItem
                                 onClick={() => {
                                     logout();
@@ -77,6 +83,20 @@ const Dashboard = () => {
                                     Log out
                                 </Flex>
                             </MenuItem>
+                            <Link
+                                href="https://github.com/markjackson02/coindrop#contact-%EF%B8%8F"
+                                target="_blank"
+                                style={{textDecoration: "none"}}
+                            >
+                                <MenuItem>
+                                        <Flex
+                                            align="center"
+                                        >
+                                            <Icon mr={2} name="question" />
+                                            Help
+                                        </Flex>
+                                </MenuItem>
+                            </Link>
                         </MenuList>
                     </Menu>
                 </Flex>
