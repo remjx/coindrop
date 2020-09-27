@@ -10,7 +10,6 @@ import {
     ModalOverlay,
     ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton,
     FormControl,
@@ -22,7 +21,6 @@ import {
 } from "@chakra-ui/core";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
-import { isEqual } from 'lodash';
 import { piggybankPathRegex } from '../../../src/settings'; // use for validation
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
@@ -52,6 +50,7 @@ const EditPiggybankModal = (props) => {
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
+    const initialAccentColor = piggybankDbData.accentColor ?? 'orange';
     const {
         register,
         handleSubmit,
@@ -63,7 +62,7 @@ const EditPiggybankModal = (props) => {
     } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
-            accentColor: piggybankDbData.accentColor ?? 'orange',
+            accentColor: initialAccentColor,
             website: piggybankDbData.website ?? '',
             name: piggybankDbData.name ?? '',
             verb: piggybankDbData.verb ?? 'pay',
@@ -261,7 +260,10 @@ const EditPiggybankModal = (props) => {
                                 type="submit"
                                 isLoading={isSubmitting}
                                 loadingText="Submitting"
-                                isDisabled={!isDirty}
+                                isDisabled={
+                                    !isDirty
+                                    && initialAccentColor === watchedAccentColor // controlled accentColor field is not showing up in formState.dirtyFields
+                                }
                             >
                                 Submit
                             </Button>
