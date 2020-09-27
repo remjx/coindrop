@@ -84,7 +84,8 @@ const PublicPiggybankPage = (props) => {
                             mx={3}
                         >
                             <Heading textAlign="center">
-                                {'Choose a payment method to pay '}
+                                {'Choose a payment method to'}
+                                {` ${verb} `}
                                 {website ? (
                                     <Link href={website} target="_blank" rel="noreferrer">
                                         <Heading

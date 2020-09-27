@@ -133,7 +133,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                             console.log('index', index);
                                             remove(index);
                                         }}
-                                        leftIcon="delete"
+                                        leftIcon="minus"
                                         // variantColor="red"
                                         size="sm"
                                     >
