@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { Link as ChakraLink, Button, Flex, useDisclosure, useTheme } from '@chakra-ui/core';
+import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/core';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
@@ -35,18 +35,28 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
         <Flex
             justify="space-around"
             mt={2}
+            wrap="wrap"
         >
-            <LinkButton href="/dashboard" leftIcon="arrow-back">
-                Dashboard
-            </LinkButton>
-            <CopyLinkShareButton textToCopy={`coindrop.to/${piggybankName}`} />
-            <Button
-                leftIcon={editButtonOptions.iconName}
-                onClick={onEditOpen}
-                variantColor={editButtonOptions.color}
-            >
-                {editButtonOptions.text}
-            </Button>
+            <Box mt={2}>
+                <LinkButton
+                    href="/dashboard"
+                    leftIcon="arrow-back"
+                >
+                    Dashboard
+                </LinkButton>
+            </Box>
+            <Box mt={2}>
+                <CopyLinkShareButton textToCopy={`coindrop.to/${piggybankName}`} />
+            </Box>
+            <Box mt={2}>
+                <Button
+                    leftIcon={editButtonOptions.iconName}
+                    onClick={onEditOpen}
+                    variantColor={editButtonOptions.color}
+                >
+                    {editButtonOptions.text}
+                </Button>
+            </Box>
         </Flex>
         </>
     );

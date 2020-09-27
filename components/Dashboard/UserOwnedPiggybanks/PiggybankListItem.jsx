@@ -23,7 +23,7 @@ function PiggybankListItem({ id }) {
                 <NextLink href={`/${id}`} passHref>
                     <Link style={{textDecorationColor: colors.orange['500']}}>
                         <Heading fontSize="xl">
-                            <span style={{color: colors.gray['400']}}>coindrop.to/</span>
+                            coindrop.to/
                             {id}
                         </Heading>
                     </Link>
