@@ -8,7 +8,7 @@ const PoweredByCoindropLink = (props) => {
     return (
         <Box
             textAlign="center"
-            mt={6}
+            my={6}
         >
             <NextLink href="/" passHref>
                 <ChakraLink style={{textDecoration: "none"}}>
