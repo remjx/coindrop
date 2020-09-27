@@ -79,14 +79,16 @@ const PublicPiggybankPage = (props) => {
                     />
                 )}
                 {initialSetupComplete ? (
-                    <Box id="initial-setup-complete">
+                    <Box
+                        mb={6}
+                    >
                         <Box
                             padding="10px"
                             my={2}
                             mx={3}
                         >
                             <Heading textAlign="center">
-                                {'Choose a payment method to'}
+                                Choose a payment method to
                                 {` ${verb} `}
                                 {website ? (
                                     <Link href={website} target="_blank" rel="noreferrer">

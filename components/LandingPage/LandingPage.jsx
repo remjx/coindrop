@@ -139,13 +139,14 @@ const index = () => {
             <Text
                 textAlign="center"
                 mt={8}
-                mb={4}
                 fontSize="xl"
             >
                 Coindrop supports virtually all:
             </Text>
             <Flex direction={['column', 'row']}>
-                <Box>
+                <Box
+                    mt={4}
+                >
                     <Heading as="h3" size="md" textAlign="center">
                         Apps
                     </Heading>
@@ -154,7 +155,9 @@ const index = () => {
                         <AddTag />
                     </Flex>
                 </Box>
-                <Box>
+                <Box
+                    mt={4}
+                >
                     <Heading as="h3" size="md" textAlign="center">
                         Cryptocurrencies
                     </Heading>

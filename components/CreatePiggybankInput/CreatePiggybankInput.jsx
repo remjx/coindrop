@@ -1,11 +1,20 @@
 import { useEffect, useState, useContext } from 'react';
-import { List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
+import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { CreatePiggybankContext } from '../AppContext/AppContext';
 import { piggybankPathRegex } from '../../src/settings';
+
+const BoxMargin = ({ children }) => (
+    <Box mt={2}>
+        {children}
+    </Box>
+);
+BoxMargin.propTypes = {
+    children: PropTypes.element.isRequired,
+};
 
 const CreatePiggybankInput = ({ onCancel }) => {
     const { user } = useUser();
@@ -32,42 +41,49 @@ const CreatePiggybankInput = ({ onCancel }) => {
             <Flex
                 align="center"
                 justify="center"
+                wrap="wrap"
             >
-                <InputGroup>
-                    <InputLeftAddon>
-                        coindrop.to/
-                    </InputLeftAddon>
-                    <Input
-                        maxLength="32"
-                        roundedLeft="0"
-                        placeholder="my-piggybank-url"
-                        onChange={(e) => {
-                            setError(null);
-                            setCandidatePiggybankPath(e.target.value);
-                            setIsCandidatePiggybankPathInvalid(false);
-                        }}
-                        value={candidatePiggybankPath}
-                        isInvalid={isCandidatePiggybankPathInvalid || !!error}
-                    />
-                </InputGroup>
-                <Button
-                    ml={1}
-                    variantColor="orange"
-                    isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
-                    isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
-                    loadingText="Creating"
-                    onClick={handleCreateUrl}
-                    type="submit"
-                >
-                    Create
-                </Button>
-                {onCancel && (
+                <BoxMargin>
+                    <InputGroup>
+                        <InputLeftAddon>
+                            coindrop.to/
+                        </InputLeftAddon>
+                        <Input
+                            maxLength="32"
+                            roundedLeft="0"
+                            placeholder="my-custom-url"
+                            onChange={(e) => {
+                                setError(null);
+                                setCandidatePiggybankPath(e.target.value);
+                                setIsCandidatePiggybankPathInvalid(false);
+                            }}
+                            value={candidatePiggybankPath}
+                            isInvalid={isCandidatePiggybankPathInvalid || !!error}
+                        />
+                    </InputGroup>
+                </BoxMargin>
+                <BoxMargin>
                     <Button
-                        onClick={onCancel}
                         ml={1}
+                        variantColor="orange"
+                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
+                        isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
+                        loadingText="Creating"
+                        onClick={handleCreateUrl}
+                        type="submit"
                     >
-                        Cancel
+                        Create
                     </Button>
+                </BoxMargin>
+                {onCancel && (
+                    <BoxMargin>
+                        <Button
+                            onClick={onCancel}
+                            ml={1}
+                        >
+                            Cancel
+                        </Button>
+                    </BoxMargin>
                 )}
             </Flex>
             {error && (
