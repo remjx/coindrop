@@ -38,6 +38,7 @@ const PublicPiggybankPage = (props) => {
         website,
         accentColor = "orange",
         verb,
+        owner_uid,
     } = piggybankDbData;
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
@@ -55,7 +56,7 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
-    const piggybankExists = !!piggybankDbData.owner_id;
+    const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
@@ -65,7 +66,7 @@ const PublicPiggybankPage = (props) => {
             }}
         >
             <Box
-                maxW="960px"
+                maxW="1280px"
                 mx="auto"
             >
                 {user?.id && (
