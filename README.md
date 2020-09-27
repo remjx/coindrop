@@ -1,4 +1,8 @@
-⚠️ Note: Coindrop is in closed beta while we refine the user experience. Request an invite by DMing [@coindrop_to on Twitter](https://twitter.com/coindrop_to).
+⚠️⚠️⚠️
+
+Note: Coindrop is in closed beta while we refine the user experience. Request an invite by DMing [@coindrop_to on Twitter](https://twitter.com/coindrop_to).
+
+⚠️⚠️⚠️
 
 # Coindrop 💰
 
