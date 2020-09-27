@@ -90,22 +90,23 @@ const EditPiggybankModal = (props) => {
             console.log('dataToSubmit', dataToSubmit);
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
-                await refreshPiggybankDbData(initialPiggybankId);
             } else {
                 await db.collection('piggybanks').doc(initialPiggybankId).delete();
-                const response = await axios.post(
+                await axios.post(
                     '/api/createPiggybank',
                     {
                         piggybankName: formData.piggybankId, // TODO: rename this to piggybankId
                         piggybankData: dataToSubmit,
                     },
                     {
-                        token: user.token,
+                        headers: {
+                            token: user.token,
+                        },
                     },
                 );
-                console.log('response.data', response.data);
                 routerPush(`/${formData.piggybankId}`);
             }
+            await refreshPiggybankDbData(formData.piggybankId);
             onClose();
         } catch (error) {
             setIsSubmitting(false);

@@ -135,6 +135,20 @@ const index = () => {
                 >
                     <CreatePiggybankInput />
                 </Box>
+                <Text
+                    fontSize="sm"
+                    textAlign="center"
+                    mt={4}
+                >
+                    {'Coindrop is currently in beta. '}
+                    <Link
+                        href="https://twitter.com/coindrop_to"
+                        target="_blank"
+                    >
+                        <b>Request an invite</b>
+                    </Link>
+                    .
+                </Text>
             </Box>
             <Text
                 textAlign="center"

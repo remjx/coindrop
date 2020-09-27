@@ -130,11 +130,9 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                 >
                                     <Button
                                         onClick={() => {
-                                            console.log('index', index);
                                             remove(index);
                                         }}
                                         leftIcon="minus"
-                                        // variantColor="red"
                                         size="sm"
                                     >
                                         {'Remove '}
