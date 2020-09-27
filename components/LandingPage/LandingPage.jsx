@@ -135,6 +135,13 @@ const index = () => {
                 >
                     <CreatePiggybankInput />
                 </Box>
+                <Text>
+                    Note: Coindrop is currently in beta.
+                    <Link href="">
+                        Request an invite
+                    </Link>
+                    .
+                </Text>
             </Box>
             <Text
                 textAlign="center"

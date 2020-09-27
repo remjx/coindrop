@@ -2,6 +2,7 @@ import nc from 'next-connect';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser } from '../../src/settings';
+import requireBetaInvite from '../../server/middleware/requireBetaInvite';
 
 const piggybankExistsErrorMessage = 'A piggybank with this name already exists.';
 async function isPiggybankNameNonexistant(piggybankName) {
@@ -60,7 +61,8 @@ const createPiggybank = async (req, res) => {
 };
 
 const handler = nc()
-    .use(requireFirebaseToken)
-    .post(createPiggybank);
+  .use(requireFirebaseToken)
+  .use(requireBetaInvite)
+  .post(createPiggybank);
 
 export default handler;
