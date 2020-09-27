@@ -28,6 +28,7 @@ import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
+import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
 import EditUrlInput from './EditUrlInput';
 import { convertPaymentMethodsFieldArrayToDbMap } from './util';
 import { db } from '../../../utils/client/db';
@@ -50,7 +51,6 @@ const EditPiggybankModal = (props) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
-    console.log('DB PIGGYBANK DATA', piggybankDbData);
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
     const {
         register,
@@ -83,7 +83,6 @@ const EditPiggybankModal = (props) => {
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
-            console.log('user.token', user.token);
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
@@ -241,24 +240,33 @@ const EditPiggybankModal = (props) => {
                             />
                         </FormControl>
                     </ModalBody>
-                    <ModalFooter align="center" mx="auto">
-                        <Button
-                            variant="ghost"
-                            onClick={onClose}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            variantColor="green"
-                            mx={1}
-                            type="submit"
-                            isLoading={isSubmitting}
-                            loadingText="Submitting"
-                            isDisabled={!isDirty}
-                        >
-                            Submit
-                        </Button>
-                    </ModalFooter>
+                    <Flex
+                        id="modal-footer"
+                        justify="space-between"
+                        m={6}
+                    >
+                        <DeleteButton
+                            id={initialPiggybankId}
+                        />
+                        <Flex>
+                            <Button
+                                variant="ghost"
+                                onClick={onClose}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                variantColor="green"
+                                mx={1}
+                                type="submit"
+                                isLoading={isSubmitting}
+                                loadingText="Submitting"
+                                isDisabled={!isDirty}
+                            >
+                                Submit
+                            </Button>
+                        </Flex>
+                    </Flex>
                 </form>
             </ModalContent>
         </Modal>

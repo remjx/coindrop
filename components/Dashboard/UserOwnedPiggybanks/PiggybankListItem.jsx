@@ -18,12 +18,14 @@ function PiggybankListItem({ id, uid }) {
             wrap="wrap"
             align="center"
         >
-            <Box>
+            <Flex
+                align="center"
+            >
                 <Heading fontSize="xl">
                     <span style={{color: colors.gray['400']}}>coindrop.to/</span>
                     {id}
                 </Heading>
-            </Box>
+            </Flex>
             <Flex wrap="wrap">
                 <Box
                     m={1}
@@ -36,21 +38,13 @@ function PiggybankListItem({ id, uid }) {
                     <NextLink href={`/${id}`} passHref>
                         <Link style={{textDecoration: 'none'}}>
                             <Button
-                                leftIcon="view"
+                                leftIcon="settings"
                                 role="link"
                             >
-                                View
+                                Manage
                             </Button>
                         </Link>
                     </NextLink>
-                </Box>
-                <Box
-                    m={1}
-                >
-                    <DeleteButton
-                        id={id}
-                        uid={uid}
-                    />
                 </Box>
             </Flex>
         </Flex>

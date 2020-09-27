@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@chakra-ui/core';
-import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import { db } from '../../../../utils/client/db';
 
 const DeleteButton = (props) => {
-    const { id, uid } = props;
+    const { id } = props;
+    const { push } = useRouter();
     const [awaitingDeleteConfirmation, setAwaitingDeleteConfirmation] = useState();
     const [isDeleting, setIsDeleting] = useState();
     async function handleDelete() {
@@ -18,7 +19,7 @@ const DeleteButton = (props) => {
                 .collection('piggybanks')
                 .doc(id)
                 .delete();
-            mutate(uid);
+            push('/dashboard');
         } catch (err) {
             setAwaitingDeleteConfirmation(false);
         }
@@ -48,7 +49,9 @@ const DeleteButton = (props) => {
 
 DeleteButton.propTypes = {
     id: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
+};
+
+DeleteButton.defaultProps = {
 };
 
 export default DeleteButton;
