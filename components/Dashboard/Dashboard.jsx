@@ -84,7 +84,7 @@ const Dashboard = () => {
                                 </Flex>
                             </MenuItem>
                             <Link
-                                href="https://github.com/markjackson02/coindrop/#contributions-%EF%B8%8F%EF%B8%8F"
+                                href="https://github.com/markjackson02/coindrop#contributions-%EF%B8%8F%EF%B8%8F"
                                 target="_blank"
                                 style={{textDecoration: "none"}}
                             >
