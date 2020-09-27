@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,6 +25,7 @@ LinkButton.propTypes = {
 const ManagePiggybankBar = ({ editButtonOptions }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     const { query: { piggybankName }} = useRouter();
+    const [isDashboardLoading, setIsDashboardLoading] = useState();
     return (
         <>
         {isEditOpen && ( // this conditional is needed to force remount of form so latest values are used
@@ -37,10 +39,15 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
             mt={2}
             wrap="wrap"
         >
-            <Box mt={2}>
+            <Box
+                mt={2}
+                onClick={() => setIsDashboardLoading(true)}
+            >
                 <LinkButton
                     href="/dashboard"
                     leftIcon="arrow-back"
+                    isLoading={isDashboardLoading}
+                    loadingText="Loading"
                 >
                     Dashboard
                 </LinkButton>
