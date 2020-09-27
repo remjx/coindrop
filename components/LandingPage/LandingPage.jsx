@@ -124,7 +124,7 @@ const index = () => {
                     <span style={{textDecoration: "underline"}}>
                         zero-fee
                     </span>
-                    {' website for accepting payments'}
+                    {' webpage for accepting payments'}
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Enter your list of addresses. Let the sender choose how to pay you.

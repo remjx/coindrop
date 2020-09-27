@@ -1,6 +1,6 @@
-# Coindrop 🐖💰
+# Coindrop 💰
 
-Create your shareable list of addresses for peer-to-peer payments
+Create a simple webpage for accepting payments & donations. Open-source, zero-fee, and free forever.
 
 ## Problem ❓
 
