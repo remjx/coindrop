@@ -60,6 +60,7 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
                     leftIcon={editButtonOptions.iconName}
                     onClick={onEditOpen}
                     variantColor={editButtonOptions.color}
+                    isDisabled={isEditOpen}
                 >
                     {editButtonOptions.text}
                 </Button>
