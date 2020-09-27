@@ -55,6 +55,7 @@ const PublicPiggybankPage = (props) => {
             />
         ));
     }
+    const piggybankExists = !!piggybankDbData.owner_id;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
@@ -127,7 +128,10 @@ const PublicPiggybankPage = (props) => {
                         />
                     </Box>
                 ) : (
-                    <Heading mt={4} textAlign="center">This piggybank has not been set up yet.</Heading>
+                    <Heading mt={4} textAlign="center">
+                        {piggybankExists ? 'This piggybank has not been set up yet.' : 'This piggybank does not exist'}
+                        {/* TODO: Include action buttons to log in or landing page */}
+                    </Heading>
                 )}
             </Box>
         </PublicPiggybankDataProvider>
