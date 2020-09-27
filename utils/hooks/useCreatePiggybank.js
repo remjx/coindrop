@@ -31,7 +31,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
                 } else if (err.response.status === 406) {
                     setError('You\'ve reached the maximum number of piggybanks. Contact support to increase your limit.');
                 } else if (err.response.status === 428) {
-                    setError('Beta invite is required. Contact support to request an invite.');
+                    setError('Beta invite is required. DM @coindrop_to on Twitter to request an invite.');
                 } else {
                     setError('Server error. Please try again.');
                 }
