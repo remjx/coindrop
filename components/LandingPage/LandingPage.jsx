@@ -32,12 +32,13 @@ PaymentMethodTag.defaultProps = {
 };
 
 const AddTag = () => (
-    <NextLink href="/add" passHref>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-        <Link style={{textDecoration: "none"}}>
-            <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
-        </Link>
-    </NextLink>
+    <Link
+        style={{textDecoration: "none"}}
+        href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
+        target="_blank"
+    >
+        <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
+    </Link>
 );
 
 const index = () => {
