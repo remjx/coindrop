@@ -30,13 +30,12 @@ const DeleteButton = (props) => {
                 if (awaitingDeleteConfirmation) {
                     setAwaitingDeleteConfirmation(false);
                 }
-            }, 5000);
+            }, 3000);
         }
     });
     return (
         <Button
             leftIcon="delete"
-            m={1}
             variantColor={awaitingDeleteConfirmation ? "red" : undefined}
             onClick={handleDelete}
             isLoading={isDeleting}

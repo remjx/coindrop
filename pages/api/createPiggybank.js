@@ -27,9 +27,14 @@ async function isUserUnderPiggybankLimit(uid) {
   return true;
 }
 
+// TODO: is it possible to convert these to security rule functions to bypass this call to Next.js server and create directly from client?
+
 const createPiggybank = async (req, res) => {
   try {
-    const { piggybankName } = req.body;
+    const {
+      piggybankName, // TODO: rename this to piggybankId
+      piggybankData,
+    } = req.body;
     const { uid } = req.headers;
     await Promise.all([
       isPiggybankNameNonexistant(piggybankName),
@@ -40,6 +45,7 @@ const createPiggybank = async (req, res) => {
     .doc(piggybankName)
     .set({
       owner_uid: uid,
+      ...piggybankData,
     });
     return res.status(200).end();
   } catch (error) {

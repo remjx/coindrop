@@ -1,7 +1,5 @@
-export const addressFieldPrefix = "address_";
-export const addressIsPreferredSuffix = '_is_preferred';
-export function getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName) {
-    return addressFieldName
-        .substr(0, addressFieldName.length - addressIsPreferredSuffix.length)
-        .substr(addressFieldPrefix.length);
+export function sortArrayByEntriesKeyAlphabetical(a, b) {
+    const [aId] = a;
+    const [bId] = b;
+    return (aId < bId) ? -1 : 1;
 }

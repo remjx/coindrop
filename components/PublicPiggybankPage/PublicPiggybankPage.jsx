@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/core';
 /** @jsx jsx */
@@ -7,50 +8,59 @@ import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
-import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from './util';
+import { sortArrayByEntriesKeyAlphabetical } from './util';
+import { db } from '../../utils/client/db';
 
 const PublicPiggybankPage = (props) => {
-    const { piggybankDbData } = props;
+    // TODO: useSwr to refresh piggybankDbData after initial load
+    // TODO: Split out Edit modal into new page?
+    // TODO: alphabetize list of payment methods
+    const { initialPiggybankDbData } = props;
+    const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
+    async function refreshPiggybankDbData(piggybankId) {
+        try {
+            const piggybankRef = await db
+                .collection('piggybanks')
+                .doc(piggybankId)
+                .get();
+            if (piggybankRef.exists) {
+                const data = piggybankRef.data();
+                setPiggybankDbData(data);
+            }
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
     const theme = useTheme();
+    const { user } = useUser();
     const {
         name,
         website,
-        accent_color: accentColor = "orange",
+        accentColor = "orange",
+        verb,
     } = piggybankDbData;
-    const allAddressFields = Object.entries(piggybankDbData);
-    const preferredPaymentMethodIds = allAddressFields.reduce((result, item) => {
-        const addressFieldName = item[0];
-        if (!addressFieldName.endsWith(addressIsPreferredSuffix)) {
-            return result;
-        }
-        return result
-            .concat(getPaymentMethodIdFromPaymentMethodIsPreferredField(addressFieldName));
-    }, []);
-    const addresses = allAddressFields
-        .filter(([field]) => (field.startsWith(addressFieldPrefix) && !field.endsWith(addressIsPreferredSuffix)))
-        .map(([field, address]) => {
-            const paymentMethodId = field.substr(addressFieldPrefix.length);
-            return [paymentMethodId, address];
-        });
-    const preferredAddresses = addresses.filter(address => preferredPaymentMethodIds.includes(address[0]));
-    const otherAddresses = addresses.filter(address => !preferredPaymentMethodIds.includes(address[0]));
-    const { user } = useUser();
-    function renderPaymentMethodButtonFromAddresses(addrs) {
-        return addrs.map(([paymentMethod, paymentMethodValue]) => (
+    const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
+    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
+    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
+    function PaymentMethodButtonsFromEntries({ entries }) {
+        return entries
+        .sort(sortArrayByEntriesKeyAlphabetical)
+        .map(([paymentMethodId, data]) => (
             <PaymentMethodButton
-                key={paymentMethod}
-                paymentMethod={paymentMethod}
-                paymentMethodValue={paymentMethodValue}
-                isPreferred={preferredPaymentMethodIds.includes(paymentMethod)}
+                key={paymentMethodId}
+                paymentMethod={paymentMethodId}
+                paymentMethodValue={data.address}
+                isPreferred={data.isPreferred}
                 accentColor={accentColor}
             />
         ));
     }
-    const initialSetupComplete = addresses.length > 0;
+    const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
         <PublicPiggybankDataProvider
             data={{
-                ...piggybankDbData,
+                piggybankDbData,
+                refreshPiggybankDbData,
             }}
         >
             <Box
@@ -102,10 +112,14 @@ const PublicPiggybankPage = (props) => {
                             </Heading>
                         </Box>
                         <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                            {renderPaymentMethodButtonFromAddresses(preferredAddresses)}
+                            <PaymentMethodButtonsFromEntries
+                                entries={preferredAddresses}
+                            />
                         </Stack>
                         <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
-                            {renderPaymentMethodButtonFromAddresses(otherAddresses)}
+                            <PaymentMethodButtonsFromEntries
+                                entries={otherAddresses}
+                            />
                         </Stack>
                         <PoweredByCoindropLink
                             accentColor={accentColor}
@@ -120,7 +134,7 @@ const PublicPiggybankPage = (props) => {
 };
 
 PublicPiggybankPage.propTypes = {
-    piggybankDbData: PropTypes.object.isRequired,
+    initialPiggybankDbData: PropTypes.object.isRequired,
 };
 
 PublicPiggybankPage.defaultProps = {

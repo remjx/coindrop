@@ -303,4 +303,6 @@ export const paymentMethodCategories = paymentMethods.reduce((result, item) => {
     return result;
 }, {});
 
+export const paymentMethodIds = paymentMethods.map(obj => obj.id);
+
 export default paymentMethods;

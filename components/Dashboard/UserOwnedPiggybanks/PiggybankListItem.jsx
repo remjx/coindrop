@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Link, Box, Flex, Heading, Button, useClipboard } from '@chakra-ui/core';
+import { Link, Box, Flex, Heading, Button, useTheme } from '@chakra-ui/core';
 import DeleteButton from './PiggybankListItem/DeleteButton';
+import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
 function PiggybankListItem({ id, uid }) {
+    const { colors } = useTheme();
     const publicUrl = `coindrop.to/${id}`;
-    const { onCopy, hasCopied } = useClipboard(publicUrl);
     return (
         <Flex
             p={5}
@@ -15,33 +16,42 @@ function PiggybankListItem({ id, uid }) {
             mt={3}
             justify="space-between"
             wrap="wrap"
+            align="center"
         >
             <Box>
-                <Heading fontSize="xl">{id}</Heading>
+                <Heading fontSize="xl">
+                    <span style={{color: colors.gray['400']}}>coindrop.to/</span>
+                    {id}
+                </Heading>
             </Box>
             <Flex wrap="wrap">
-                <Button
-                    leftIcon={hasCopied ? "check" : "link"}
+                <Box
                     m={1}
-                    onClick={onCopy}
                 >
-                    {hasCopied ? "Copied Link" : "Share"}
-                </Button>
-                <NextLink href={`/${id}`} passHref>
-                    <Link style={{textDecoration: 'none'}}>
-                        <Button
-                            leftIcon="view"
-                            m={1}
-                            role="link"
-                        >
-                            View
-                        </Button>
-                    </Link>
-                </NextLink>
-                <DeleteButton
-                    name={id}
-                    uid={uid}
-                />
+                    <CopyLinkShareButton textToCopy={publicUrl} />
+                </Box>
+                <Box
+                    m={1}
+                >
+                    <NextLink href={`/${id}`} passHref>
+                        <Link style={{textDecoration: 'none'}}>
+                            <Button
+                                leftIcon="view"
+                                role="link"
+                            >
+                                View
+                            </Button>
+                        </Link>
+                    </NextLink>
+                </Box>
+                <Box
+                    m={1}
+                >
+                    <DeleteButton
+                        id={id}
+                        uid={uid}
+                    />
+                </Box>
             </Flex>
         </Flex>
     );

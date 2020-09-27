@@ -20,119 +20,104 @@ import {
     Select,
     useTheme,
 } from "@chakra-ui/core";
-import { useForm, useFieldArray, useWatch } from "react-hook-form";
-import { piggybankPathRegex } from '../../../src/settings';
+import { useForm, useFieldArray } from "react-hook-form";
+import axios from 'axios';
+import { isEqual } from 'lodash';
+import { piggybankPathRegex } from '../../../src/settings'; // use for validation
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
-import { addressFieldPrefix, addressIsPreferredSuffix, getPaymentMethodIdFromPaymentMethodIsPreferredField } from '../util';
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import EditUrlInput from './EditUrlInput';
-import { sortByAlphabeticalThenIsPreferred } from './util';
+import { convertPaymentMethodsFieldArrayToDbMap } from './util';
+import { db } from '../../../utils/client/db';
+import { useUser } from '../../../utils/auth/useUser';
 
-function formatFormDataForDb(formData) {
-    // return Object.entries(formData).reduce((result, item) => {
-
-    // }, {});
-    const {
-        piggybankId,
-        addressData,
-        ...rest
-    } = formData;
-    const reducedAddressData = addressData.reduce((result, item) => {
-        const { value, address, isPreferred } = item;
-        const isValidPaymentMethod = paymentMethodNames[value];
-        if (!isValidPaymentMethod) return result;
-        return {
-            ...result,
-            [`${addressFieldPrefix}${value}`]: address,
-            [`${addressFieldPrefix}${value}${addressIsPreferredSuffix}`]: isPreferred,
-        };
-    }, {});
-    console.log('reduced', reducedAddressData);
-    return {
-        piggybankId,
-        data: {
-            reducedAddressData,
-            ...rest,
-        },
-    };
-}
-
-function convertPiggybankDataToAddressData(piggybankData) {
-    const obj = Object.entries(piggybankData)
-    .reduce((result, [field, value]) => {
-        if (field.startsWith(addressFieldPrefix)) {
-            if (field.endsWith(addressIsPreferredSuffix)) {
-                const paymentMethodId = getPaymentMethodIdFromPaymentMethodIsPreferredField(field);
-                return {
-                    ...result,
-                    [paymentMethodId]: {
-                        ...result[paymentMethodId],
-                        isPreferred: value,
-                    },
-                };
-            }
-            const paymentMethodId = field.substr(addressFieldPrefix.length);
-            return {
-                ...result,
-                [paymentMethodId]: {
-                    ...result[paymentMethodId],
-                    address: value,
-                },
-            };
-        }
-        return result;
-    }, {});
-    let arr = Object.entries(obj)
+function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
+    return Object.entries(paymentMethods)
     .map(([paymentMethodId, paymentMethodData]) => ({
-        id: uuidv4(),
-        value: paymentMethodId,
+        id: uuidv4(), // react-hook-form requires unchanging id
+        paymentMethodId,
         ...paymentMethodData,
-        ...(!paymentMethodData.isPreferred) && { isPreferred: false },
     }));
-    arr = sortByAlphabeticalThenIsPreferred(arr);
-    return arr;
 }
 
 const EditPiggybankModal = (props) => {
     const { isOpen, onClose } = props;
+    const [isSubmitting, setIsSubmitting] = useState();
     const { colors } = useTheme();
+    const { user } = useUser();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
-    const { query: { piggybankName: initialPiggybankId } } = useRouter();
-    const data = useContext(PublicPiggybankData);
-    const initialAddressDataFieldArray = convertPiggybankDataToAddressData(data);
-    useEffect(() => console.log('initialAddressDataFieldArray', initialAddressDataFieldArray), []);
-    const { register, handleSubmit, setValue, getValues, watch, control, errors } = useForm({
+    const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
+    const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    console.log('DB PIGGYBANK DATA', piggybankDbData);
+    const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        control,
+        errors,
+        formState: { isDirty },
+    } = useForm({
         defaultValues: {
             piggybankId: initialPiggybankId,
-            accentColor: data.accent_color ?? 'orange',
-            website: data.website ?? '',
-            name: data.name ?? '',
-            verb: data.verb ?? 'pay',
-            addressData: initialAddressDataFieldArray,
+            accentColor: piggybankDbData.accentColor ?? 'orange',
+            website: piggybankDbData.website ?? '',
+            name: piggybankDbData.name ?? '',
+            verb: piggybankDbData.verb ?? 'pay',
+            paymentMethods: initialPaymentMethodsDataFieldArray,
         },
     });
+    const paymentMethodsFieldArrayName = "paymentMethods";
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "addressData",
+        name: paymentMethodsFieldArrayName,
     });
-    const { piggybankId, name, accentColor, verb, website } = watch(["piggybankId", "name", "accentColor", "verb", "website"]);
-    const isUrlUnchanged = initialPiggybankId === piggybankId;
-    const onSubmit = (formData) => {
-        // TODO:
-        console.log('raw form data', formData);
-        const formattedFormData = formatFormDataForDb(formData);
-        console.log('formattedFormData', formattedFormData);
-        if (isUrlUnchanged) {
-            // if proposed coindrop url is current, just update data (OVERWRITE ALL DATA?)
-            
-        } else {
-            // if proposed coindrop url is different, create a new document and delete the old one. then router.push to the new url.
-
+    const {
+        accentColor: watchedAccentColor,
+        piggybankId: watchedPiggybankId,
+    } = watch(["accentColor", "piggybankId"]);
+    const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
+    const onSubmit = async (formData) => {
+        try {
+            setIsSubmitting(true);
+            console.log('user.token', user.token);
+            const dataToSubmit = {
+                ...formData,
+                paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
+                owner_uid: piggybankDbData.owner_uid,
+            };
+            console.log('dataToSubmit', dataToSubmit);
+            if (isUrlUnchanged) {
+                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                await refreshPiggybankDbData(initialPiggybankId);
+            } else {
+                await db.collection('piggybanks').doc(initialPiggybankId).delete();
+                const response = await axios.post(
+                    '/api/createPiggybank',
+                    {
+                        piggybankName: formData.piggybankId, // TODO: rename this to piggybankId
+                        piggybankData: dataToSubmit,
+                    },
+                    {
+                        token: user.token,
+                    },
+                );
+                console.log('response.data', response.data);
+                routerPush(`/${formData.piggybankId}`);
+            }
+            onClose();
+        } catch (error) {
+            setIsSubmitting(false);
+            console.log(error);
+            // TODO: set error
+            throw new Error(error);
         }
     };
     const handleAccentColorChange = (e) => {
+        e.preventDefault();
         setValue("accentColor", e.target.dataset.colorname);
     };
     useEffect(() => {
@@ -156,7 +141,7 @@ const EditPiggybankModal = (props) => {
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
                                 register={register}
-                                value={piggybankId}
+                                value={watchedPiggybankId}
                             />
                         </FormControl>
                         <FormControl
@@ -181,7 +166,7 @@ const EditPiggybankModal = (props) => {
                                         onClick={handleAccentColorChange}
                                         data-colorname={colorName}
                                     >
-                                        {accentColor === colorName && (
+                                        {watchedAccentColor === colorName && (
                                             <Icon name="check" color="#FFF" />
                                         )}
                                     </Box>
@@ -217,7 +202,7 @@ const EditPiggybankModal = (props) => {
                                 name="verb"
                                 ref={register}
                             >
-                                <option value="pay">Pay</option>
+                                <option value="pay">Pay</option> {/* TODO: Where are these mapped to what is displayed? */}
                                 <option value="donate to">Donate to</option>
                                 <option value="support">Support</option>
                             </Select>
@@ -250,9 +235,9 @@ const EditPiggybankModal = (props) => {
                                 fields={fields}
                                 control={control}
                                 register={register}
-                                defaultValue={initialAddressDataFieldArray}
                                 remove={remove}
                                 append={append}
+                                fieldArrayName={paymentMethodsFieldArrayName}
                             />
                         </FormControl>
                     </ModalBody>
@@ -267,6 +252,9 @@ const EditPiggybankModal = (props) => {
                             variantColor="green"
                             mx={1}
                             type="submit"
+                            isLoading={isSubmitting}
+                            loadingText="Submitting"
+                            isDisabled={!isDirty}
                         >
                             Submit
                         </Button>

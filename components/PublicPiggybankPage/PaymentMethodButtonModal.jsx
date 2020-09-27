@@ -6,7 +6,8 @@ import { PublicPiggybankData } from './PublicPiggybankDataContext';
 const PaymentMethodButtonModal = (props) => {
     const { isOpen, onClose, paymentMethod, paymentMethodDisplayName, paymentMethodValue } = props;
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
-    const { name } = useContext(PublicPiggybankData);
+    const { piggybankDbData } = useContext(PublicPiggybankData);
+    const { name } = piggybankDbData;
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
