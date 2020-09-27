@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { Link, Box, Flex, Heading, Button, useTheme } from '@chakra-ui/core';
-import DeleteButton from './PiggybankListItem/DeleteButton';
 import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
 
-function PiggybankListItem({ id, uid }) {
+function PiggybankListItem({ id }) {
     const { colors } = useTheme();
     const publicUrl = `coindrop.to/${id}`;
     return (
@@ -18,12 +17,18 @@ function PiggybankListItem({ id, uid }) {
             wrap="wrap"
             align="center"
         >
-            <Box>
-                <Heading fontSize="xl">
-                    <span style={{color: colors.gray['400']}}>coindrop.to/</span>
-                    {id}
-                </Heading>
-            </Box>
+            <Flex
+                align="center"
+            >
+                <NextLink href={`/${id}`} passHref>
+                    <Link style={{textDecorationColor: colors.orange['500']}}>
+                        <Heading fontSize="xl">
+                            <span style={{color: colors.gray['400']}}>coindrop.to/</span>
+                            {id}
+                        </Heading>
+                    </Link>
+                </NextLink>
+            </Flex>
             <Flex wrap="wrap">
                 <Box
                     m={1}
@@ -36,21 +41,13 @@ function PiggybankListItem({ id, uid }) {
                     <NextLink href={`/${id}`} passHref>
                         <Link style={{textDecoration: 'none'}}>
                             <Button
-                                leftIcon="view"
+                                leftIcon="settings"
                                 role="link"
                             >
-                                View
+                                Manage
                             </Button>
                         </Link>
                     </NextLink>
-                </Box>
-                <Box
-                    m={1}
-                >
-                    <DeleteButton
-                        id={id}
-                        uid={uid}
-                    />
                 </Box>
             </Flex>
         </Flex>
@@ -58,7 +55,6 @@ function PiggybankListItem({ id, uid }) {
 }
 PiggybankListItem.propTypes = {
     id: PropTypes.string.isRequired,
-    uid: PropTypes.string.isRequired,
 };
 
 export default PiggybankListItem;
