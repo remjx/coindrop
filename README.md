@@ -6,13 +6,11 @@ Create your shareable list of addresses for peer-to-peer payments
 
 Senders and receivers of money need to agree on medium of exchange. With so many apps and cryptocurrencies available to perform this service, it is not trivial to find the best payment method to use.
 
-Often, receivers will list a single form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction. 
+Often, receivers will request a specific form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction.
 
 ## Solution ✔️
 
-Coindrop allows the receiver to list all their available forms of payment, and the sender can choose which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
-
-Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and publish/send the link as a substitute any time they would normally publish/send payment address(es) individually.
+Receivers create a Coindrop address e.g. [coindrop\.to/satoshi](https://coindrop.to/satoshi) and list all their accepted forms of payment. They publish/send the link as a substitute any time they would normally publish/send payment address(es) individually. The sender then chooses which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
 
 ### When/where to use it? 🕒
 
@@ -59,3 +57,7 @@ Thank you!
 ## Maintainers 🛠️
 
 * [Mark Jackson](https://twitter.com/markjackson02)
+
+## Contact ✉️
+
+[@coindrop_to](https://twitter.com/coindrop_to) on Twitter (DMs are open)

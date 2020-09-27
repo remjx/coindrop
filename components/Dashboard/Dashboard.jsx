@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Heading, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { Icon, Heading, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
 import { mutate } from 'swr';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
@@ -53,14 +53,25 @@ const Dashboard = () => {
                             {user?.email ?? 'Menu'}
                         </MenuButton>
                         <MenuList>
-                            <MenuItem>About</MenuItem>
-                            <MenuItem>Github</MenuItem>
+                            <MenuItem>
+                                <Flex
+                                    align="center"
+                                >
+                                    <Icon mr={2} name="github" />
+                                    About
+                                </Flex>
+                            </MenuItem>
                             <MenuItem
                                 onClick={() => {
                                     logout();
                                 }}
                             >
-                                Log out
+                                <Flex
+                                    align="center"
+                                >
+                                    <Icon mr={2} name="logout" />
+                                    Log out
+                                </Flex>
                             </MenuItem>
                         </MenuList>
                     </Menu>
