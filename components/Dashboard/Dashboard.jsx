@@ -71,18 +71,6 @@ const Dashboard = () => {
                                         </Flex>
                                 </MenuItem>
                             </Link>
-                            <MenuItem
-                                onClick={() => {
-                                    logout();
-                                }}
-                            >
-                                <Flex
-                                    align="center"
-                                >
-                                    <Icon mr={2} name="logout" />
-                                    Log out
-                                </Flex>
-                            </MenuItem>
                             <Link
                                 href="https://github.com/markjackson02/coindrop#contributions-%EF%B8%8F%EF%B8%8F"
                                 target="_blank"
@@ -97,6 +85,18 @@ const Dashboard = () => {
                                         </Flex>
                                 </MenuItem>
                             </Link>
+                            <MenuItem
+                                onClick={() => {
+                                    logout();
+                                }}
+                            >
+                                <Flex
+                                    align="center"
+                                >
+                                    <Icon mr={2} name="logout" />
+                                    Log out
+                                </Flex>
+                            </MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>
