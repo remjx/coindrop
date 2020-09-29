@@ -34,22 +34,30 @@ const svg = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path 
 const EmbedButtonModal = () => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const { query: { piggybankName }} = useRouter();
-    const [showUrl, setShowUrl] = useState(true);
     const publicUrl = `coindrop.to/${piggybankName}`;
-    const scriptButtonHtml = `<script type="text/javascript" src="/embed-button.js" data-id="coindrop-button" data-slug="${showUrl ? piggybankName : ''}" ></script>`;
+    function scriptButtonHtml(showUrl) {
+        return `<script type="text/javascript" src="/embed-button.js" data-id="coindrop-button" data-slug="${showUrl ? piggybankName : ''}" ></script>`;
+    }
     const imageButtonHtml = `<a href="https://coindrop.to/" target="_blank"><img src="https://coindrop.to/embed-button.png" alt="Coindrop me" style="height: 57px !important;width: 185px !important;" ></a>`;
     const { onCopy: onCopyScript, hasCopied: hasCopiedScript } = useClipboard(scriptButtonHtml);
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
-    const ButtonHtmlPreview = () => (
+    const ButtonHtmlPreview = ({ showUrl }) => (
         <a href={`https://coindrop.to/${piggybankName}`} target="_blank" rel="noreferrer">
             <button type="button" className={styles["coindrop-button"]}>
                 <div className={styles["coindrop-button-content"]}>
                 <div className={styles["coindrop-svg"]}>{svg}</div>
-                <div>{showUrl ? `coindrop.to/${piggybankName}` : 'coindrop me'}</div>
+                <div>{showUrl ? `coindrop.to/${piggybankName}` : 'coindrop.to me'}</div>
                 </div>
             </button>
         </a>
     );
+    ButtonHtmlPreview.propTypes = {
+        showUrl: PropTypes.bool,
+    };
+    ButtonHtmlPreview.defaultProps = {
+        showUrl: false,
+    };
+
     return (
         <>
         <Button
@@ -73,30 +81,41 @@ const EmbedButtonModal = () => {
                     </Flex>
                 </Heading>
                 <ModalBody>
-                    <Flex align="center" justify="center" border="1px solid red">
+                    <Heading as="h2" size="lg">Link</Heading>
+                    <Box textAlign="center">
+                        <CopyLinkShareButton textToCopy={publicUrl} />
+                    </Box>
+                    <Heading as="h2" size="lg">Button</Heading>
+                    <Box align="center" border="1px solid red">
                         <Box textAlign="center">
-                            <CopyLinkShareButton textToCopy={publicUrl} />
+                            <ButtonHtmlPreview showUrl />
                         </Box>
-                        <Text mx={3}>or</Text>
                         <Box textAlign="center">
                             <Button
                                 leftIcon="sourceCode"
                             >
-                                Embed Button
+                                Copy Button Code
                             </Button>
                         </Box>
-                    </Flex>
-                    <Flex justify="center">
-                        <Text>Show URL</Text>
-                        <Switch
-                            name="showUrl"
-                            value={showUrl}
-                            defaultIsChecked
-                            onChange={() => setShowUrl(!showUrl)}
-                        />
-                    </Flex>
-                    <Box align="center">
                         <ButtonHtmlPreview />
+                        <Flex wrap="wrap" justify="space-around">
+                            <Box>
+                            <Button
+                                leftIcon="sourceCode"
+                            >
+                                Copy Button Code
+                            </Button>
+                            <Text>Preferred (website supports Javascript)</Text>
+                            </Box>
+                            <Box>
+                                <Button
+                                    leftIcon="sourceCode"
+                                >
+                                    Copy Image Code
+                                </Button>
+                                <Text>Fallback (website supports HTML)</Text>
+                            </Box>
+                        </Flex>
                     </Box>
                 </ModalBody>
             </ModalContent>
