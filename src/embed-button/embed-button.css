@@ -1,0 +1,26 @@
+.coindrop-button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background-color: #EBEBEB;
+}
+  
+.coindrop-button:hover {
+    background-color: #E0E0E1;
+    cursor: pointer;
+}
+
+.coindrop-button-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 2px;
+}
+
+.svg {
+    height: 48px;
+    width: 48px;
+    margin-right: 7px;
+}
