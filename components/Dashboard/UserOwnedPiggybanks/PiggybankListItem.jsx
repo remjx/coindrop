@@ -44,12 +44,12 @@ function PiggybankListItem({ id }) {
                     <NextLink href={`/${id}`} passHref>
                         <Link style={{textDecoration: 'none'}}>
                             <Button
-                                leftIcon="settings"
+                                leftIcon="view"
                                 role="link"
                                 isLoading={isLoading}
                                 loadingText="Loading"
                             >
-                                Manage
+                                View
                             </Button>
                         </Link>
                     </NextLink>

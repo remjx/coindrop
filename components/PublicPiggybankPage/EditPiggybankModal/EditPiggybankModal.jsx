@@ -224,6 +224,7 @@ const EditPiggybankModal = (props) => {
                         </FormControl>
                         <FormControl
                             mt={formControlTopMargin}
+                            isRequired
                         >
                             <FormLabel
                                 htmlFor="input-paymentmethods"

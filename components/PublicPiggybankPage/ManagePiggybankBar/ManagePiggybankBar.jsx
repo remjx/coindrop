@@ -4,8 +4,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Text, Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/core';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
-import CopyLinkShareButton from '../../Buttons/CopyLinkShareButton';
-import EmbedButtonModal from './EmbedButtonModal/EmbedButtonModal';
+import ShareButtonModal from './ShareButtonModal/ShareButtonModal'; //tst
 
 /* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (
@@ -25,7 +24,6 @@ LinkButton.propTypes = {
 
 const ManagePiggybankBar = ({ editButtonOptions }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
-    const { query: { piggybankName }} = useRouter();
     const [isDashboardLoading, setIsDashboardLoading] = useState();
     return (
         <Box>
@@ -36,8 +34,9 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
                 />
             )}
             <Flex
-                justify="space-around"
+                justify="space-between"
                 mt={2}
+                mx={6}
                 wrap="wrap"
             >
                 <Box
@@ -53,21 +52,25 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
                         Dashboard
                     </LinkButton>
                 </Box>
-                <Flex align="center" mt={2}>
-                    <EmbedButtonModal />
-                    <Text mx={2}>or</Text>
-                    <CopyLinkShareButton textToCopy={`coindrop.to/${piggybankName}`} />
-                </Flex>
-                <Box mt={2}>
-                    <Button
-                        leftIcon={editButtonOptions.iconName}
-                        onClick={onEditOpen}
-                        variantColor={editButtonOptions.color}
-                        isDisabled={isEditOpen}
+                <Flex align="center">
+                    <Box mt={2}>
+                        <Button
+                            leftIcon={editButtonOptions.iconName}
+                            onClick={onEditOpen}
+                            variantColor={editButtonOptions.color}
+                            isDisabled={isEditOpen}
+                        >
+                            {editButtonOptions.text}
+                        </Button>
+                    </Box>
+                    <Flex
+                        align="center"
+                        mt={2}
+                        mx={2}
                     >
-                        {editButtonOptions.text}
-                    </Button>
-                </Box>
+                        <ShareButtonModal />
+                    </Flex>
+                </Flex>
             </Flex>
         </Box>
     );

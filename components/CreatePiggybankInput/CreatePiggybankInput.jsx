@@ -16,7 +16,7 @@ BoxMargin.propTypes = {
     children: PropTypes.element.isRequired,
 };
 
-const CreatePiggybankInput = ({ onCancel }) => {
+const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
@@ -65,7 +65,7 @@ const CreatePiggybankInput = ({ onCancel }) => {
                 <BoxMargin>
                     <Button
                         ml={1}
-                        variantColor="orange"
+                        variantColor={createButtonVariantColor}
                         isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
                         isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
                         loadingText="Creating"
@@ -112,10 +112,12 @@ const CreatePiggybankInput = ({ onCancel }) => {
 
 CreatePiggybankInput.propTypes = {
     onCancel: PropTypes.func,
+    createButtonVariantColor: PropTypes.string,
 };
 
 CreatePiggybankInput.defaultProps = {
     onCancel: null,
+    createButtonVariantColor: "orange",
 };
 
 export default CreatePiggybankInput;
