@@ -69,12 +69,6 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
                     </Button>
                 </Box>
             </Flex>
-            <Box>
-                <Text textAlign="center">
-                    Preview:
-                </Text>
-            </Box>
-            <hr />
         </Box>
     );
 };
