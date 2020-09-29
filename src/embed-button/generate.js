@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 async function combineAndGenerateScript() {
-    const cssMinified = await minify(path.join(__dirname, 'embed-button.css'));
+    const cssMinified = await minify(path.join(__dirname, 'embed-button.module.css'));
     const jsMinified = await minify(path.join(__dirname, 'embed-button.js'));
     const styleJs = `
         const styles = \`${`<style>${cssMinified}</style>`}\`;
