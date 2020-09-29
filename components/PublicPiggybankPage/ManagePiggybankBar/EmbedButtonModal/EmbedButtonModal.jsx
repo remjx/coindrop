@@ -33,7 +33,9 @@ const EmbedButtonModal = () => {
                         Embed a button on your own website
                     </Text>
                     <form>
-                        hello
+                        - checkbox: show custom url
+                        -
+                        - Copy Snippet / Image Code / Embed code
                     </form>
                 </ModalBody>
             </ModalContent>
