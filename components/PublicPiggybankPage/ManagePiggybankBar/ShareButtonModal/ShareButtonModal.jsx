@@ -41,16 +41,16 @@ const shuffleCustomTextOptions = shuffle([
 const EmbedButtonModal = () => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const { query: { piggybankName }} = useRouter();
+    const fullBaseUrl = 'https://coindrop.to/';
     const publicUrl = `coindrop.to/${piggybankName}`;
-    function scriptButtonHtml(showUrl) {
-        return `<script type="text/javascript" src="/embed-button.js" data-id="coindrop-button" data-slug="${showUrl ? piggybankName : ''}" ></script>`;
-    }
-    const imageButtonHtml = `<a href="https://coindrop.to/" target="_blank"><img src="https://coindrop.to/embed-button.png" alt="Coindrop me" style="height: 57px !important;width: 185px !important;" ></a>`;
+    const fullPublicUrl = `https://${publicUrl}`;
+    const [customText, setCustomText] = useState(publicUrl);
+    const scriptButtonHtml = `<script type="text/javascript" src="${fullBaseUrl}embed-button.js" data-id="coindrop-button" data-slug="${piggybankName}" data-customText="${customText}" ></script>`;
+    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" alt="Coindrop.to me" style="height: 57px !important;width: 185px !important;" ></a>`;
     const { onCopy: onCopyScript, hasCopied: hasCopiedScript } = useClipboard(scriptButtonHtml);
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
-    const [customText, setCustomText] = useState(publicUrl);
     const ButtonHtmlPreview = ({ text }) => (
-        <a href={`https://coindrop.to/${piggybankName}`} target="_blank" rel="noreferrer">
+        <a href={`${fullBaseUrl}${piggybankName}`} target="_blank" rel="noreferrer">
             <button type="button" className={styles["coindrop-button"]}>
                 <div className={styles["coindrop-button-content"]}>
                 <div className={styles["coindrop-svg"]}>{svg}</div>
@@ -67,7 +67,7 @@ const EmbedButtonModal = () => {
     };
 
     const initialShuffleTextArray = [publicUrl, ...shuffleCustomTextOptions];
-    const [shuffleTextArray, setShuffleTextArray] = useState(initialShuffleTextArray);
+    const [shuffleTextArray] = useState(initialShuffleTextArray);
     const [shuffleCustomTextIndex, setShuffleCustomTextIndex] = useState(0);
     useEffect(() => {
         setCustomText(shuffleTextArray[shuffleCustomTextIndex]);
@@ -87,14 +87,14 @@ const EmbedButtonModal = () => {
             <ModalContent>
                 <ModalCloseButton />
                 <Heading
-                    my={4}
+                    mt={4}
                 >
                     <Flex align="center" justify="center">
                         <Icon name="share" mr={2} />
                         Share
-
                     </Flex>
                 </Heading>
+                <Text textAlign="center">{publicUrl}</Text>
                 <ModalBody>
                     <Flex mb={4}>
                         <Box>
@@ -105,13 +105,7 @@ const EmbedButtonModal = () => {
                         </Box>
                         <Flex align="center" ml={6} flexGrow={1} justify="center">
                             <Flex direction="column">
-                                <CopyLinkShareButton
-                                    textToCopy={publicUrl}
-                                    buttonVariantColor="green"
-                                />
-                                <Link href={publicUrl} fontSize="sm">
-                                    {publicUrl}
-                                </Link>
+                                <CopyLinkShareButton textToCopy={publicUrl} buttonVariantColor="green" />
                             </Flex>
                         </Flex>
                     </Flex>
@@ -121,7 +115,7 @@ const EmbedButtonModal = () => {
                     >
                         Button
                     </Heading>
-                    <Text>Embed a button/widget on your website</Text>
+                    <Text>Embed a button on your website</Text>
                     <Heading as="h3" size="md" ml={4} mt={2}>With custom text</Heading>
                     <Box textAlign="center" mt={3}>
                         <ButtonHtmlPreview text={customText} />
@@ -150,15 +144,16 @@ const EmbedButtonModal = () => {
                                 Shake It Up
                             </Button>
                             <Button
-                                leftIcon="sourceCode"
+                                leftIcon={hasCopiedScript ? "check" : "sourceCode"}
                                 variantColor="green"
                                 mx={1}
                                 mb={1}
+                                onClick={onCopyScript}
                             >
-                                Copy Code
+                                {hasCopiedScript ? 'Copied' : 'Copy Code'}
                             </Button>
                         </Flex>
-                        <Text fontSize="sm">For websites that support JavaScript embeds</Text>
+                        <Text fontSize="sm">For websites that support JavaScript embed</Text>
                     </Box>
                     <Heading as="h3" size="md" ml={4} mt={2}>With default text</Heading>
                         <Box textAlign="center" my={3}>
@@ -168,13 +163,14 @@ const EmbedButtonModal = () => {
                         </Box>
                             <Box textAlign="center">
                                 <Button
-                                    leftIcon="sourceCode"
+                                    leftIcon={hasCopiedImage ? "check" : "sourceCode"}
                                     variantColor="green"
                                     mb={1}
+                                    onClick={onCopyImage}
                                 >
-                                    Copy Code
+                                    {hasCopiedImage ? 'Copied' : 'Copy Code'}
                                 </Button>
-                                <Text fontSize="sm">For websites that support HTML embeds</Text>
+                                <Text fontSize="sm">For websites that support HTML embed</Text>
                             </Box>
                 </ModalBody>
                 <ModalFooter />
