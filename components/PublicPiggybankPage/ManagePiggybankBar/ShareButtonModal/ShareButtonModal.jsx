@@ -67,7 +67,7 @@ const EmbedButtonModal = () => {
         >
             Share
         </Button>
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} size="xl">
             <ModalOverlay />
             <ModalContent>
                 <ModalCloseButton />
@@ -81,42 +81,62 @@ const EmbedButtonModal = () => {
                     </Flex>
                 </Heading>
                 <ModalBody>
-                    <Heading as="h2" size="lg">Link</Heading>
+                    <hr />
+                    <Heading as="h2" size="lg">
+                        Link
+                    </Heading>
+                    {/* <Text>
+                        coindrop.to/
+                        {piggybankName}
+                    </Text> */}
                     <Box textAlign="center">
-                        <CopyLinkShareButton textToCopy={publicUrl} />
+                        <CopyLinkShareButton
+                            textToCopy={publicUrl}
+                            buttonVariantColor="green"
+                        />
                     </Box>
+                    <hr />
                     <Heading as="h2" size="lg">Button</Heading>
-                    <Box align="center" border="1px solid red">
-                        <Box textAlign="center">
+                    <Text>Add a pretty button/widget to your website</Text>
+                    <Heading as="h3" size="md" ml={4} mt={2}>With URL</Heading>
+                    <Flex align="center">
+                        <Box textAlign="center" my={3}>
                             <ButtonHtmlPreview showUrl />
                         </Box>
                         <Box textAlign="center">
                             <Button
                                 leftIcon="sourceCode"
+                                variantColor="green"
                             >
-                                Copy Button Code
+                                Copy Code
                             </Button>
+                            <Text fontSize="sm">For websites that support JavaScript</Text>
                         </Box>
-                        <ButtonHtmlPreview />
-                        <Flex wrap="wrap" justify="space-around">
-                            <Box>
-                            <Button
-                                leftIcon="sourceCode"
-                            >
-                                Copy Button Code
-                            </Button>
-                            <Text>Preferred (website supports Javascript)</Text>
-                            </Box>
-                            <Box>
+                    </Flex>
+                    <Heading as="h3" size="md" ml={4} mt={2}>Without URL</Heading>
+                        <Box textAlign="center" my={3}>
+                            <ButtonHtmlPreview />
+                        </Box>
+                        <Flex justify="space-around">
+                            <Box textAlign="center">
                                 <Button
                                     leftIcon="sourceCode"
+                                    variantColor="green"
                                 >
-                                    Copy Image Code
+                                    Copy Code
                                 </Button>
-                                <Text>Fallback (website supports HTML)</Text>
+                                <Text fontSize="sm">For websites that support JavaScript</Text>
+                            </Box>
+                            <Box textAlign="center">
+                                <Button
+                                    leftIcon="sourceCode"
+                                    variantColor="green"
+                                >
+                                    Copy Code
+                                </Button>
+                                <Text fontSize="sm">For websites that support HTML</Text>
                             </Box>
                         </Flex>
-                    </Box>
                 </ModalBody>
             </ModalContent>
         </Modal>
