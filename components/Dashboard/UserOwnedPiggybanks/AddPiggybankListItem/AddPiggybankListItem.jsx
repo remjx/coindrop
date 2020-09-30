@@ -15,6 +15,7 @@ const AddPiggybankListItem = (props) => {
                     borderRadius="10px"
                     mt={3}
                     onClick={() => setShowInput(true)}
+                    variantColor="green"
                 >
                     Create new
                 </Button>
@@ -31,7 +32,10 @@ const AddPiggybankListItem = (props) => {
                 wrap="wrap"
                 align="center"
             >
-                <CreatePiggybankInput onCancel={() => setShowInput(false)} />
+                <CreatePiggybankInput
+                    onCancel={() => setShowInput(false)}
+                    createButtonVariantColor="green"
+                />
             </Flex>
         );
     }
