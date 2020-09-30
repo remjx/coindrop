@@ -12,6 +12,7 @@ import {
     ModalContent,
     ModalBody,
     ModalCloseButton,
+    ModalFooter,
     Text,
     Heading,
     Input,
@@ -103,10 +104,15 @@ const EmbedButtonModal = () => {
                             <Text>Share with anyone, anywhere</Text>
                         </Box>
                         <Flex align="center" ml={6} flexGrow={1} justify="center">
-                            <CopyLinkShareButton
-                                textToCopy={publicUrl}
-                                buttonVariantColor="green"
-                            />
+                            <Flex direction="column">
+                                <CopyLinkShareButton
+                                    textToCopy={publicUrl}
+                                    buttonVariantColor="green"
+                                />
+                                <Link href={publicUrl} fontSize="sm">
+                                    {publicUrl}
+                                </Link>
+                            </Flex>
                         </Flex>
                     </Flex>
                     <Heading
@@ -152,7 +158,7 @@ const EmbedButtonModal = () => {
                                 Copy Code
                             </Button>
                         </Flex>
-                        <Text fontSize="sm">For websites that support JavaScript</Text>
+                        <Text fontSize="sm">For websites that support JavaScript embeds</Text>
                     </Box>
                     <Heading as="h3" size="md" ml={4} mt={2}>With default text</Heading>
                         <Box textAlign="center" my={3}>
@@ -160,27 +166,18 @@ const EmbedButtonModal = () => {
                                 text="coindrop.to me"
                             />
                         </Box>
-                        <Flex justify="space-around">
                             <Box textAlign="center">
                                 <Button
                                     leftIcon="sourceCode"
                                     variantColor="green"
+                                    mb={1}
                                 >
                                     Copy Code
                                 </Button>
-                                <Text fontSize="sm">For websites that support JavaScript</Text>
+                                <Text fontSize="sm">For websites that support HTML embeds</Text>
                             </Box>
-                            <Box textAlign="center">
-                                <Button
-                                    leftIcon="sourceCode"
-                                    variantColor="green"
-                                >
-                                    Copy Code
-                                </Button>
-                                <Text fontSize="sm">For websites that support HTML</Text>
-                            </Box>
-                        </Flex>
                 </ModalBody>
+                <ModalFooter />
             </ModalContent>
         </Modal>
         </>
