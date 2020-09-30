@@ -22,7 +22,7 @@ LinkButton.propTypes = {
 };
 /* eslint-enable react/jsx-props-no-spreading */
 
-const ManagePiggybankBar = ({ editButtonOptions }) => {
+const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     const [isDashboardLoading, setIsDashboardLoading] = useState();
     return (
@@ -68,7 +68,9 @@ const ManagePiggybankBar = ({ editButtonOptions }) => {
                         mt={2}
                         mx={2}
                     >
-                        <ShareButtonModal />
+                        <ShareButtonModal
+                            buttonColor={initialSetupComplete ? 'green' : undefined}
+                        />
                     </Flex>
                 </Flex>
             </Flex>
@@ -82,6 +84,7 @@ ManagePiggybankBar.propTypes = {
         color: PropTypes.string,
         iconName: PropTypes.string.isRequired,
     }),
+    initialSetupComplete: PropTypes.bool.isRequired,
 };
 
 ManagePiggybankBar.defaultProps = {

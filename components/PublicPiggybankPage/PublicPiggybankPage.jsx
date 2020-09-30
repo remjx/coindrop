@@ -76,6 +76,7 @@ const PublicPiggybankPage = (props) => {
                             color: 'green',
                             iconName: 'settings',
                         }}
+                        initialSetupComplete={initialSetupComplete}
                     />
                 )}
                 {initialSetupComplete ? (

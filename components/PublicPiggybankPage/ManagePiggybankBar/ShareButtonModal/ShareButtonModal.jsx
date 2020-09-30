@@ -38,7 +38,7 @@ const shuffleCustomTextOptions = shuffle([
     'tip jar',
 ]);
 
-const EmbedButtonModal = () => {
+const ShareButtonModal = ({ buttonColor }) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const { query: { piggybankName }} = useRouter();
     const fullBaseUrl = 'https://coindrop.to/';
@@ -78,7 +78,7 @@ const EmbedButtonModal = () => {
         <Button
             leftIcon="share"
             onClick={onOpen}
-            variantColor="green"
+            variantColor={buttonColor}
             isDisabled={isOpen}
         >
             Share
@@ -179,12 +179,12 @@ const EmbedButtonModal = () => {
     );
 };
 
-EmbedButtonModal.propTypes = {
-
+ShareButtonModal.propTypes = {
+    buttonColor: PropTypes.string,
 };
 
-EmbedButtonModal.defaultProps = {
-
+ShareButtonModal.defaultProps = {
+    buttonColor: undefined,
 };
 
-export default EmbedButtonModal;
+export default ShareButtonModal;
