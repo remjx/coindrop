@@ -79,6 +79,7 @@ const EmbedButtonModal = () => {
             leftIcon="share"
             onClick={onOpen}
             variantColor="green"
+            isDisabled={isOpen}
         >
             Share
         </Button>
@@ -94,19 +95,17 @@ const EmbedButtonModal = () => {
                         Share
                     </Flex>
                 </Heading>
-                <Text textAlign="center">{publicUrl}</Text>
+                <Text textAlign="center" fontWeight="bold">{publicUrl}</Text>
                 <ModalBody>
-                    <Flex mb={4}>
+                    <Flex mb={4} wrap="wrap">
                         <Box>
                             <Heading as="h2" size="lg">
                                 Link
                             </Heading>
                             <Text>Share with anyone, anywhere</Text>
                         </Box>
-                        <Flex align="center" ml={6} flexGrow={1} justify="center">
-                            <Flex direction="column">
-                                <CopyLinkShareButton textToCopy={publicUrl} buttonVariantColor="green" />
-                            </Flex>
+                        <Flex align="center" flexGrow={1} justify="center" mt={2}>
+                            <CopyLinkShareButton textToCopy={publicUrl} buttonVariantColor="green" />
                         </Flex>
                     </Flex>
                     <Heading
@@ -123,7 +122,7 @@ const EmbedButtonModal = () => {
                     <Flex justify="center" align="center" textAlign="center" mb={3}>
                         <Input
                             variant="flushed"
-                            width="60%"
+                            width="350px"
                             value={customText}
                             textAlign="center"
                             onChange={(e) => setCustomText(e.target.value)}
