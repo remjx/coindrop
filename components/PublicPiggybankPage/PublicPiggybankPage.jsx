@@ -69,7 +69,9 @@ const PublicPiggybankPage = (props) => {
                 maxW="1280px"
                 mx="auto"
             >
-                {user?.id && (
+                {user?.id
+                && user.id === owner_uid
+                && (
                     <ManagePiggybankBar
                         editButtonOptions={initialSetupComplete ? undefined : {
                             text: 'Set up',
