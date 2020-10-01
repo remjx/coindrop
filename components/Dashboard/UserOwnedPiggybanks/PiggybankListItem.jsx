@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Spinner, Box, Link, PseudoBox, Flex, Heading, useTheme } from '@chakra-ui/core';
+import { Spinner, Box, Icon, PseudoBox, Flex, Heading, useTheme } from '@chakra-ui/core';
 
 function PiggybankListItem({ id }) {
     const { colors } = useTheme();
@@ -27,21 +27,27 @@ function PiggybankListItem({ id }) {
                         shadow="md"
                         borderWidth="1px"
                         borderRadius="10px"
-                        textAlign="center"
                     >
-                        <Heading fontSize="xl">
-                            {isLoading
-                            ? (
-                                <Flex align="center" justify="center">
-                                    <Spinner />
-                                    <Box ml={2}>
-                                        Loading
-                                    </Box>
-                                </Flex>
-                            ) : (
-                                `coindrop.to/${id}`
-                                )}
-                        </Heading>
+                        {isLoading ? (
+                            <Flex align="center" justify="center">
+                                <Spinner size="32px" />
+                                <Heading ml={2} fontSize="xl">
+                                    Loading
+                                </Heading>
+                            </Flex>
+                        ) : (
+                            <Flex
+                                justify="space-between"
+                                align="center"
+                                mx={4}
+                            >
+                                <Heading fontSize="xl">
+                                    coindrop.to/
+                                    {id}
+                                </Heading>
+                                <Icon size="32px" name="chevron-right" />
+                            </Flex>
+                        )}
                     </Box>
                 </a>
             </NextLink>

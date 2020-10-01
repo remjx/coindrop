@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Text, Spinner, Stack } from '@chakra-ui/core';
+import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
@@ -32,17 +32,37 @@ const UserOwnedPiggybanks = ({ uid }) => {
     if (data) {
         const numActivePiggybanks = data.length;
         return (
+            <>
             <Stack spacing={8} my={4}>
-                {data.map(piggybank => (
-                    <PiggybankListItem
-                        key={piggybank.id}
-                        id={piggybank.id}
-                    />
-                ))}
+                {
+                numActivePiggybanks > 0
+                ? (
+                    <>
+                    <Heading
+                        textAlign="center"
+                    >
+                        My Piggybanks
+                    </Heading>
+                    {data.map(piggybank => (
+                        <PiggybankListItem
+                            key={piggybank.id}
+                            id={piggybank.id}
+                        />
+                    ))}
+                    </>
+                ) : (
+                    <Heading
+                        textAlign="center"
+                    >
+                        No piggybanks yet!
+                    </Heading>
+                )
+                }
                 <AddPiggybankListItem
                     numActivePiggybanks={numActivePiggybanks}
                 />
             </Stack>
+            </>
         );
     }
     return (
