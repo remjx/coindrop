@@ -174,10 +174,10 @@ const index = () => {
                     mt={4}
                 >
                     <Heading as="h3" size="md" textAlign="center">
-                        Cryptocurrencies
+                        Digital assets
                     </Heading>
                     <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTags category="cryptocurrency" />
+                        <PaymentMethodTags category="digital-asset" />
                         <AddTag />
                     </Flex>
                 </Box>
