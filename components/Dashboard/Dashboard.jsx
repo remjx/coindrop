@@ -50,11 +50,8 @@ const Dashboard = () => {
                 <Logo />
                 <Flex>
                     <Menu>
-                        <MenuButton as={Button} rightIcon="chevron-down">
-                            <Text fontSize={["sm", "md"]}>
-                                {/* {user?.email ?? 'Menu'} */}
-                                Menu
-                            </Text>
+                        <MenuButton as={Button} variant="ghost">
+                            <Icon name="hamburgerMenu" />
                         </MenuButton>
                         <MenuList placement="bottom-end">
                             <Link
