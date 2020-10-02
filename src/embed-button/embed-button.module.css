@@ -3,10 +3,15 @@
     border: 1px solid transparent;
     background-color: #EBEBEB;
 }
-  
+
 .coindrop-button:hover {
     background-color: #E0E0E1;
     cursor: pointer;
+}
+
+/* only used for Preview */
+.coindrop-html-button:hover {
+    background-color: #EBEBEB !important;
 }
 
 .coindrop-button-content {
