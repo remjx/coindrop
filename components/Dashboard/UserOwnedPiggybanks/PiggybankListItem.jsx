@@ -11,7 +11,7 @@ function PiggybankListItem({ id }) {
             onClick={() => setIsLoading(true)}
             cursor="pointer"
             mt={3}
-            bg={isLoading ? colors.gray['200'] : undefined}
+            bg={isLoading ? colors.gray['100'] : undefined}
             _hover={{
                 bg: colors.gray['100'],
                 textDecoration: "none",
