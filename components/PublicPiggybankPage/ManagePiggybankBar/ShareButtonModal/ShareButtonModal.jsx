@@ -1,11 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import {
     Button,
     Flex,
     Box,
-    Image,
     useDisclosure,
     Modal,
     ModalOverlay,
@@ -17,7 +16,6 @@ import {
     Heading,
     Input,
     Icon,
-    Link,
     useClipboard,
 } from '@chakra-ui/core';
 import CopyLinkShareButton from '../../../Buttons/CopyLinkShareButton';
@@ -49,9 +47,9 @@ const ShareButtonModal = ({ buttonColor }) => {
     const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" alt="Coindrop.to me" style="height: 57px !important;width: 185px !important;" ></a>`;
     const { onCopy: onCopyScript, hasCopied: hasCopiedScript } = useClipboard(scriptButtonHtml);
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
-    const ButtonHtmlPreview = ({ text }) => (
+    const ButtonPreview = ({ text, isHtmlOnly }) => (
         <a href={`${fullBaseUrl}${piggybankName}`} target="_blank" rel="noreferrer">
-            <button type="button" className={styles["coindrop-button"]}>
+            <button type="button" className={isHtmlOnly ? `${styles["coindrop-button"]} ${styles["coindrop-html-button"]}` : styles["coindrop-button"]}>
                 <div className={styles["coindrop-button-content"]}>
                 <div className={styles["coindrop-svg"]}>{svg}</div>
                 <div>{text}</div>
@@ -59,20 +57,20 @@ const ShareButtonModal = ({ buttonColor }) => {
             </button>
         </a>
     );
-    ButtonHtmlPreview.propTypes = {
+    ButtonPreview.propTypes = {
         text: PropTypes.string,
+        isHtmlOnly: PropTypes.bool,
     };
-    ButtonHtmlPreview.defaultProps = {
+    ButtonPreview.defaultProps = {
         text: 'coindrop.to me',
+        isHtmlOnly: false,
     };
-
     const initialShuffleTextArray = [publicUrl, ...shuffleCustomTextOptions];
     const [shuffleTextArray] = useState(initialShuffleTextArray);
     const [shuffleCustomTextIndex, setShuffleCustomTextIndex] = useState(0);
     useEffect(() => {
         setCustomText(shuffleTextArray[shuffleCustomTextIndex]);
     }, [shuffleCustomTextIndex]);
-
     return (
         <>
         <Button
@@ -117,7 +115,7 @@ const ShareButtonModal = ({ buttonColor }) => {
                     <Text>Embed a button on your website</Text>
                     <Heading as="h3" size="md" ml={4} mt={2}>With custom text</Heading>
                     <Box textAlign="center" mt={3}>
-                        <ButtonHtmlPreview text={customText} />
+                        <ButtonPreview text={customText} />
                     </Box>
                     <Flex justify="center" align="center" textAlign="center" mb={3}>
                         <Input
@@ -156,8 +154,9 @@ const ShareButtonModal = ({ buttonColor }) => {
                     </Box>
                     <Heading as="h3" size="md" ml={4} mt={2}>With default text</Heading>
                         <Box textAlign="center" my={3}>
-                            <ButtonHtmlPreview
+                            <ButtonPreview
                                 text="coindrop.to me"
+                                isHtmlOnly
                             />
                         </Box>
                             <Box textAlign="center">
@@ -170,6 +169,7 @@ const ShareButtonModal = ({ buttonColor }) => {
                                     {hasCopiedImage ? 'Copied' : 'Copy Code'}
                                 </Button>
                                 <Text fontSize="sm">For websites that support HTML embed</Text>
+                                <Text fontSize="xs">Note: button hover color does not change with this option</Text>
                             </Box>
                 </ModalBody>
                 <ModalFooter />
