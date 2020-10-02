@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
+import QRCode from 'qrcode.react';
 import { Flex, Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/core';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
 
@@ -8,6 +9,7 @@ const PaymentMethodButtonModal = (props) => {
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
     const { piggybankDbData } = useContext(PublicPiggybankData);
     const { name } = piggybankDbData;
+    // TODO: only render QR if addressValue.length > 1
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -52,6 +54,13 @@ const PaymentMethodButtonModal = (props) => {
                         {hasCopied ? "Copied" : "Copy"}
                     </Button>
                 </Box>
+                <Text mb={2} textAlign="center">or scan QR Code:</Text>
+                <Flex justify="center">
+                    <QRCode
+                        value={paymentMethodValue}
+                        size={225}
+                    />
+                </Flex>
             </ModalBody>
             </ModalContent>
         </Modal>
