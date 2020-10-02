@@ -1,7 +1,7 @@
 ---
 name: New payment method request
-about: Add an app or digital asset to the supported list of payment methods
-title: ''
+about: Add an app or cryptocurrency to the supported list of payment methods
+title: 'New payment method: [INSERT PAYMENT METHOD NAME HERE]'
 labels: enhancement
 assignees: markjackson02
 
