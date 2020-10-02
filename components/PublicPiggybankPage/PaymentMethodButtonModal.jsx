@@ -9,7 +9,6 @@ const PaymentMethodButtonModal = (props) => {
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
     const { piggybankDbData } = useContext(PublicPiggybankData);
     const { name } = piggybankDbData;
-    // TODO: only render QR if addressValue.length > 1
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
