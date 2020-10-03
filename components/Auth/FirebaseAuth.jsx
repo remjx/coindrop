@@ -15,6 +15,7 @@ const firebaseAuthConfig = {
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
   credentialHelper: 'none',
+  signInSuccessUrl: '/dashboard',
   callbacks: {
     // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
     signInSuccessWithAuthResult: ({ user }) => {
