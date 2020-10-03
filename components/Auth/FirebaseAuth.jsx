@@ -9,12 +9,13 @@ import { mapUserData } from '../../utils/auth/mapUserData';
 initFirebase();
 
 const firebaseAuthConfig = {
-  signInFlow: 'popup',
+  signInFlow: 'redirect',
   signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
   ],
   credentialHelper: 'none',
+  signInSuccessUrl: '/dashboard',
   callbacks: {
     // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
     signInSuccessWithAuthResult: ({ user }) => {
