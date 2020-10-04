@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader } from '@chakra-ui/core';
+import { Flex, Spinner, Text, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader } from '@chakra-ui/core';
 import FirebaseAuth from './FirebaseAuth';
 
 const AuthModal = (props) => {
@@ -14,7 +14,7 @@ const AuthModal = (props) => {
         >
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader textAlign="center">Sign in to continue</ModalHeader>
+            <ModalHeader textAlign="center" mb={-3}>Sign in to continue</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <FirebaseAuth />

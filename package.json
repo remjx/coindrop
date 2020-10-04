@@ -34,7 +34,7 @@
     "uuid": "^8.3.0",
     "yup": "^0.29.3"
   },
-  "license": "GNU GPL v3.0",
+  "license": "GPL-3.0-only",
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",

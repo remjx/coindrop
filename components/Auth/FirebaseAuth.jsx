@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
+import { Spinner, Text, Flex } from '@chakra-ui/core';
 import 'firebase/auth';
 import initFirebase from '../../utils/auth/initFirebase';
 import { setUserCookie } from '../../utils/auth/userCookies';
@@ -26,6 +27,13 @@ const firebaseAuthConfig = {
   },
 };
 
+const Authenticating = () => (
+  <Flex align="center" justify="center">
+    <Spinner size="24px" mr={2} />
+    <Text>Authenticating...</Text>
+  </Flex>
+);
+
 const FirebaseAuth = () => {
   // Do not SSR FirebaseUI, because it is not supported.
   // https://github.com/firebase/firebaseui-web/issues/213
@@ -42,7 +50,7 @@ const FirebaseAuth = () => {
           uiConfig={firebaseAuthConfig}
           firebaseAuth={firebase.auth()}
         />
-      ) : null}
+      ) : <Authenticating />}
     </div>
   );
 };
