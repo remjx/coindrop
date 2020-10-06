@@ -19,7 +19,6 @@ const accordionText = [
         <Text>
             <b>Users pay you directly </b>
             {' so there is no platform fee.'}
-            .
             <b>{' All features will always be free '}</b>
             {'for both senders and receivers as they are developed by the '}
             <Link href={githubUrl} target="_blank">
@@ -35,7 +34,10 @@ const accordionText = [
             <Link href="http://firebase.google.com" target="_blank">
                 Firebase
             </Link>
-            . We may add relevant, unobtrusive advertisements in order to offset costs and support the site. You'll be able to monetize 
+            {'. '}
+            <b>We may add relevant, unobtrusive advertisements</b>
+            {' to offset costs and support the site.'}
+            {/* You'll be able to monetize by XYZ method */}
         </Text>
         </Box>,
     ],
