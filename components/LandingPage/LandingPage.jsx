@@ -98,6 +98,7 @@ const index = () => {
         ));
     return (
         <>
+        <a name="top">top</a>
         <AuthModal
             isOpen={isAuthOpen}
             onClose={onAuthClose}
@@ -135,43 +136,43 @@ const index = () => {
                 my={6}
                 py={6}
             >
-                <Heading
-                    textAlign="center"
-                    color={theme.colors.gray['700']}
-                    as="h1"
-                >
-                    {'Create a '}
-                    <span style={{textDecoration: "underline"}}>
-                        zero-fee
-                    </span>
-                    {' webpage for accepting payments and donations'}
-                </Heading>
-                <Text textAlign="center" mt={2}>
-                    Enter your list of addresses. Let the sender choose how to pay you.
-                </Text>
-                <Box
-                    mt={2}
-                >
-                    <CreatePiggybankInput />
-                </Box>
-                <Text
-                    fontSize="sm"
-                    textAlign="center"
-                    mt={4}
-                >
-                    {'Coindrop is currently in beta. '}
-                    <Link
-                        href="https://twitter.com/coindrop_to"
-                        target="_blank"
+                    <Heading
+                        textAlign="center"
+                        color={theme.colors.gray['700']}
+                        as="h1"
                     >
-                        <b>Request an invite</b>
-                    </Link>
-                    .
-                </Text>
+                        {'Create a '}
+                        <span style={{textDecoration: "underline"}}>
+                            zero-fee
+                        </span>
+                        {' webpage for accepting payments and donations'}
+                    </Heading>
+                    <Text textAlign="center" mt={2}>
+                        Enter your list of addresses. Let the sender choose how to pay you.
+                    </Text>
+                    <Box
+                        mt={2}
+                    >
+                        <CreatePiggybankInput />
+                    </Box>
+                    <Text
+                        fontSize="sm"
+                        textAlign="center"
+                        mt={4}
+                    >
+                        {'Coindrop is currently in beta. '}
+                        <Link
+                            href="https://twitter.com/coindrop_to"
+                            target="_blank"
+                        >
+                            <b>Request an invite</b>
+                        </Link>
+                        .
+                    </Text>
             </Box>
             <ContentContainer>
                 <Heading as="h2" size="lg" textAlign="center">
-                    Perfect for
+                    Perfect for...
                 </Heading>
                 <Flex
                     justify="center"
@@ -182,8 +183,11 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually all payment methods
+                    Payment methods
                 </Heading>
+                <Text textAlign="center">
+                    Supports virtually any payment method
+                </Text>
                 <Flex direction={['column', 'row']}>
                     <Box
                         mt={4}
@@ -218,7 +222,7 @@ const index = () => {
                     color={theme.colors.gray['500']}
                     mb={2}
                 >
-                    Some other great platforms you might consider
+                    Some other platforms you may consider
                 </Text>
                 <Box>
                     <Flex justify="center" textAlign="center">
@@ -269,7 +273,7 @@ const index = () => {
                                 <td>Fees</td>
                                 <td style={{backgroundColor: green}}>Free</td>
                                 <td style={{backgroundColor: green}}>Freemium</td>
-                                <td style={{backgroundColor: red}}>5%</td>
+                                <td style={{backgroundColor: orange}}>5%</td>
                                 <td style={{backgroundColor: red}}>5-12%</td>
                             </tr>
                             <tr>
