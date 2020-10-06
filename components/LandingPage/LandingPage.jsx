@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
+import { List, ListItem, ListIcon, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { githubUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
+import UseCasesList from './UseCasesList';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -120,6 +121,7 @@ const index = () => {
                 <Heading
                     textAlign="center"
                     color={theme.colors.gray['700']}
+                    as="h1"
                 >
                     {'Create a '}
                     <span style={{textDecoration: "underline"}}>
@@ -131,8 +133,7 @@ const index = () => {
                     Enter your list of addresses. Let the sender choose how to pay you.
                 </Text>
                 <Box
-                    mt={4}
-                    mb={1}
+                    mt={2}
                 >
                     <CreatePiggybankInput />
                 </Box>
@@ -151,13 +152,18 @@ const index = () => {
                     .
                 </Text>
             </Box>
-            <Text
+            <Heading as="h2" size="lg" textAlign="center">
+                Use a Coindrop to:
+            </Heading>
+            <Box
                 textAlign="center"
-                mt={8}
-                fontSize="xl"
+                justify="center"
             >
+                <UseCasesList />
+            </Box>
+            <Heading mt={5} as="h2" size="lg" textAlign="center">
                 Coindrop supports virtually all:
-            </Text>
+            </Heading>
             <Flex direction={['column', 'row']}>
                 <Box
                     mt={4}
