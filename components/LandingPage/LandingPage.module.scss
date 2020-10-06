@@ -1,0 +1,14 @@
+.comparisontable {
+    td {
+        padding: 6px;
+        border-radius: 6px;
+        color: white;
+    }
+    tr > td:first-child {
+        padding-right: 10px;
+        font-weight: bold;
+        color: black;
+    }
+    border-collapse: separate;
+    border-spacing: 10px;
+}
