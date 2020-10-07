@@ -62,7 +62,7 @@ const index = () => {
         onClose: onAuthClose,
     } = useDisclosure();
     const theme = useTheme();
-    const green = theme.colors.green['500'];
+    const green = theme.colors.green['400'];
     const yellow = theme.colors.yellow['500'];
     const orange = theme.colors.orange['500'];
     const red = theme.colors.red['500'];
@@ -148,7 +148,7 @@ const index = () => {
                         {' webpage for accepting payments and donations'}
                     </Heading>
                     <Text textAlign="center" mt={2}>
-                        Enter your list of addresses. Let the sender choose how to pay you.
+                        Enter your addresses. Let the sender choose how to pay you.
                     </Text>
                     <Box
                         mt={2}
@@ -183,10 +183,10 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Payment methods
+                    Support for virtually <u>all</u> payment methods
                 </Heading>
                 <Text textAlign="center">
-                    Supports virtually any payment method
+                    Pick &amp; choose which to feature on your page
                 </Text>
                 <Flex direction={['column', 'row']}>
                     <Box
@@ -219,7 +219,7 @@ const index = () => {
                 </Heading>
                 <Text
                     textAlign="center"
-                    color={theme.colors.gray['500']}
+                    // color={theme.colors.gray['500']}
                     mb={2}
                 >
                     Some other platforms you may consider
@@ -273,13 +273,13 @@ const index = () => {
                                 <td>Fees</td>
                                 <td style={{backgroundColor: green}}>Free</td>
                                 <td style={{backgroundColor: green}}>Freemium</td>
-                                <td style={{backgroundColor: orange}}>5%</td>
+                                <td style={{backgroundColor: red}}>5%</td>
                                 <td style={{backgroundColor: red}}>5-12%</td>
                             </tr>
                             <tr>
                                 <td>Memberships</td>
                                 <td style={{backgroundColor: red}}>No</td>
-                                <td style={{backgroundColor: green}}>Yes</td>
+                                <td style={{backgroundColor: red}}>$9/mo</td>
                                 <td style={{backgroundColor: green}}>Yes</td>
                                 <td style={{backgroundColor: green}}>Yes</td>
                             </tr>

@@ -14,31 +14,18 @@ import { githubUrl, markJacksonUrl } from '../../src/settings';
 
 const accordionText = [
     [
-        "If it's free, what's the catch?",
+        "No fees... really?",
         <Box>
-        <Text>
-            <b>Users pay you directly </b>
-            {' so there is no platform fee.'}
-            <b>{' All features will always be free '}</b>
-            {'for both senders and receivers as they are developed by the '}
-            <Link href={githubUrl} target="_blank">
-                open-source community
-            </Link>
-            {'. '}
-            <b>We are able to host this site for free</b>
-            {' under certain usage limits thanks to '}
-            <Link href="http://vercel.com" target="_blank">
-                Vercel
-            </Link>
-            {' and '}
-            <Link href="http://firebase.google.com" target="_blank">
-                Firebase
-            </Link>
-            {'. '}
-            <b>We may add relevant, unobtrusive advertisements</b>
-            {' to offset costs and support the site.'}
-            {/* You'll be able to monetize by XYZ method */}
-        </Text>
+            <Text mb="1rem">
+                Payments are peer-to-peer, so Coindrop takes
+                {' no fee from receivers or senders, ever.'}
+            </Text>
+            <Text mb="1rem">
+                If we hypothetically broke our promise and started charging fees to use this service, there is an easy escape hatch. All the code to this website is open-source so anyone could remove the fees and run a free version of it themselves!
+            </Text>
+            <Text>
+                To cover server costs, we may display relevant, unobtrusive advertisements and offers on this site.
+            </Text>
         </Box>,
     ],
     [

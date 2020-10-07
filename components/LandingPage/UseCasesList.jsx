@@ -3,7 +3,7 @@ import { Flex, List, ListItem, ListIcon as ChakraListIcon, Text } from "@chakra-
 
 const useCasesArr = [
     'Accepting donations anywhere on the web 🔗',
-    'Accepting tips in the real world with the QR Code 🌎',
+    'Accepting tips in the real world using a QR Code 🌎',
     'Settling tabs with family / friends / co-workers 🧑‍🤝‍🧑',
 ];
 
@@ -12,7 +12,7 @@ const UseCasesList = () => (
         {useCasesArr.map(text => (
             <ListItem key={text}>
                 <Flex align="center">
-                    <ChakraListIcon mr={3} icon="check-circle" color="green.500" size="18px" />
+                    <ChakraListIcon mr={3} icon="check-circle" color="green.400" size="18px" />
                     <Text fontSize="1.25rem">
                         {text}
                     </Text>
