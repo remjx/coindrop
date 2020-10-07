@@ -8021,6 +8021,13 @@ querystring@0.2.0, querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
+raf@^3.4.0:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+  integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
+  dependencies:
+    performance-now "^2.1.0"
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -9542,6 +9549,14 @@ typescript@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
   integrity sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
+
+typewriter-effect@^2.13.1:
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/typewriter-effect/-/typewriter-effect-2.13.1.tgz#c820469eec39d41b89a86867588d3a362b37171c"
+  integrity sha512-SlKC2URrw/ziEEWmSQxPu4mbLrXrQibwJ3iuRFu4rXbRohT4AsBM5BvSBsqD8lUIvqqhcIS/WdWk5Us15jd3qg==
+  dependencies:
+    prop-types "^15.6.2"
+    raf "^3.4.0"
 
 unicode-canonical-property-names-ecmascript@^1.0.4:
   version "1.0.4"

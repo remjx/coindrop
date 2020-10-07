@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
+import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
@@ -33,16 +34,6 @@ PaymentMethodTag.defaultProps = {
     tagVariantColor: undefined,
     color: undefined,
 };
-
-const AddTag = () => (
-    <Link
-        style={{textDecoration: "none"}}
-        href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
-        target="_blank"
-    >
-        <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
-    </Link>
-);
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -135,39 +126,40 @@ const index = () => {
                 my={6}
                 py={6}
             >
-                    <Heading
-                        textAlign="center"
-                        color={theme.colors.gray['700']}
-                        as="h1"
+                <Heading
+                    textAlign="center"
+                    color={theme.colors.gray['700']}
+                    as="h1"
+                >
+                    {'Create a '}
+                    <span style={{textDecoration: "underline"}}>
+                        zero-fee
+                    </span>
+                    {' webpage for accepting '}
+                    <Typewriter />
+                </Heading>
+                <Text textAlign="center" mt={2}>
+                    Enter your addresses. Let the sender choose how to pay you.
+                </Text>
+                <Box
+                    mt={2}
+                >
+                    <CreatePiggybankInput />
+                </Box>
+                <Text
+                    fontSize="sm"
+                    textAlign="center"
+                    mt={4}
+                >
+                    {'Coindrop is currently in beta. '}
+                    <Link
+                        href={twitterUrl}
+                        target="_blank"
                     >
-                        {'Create a '}
-                        <span style={{textDecoration: "underline"}}>
-                            zero-fee
-                        </span>
-                        {' webpage for accepting payments and donations'}
-                    </Heading>
-                    <Text textAlign="center" mt={2}>
-                        Enter your addresses. Let the sender choose how to pay you.
-                    </Text>
-                    <Box
-                        mt={2}
-                    >
-                        <CreatePiggybankInput />
-                    </Box>
-                    <Text
-                        fontSize="sm"
-                        textAlign="center"
-                        mt={4}
-                    >
-                        {'Coindrop is currently in beta. '}
-                        <Link
-                            href={twitterUrl}
-                            target="_blank"
-                        >
-                            <b>Request an invite</b>
-                        </Link>
-                        .
-                    </Text>
+                        <b>Request an invite</b>
+                    </Link>
+                    .
+                </Text>
             </Box>
             <ContentContainer>
                 <Heading as="h2" size="lg" textAlign="center">
@@ -196,7 +188,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
-                            <AddTag />
                         </Flex>
                     </Box>
                     <Box
@@ -207,7 +198,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
-                            <AddTag />
                         </Flex>
                     </Box>
                 </Flex>
