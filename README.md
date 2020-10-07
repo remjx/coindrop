@@ -20,7 +20,7 @@ Receivers create a Coindrop address e.g. [coindrop\.to/satoshi-nakamoto](https:/
 
 * Does someone owe you money? ✔️ Send them your Coindrop link
 * Would you like to accept donations? ✔️ Create a Coindrop for your brand and share it on your website or social media profile
-* Do you provide services to customers in the real world and want to receive tips? ✔️ Add your Coindrop link to your business card
+* Do you provide services to customers in the real world and want to receive tips? ✔️ Add your Coindrop link or QR Code to your tip jar or business card
 
 ### Open-source 👀
 

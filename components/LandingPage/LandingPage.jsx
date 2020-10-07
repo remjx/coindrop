@@ -2,13 +2,16 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
+import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
-import { githubUrl } from '../../src/settings';
+import { githubUrl, twitterUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
+import UseCasesList from './UseCasesList';
+import FAQ from './FAQ';
+import styles from './LandingPage.module.scss';
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
     <Box mx={1} my={1}>
@@ -41,6 +44,17 @@ const AddTag = () => (
     </Link>
 );
 
+const ContentContainer = ({ children }) => (
+    <Box
+        my={12}
+    >
+        {children}
+    </Box>
+);
+ContentContainer.propTypes = {
+    children: PropTypes.any.isRequired,
+};
+
 const index = () => {
     const {
         isOpen: isAuthOpen,
@@ -48,6 +62,10 @@ const index = () => {
         onClose: onAuthClose,
     } = useDisclosure();
     const theme = useTheme();
+    const green = theme.colors.green['400'];
+    // const yellow = theme.colors.yellow['500'];
+    // const orange = theme.colors.orange['500'];
+    const red = theme.colors.red['500'];
     const router = useRouter();
     const { user } = useUser();
     useEffect(() => {
@@ -117,71 +135,169 @@ const index = () => {
                 my={6}
                 py={6}
             >
-                <Heading
-                    textAlign="center"
-                    color={theme.colors.gray['700']}
-                >
-                    {'Create a '}
-                    <span style={{textDecoration: "underline"}}>
-                        zero-fee
-                    </span>
-                    {' webpage for accepting payments'}
-                </Heading>
-                <Text textAlign="center" mt={2}>
-                    Enter your list of addresses. Let the sender choose how to pay you.
-                </Text>
-                <Box
-                    mt={4}
-                    mb={1}
-                >
-                    <CreatePiggybankInput />
-                </Box>
-                <Text
-                    fontSize="sm"
-                    textAlign="center"
-                    mt={4}
-                >
-                    {'Coindrop is currently in beta. '}
-                    <Link
-                        href="https://twitter.com/coindrop_to"
-                        target="_blank"
+                    <Heading
+                        textAlign="center"
+                        color={theme.colors.gray['700']}
+                        as="h1"
                     >
-                        <b>Request an invite</b>
-                    </Link>
-                    .
-                </Text>
+                        {'Create a '}
+                        <span style={{textDecoration: "underline"}}>
+                            zero-fee
+                        </span>
+                        {' webpage for accepting payments and donations'}
+                    </Heading>
+                    <Text textAlign="center" mt={2}>
+                        Enter your addresses. Let the sender choose how to pay you.
+                    </Text>
+                    <Box
+                        mt={2}
+                    >
+                        <CreatePiggybankInput />
+                    </Box>
+                    <Text
+                        fontSize="sm"
+                        textAlign="center"
+                        mt={4}
+                    >
+                        {'Coindrop is currently in beta. '}
+                        <Link
+                            href={twitterUrl}
+                            target="_blank"
+                        >
+                            <b>Request an invite</b>
+                        </Link>
+                        .
+                    </Text>
             </Box>
-            <Text
-                textAlign="center"
-                mt={8}
-                fontSize="xl"
-            >
-                Coindrop supports virtually all:
-            </Text>
-            <Flex direction={['column', 'row']}>
-                <Box
-                    mt={4}
+            <ContentContainer>
+                <Heading as="h2" size="lg" textAlign="center">
+                    Perfect for...
+                </Heading>
+                <Flex
+                    justify="center"
+                    mt={2}
                 >
-                    <Heading as="h3" size="md" textAlign="center">
-                        Apps
-                    </Heading>
-                    <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTags category="app" />
-                        <AddTag />
+                    <UseCasesList />
+                </Flex>
+            </ContentContainer>
+            <ContentContainer>
+                <Heading mt={5} as="h2" size="lg" textAlign="center">
+                    Supports virtually <u>all</u> payment methods
+                </Heading>
+                <Text textAlign="center">
+                    Pick &amp; choose which to feature on your page
+                </Text>
+                <Flex direction={['column', 'row']}>
+                    <Box
+                        mt={4}
+                    >
+                        <Heading as="h3" size="md" textAlign="center">
+                            Apps
+                        </Heading>
+                        <Flex wrap="wrap" justify="center" mt={3}>
+                            <PaymentMethodTags category="app" />
+                            <AddTag />
+                        </Flex>
+                    </Box>
+                    <Box
+                        mt={4}
+                    >
+                        <Heading as="h3" size="md" textAlign="center">
+                            Digital assets
+                        </Heading>
+                        <Flex wrap="wrap" justify="center" mt={3}>
+                            <PaymentMethodTags category="digital-asset" />
+                            <AddTag />
+                        </Flex>
+                    </Box>
+                </Flex>
+            </ContentContainer>
+            <ContentContainer>
+                <Heading mt={5} as="h2" size="lg" textAlign="center">
+                    Alternatives
+                </Heading>
+                <Text
+                    textAlign="center"
+                    // color={theme.colors.gray['500']}
+                    mb={2}
+                >
+                    Some other platforms you may consider
+                </Text>
+                <Box>
+                    <Flex justify="center" textAlign="center">
+                        <table style={{borderSpacing: '10px'}} className={styles.comparisontable}>
+                            <tr>
+                                <th> </th>
+                                <th>
+                                    <Flex align="center">
+                                        Coindrop
+                                        <Image ml={1} src="/piggy-question-256.png" height="19px" width="19px" />
+                                    </Flex>
+                                </th>
+                                <th>
+                                    Ko-fi
+                                    <Icon ml={1} name="kofi" />
+                                </th>
+                                <th>
+                                Buy Me A Coffee
+                                    <Icon ml={1} name="buymeacoffee" />
+                                </th>
+                                <th>
+                                    Patreon
+                                    <Icon ml={1} name="patreon" />
+                                </th>
+                            </tr>
+                            <tr>
+                                <td># Pages per account</td>
+                                <td style={{backgroundColor: green, color: '#FFFFFF'}}>Infinite</td>
+                                <td style={{backgroundColor: red}}>1</td>
+                                <td style={{backgroundColor: red}}>1</td>
+                                <td style={{backgroundColor: red}}>1</td>
+                            </tr>
+                            <tr>
+                                <td>Payment methods</td>
+                                <td style={{backgroundColor: green}}>Any</td>
+                                <td style={{backgroundColor: red}}>PayPal or Credit Card</td>
+                                <td style={{backgroundColor: red}}>Credit card</td>
+                                <td style={{backgroundColor: red}}>Credit card</td>
+                            </tr>
+                            <tr>
+                                <td>Open-source</td>
+                                <td style={{backgroundColor: green}}>Yes</td>
+                                <td style={{backgroundColor: red}}>No</td>
+                                <td style={{backgroundColor: red}}>No</td>
+                                <td style={{backgroundColor: red}}>No</td>
+                            </tr>
+                            <tr>
+                                <td>Fees</td>
+                                <td style={{backgroundColor: green}}>Free</td>
+                                <td style={{backgroundColor: green}}>Freemium</td>
+                                <td style={{backgroundColor: red}}>5%</td>
+                                <td style={{backgroundColor: red}}>5-12%</td>
+                            </tr>
+                            <tr>
+                                <td>Memberships</td>
+                                <td style={{backgroundColor: red}}>No</td>
+                                <td style={{backgroundColor: red}}>$9/mo</td>
+                                <td style={{backgroundColor: green}}>Yes</td>
+                                <td style={{backgroundColor: green}}>Yes</td>
+                            </tr>
+                        </table>
                     </Flex>
                 </Box>
-                <Box
-                    mt={4}
+            </ContentContainer>
+            <ContentContainer>
+                <Heading mt={5} as="h2" size="lg" textAlign="center">
+                    FAQ
+                </Heading>
+                <Text
+                    textAlign="center"
+                    mb={5}
                 >
-                    <Heading as="h3" size="md" textAlign="center">
-                        Digital assets
-                    </Heading>
-                    <Flex wrap="wrap" justify="center" mt={3}>
-                        <PaymentMethodTags category="digital-asset" />
-                        <AddTag />
-                    </Flex>
-                </Box>
-            </Flex>
+                    Frequently Asked Questions
+                </Text>
+                <FAQ />
+            </ContentContainer>
         </Box>
         </>
     );
