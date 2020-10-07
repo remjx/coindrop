@@ -1,28 +1,23 @@
-import { useEffect, useState } from 'react';
-import TypewriterEffect from 'typewriter-effect';
+import dynamic from 'next/dynamic';
 
-const Typewriter = () => {
-    const [didMount, setDidMount] = useState();
-    useEffect(() => {
-        setDidMount(true);
-    }, []);
-    if (didMount) {
-        return (
-            <TypewriterEffect
-                options={{
-                    strings: [
-                        'payments',
-                        'donations',
-                        'tips',
-                        // 'gifts',
-                    ],
-                    autoStart: true,
-                    loop: true,
-                }}
-            />
-        );
-    }
-    return 'payments';
-};
+const TypewriterEffect = dynamic(
+    () => import('typewriter-effect'),
+    { loading: () => 'payments' },
+);
+
+const Typewriter = () => (
+    <TypewriterEffect
+        options={{
+            strings: [
+                'payments',
+                'donations',
+                'tips',
+                // 'gifts',
+            ],
+            autoStart: true,
+            loop: true,
+        }}
+    />
+);
 
 export default Typewriter;
