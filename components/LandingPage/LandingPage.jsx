@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
+import Typewriter from 'typewriter-effect';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
@@ -135,39 +136,46 @@ const index = () => {
                 my={6}
                 py={6}
             >
-                    <Heading
-                        textAlign="center"
-                        color={theme.colors.gray['700']}
-                        as="h1"
+                <Heading
+                    textAlign="center"
+                    color={theme.colors.gray['700']}
+                    as="h1"
+                >
+                    {'Create a '}
+                    <span style={{textDecoration: "underline"}}>
+                        zero-fee
+                    </span>
+                    {' webpage for accepting '}
+                    <Typewriter
+                        options={{
+                            strings: ['payments', 'donations', 'tips', 'gifts'],
+                            autoStart: true,
+                            loop: true,
+                        }}
+                    />
+                </Heading>
+                <Text textAlign="center" mt={2}>
+                    Enter your addresses. Let the sender choose how to pay you.
+                </Text>
+                <Box
+                    mt={2}
+                >
+                    <CreatePiggybankInput />
+                </Box>
+                <Text
+                    fontSize="sm"
+                    textAlign="center"
+                    mt={4}
+                >
+                    {'Coindrop is currently in beta. '}
+                    <Link
+                        href={twitterUrl}
+                        target="_blank"
                     >
-                        {'Create a '}
-                        <span style={{textDecoration: "underline"}}>
-                            zero-fee
-                        </span>
-                        {' webpage for accepting payments and donations'}
-                    </Heading>
-                    <Text textAlign="center" mt={2}>
-                        Enter your addresses. Let the sender choose how to pay you.
-                    </Text>
-                    <Box
-                        mt={2}
-                    >
-                        <CreatePiggybankInput />
-                    </Box>
-                    <Text
-                        fontSize="sm"
-                        textAlign="center"
-                        mt={4}
-                    >
-                        {'Coindrop is currently in beta. '}
-                        <Link
-                            href={twitterUrl}
-                            target="_blank"
-                        >
-                            <b>Request an invite</b>
-                        </Link>
-                        .
-                    </Text>
+                        <b>Request an invite</b>
+                    </Link>
+                    .
+                </Text>
             </Box>
             <ContentContainer>
                 <Heading as="h2" size="lg" textAlign="center">
