@@ -4,7 +4,7 @@ import { Flex, List, ListItem, ListIcon as ChakraListIcon, Text } from "@chakra-
 const useCasesArr = [
     'Accepting donations anywhere on the web 🔗',
     'Accepting tips in the real world using a QR Code 🌎',
-    'Settling tabs with family / friends / co-workers 🧑‍🤝‍🧑',
+    'Settling tabs with family, friends, and co-workers 🧑‍🤝‍🧑',
 ];
 
 const UseCasesList = () => (

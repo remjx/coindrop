@@ -7,7 +7,7 @@ import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
-import { githubUrl } from '../../src/settings';
+import { githubUrl, twitterUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
@@ -46,7 +46,7 @@ const AddTag = () => (
 
 const ContentContainer = ({ children }) => (
     <Box
-        my={6}
+        my={12}
     >
         {children}
     </Box>
@@ -63,8 +63,8 @@ const index = () => {
     } = useDisclosure();
     const theme = useTheme();
     const green = theme.colors.green['400'];
-    const yellow = theme.colors.yellow['500'];
-    const orange = theme.colors.orange['500'];
+    // const yellow = theme.colors.yellow['500'];
+    // const orange = theme.colors.orange['500'];
     const red = theme.colors.red['500'];
     const router = useRouter();
     const { user } = useUser();
@@ -98,7 +98,6 @@ const index = () => {
         ));
     return (
         <>
-        <a name="top">top</a>
         <AuthModal
             isOpen={isAuthOpen}
             onClose={onAuthClose}
@@ -162,7 +161,7 @@ const index = () => {
                     >
                         {'Coindrop is currently in beta. '}
                         <Link
-                            href="https://twitter.com/coindrop_to"
+                            href={twitterUrl}
                             target="_blank"
                         >
                             <b>Request an invite</b>
@@ -183,7 +182,7 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Support for virtually <u>all</u> payment methods
+                    Supports virtually <u>all</u> payment methods
                 </Heading>
                 <Text textAlign="center">
                     Pick &amp; choose which to feature on your page
@@ -288,9 +287,15 @@ const index = () => {
                 </Box>
             </ContentContainer>
             <ContentContainer>
-                <Heading my={3} mt={5} as="h2" size="lg" textAlign="center">
+                <Heading mt={5} as="h2" size="lg" textAlign="center">
                     FAQ
                 </Heading>
+                <Text
+                    textAlign="center"
+                    mb={5}
+                >
+                    Frequently Asked Questions
+                </Text>
                 <FAQ />
             </ContentContainer>
         </Box>
