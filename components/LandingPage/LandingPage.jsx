@@ -35,16 +35,6 @@ PaymentMethodTag.defaultProps = {
     color: undefined,
 };
 
-const AddTag = () => (
-    <Link
-        style={{textDecoration: "none"}}
-        href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
-        target="_blank"
-    >
-        <PaymentMethodTag label="Add" iconName="add" tagVariantColor="darkGray" />
-    </Link>
-);
-
 const ContentContainer = ({ children }) => (
     <Box
         my={12}
@@ -198,7 +188,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
-                            <AddTag />
                         </Flex>
                     </Box>
                     <Box
@@ -209,7 +198,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
-                            <AddTag />
                         </Flex>
                     </Box>
                 </Flex>

@@ -25,7 +25,7 @@ const Typewriter = () => {
                         // 'gifts',
                     ],
                     autoStart: true,
-                    loop: false,
+                    loop: true,
                 }}
             />
         );

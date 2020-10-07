@@ -30,6 +30,19 @@ const accordionText = [
         </Box>,
     ],
     [
+        "One of my preferred payment methods is not listed?",
+        <Text>
+            {"As long as it's safe and not against the law, we will add any payment method you wish. Submit a request "}
+            <Link
+                href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
+                target="_blank"
+            >
+                <u>here</u>
+            </Link>
+            .
+        </Text>,
+    ],
+    [
         "How can I donate?",
         <Text>
             {"Visit Coindrop's Coindrop at "}
