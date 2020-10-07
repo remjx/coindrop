@@ -43,6 +43,16 @@ const accordionText = [
         </Text>,
     ],
     [
+        "How can I contribute?",
+        <Text>
+            {'We encourage users to add feature requests, report bugs, and contribute code on our public '}
+            <Link href={githubUrl} target="_blank">
+                <u>Github</u>
+            </Link>
+            {' page.'}
+        </Text>,
+    ],
+    [
         "How can I donate?",
         <Text>
             {"Visit Coindrop's Coindrop at "}
@@ -51,16 +61,6 @@ const accordionText = [
                     <u>coindrop.to/coindrop</u>
                 </Link>
             </NextLink>
-        </Text>,
-    ],
-    [
-        "How can I contribute?",
-        <Text>
-            {'We encourage users to add feature requests, report bugs, and contribute code on our public '}
-            <Link href={githubUrl} target="_blank">
-                <u>Github</u>
-            </Link>
-            {' page.'}
         </Text>,
     ],
     [
