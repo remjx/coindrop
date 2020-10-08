@@ -57,6 +57,7 @@ const Dashboard = () => {
                             <Link
                                 href="https://github.com/markjackson02/coindrop#coindrop-"
                                 target="_blank"
+                                rel="noreferrer"
                                 style={{textDecoration: "none"}}
                             >
                                 <MenuItem>
@@ -71,6 +72,7 @@ const Dashboard = () => {
                             <Link
                                 href="https://github.com/markjackson02/coindrop#contributions-%EF%B8%8F%EF%B8%8F"
                                 target="_blank"
+                                rel="noreferrer"
                                 style={{textDecoration: "none"}}
                             >
                                 <MenuItem>

@@ -18,14 +18,13 @@ const accordionText = [
         "No fees... really?",
         <Box>
             <Text mb="1rem">
-                Payments are peer-to-peer, so Coindrop takes
-                {' no middleman fee from receivers or senders, ever.'}
+                Coindrop has no visibility to your transactions as payments are sent peer-to-peer or through another payment provider directly.
             </Text>
             <Text mb="1rem">
-                If we hypothetically broke our promise and started charging fees to use this service, there is an easy escape hatch. All the code to this website is open-source so anyone could remove the fees and run a free version of it themselves!
+                To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements and offers.
             </Text>
             <Text>
-                To cover server costs and help fund development, we may display relevant, unobtrusive advertisements and offers on this site.
+                If we change this policy and you don&apos;t agree with it, there is an easy escape hatch. All the code to this website is open-source so you could remove the fees and run a free version of it yourself!
             </Text>
         </Box>,
     ],
@@ -36,6 +35,7 @@ const accordionText = [
             <Link
                 href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
                 target="_blank"
+                rel="noreferrer"
             >
                 <u>here</u>
             </Link>
@@ -46,7 +46,7 @@ const accordionText = [
         "How can I contribute?",
         <Text>
             {'We encourage users to add feature requests, report bugs, and contribute code on our public '}
-            <Link href={githubUrl} target="_blank">
+            <Link href={githubUrl} target="_blank" rel="noreferrer">
                 <u>Github</u>
             </Link>
             {' page.'}
@@ -70,6 +70,8 @@ const accordionText = [
                 {"Hi! I'm "}
                 <Link
                     href={markJacksonUrl}
+                    rel="noreferrer"
+                    target="_blank"
                 >
                     <u>Mark Jackson</u>
                 </Link>
@@ -81,7 +83,7 @@ const accordionText = [
         "I have a question that's not answered here?",
         <Text>
             {'Send us a DM on Twitter '}
-            <Link href={twitterUrl} target="_blank">
+            <Link href={twitterUrl} target="_blank" rel="noreferrer">
                 @coindrop_to
             </Link>
             .

@@ -8,6 +8,7 @@ const Logo = ({ text, logoSize, fontSize, reverse }) => {
             src="/piggy-question-256.png"
             width={logoSize}
             height={logoSize}
+            alt="Coindrop piggybank logo"
         />
     );
     const Text = () => (
