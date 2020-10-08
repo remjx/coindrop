@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import { Flex, Box, Heading, Text, Button } from '@chakra-ui/core';
 
-const PiggybankQRCode = ({ address }) => {
+const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
     const [isDisplayed, setIsDisplayed] = useState();
     const onPrint = () => {
         const canvas = document.getElementById('qrcode');
         const imgCanvas = canvas.toDataURL();
         const myWindow = window.open();
-        myWindow.document.write(`<div><div>${address}</div><br /><img src="${imgCanvas}" /></div>`);
+        myWindow.document.write(`<div><div>${publicUrl}</div><br /><img src="${imgCanvas}" /></div>`);
         myWindow.document.close();
         myWindow.focus();
         myWindow.print();
@@ -56,11 +56,19 @@ const PiggybankQRCode = ({ address }) => {
         </Flex>
         {isDisplayed && (
             <Flex justify="center">
-                <QRCode
-                    id="qrcode"
-                    value={address}
-                    size={225}
-                />
+                <Box>
+                    <Text
+                        textAlign="center"
+                        mb={1}
+                    >
+                        {publicUrl}
+                    </Text>
+                    <QRCode
+                        id="qrcode"
+                        value={fullPublicUrl}
+                        size={225}
+                    />
+                </Box>
             </Flex>
         )}
         </>
@@ -68,7 +76,8 @@ const PiggybankQRCode = ({ address }) => {
 }
 
 PiggybankQRCode.propTypes = {
-    address: PropTypes.string.isRequired,
+    fullPublicUrl: PropTypes.string.isRequired,
+    publicUrl: PropTypes.string.isRequired,
 };
 
 export default PiggybankQRCode;
