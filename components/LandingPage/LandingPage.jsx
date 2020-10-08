@@ -9,12 +9,13 @@ import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
-import { githubUrl, twitterUrl } from '../../src/settings';
+import { twitterUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
 import styles from './LandingPage.module.scss';
 import PaymentMethodTag from './PaymentMethodTag';
+import GithubLink from './GithubLink';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -76,6 +77,7 @@ const index = () => {
             isOpen={isAuthOpen}
             onClose={onAuthClose}
         />
+        <GithubLink />
         <Box
             maxW="960px"
             mx="auto"
@@ -97,9 +99,6 @@ const index = () => {
                             Log in
                         </Button>
                     </NextLink>
-                    <Link href={githubUrl} target="_blank" rel="noreferrer">
-                        <Icon alt="Github" name="github" size="32px" color={theme.colors.gray['500']} />
-                    </Link>
                 </Flex>
             </Flex>
             <Box

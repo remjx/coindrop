@@ -18,7 +18,7 @@ const accordionText = [
         "No fees? How?",
         <Box>
             <Text mb="1rem">
-                Coindrop has no visibility to your transactions as payments are sent peer-to-peer or through another payment provider directly.
+                Coindrop does not process any payments. Transactions are either sent peer-to-peer (e.g. Bitcoin) or directly through the payment provider of choice (e.g. CashApp).
             </Text>
             <Text mb="1rem">
                 To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements and offers.
