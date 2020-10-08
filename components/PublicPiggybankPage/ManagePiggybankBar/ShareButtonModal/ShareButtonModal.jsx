@@ -64,7 +64,10 @@ const ShareButtonModal = ({ buttonColor }) => {
                         publicUrl={publicUrl}
                         piggybankName={piggybankName}
                     />
-                    <PiggybankQRCode address={fullPublicUrl} />
+                    <PiggybankQRCode
+                        fullPublicUrl={fullPublicUrl}
+                        publicUrl={publicUrl}
+                    />
                 </ModalBody>
                 <ModalFooter />
             </ModalContent>
