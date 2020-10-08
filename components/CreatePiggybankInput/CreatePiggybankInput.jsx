@@ -48,7 +48,11 @@ const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
                         <InputLeftAddon>
                             coindrop.to/
                         </InputLeftAddon>
+                        <label htmlFor="piggybank-input" style={{display: "none"}}>
+                            Custom url input
+                        </label>
                         <Input
+                            name="piggybank-input"
                             maxLength="32"
                             roundedLeft="0"
                             placeholder="my-custom-url"

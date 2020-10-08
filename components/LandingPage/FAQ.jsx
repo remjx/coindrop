@@ -35,6 +35,7 @@ const accordionText = [
             <Link
                 href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
                 target="_blank"
+                rel="noreferrer"
             >
                 <u>here</u>
             </Link>
@@ -45,7 +46,7 @@ const accordionText = [
         "How can I contribute?",
         <Text>
             {'We encourage users to add feature requests, report bugs, and contribute code on our public '}
-            <Link href={githubUrl} target="_blank">
+            <Link href={githubUrl} target="_blank" rel="noreferrer">
                 <u>Github</u>
             </Link>
             {' page.'}
@@ -69,6 +70,8 @@ const accordionText = [
                 {"Hi! I'm "}
                 <Link
                     href={markJacksonUrl}
+                    rel="noreferrer"
+                    target="_blank"
                 >
                     <u>Mark Jackson</u>
                 </Link>
@@ -80,7 +83,7 @@ const accordionText = [
         "I have a question that's not answered here?",
         <Text>
             {'Send us a DM on Twitter '}
-            <Link href={twitterUrl} target="_blank">
+            <Link href={twitterUrl} target="_blank" rel="noreferrer">
                 @coindrop_to
             </Link>
             .

@@ -98,7 +98,7 @@ const index = () => {
                         </Button>
                     </NextLink>
                     <Link href={githubUrl} target="_blank" rel="noreferrer">
-                        <Icon name="github" size="32px" color={theme.colors.gray['500']} />
+                        <Icon alt="Github" name="github" size="32px" color={theme.colors.gray['500']} />
                     </Link>
                 </Flex>
             </Flex>
@@ -142,6 +142,7 @@ const index = () => {
                     <Link
                         href={twitterUrl}
                         target="_blank"
+                        rel="noreferrer"
                     >
                         <b>Request an invite</b>
                     </Link>
@@ -208,7 +209,7 @@ const index = () => {
                                 <th>
                                     <Flex align="center">
                                         Coindrop
-                                        <Image ml={1} src="/piggy-question-256.png" height="19px" width="19px" />
+                                        <Image ml={1} src="/piggy-question-256.png" height="19px" width="19px" alt="Coindrop piggybank logo" />
                                     </Flex>
                                 </th>
                                 <th>
