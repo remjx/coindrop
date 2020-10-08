@@ -21,11 +21,11 @@ const svg = <svg viewBox="0 -4 512.00074 512" xmlns="http://www.w3.org/2000/svg"
 
 const ShareEmbedButton = (props) => {
     const { fullPublicUrl, publicUrl, piggybankName } = props;
+    const [customText, setCustomText] = useState(publicUrl);
     const scriptButtonHtml = `<script type="text/javascript" src="${fullBaseUrl}embed-button.js" data-id="coindrop-button" data-slug="${piggybankName}" data-customText="${customText}" ></script>`;
-    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" alt="Coindrop.to me" style="height: 57px !important;width: 185px !important;" ></a>`;
+    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" alt="Coindrop.to me" style="height: 57px !important;width: 229px !important;" ></a>`;
     const { onCopy: onCopyScript, hasCopied: hasCopiedScript } = useClipboard(scriptButtonHtml);
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
-    const [customText, setCustomText] = useState(publicUrl);
     const initialShuffleTextArray = [publicUrl, ...shuffleCustomTextOptions];
     const [shuffleTextArray] = useState(initialShuffleTextArray);
     const [shuffleCustomTextIndex, setShuffleCustomTextIndex] = useState(0);
