@@ -69,7 +69,7 @@ const index = () => {
     return (
         <>
         <NextSeo
-            title="Coindrop: zero-fee webpages for peer-to-peer payments & donations"
+            title="Coindrop: zero-fee webpages for peer-to-peer payments, donations, and tips"
             description="Accept peer-to-peer donations anywhere on the web or in real life"
         />
         <AuthModal
@@ -114,11 +114,11 @@ const index = () => {
                     color={theme.colors.gray['700']}
                     as="h1"
                 >
-                    {'Create '}
+                    {'Your '}
                     <span style={{textDecoration: "underline"}}>
-                        zero-fee
+                        free
                     </span>
-                    {' webpages for accepting '}
+                    {' webpage for '}
                     <span style={{whiteSpace: "nowrap" }}>peer-to-peer</span>
                     {' '}
                     <Box display="inline-block">
@@ -126,7 +126,7 @@ const index = () => {
                     </Box>
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Enter your addresses. Let the sender choose how to pay you.
+                    Enter your addresses. Let the sender choose how to pay you. Zero fees.
                 </Text>
                 <Box
                     mt={2}
@@ -196,7 +196,6 @@ const index = () => {
                 </Heading>
                 <Text
                     textAlign="center"
-                    // color={theme.colors.gray['500']}
                     mb={2}
                 >
                     Some other platforms you may consider
@@ -227,7 +226,7 @@ const index = () => {
                             </tr>
                             <tr>
                                 <td># Pages per account</td>
-                                <td style={{backgroundColor: green, color: '#FFFFFF'}}>Infinite</td>
+                                <td style={{backgroundColor: green, color: '#FFFFFF'}}>Unlimited</td>
                                 <td style={{backgroundColor: red}}>1</td>
                                 <td style={{backgroundColor: red}}>1</td>
                                 <td style={{backgroundColor: red}}>1</td>

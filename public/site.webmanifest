@@ -1,7 +1,7 @@
 {
     "name": "Coindrop",
     "short_name": "Coindrop",
-    "description": "Create zero-fee webpages for peer-to-peer payments",
+    "description": "Your free webpage for peer-to-peer payments",
     "icons": [
         {
             "src": "/favicon/android-chrome-192x192.png",

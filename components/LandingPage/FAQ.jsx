@@ -15,7 +15,7 @@ import { githubUrl, markJacksonUrl, twitterUrl } from '../../src/settings';
 
 const accordionText = [
     [
-        "No fees... how?",
+        "No fees? How?",
         <Box>
             <Text mb="1rem">
                 Coindrop has no visibility to your transactions as payments are sent peer-to-peer or through another payment provider directly.
@@ -43,6 +43,22 @@ const accordionText = [
         </Text>,
     ],
     [
+        "Who created this?",
+        <Box>
+            <Text>
+                {"Hi! I'm "}
+                <Link
+                    href={markJacksonUrl}
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <u>Mark Jackson</u>
+                </Link>
+                , an industrial engineer turned software developer currently living in Atlanta, GA, USA. I love hearing from users so please feel free to reach out for any reason!
+            </Text>
+        </Box>,
+    ],
+    [
         "How can I contribute?",
         <Text>
             {'We encourage users to add feature requests, report bugs, and contribute code on our public '}
@@ -62,22 +78,6 @@ const accordionText = [
                 </Link>
             </NextLink>
         </Text>,
-    ],
-    [
-        "Who created this?",
-        <Box>
-            <Text>
-                {"Hi! I'm "}
-                <Link
-                    href={markJacksonUrl}
-                    rel="noreferrer"
-                    target="_blank"
-                >
-                    <u>Mark Jackson</u>
-                </Link>
-                , an industrial engineer turned software developer currently living in Atlanta, GA, USA. I love hearing from users so please feel free to reach out for any reason!
-            </Text>
-        </Box>,
     ],
     [
         "I have a question that's not answered here?",
