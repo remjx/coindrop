@@ -18,14 +18,13 @@ const accordionText = [
         "No fees... really?",
         <Box>
             <Text mb="1rem">
-                Payments are peer-to-peer, so Coindrop takes
-                {' no middleman fee from receivers or senders, ever.'}
+                Coindrop has no visibility to your transactions as payments are sent peer-to-peer or through another payment provider directly.
             </Text>
             <Text mb="1rem">
-                If we hypothetically broke our promise and started charging fees to use this service, there is an easy escape hatch. All the code to this website is open-source so anyone could remove the fees and run a free version of it themselves!
+                To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements and offers.
             </Text>
             <Text>
-                To cover server costs and help fund development, we may display relevant, unobtrusive advertisements and offers on this site.
+                If we change this policy and you don&apos;t agree with it, there is an easy escape hatch. All the code to this website is open-source so you could remove the fees and run a free version of it yourself!
             </Text>
         </Box>,
     ],

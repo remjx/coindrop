@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/core';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
@@ -16,6 +18,7 @@ const PublicPiggybankPage = (props) => {
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
+    const { query: { piggybankName }} = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId) {
         try {
@@ -59,6 +62,11 @@ const PublicPiggybankPage = (props) => {
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
+        <>
+        <NextSeo
+            title={`${name}'s Coindrop (coindrop.to/${piggybankName})`}
+            description={`Send money to ${name} with no fees`}
+        />
         <PublicPiggybankDataProvider
             data={{
                 piggybankDbData,
@@ -141,6 +149,7 @@ const PublicPiggybankPage = (props) => {
                 )}
             </Box>
         </PublicPiggybankDataProvider>
+        </>
     );
 };
 

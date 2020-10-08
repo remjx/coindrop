@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
@@ -13,27 +14,7 @@ import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMe
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
 import styles from './LandingPage.module.scss';
-
-const PaymentMethodTag = ({ label, iconName, iconSize, color, tagVariantColor }) => (
-    <Box mx={1} my={1}>
-        <Tag size="lg" variantColor={tagVariantColor}>
-            <Icon verticalAlign="top" name={iconName} color={color} size={iconSize} mr={2} />
-            <TagLabel py={1}>{label}</TagLabel>
-        </Tag>
-    </Box>
-);
-PaymentMethodTag.propTypes = {
-    label: PropTypes.string.isRequired,
-    iconSize: PropTypes.string,
-    iconName: PropTypes.string.isRequired,
-    color: PropTypes.string,
-    tagVariantColor: PropTypes.string,
-};
-PaymentMethodTag.defaultProps = {
-    iconSize: "16px",
-    tagVariantColor: undefined,
-    color: undefined,
-};
+import PaymentMethodTag from './PaymentMethodTag';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -54,8 +35,6 @@ const index = () => {
     } = useDisclosure();
     const theme = useTheme();
     const green = theme.colors.green['400'];
-    // const yellow = theme.colors.yellow['500'];
-    // const orange = theme.colors.orange['500'];
     const red = theme.colors.red['500'];
     const router = useRouter();
     const { user } = useUser();
@@ -89,6 +68,10 @@ const index = () => {
         ));
     return (
         <>
+        <NextSeo
+            title="Coindrop: zero-fee webpages for peer-to-peer payments & donations"
+            description="Accept peer-to-peer donations anywhere on the web or in real life"
+        />
         <AuthModal
             isOpen={isAuthOpen}
             onClose={onAuthClose}
@@ -131,12 +114,16 @@ const index = () => {
                     color={theme.colors.gray['700']}
                     as="h1"
                 >
-                    {'Create a '}
+                    {'Create '}
                     <span style={{textDecoration: "underline"}}>
                         zero-fee
                     </span>
-                    {' webpage for accepting '}
-                    <Typewriter />
+                    {' webpages for accepting '}
+                    <span style={{whiteSpace: "nowrap" }}>peer-to-peer</span>
+                    {' '}
+                    <Box display="inline-block">
+                        <Typewriter />
+                    </Box>
                 </Heading>
                 <Text textAlign="center" mt={2}>
                     Enter your addresses. Let the sender choose how to pay you.
