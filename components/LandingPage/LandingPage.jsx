@@ -125,7 +125,7 @@ const index = () => {
                     </Box>
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Enter all your addresses. Let the sender choose how to pay you. Zero fees.
+                    Enter your addresses. Let the sender choose how to pay you. Zero fees.
                 </Text>
                 <Box
                     mt={2}
