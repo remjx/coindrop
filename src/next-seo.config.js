@@ -6,12 +6,6 @@ export default {
     site_name: 'Coindrop',
     images: [
         {
-            url: 'https://coindrop.to/OpenGraphLogoWithTagline.png',
-            width: 1200,
-            height: 630,
-            alt: 'Coindrop: Zero-fee peer-to-peer payments',
-        },
-        {
             url: 'https://coindrop.to/piggy-question-256.png',
             width: 256,
             height: 256,
@@ -22,6 +16,12 @@ export default {
           width: 512,
           height: 512,
           alt: 'Coindrop logo',
+        },
+        {
+            url: 'https://coindrop.to/OpenGraphLogoWithTagline.png',
+            width: 1200,
+            height: 630,
+            alt: 'Coindrop: Zero-fee peer-to-peer payments',
         },
     ],
   },
