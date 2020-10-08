@@ -15,7 +15,7 @@ import { githubUrl, markJacksonUrl, twitterUrl } from '../../src/settings';
 
 const accordionText = [
     [
-        "No fees... really?",
+        "No fees... how?",
         <Box>
             <Text mb="1rem">
                 Coindrop has no visibility to your transactions as payments are sent peer-to-peer or through another payment provider directly.
