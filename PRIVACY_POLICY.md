@@ -9,7 +9,9 @@ Coindrop is committed to preserving your privacy. This privacy policy explains w
 
 ## Account & Authorization
 
-Third party authentication providers (e.g. Google, Facebook) are used to sign up and log in to the Coindrop website. By proceeding with login using their services, you are accepting the terms of service for that service. They provide Coindrop with basic information such as your name and e-mail address. Coindrop will never share or sell any of this information. Coindrop may use this information to contact you with site updates and offers (but you can always opt out). 
+Third party authentication providers (e.g. Google, Facebook) are used to sign up and log in to the Coindrop website. By proceeding with login using their services, you are accepting the terms of service for that service. They provide Coindrop with basic information such as your name and e-mail address. Coindrop will never share or sell any of this information.
+
+Coindrop may use this basic information to contact you via e-mail with site updates and offers. You can unsubscribe from these updates at any time via your account settings.
 
 ## Pages are public
 
