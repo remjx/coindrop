@@ -25,6 +25,6 @@ This Privacy Policy is effective immediately starting 2020-10-09 and will remain
 
 I reserve the right to update this Privacy Policy at any time. If I make any material changes to this Privacy Policy, I will notify you either through the email address you have provided, and/or by placing a prominent notice on the website.
 
-## Contact Information
+## Questions / Contact
 
 For any questions or concerns regarding the privacy policy, please contact us.
