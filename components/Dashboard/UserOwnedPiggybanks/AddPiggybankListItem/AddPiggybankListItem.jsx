@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Text, Icon, Flex, Box, Heading, Button } from '@chakra-ui/core';
+import { Flex, Button } from '@chakra-ui/core';
 import { maxPiggybanksPerUser } from '../../../../src/settings';
 import CreatePiggybankInput from '../../../CreatePiggybankInput/CreatePiggybankInput';
 
@@ -39,28 +39,7 @@ const AddPiggybankListItem = (props) => {
             </Flex>
         );
     }
-    return (
-        <Flex
-            p={5}
-            borderWidth="2px"
-            borderStyle="dotted"
-            mt={3}
-            justify="space-between"
-            wrap="wrap"
-            backgroundColor="red.200"
-        >
-            <Flex align="center">
-                <Box mx={2}>
-                    <Heading
-                        fontSize="xl"
-                        textAlign="center"
-                    >
-                        Piggybank limit reached. Delete an unused piggybank or contact support to increase your limit.
-                    </Heading>
-                </Box>
-            </Flex>
-        </Flex>
-    );
+    return null;
 };
 
 AddPiggybankListItem.propTypes = {

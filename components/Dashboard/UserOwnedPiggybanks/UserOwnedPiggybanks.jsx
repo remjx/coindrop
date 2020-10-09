@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
+import { Flex, Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
+import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 
 async function fetchUserOwnedPiggybanks(uid) {
     const piggybanks = await db
@@ -40,8 +41,10 @@ const UserOwnedPiggybanks = ({ uid }) => {
                     <>
                     <Heading
                         textAlign="center"
+                        fontSize="1.75rem"
+                        fontWeight={700}
                     >
-                        My Piggybanks
+                        My Coindrops
                     </Heading>
                     {data.map(piggybank => (
                         <PiggybankListItem
@@ -59,6 +62,9 @@ const UserOwnedPiggybanks = ({ uid }) => {
                 )
                 }
                 <AddPiggybankListItem
+                    numActivePiggybanks={numActivePiggybanks}
+                />
+                <PiggybankLimitUtilization
                     numActivePiggybanks={numActivePiggybanks}
                 />
             </Stack>
