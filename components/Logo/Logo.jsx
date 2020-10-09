@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types';
-import { Flex, Image as ChakraImage, Text as ChakraText, useTheme } from '@chakra-ui/core';
+import { Flex, Text as ChakraText, useTheme, Icon } from '@chakra-ui/core';
 
 const Logo = ({ text, logoSize, fontSize, reverse }) => {
     const theme = useTheme();
     const Image = () => (
-        <ChakraImage
-            src="/piggy-question-256.png"
-            width={logoSize}
-            height={logoSize}
-            alt="Coindrop piggybank logo"
-        />
+        <Icon name="piggyLogo" size={logoSize} />
     );
     const Text = () => (
         <ChakraText
