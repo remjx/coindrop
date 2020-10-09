@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
+import { Flex, Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';

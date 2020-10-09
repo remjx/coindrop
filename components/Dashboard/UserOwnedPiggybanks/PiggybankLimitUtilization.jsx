@@ -1,29 +1,48 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Progress } from '@chakra-ui/core';
-import { maxPiggybanksPerUser } from '../../../src/settings';
+import { Flex, Box, Text, Progress, Link } from '@chakra-ui/core';
+import { maxPiggybanksPerUser, githubReadmeHelpUrl } from '../../../src/settings';
 
 const PiggybankLimitUtilization = (props) => {
     const { numActivePiggybanks } = props;
-    return (
-        <Box textAlign="center" my={2}>
-            <Progress
-                value={numActivePiggybanks / maxPiggybanksPerUser * 100}
-                color="green"
-                size="sm"
-            />
-            <Text>
-                {"You're using "}
-                {numActivePiggybanks}
-                /
-                {maxPiggybanksPerUser}
-                {' Coindrops'}
-            </Text>
-            <Text color="#A7A7A7">
-                Request a limit increase (it&apos;s free)
-            </Text>
-        </Box>
-    );
+    const pctUtilization = (numActivePiggybanks / maxPiggybanksPerUser) * 100;
+    let color = 'green';
+    if (pctUtilization >= 90) {
+        color = 'red';
+    } else if (pctUtilization >= 80) {
+        color = 'orange';
+    } else if (pctUtilization >= 70) {
+        color = 'yellow';
+    }
+    if (pctUtilization >= 50) {
+        return (
+            <Box
+                textAlign="center"
+                py={4}
+            >
+                <Progress
+                    value={pctUtilization}
+                    color={color}
+                    size="sm"
+                />
+                <Flex wrap="wrap" justify="space-around">
+                    <Text mt={2}>
+                        {"You're using "}
+                        {numActivePiggybanks}
+                        /
+                        {maxPiggybanksPerUser}
+                        {' Coindrops'}
+                    </Text>
+                    <Text mt={2}>
+                        <Link href={githubReadmeHelpUrl} target="_blank" rel="noreferrer">
+                            <u>Contact us</u>
+                        </Link>
+                        {" to request a limit increase (it's free)"}
+                    </Text>
+                </Flex>
+            </Box>
+        );
+    }
+    return null;
 };
 
 PiggybankLimitUtilization.propTypes = {

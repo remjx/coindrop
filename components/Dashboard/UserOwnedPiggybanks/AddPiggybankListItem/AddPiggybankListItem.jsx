@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Box, Heading, Button, Link } from '@chakra-ui/core';
-import { maxPiggybanksPerUser, twitterUrl } from '../../../../src/settings';
+import { Flex, Button } from '@chakra-ui/core';
+import { maxPiggybanksPerUser } from '../../../../src/settings';
 import CreatePiggybankInput from '../../../CreatePiggybankInput/CreatePiggybankInput';
 
 const AddPiggybankListItem = (props) => {
@@ -39,38 +39,7 @@ const AddPiggybankListItem = (props) => {
             </Flex>
         );
     }
-    return (
-        <Flex
-            p={5}
-            borderWidth="2px"
-            borderStyle="dotted"
-            mt={3}
-            justify="space-between"
-            wrap="wrap"
-            backgroundColor="red.200"
-        >
-            <Flex align="center">
-                <Box mx={2}>
-                    <Heading
-                        fontSize="xl"
-                        textAlign="center"
-                    >
-                        {'Piggybank limit reached. Delete an unused piggybank or '}
-                        <Link
-                            href={twitterUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <u>
-                                direct message us on Twitter
-                            </u>
-                        </Link>
-                        {' to increase your limit.'}
-                    </Heading>
-                </Box>
-            </Flex>
-        </Flex>
-    );
+    return null;
 };
 
 AddPiggybankListItem.propTypes = {
