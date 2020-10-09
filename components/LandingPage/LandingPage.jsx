@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon, Tag, TagLabel } from '@chakra-ui/core';
+import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/core';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -27,6 +27,14 @@ const ContentContainer = ({ children }) => (
 ContentContainer.propTypes = {
     children: PropTypes.any.isRequired,
 };
+
+const PaymentMethodTagAndManyMore = () => (
+    <PaymentMethodTag
+        label="... and many more"
+        color="gray"
+        tagVariantColor="gray"
+    />
+);
 
 const index = () => {
     const {
@@ -175,6 +183,7 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
+                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                     <Box
@@ -185,6 +194,7 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
+                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                 </Flex>
