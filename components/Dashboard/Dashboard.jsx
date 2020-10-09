@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Text, Icon, Link, Box, Heading, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { Icon, Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
 import { mutate } from 'swr';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
@@ -9,6 +9,7 @@ import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { CreatePiggybankContext } from '../AppContext/AppContext';
+import { githubReadmeHelpUrl } from '../../src/settings';
 
 const Dashboard = () => {
     const router = useRouter();
@@ -70,7 +71,7 @@ const Dashboard = () => {
                                 </MenuItem>
                             </Link>
                             <Link
-                                href="https://github.com/markjackson02/coindrop#contributions-%EF%B8%8F%EF%B8%8F"
+                                href={githubReadmeHelpUrl}
                                 target="_blank"
                                 rel="noreferrer"
                                 style={{textDecoration: "none"}}
