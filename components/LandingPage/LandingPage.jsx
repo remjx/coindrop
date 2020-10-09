@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Image, useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/core';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/core';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -217,7 +217,7 @@ const index = () => {
                                 <th>
                                     <Flex align="center">
                                         Coindrop
-                                        <Image ml={1} src="/piggy-question-256.png" height="19px" width="19px" alt="Coindrop piggybank logo" />
+                                        <Icon ml={1} name="piggyLogo" size="19px" />
                                     </Flex>
                                 </th>
                                 <th>

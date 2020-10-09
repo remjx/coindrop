@@ -6,13 +6,13 @@ export default {
     site_name: 'Coindrop',
     images: [
         {
-            url: 'https://coindrop.to/piggy-question-256.png',
+            url: 'https://coindrop.to/piggy-256.png',
             width: 256,
             height: 256,
             alt: 'Coindrop logo',
         },
         {
-          url: 'https://coindrop.to/piggy-question-512.png',
+          url: 'https://coindrop.to/piggy-512.png',
           width: 512,
           height: 512,
           alt: 'Coindrop logo',
