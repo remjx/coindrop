@@ -16,6 +16,7 @@ import FAQ from './FAQ';
 import styles from './LandingPage.module.scss';
 import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
+import Footer from './Footer';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -285,6 +286,7 @@ const index = () => {
                 <FAQ />
             </ContentContainer>
         </Box>
+        <Footer />
         </>
     );
 };
