@@ -13,10 +13,10 @@ import { twitterUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
-import styles from './LandingPage.module.scss';
 import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
 import Footer from './Footer';
+import CompetitorComparisonTable from './CompetitorComparisonTable';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -44,8 +44,6 @@ const index = () => {
         onClose: onAuthClose,
     } = useDisclosure();
     const theme = useTheme();
-    const green = theme.colors.green['400'];
-    const red = theme.colors.red['500'];
     const router = useRouter();
     const { user } = useUser();
     useEffect(() => {
@@ -97,8 +95,9 @@ const index = () => {
                 id="navbar"
                 align="center"
                 justify="space-between"
+                wrap="wrap"
             >
-                <Logo />
+                <Logo mr={2} />
                 <Flex align="center">
                     <NextLink href="/auth">
                         <Button
@@ -208,70 +207,9 @@ const index = () => {
                     textAlign="center"
                     mb={2}
                 >
-                    Some other platforms you may consider
+                    Other platforms you may consider
                 </Text>
-                <Box>
-                    <Flex justify="center" textAlign="center">
-                        <table style={{borderSpacing: '10px'}} className={styles.comparisontable}>
-                            <tr>
-                                <th> </th>
-                                <th>
-                                    <Flex align="center">
-                                        Coindrop
-                                        <Icon ml={1} name="piggyLogo" size="19px" />
-                                    </Flex>
-                                </th>
-                                <th>
-                                    Ko-fi
-                                    <Icon ml={1} name="kofi" />
-                                </th>
-                                <th>
-                                Buy Me A Coffee
-                                    <Icon ml={1} name="buymeacoffee" />
-                                </th>
-                                <th>
-                                    Patreon
-                                    <Icon ml={1} name="patreon" />
-                                </th>
-                            </tr>
-                            <tr>
-                                <td># Pages per account</td>
-                                <td style={{backgroundColor: green, color: '#FFFFFF'}}>Unlimited</td>
-                                <td style={{backgroundColor: red}}>1</td>
-                                <td style={{backgroundColor: red}}>1</td>
-                                <td style={{backgroundColor: red}}>1</td>
-                            </tr>
-                            <tr>
-                                <td>Payment methods</td>
-                                <td style={{backgroundColor: green}}>Any</td>
-                                <td style={{backgroundColor: red}}>PayPal or Credit Card</td>
-                                <td style={{backgroundColor: red}}>Credit card</td>
-                                <td style={{backgroundColor: red}}>Credit card</td>
-                            </tr>
-                            <tr>
-                                <td>Open-source</td>
-                                <td style={{backgroundColor: green}}>Yes</td>
-                                <td style={{backgroundColor: red}}>No</td>
-                                <td style={{backgroundColor: red}}>No</td>
-                                <td style={{backgroundColor: red}}>No</td>
-                            </tr>
-                            <tr>
-                                <td>Fees</td>
-                                <td style={{backgroundColor: green}}>Free</td>
-                                <td style={{backgroundColor: green}}>Freemium</td>
-                                <td style={{backgroundColor: red}}>5%</td>
-                                <td style={{backgroundColor: red}}>5-12%</td>
-                            </tr>
-                            <tr>
-                                <td>Memberships</td>
-                                <td style={{backgroundColor: red}}>No</td>
-                                <td style={{backgroundColor: red}}>$9/mo</td>
-                                <td style={{backgroundColor: green}}>Yes</td>
-                                <td style={{backgroundColor: green}}>Yes</td>
-                            </tr>
-                        </table>
-                    </Flex>
-                </Box>
+                <CompetitorComparisonTable />
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
