@@ -207,7 +207,7 @@ const index = () => {
                     textAlign="center"
                     mb={2}
                 >
-                    Some other platforms you may consider
+                    Other platforms you may consider
                 </Text>
                 <CompetitorComparisonTable />
             </ContentContainer>
