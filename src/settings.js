@@ -1,4 +1,4 @@
-export const piggybankPathRegex = /^[a-zA-Z][\w-]{1,30}[a-zA-Z0-9]$/;
+export const piggybankPathRegex = /^[a-z][\w-]{1,30}[a-z0-9]$/;
 export const maxPiggybanksPerUser = 10;
 
 // Links
