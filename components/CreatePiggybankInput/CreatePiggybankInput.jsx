@@ -99,7 +99,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
                     <Text>
                         <List styleType="disc">
                             <ListItem>Start with a letter</ListItem>
-                            <ListItem>Only include letters, numbers, -, and _</ListItem>
+                            <ListItem>Only include lowercase letters, numbers, -, and _</ListItem>
                             <ListItem>End with a letter or number</ListItem>
                             <ListItem>Have maximum length of 32 characters</ListItem>
                         </List>
