@@ -77,7 +77,7 @@ const index = () => {
     return (
         <>
         <NextSeo
-            title="Coindrop: zero-fee webpages for peer-to-peer payments, donations, and tips"
+            title="Coindrop: zero-fee webpages for one-time peer-to-peer payments, donations, and tips"
             description="Accept peer-to-peer donations anywhere on the web or in real life"
         />
         <AuthModal
@@ -112,7 +112,7 @@ const index = () => {
             <Box
                 border="1px solid"
                 padding="10px"
-                boxShadow={`5px 10px ${theme.colors.gray['200']}`}
+                boxShadow={`5px 10px 5px 0 ${theme.colors.gray['200']}`}
                 my={6}
                 py={6}
             >
@@ -158,7 +158,7 @@ const index = () => {
             </Box>
             <ContentContainer>
                 <Heading as="h2" size="lg" textAlign="center">
-                    Perfect for...
+                    Use Coindrop to...
                 </Heading>
                 <Flex
                     justify="center"
@@ -201,13 +201,13 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Alternatives
+                    Coindrop vs. the Alternatives
                 </Heading>
                 <Text
                     textAlign="center"
                     mb={2}
                 >
-                    Other platforms you may consider
+                    While other sites are geared towards gaining subscribers, Coindrop complements them by focusing on one-time payments.
                 </Text>
                 <CompetitorComparisonTable />
             </ContentContainer>
