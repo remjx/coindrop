@@ -19,6 +19,7 @@ import {
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import { sortByIsPreferredThenAlphabetical } from './util';
+import { githubAddPaymentMethodRequestUrl } from '../../../src/settings';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -126,7 +127,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                 </Box>
                                 <Flex
                                     justify="flex-end"
-                                    mt={1}
+                                    my={2}
                                 >
                                     <Button
                                         onClick={() => {
@@ -134,10 +135,25 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         }}
                                         leftIcon="minus"
                                         size="sm"
+                                        mr={2}
                                     >
                                         {'Remove '}
                                         {paymentMethodNames[watchedData?.paymentMethodId]}
                                     </Button>
+                                    {!paymentMethodNames[watchedData?.paymentMethodId] && (
+                                        <a
+                                            href={githubAddPaymentMethodRequestUrl}
+                                            rel="noreferrer"
+                                            target="_blank"
+                                        >
+                                            <Button
+                                                size="sm"
+                                                leftIcon="add"
+                                            >
+                                                Not in list?
+                                            </Button>
+                                        </a>
+                                    )}
                                 </Flex>
                             </AccordionPanel>
                         </AccordionItem>

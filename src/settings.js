@@ -9,3 +9,4 @@ export const githubReadmeHelpUrl = "https://github.com/markjackson02/coindrop#co
 export const githubPrivacyPolicyUrl = "https://github.com/markjackson02/coindrop/blob/master/PRIVACY_POLICY.md";
 export const githubTermsOfServiceUrl = "https://github.com/markjackson02/coindrop/blob/master/TERMS_OF_SERVICE.md";
 export const githubOpenSourceLicenseUrl = "https://github.com/markjackson02/coindrop/blob/master/LICENSE";
+export const githubAddPaymentMethodRequestUrl = "https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title=";

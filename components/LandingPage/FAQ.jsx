@@ -11,7 +11,7 @@ import {
     Text,
     Link,
 } from "@chakra-ui/core";
-import { githubUrl, markJacksonUrl, twitterUrl } from '../../src/settings';
+import { githubUrl, markJacksonUrl, twitterUrl, githubAddPaymentMethodRequestUrl } from '../../src/settings';
 
 const accordionText = [
     [
@@ -33,7 +33,7 @@ const accordionText = [
         <Text>
             {"As long as it's safe and not against the law, we will add any payment method you wish. Submit a request "}
             <Link
-                href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
+                href={githubAddPaymentMethodRequestUrl}
                 target="_blank"
                 rel="noreferrer"
             >
