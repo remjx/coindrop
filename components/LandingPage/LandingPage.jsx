@@ -77,8 +77,8 @@ const index = () => {
     return (
         <>
         <NextSeo
-            title="Coindrop: zero-fee webpages for peer-to-peer payments, donations, and tips"
-            description="Accept peer-to-peer donations anywhere on the web or in real life"
+            title="Coindrop: free webpages for accepting peer-to-peer payments, donations, and tips"
+            description="Accept peer-to-peer donations anywhere on the web or in real life with zero fees"
         />
         <AuthModal
             isOpen={isAuthOpen}
@@ -112,7 +112,7 @@ const index = () => {
             <Box
                 border="1px solid"
                 padding="10px"
-                boxShadow={`5px 10px ${theme.colors.gray['200']}`}
+                boxShadow={`5px 10px 5px 0 ${theme.colors.gray['200']}`}
                 my={6}
                 py={6}
             >
