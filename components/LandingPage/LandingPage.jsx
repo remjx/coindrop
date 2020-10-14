@@ -77,8 +77,8 @@ const index = () => {
     return (
         <>
         <NextSeo
-            title="Coindrop: zero-fee webpages for one-time peer-to-peer payments, donations, and tips"
-            description="Accept peer-to-peer donations anywhere on the web or in real life"
+            title="Coindrop: free webpages for accepting peer-to-peer payments, donations, and tips"
+            description="Accept peer-to-peer donations anywhere on the web or in real life with zero fees"
         />
         <AuthModal
             isOpen={isAuthOpen}
