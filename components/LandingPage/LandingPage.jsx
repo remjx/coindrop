@@ -158,7 +158,7 @@ const index = () => {
             </Box>
             <ContentContainer>
                 <Heading as="h2" size="lg" textAlign="center">
-                    Use Coindrop to...
+                    Perfect for...
                 </Heading>
                 <Flex
                     justify="center"
@@ -201,13 +201,13 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Coindrop vs. the Alternatives
+                    Alternatives
                 </Heading>
                 <Text
                     textAlign="center"
                     mb={2}
                 >
-                    While other sites are geared towards gaining subscribers, Coindrop complements them by focusing on one-time payments.
+                    Other platforms you may consider
                 </Text>
                 <CompetitorComparisonTable />
             </ContentContainer>

@@ -1,9 +1,9 @@
 import { Flex, List, ListItem, Text } from "@chakra-ui/core";
 
 const useCasesArr = [
-    '🔗 Accept donations anywhere on the web',
-    '🌎 Accept tips in the real world using a QR Code',
-    '🧑‍🤝‍🧑 Settle tabs with family, friends, and co-workers',
+    '🔗 Accepting donations anywhere on the web',
+    '🌎 Accepting tips in the real world using a QR Code',
+    '🧑‍🤝‍🧑 Settling tabs with family, friends, and co-workers',
 ];
 
 const UseCasesList = () => (
