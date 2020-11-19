@@ -18,21 +18,23 @@ const firebaseAuthConfig = {
   credentialHelper: 'none',
   signInSuccessUrl: '/dashboard',
   callbacks: {
-    // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
     signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
+      console.log('sign in successful with auth callback')
       const userData = await mapUserData(user);
       setUserCookie(userData);
+      // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
       // return false;
     },
   },
 };
 
-const Authenticating = () => (
-  <Flex align="center" justify="center">
-    <Spinner size="24px" mr={2} />
-    <Text>Authenticating...</Text>
-  </Flex>
-);
+// // Not sure how to get this to render inside of StyledFirebaseAuth after user clicks on sign in method
+// const Authenticating = () => (
+//   <Flex align="center" justify="center">
+//     <Spinner size="24px" mr={2} />
+//     <Text>Authenticating...</Text>
+//   </Flex>
+// );
 
 const FirebaseAuth = () => {
   // Do not SSR FirebaseUI, because it is not supported.
@@ -43,15 +45,12 @@ const FirebaseAuth = () => {
       setRenderAuth(true);
     }
   }, []);
+  if (!renderAuth) return null;
   return (
-    <div>
-      {renderAuth ? (
-        <StyledFirebaseAuth
-          uiConfig={firebaseAuthConfig}
-          firebaseAuth={firebase.auth()}
-        />
-      ) : <Authenticating />}
-    </div>
+    <StyledFirebaseAuth
+      uiConfig={firebaseAuthConfig}
+      firebaseAuth={firebase.auth()}
+    />
   );
 };
 
