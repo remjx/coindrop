@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 // eslint-disable-next-line no-unused-vars
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
 import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
 import { QuestionIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
@@ -39,6 +40,10 @@ const Dashboard = () => {
     }, [submitStatus]);
     if (!user) return null;
     return (
+        <>
+        <NextSeo
+            title="Dashboard | Coindrop"
+        />
         <Box
             maxW="960px"
             mx="auto"
@@ -110,6 +115,7 @@ const Dashboard = () => {
                 />
             )}
         </Box>
+        </>
     );
 };
 
