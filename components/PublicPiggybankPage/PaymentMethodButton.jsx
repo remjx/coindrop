@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDisclosure, Icon, Text, Flex, useTheme, Box } from '@chakra-ui/react';
+import { useDisclosure, Text, Flex, useTheme, Box } from '@chakra-ui/react';
 import { paymentMethodNames, paymentMethodIcons } from '../../src/paymentMethods';
 import PaymentMethodButtonModal from './PaymentMethodButtonModal';
 
