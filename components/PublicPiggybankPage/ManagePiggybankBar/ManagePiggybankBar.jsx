@@ -5,7 +5,7 @@ import { ArrowBackIcon, SettingsIcon } from "@chakra-ui/icons";
 
 import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
-import ShareButtonModal from './ShareButtonModal/ShareButtonModal'; // tst
+import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
 
 /* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (

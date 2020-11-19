@@ -197,8 +197,6 @@ const EditPiggybankModal = (props) => {
                                 ref={register}
                             >
                                 <option value="pay">Pay</option>
-{' '}
-{/* TODO: Where are these mapped to what is displayed? */}
                                 <option value="donate to">Donate to</option>
                                 <option value="support">Support</option>
                             </Select>

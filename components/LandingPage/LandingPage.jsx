@@ -184,10 +184,10 @@ const index = () => {
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
                     Supports virtually
-{' '}
-<u>all</u>
-{' '}
-payment methods
+                    {' '}
+                    <u>all</u>
+                    {' '}
+                    payment methods
                 </Heading>
                 <Text textAlign="center">
                     Pick &amp; choose which to feature on your page
