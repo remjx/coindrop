@@ -3,6 +3,6 @@ export const mapUserData = (user) => {
   return {
     id: uid,
     email,
-    token: xa || ya, // TODO: This is not the proper way to do it https://github.com/vercel/next.js/pull/18074
+    token: xa || ya, // This is not the proper way to do it https://github.com/vercel/next.js/issues/18256
   };
 };
