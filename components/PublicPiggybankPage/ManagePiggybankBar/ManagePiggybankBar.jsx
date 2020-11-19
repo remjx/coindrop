@@ -35,14 +35,14 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
                 />
             )}
             <Flex
-                justify="space-between"
-                mt={2}
+                justify={["center", null, "space-between"]}
+                mt={4}
                 mx={6}
                 wrap="wrap"
             >
                 <Box
-                    mt={2}
                     onClick={() => setIsDashboardLoading(true)}
+                    mt={2}
                 >
                     <LinkButton
                         href="/dashboard"
@@ -53,27 +53,24 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
                         Dashboard
                     </LinkButton>
                 </Box>
-                <Flex align="center">
-                    <Box mt={2}>
-                        <Button
-                            leftIcon={editButtonOptions.icon}
-                            onClick={onEditOpen}
-                            colorScheme={editButtonOptions.color}
-                            isDisabled={isEditOpen}
-                        >
-                            {editButtonOptions.text}
-                        </Button>
-                    </Box>
-                    <Flex
-                        align="center"
-                        mt={2}
-                        mx={2}
+                <Box mx={3} mt={2}>
+                    <Button
+                        leftIcon={editButtonOptions.icon}
+                        onClick={onEditOpen}
+                        colorScheme={editButtonOptions.color}
+                        isDisabled={isEditOpen}
                     >
-                        <ShareButtonModal
-                            buttonColor={initialSetupComplete ? 'green' : undefined}
-                        />
-                    </Flex>
-                </Flex>
+                        {editButtonOptions.text}
+                    </Button>
+                </Box>
+                <Box
+                    align="center"
+                    mt={2}
+                >
+                    <ShareButtonModal
+                        buttonColor={initialSetupComplete ? 'green' : undefined}
+                    />
+                </Box>
             </Flex>
         </Box>
     );
