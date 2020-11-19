@@ -9,7 +9,6 @@ const requireBetaInvite = async (req, res, next) => {
         }
         throw new Error('User not invited to beta.');
     } catch (error) {
-        console.log(error);
         return res.status(428).send('Your beta access invite has not yet been approved');
     }
 };

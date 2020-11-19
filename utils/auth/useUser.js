@@ -20,12 +20,12 @@ const useUser = () => {
       .auth()
       .signOut()
       .then(() => {
-        console.log('logout successful');
         router.push('/');
-      })
-      .catch((e) => {
-        console.error('logout error', e);
       });
+      // // TODO: How to handle this?
+      // .catch((e) => {
+      //   console.error('logout error', e);
+      // });
 
   useEffect(() => {
     // Firebase updates the id token every hour, this

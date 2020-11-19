@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/react';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -66,15 +66,28 @@ const index = () => {
     }, [user, router.pathname]);
     const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
     const PaymentMethodTags = ({ category }) => paymentMethodCategoriesArr
-        .filter(([paymentMethodId, paymentMethodCategory]) => paymentMethodCategory === category)
-        .map(([paymentMethodId]) => (
-            <PaymentMethodTag
-                key={paymentMethodId}
-                label={paymentMethodNames[paymentMethodId]}
-                iconName={paymentMethodId}
-                iconSize={paymentMethodId === 'venmo' ? "32px" : paymentMethodId === 'bitcoinBCH' ? "22px" : undefined}
-            />
-        ));
+        .filter(([, paymentMethodCategory]) => paymentMethodCategory === category)
+        .map(([paymentMethodId]) => {
+            let iconSize;
+            switch (paymentMethodId) {
+                case 'venmo':
+                    iconSize = '32px';
+                    break;
+                case 'bitcoinBCH':
+                    iconSize = '22px';
+                    break;
+                default:
+                    iconSize = undefined;
+            }
+            return (
+                <PaymentMethodTag
+                    key={paymentMethodId}
+                    label={paymentMethodNames[paymentMethodId]}
+                    iconName={paymentMethodId}
+                    iconSize={iconSize}
+                />
+            );
+        });
     return (
         <>
         <NextSeo
@@ -170,7 +183,11 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually <u>all</u> payment methods
+                    Supports virtually
+{' '}
+<u>all</u>
+{' '}
+payment methods
                 </Heading>
                 <Text textAlign="center">
                     Pick &amp; choose which to feature on your page

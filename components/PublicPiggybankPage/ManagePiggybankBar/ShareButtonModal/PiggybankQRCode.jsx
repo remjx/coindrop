@@ -75,7 +75,7 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
         )}
         </>
     );
-}
+};
 
 PiggybankQRCode.propTypes = {
     fullPublicUrl: PropTypes.string.isRequired,

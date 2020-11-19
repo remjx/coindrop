@@ -1,8 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useTheme, Flex, Text, Box, Link } from '@chakra-ui/react';
 import { LockIcon, InfoIcon } from "@chakra-ui/icons";
-import { 
+import {
     githubOpenSourceLicenseUrl,
     githubPrivacyPolicyUrl,
     githubTermsOfServiceUrl,

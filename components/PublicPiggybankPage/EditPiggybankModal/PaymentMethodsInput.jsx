@@ -102,8 +102,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                                 >
                                                     {paymentMethodDisplayName}
                                                 </option>
-                                            ))
-                                        }
+                                            ))}
                                     </Select>
                                 </Box>
                                 <Box
@@ -143,7 +142,8 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                             </AccordionPanel>
                         </AccordionItem>
                     );
-                })}
+                })
+}
             </Accordion>
         )}
         <Flex

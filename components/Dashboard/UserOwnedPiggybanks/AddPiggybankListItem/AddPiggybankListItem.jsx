@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Flex, Button } from '@chakra-ui/react';
-import { AddIcon } from "@chakra-ui/icons"
+import { AddIcon } from "@chakra-ui/icons";
 import { maxPiggybanksPerUser } from '../../../../src/settings';
 import CreatePiggybankInput from '../../../CreatePiggybankInput/CreatePiggybankInput';
 

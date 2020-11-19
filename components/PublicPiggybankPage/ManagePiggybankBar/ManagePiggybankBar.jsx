@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { ArrowBackIcon } from "@chakra-ui/icons";
-import { useRouter } from 'next/router';
-import { SettingsIcon } from "@chakra-ui/icons";
-import { Text, Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { ArrowBackIcon, SettingsIcon } from "@chakra-ui/icons";
+
+import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
-import ShareButtonModal from './ShareButtonModal/ShareButtonModal'; //tst
+import ShareButtonModal from './ShareButtonModal/ShareButtonModal'; // tst
 
 /* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (

@@ -21,10 +21,8 @@ import {
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
-import { piggybankPathRegex } from '../../../src/settings'; // use for validation
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
-import { paymentMethodNames } from '../../../src/paymentMethods';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
 import EditUrlInput from './EditUrlInput';
@@ -57,7 +55,6 @@ const EditPiggybankModal = (props) => {
         setValue,
         watch,
         control,
-        errors,
         formState: { isDirty },
     } = useForm({
         defaultValues: {
@@ -87,7 +84,6 @@ const EditPiggybankModal = (props) => {
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
                 owner_uid: piggybankDbData.owner_uid,
             };
-            console.log('dataToSubmit', dataToSubmit);
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
             } else {
@@ -110,7 +106,6 @@ const EditPiggybankModal = (props) => {
             onClose();
         } catch (error) {
             setIsSubmitting(false);
-            console.log(error);
             // TODO: set error
             throw new Error(error);
         }
@@ -201,7 +196,9 @@ const EditPiggybankModal = (props) => {
                                 name="verb"
                                 ref={register}
                             >
-                                <option value="pay">Pay</option> {/* TODO: Where are these mapped to what is displayed? */}
+                                <option value="pay">Pay</option>
+{' '}
+{/* TODO: Where are these mapped to what is displayed? */}
                                 <option value="donate to">Donate to</option>
                                 <option value="support">Support</option>
                             </Select>

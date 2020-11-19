@@ -31,7 +31,7 @@ module.exports = {
       '/.next/',
       '/node_modules/',
       '/tests/',
-      '/coverage/'
+      '/coverage/',
     ],
     transform: {
       '^.+\\.jsx?$': 'babel-jest',

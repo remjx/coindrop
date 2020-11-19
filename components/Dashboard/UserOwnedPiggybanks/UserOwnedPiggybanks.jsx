@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Flex, Box, Heading, Text, Spinner, Stack } from '@chakra-ui/react';
+import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
@@ -12,7 +12,6 @@ async function fetchUserOwnedPiggybanks(uid) {
         .where('owner_uid', '==', uid)
         .get();
     if (piggybanks.empty) {
-        console.log('No matching documents.');
         return [];
     }
     const piggybankData = [];
@@ -27,7 +26,6 @@ async function fetchUserOwnedPiggybanks(uid) {
 const UserOwnedPiggybanks = ({ uid }) => {
     const { data, error } = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
-        console.error(error);
         return `Error getting piggybank data, please try refreshing the page.`;
     }
     if (data) {
