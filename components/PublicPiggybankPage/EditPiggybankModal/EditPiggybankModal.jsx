@@ -127,7 +127,7 @@ const EditPiggybankModal = (props) => {
         >
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Settings</ModalHeader>
+                <ModalHeader>Configure</ModalHeader>
                 <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
