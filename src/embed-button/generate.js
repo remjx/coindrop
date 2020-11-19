@@ -1,3 +1,4 @@
+// This script is run during build time, see package.json build script
 const minify = require('minify');
 const fs = require('fs');
 const path = require('path');

@@ -89,7 +89,7 @@
               "tsx": "never"
             }
         ],
-        "@typescript-eslint/no-var-requires": "warn",
+        "@typescript-eslint/no-var-requires": "off",
         "no-restricted-syntax": "warn",
         "react/jsx-props-no-spreading": "warn",
         "no-nested-ternary": "warn",

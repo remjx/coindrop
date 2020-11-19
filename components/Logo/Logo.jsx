@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Flex, Text, useTheme } from '@chakra-ui/react';
-import { PiggyLogoIcon } from "../Icons/CustomIcons"; 
+import { PiggyLogoIcon } from "../Icons/CustomIcons";
 
 const Logo = ({ text }) => {
     const theme = useTheme();

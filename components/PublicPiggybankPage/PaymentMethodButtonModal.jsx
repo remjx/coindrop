@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
-import { CheckIcon, CopyIcon } from "@chakra-ui/icons"
-import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/react';
+import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
+import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
 import { paymentMethodIcons } from '../../src/paymentMethods';
 

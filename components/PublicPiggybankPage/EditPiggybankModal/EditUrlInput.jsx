@@ -17,7 +17,6 @@ async function isUrlAvailable(path) {
         }
         return true;
     } catch (err) {
-        console.log(err);
         throw new Error('Error checking if url is available.');
     }
 }

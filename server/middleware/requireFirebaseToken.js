@@ -8,7 +8,6 @@ const requireFirebaseToken = async (req, res, next) => {
         req.headers.email = verifiedIdToken.email;
         return next();
     } catch (error) {
-        console.log(error);
         return res.status(401).send('You are unauthorized');
     }
 };
