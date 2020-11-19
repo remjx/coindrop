@@ -15,10 +15,10 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Icon,
     Select,
     useTheme,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
+import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
 import { piggybankPathRegex } from '../../../src/settings'; // use for validation
@@ -166,7 +166,7 @@ const EditPiggybankModal = (props) => {
                                         data-colorname={colorName}
                                     >
                                         {watchedAccentColor === colorName && (
-                                            <Icon name="check" color="#FFF" />
+                                            <CheckIcon color="#FFF" />
                                         )}
                                     </Box>
                                 ))}
@@ -257,7 +257,7 @@ const EditPiggybankModal = (props) => {
                                 Cancel
                             </Button>
                             <Button
-                                variantColor="green"
+                                colorScheme="green"
                                 mx={1}
                                 type="submit"
                                 isLoading={isSubmitting}

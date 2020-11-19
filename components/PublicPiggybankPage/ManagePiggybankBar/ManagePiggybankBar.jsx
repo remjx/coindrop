@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
-import { Text, Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/core';
+import { SettingsIcon } from "@chakra-ui/icons";
+import { Text, Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal'; //tst
 
@@ -45,7 +47,7 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
                 >
                     <LinkButton
                         href="/dashboard"
-                        leftIcon="arrow-back"
+                        leftIcon={<ArrowBackIcon />}
                         isLoading={isDashboardLoading}
                         loadingText="Loading"
                     >
@@ -55,9 +57,9 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
                 <Flex align="center">
                     <Box mt={2}>
                         <Button
-                            leftIcon={editButtonOptions.iconName}
+                            leftIcon={editButtonOptions.icon}
                             onClick={onEditOpen}
-                            variantColor={editButtonOptions.color}
+                            colorScheme={editButtonOptions.color}
                             isDisabled={isEditOpen}
                         >
                             {editButtonOptions.text}
@@ -82,7 +84,7 @@ ManagePiggybankBar.propTypes = {
     editButtonOptions: PropTypes.shape({
         text: PropTypes.string.isRequired,
         color: PropTypes.string,
-        iconName: PropTypes.string.isRequired,
+        icon: PropTypes.string.isRequired,
     }),
     initialSetupComplete: PropTypes.bool.isRequired,
 };
@@ -91,7 +93,7 @@ ManagePiggybankBar.defaultProps = {
     editButtonOptions: {
         text: 'Configure',
         color: undefined,
-        iconName: "settings",
+        icon: <SettingsIcon />,
     },
 };
 

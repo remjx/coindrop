@@ -1,26 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTheme, Flex, Text, Box, Link, Icon } from '@chakra-ui/core';
+import { useTheme, Flex, Text, Box, Link } from '@chakra-ui/react';
+import { LockIcon, InfoIcon } from "@chakra-ui/icons";
 import { 
     githubOpenSourceLicenseUrl,
     githubPrivacyPolicyUrl,
-    githubTermsOfServiceUrl
+    githubTermsOfServiceUrl,
 } from '../../src/settings';
+import { GithubIcon } from "../Icons/CustomIcons";
 
 const fontSize = "0.84rem";
 
-const IconLinkText = ({ iconName, text, href }) => (
+const IconLinkText = ({ icon, text, href }) => (
     <Link href={href} target="_blank" rel="noreferrer">
         <Flex align="center" py={1}>
-            <Icon name={iconName} mr={1} />
-            <Text fontSize={fontSize}>
+            {icon}
+            <Text ml={1} fontSize={fontSize}>
                 {text}
             </Text>
         </Flex>
     </Link>
 );
 IconLinkText.propTypes = {
-    iconName: PropTypes.string.isRequired,
+    icon: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
 };
@@ -34,17 +36,17 @@ const Footer = () => {
         >
             <Flex justify="space-around" wrap="wrap">
                 <IconLinkText
-                    iconName="github"
+                    icon={<GithubIcon />}
                     text="Open Source License"
                     href={githubOpenSourceLicenseUrl}
                 />
                 <IconLinkText
-                    iconName="lock"
+                    icon={<LockIcon />}
                     text="Privacy Policy"
                     href={githubPrivacyPolicyUrl}
                 />
                 <IconLinkText
-                    iconName="info"
+                    icon={<InfoIcon />}
                     text="Terms of Service"
                     href={githubTermsOfServiceUrl}
                 />

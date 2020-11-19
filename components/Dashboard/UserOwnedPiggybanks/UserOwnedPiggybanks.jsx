@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-import { Flex, Box, Heading, Text, Spinner, Stack } from '@chakra-ui/core';
+import { Flex, Box, Heading, Text, Spinner, Stack } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
@@ -34,7 +34,7 @@ const UserOwnedPiggybanks = ({ uid }) => {
         const numActivePiggybanks = data.length;
         return (
             <>
-            <Stack spacing={8} my={4}>
+            <Stack spacing={4} my={4}>
                 {
                 numActivePiggybanks > 0
                 ? (

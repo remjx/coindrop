@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import firebase from 'firebase/app';
-import { Spinner, Text, Flex } from '@chakra-ui/core';
+import { Spinner, Text, Flex } from '@chakra-ui/react';
 import 'firebase/auth';
 import initFirebase from '../../utils/auth/initFirebase';
 import { setUserCookie } from '../../utils/auth/userCookies';

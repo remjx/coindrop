@@ -1,14 +1,17 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
-import { Flex, Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/core';
+import { CheckIcon, CopyIcon } from "@chakra-ui/icons"
+import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
+import { paymentMethodIcons } from '../../src/paymentMethods';
 
 const PaymentMethodButtonModal = (props) => {
     const { isOpen, onClose, paymentMethod, paymentMethodDisplayName, paymentMethodValue } = props;
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
     const { piggybankDbData } = useContext(PublicPiggybankData);
     const { name } = piggybankDbData;
+    const Icon = paymentMethodIcons[paymentMethod];
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -32,8 +35,7 @@ const PaymentMethodButtonModal = (props) => {
                 <Flex align="center">
                     <Icon
                         mr={2}
-                        name={paymentMethod}
-                        size="48px"
+                        boxSize="48px"
                     />
                     <Text
                         wordBreak="break-all"
@@ -47,7 +49,7 @@ const PaymentMethodButtonModal = (props) => {
                     textAlign="center"
                 >
                     <Button
-                        leftIcon={hasCopied ? "check" : "copy"}
+                        leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
                         onClick={onCopy}
                     >
                         {hasCopied ? "Copied" : "Copy"}

@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import { Flex, Text as ChakraText, useTheme, Icon } from '@chakra-ui/core';
+import { Flex, Text, useTheme } from '@chakra-ui/react';
+import { PiggyLogoIcon } from "../Icons/CustomIcons"; 
 
 const Logo = ({ text }) => {
     const theme = useTheme();
     const Image = () => (
-        <Icon name="piggyLogo" size={["48px", "64px"]} />
+        <PiggyLogoIcon boxSize={["48px", "64px"]} />
     );
-    const Text = () => (
-        <ChakraText
+    const LogoText = () => (
+        <Text
             fontSize={["4xl", "5xl"]}
             fontFamily="Changa"
             fontWeight={500}
@@ -15,7 +16,7 @@ const Logo = ({ text }) => {
             ml={2}
         >
             {text}
-        </ChakraText>
+        </Text>
     );
     return (
         <Flex
@@ -24,7 +25,7 @@ const Logo = ({ text }) => {
             align="center"
         >
             <Image />
-            <Text />
+            <LogoText />
         </Flex>
     );
 };

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex, Heading, Text, Input, Button, useClipboard } from '@chakra-ui/core';
+import { ViewOffIcon, RepeatIcon, CheckIcon } from "@chakra-ui/icons"
+import { Box, Flex, Heading, Text, Input, Button, useClipboard } from '@chakra-ui/react';
+import { SourceCodeIcon } from "../../../Icons/CustomIcons";
 import styles from '../../../../src/embed-button/embed-button.module.css';
 
 const fullBaseUrl = 'https://coindrop.to/';
@@ -66,18 +68,18 @@ const ShareEmbedButton = (props) => {
                 <Flex align="center" flexGrow={1} justify="center" mt={2} wrap="wrap">
                     {isDisplayed ? (
                         <Button
-                            leftIcon="view-off"
+                            leftIcon={<ViewOffIcon />}
                             onClick={() => setIsDisplayed(false)}
                             variant="outline"
-                            variantColor="green"
+                            colorScheme="green"
                         >
                             Hide
                         </Button>
                     ) : (
                         <Button
-                            leftIcon="sourceCode"
+                            leftIcon={<SourceCodeIcon />}
                             onClick={() => setIsDisplayed(true)}
-                            variantColor="green"
+                            colorScheme="green"
                         >
                             Customize
                         </Button>
@@ -102,9 +104,9 @@ const ShareEmbedButton = (props) => {
                 <Box textAlign="center">
                     <Flex justify="center" wrap="wrap">
                         <Button
-                            leftIcon="repeat"
+                            leftIcon={<RepeatIcon />}
                             variant="outline"
-                            variantColor="green"
+                            colorScheme="green"
                             onClick={() => {
                                 setShuffleCustomTextIndex(shuffleCustomTextIndex === shuffleCustomTextOptions.length - 1 ? 0 : shuffleCustomTextIndex + 1);
                             }}
@@ -114,8 +116,8 @@ const ShareEmbedButton = (props) => {
                             Shake It Up
                         </Button>
                         <Button
-                            leftIcon={hasCopiedScript ? "check" : "sourceCode"}
-                            variantColor="green"
+                            leftIcon={hasCopiedScript ? <CheckIcon /> : <SourceCodeIcon />}
+                            colorScheme="green"
                             mx={1}
                             mb={1}
                             onClick={onCopyScript}
@@ -134,8 +136,8 @@ const ShareEmbedButton = (props) => {
                 </Box>
                 <Box textAlign="center">
                     <Button
-                        leftIcon={hasCopiedImage ? "check" : "sourceCode"}
-                        variantColor="green"
+                        leftIcon={hasCopiedImage ? <CheckIcon /> : <SourceCodeIcon />} // TODO: Fix icon
+                        colorScheme="green"
                         mb={1}
                         onClick={onCopyImage}
                     >

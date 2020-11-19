@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Box, Link as ChakraLink, Flex, Text, useTheme, Button, Icon } from '@chakra-ui/core';
+import { Box, Link as ChakraLink, Flex, Text, useTheme, Button } from '@chakra-ui/react';
+import { GithubIcon } from '../Icons/CustomIcons';
 
 const PoweredByCoindropLink = (props) => {
     const { accentColor } = props;
@@ -14,7 +15,7 @@ const PoweredByCoindropLink = (props) => {
                 <ChakraLink style={{textDecoration: "none"}}>
                     <Button variant="outline">
                         <Flex align="center">
-                            <Icon mr={1} name="github" />
+                            <GithubIcon mr={1} />
                             <Text
                                 textAlign="center"
                                 fontFamily="Changa"

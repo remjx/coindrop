@@ -1,4 +1,4 @@
-import { Flex, List, ListItem, Text } from "@chakra-ui/core";
+import { Flex, List, ListItem, Text } from "@chakra-ui/react";
 
 const useCasesArr = [
     '🔗 Accepting donations anywhere on the web',

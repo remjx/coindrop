@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Spinner, Box, Icon, PseudoBox, Flex, Heading, useTheme } from '@chakra-ui/core';
+import { Spinner, Box, Flex, Heading, useTheme } from '@chakra-ui/react';
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function PiggybankListItem({ id }) {
     const { colors } = useTheme();
     const [isLoading, setIsLoading] = useState();
     return (
-        <PseudoBox
+        <Box
             onClick={() => setIsLoading(true)}
             cursor="pointer"
             mt={3}
@@ -30,7 +31,7 @@ function PiggybankListItem({ id }) {
                     >
                         {isLoading ? (
                             <Flex align="center" justify="center">
-                                <Spinner size="32px" />
+                                <Spinner boxSize="32px" />
                                 <Heading ml={2} fontSize="xl">
                                     Loading
                                 </Heading>
@@ -45,13 +46,13 @@ function PiggybankListItem({ id }) {
                                     coindrop.to/
                                     {id}
                                 </Heading>
-                                <Icon size="32px" name="chevron-right" />
+                                <ChevronRightIcon boxSize="32px" />
                             </Flex>
                         )}
                     </Box>
                 </a>
             </NextLink>
-        </PseudoBox>
+        </Box>
     );
 }
 PiggybankListItem.propTypes = {

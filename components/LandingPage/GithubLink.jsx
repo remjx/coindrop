@@ -1,6 +1,6 @@
 // Based on https://github.com/tholman/github-corners
 
-import { Box, useTheme } from '@chakra-ui/core'
+import { Box, useTheme } from '@chakra-ui/react'
 import { githubUrl } from '../../src/settings';
 import styles from './GithubLink.module.css';
 

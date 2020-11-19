@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
-import { Flex, Box, Heading, Text, Button } from '@chakra-ui/core';
+import { ViewOffIcon, ViewIcon } from '@chakra-ui/icons';
+import { Flex, Box, Heading, Text, Button } from '@chakra-ui/react';
+import { PrintIcon } from '../../../Icons/CustomIcons';
 
 const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
     const [isDisplayed, setIsDisplayed] = useState();
@@ -27,27 +29,27 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
             {isDisplayed ? (
                 <>
                 <Button
-                    leftIcon="view-off"
+                    leftIcon={<ViewOffIcon />}
                     onClick={() => setIsDisplayed(false)}
                     variant="outline"
-                    variantColor="green"
+                    colorScheme="green"
                     mr={2}
                 >
                     Hide
                 </Button>
                 <Button
-                    leftIcon="print"
+                    leftIcon={<PrintIcon />}
                     onClick={onPrint}
-                    variantColor="green"
+                    colorScheme="green"
                 >
                     Print
                 </Button>
                 </>
             ) : (
                 <Button
-                    leftIcon="view"
+                    leftIcon={<ViewIcon />}
                     onClick={() => setIsDisplayed(true)}
-                    variantColor="green"
+                    colorScheme="green"
                 >
                     View
                 </Button>

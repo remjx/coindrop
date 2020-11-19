@@ -4,13 +4,13 @@ import {
     useTheme,
     Accordion,
     AccordionItem,
-    AccordionHeader,
+    AccordionButton,
     AccordionPanel,
     AccordionIcon,
     Box,
     Text,
     Link,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { githubUrl, markJacksonUrl, twitterUrl } from '../../src/settings';
 
 const accordionText = [
@@ -97,12 +97,12 @@ const FAQ = () => {
         <Accordion defaultIndex={-1} allowToggle>
             {accordionText.map(([title, body]) => (
                 <AccordionItem key={title}>
-                    <AccordionHeader>
+                    <AccordionButton>
                     <Box flex="1" textAlign="left">
                         {title}
                     </Box>
                     <AccordionIcon />
-                    </AccordionHeader>
+                    </AccordionButton>
                     <AccordionPanel>
                         <Box p={4} bg={colors.gray['50']}>
                             {body}
