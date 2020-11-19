@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import {
     Accordion,
     AccordionItem,
-    AccordionHeader,
+    AccordionButton,
     AccordionPanel,
     AccordionIcon,
     Box,
@@ -15,7 +16,7 @@ import {
     Select,
     Text,
     useTheme,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames } from '../../../src/paymentMethods';
 import { sortByIsPreferredThenAlphabetical } from './util';
@@ -45,7 +46,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                         <AccordionItem
                             key={item.id}
                         >
-                            <AccordionHeader>
+                            <AccordionButton>
                                 <Flex flex="1" textAlign="left" align="center">
                                     <Flex mr={1} align="center">
                                         <Icon mr={2} name={watchedData?.paymentMethodId} />
@@ -70,7 +71,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                     )}
                                 </Flex>
                                 <AccordionIcon />
-                            </AccordionHeader>
+                            </AccordionButton>
                             <AccordionPanel pb={4}>
                                 <input
                                     ref={register()}
@@ -118,7 +119,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                             defaultValue={item?.isPreferred}
                                             defaultIsChecked={item?.isPreferred}
                                             mt={1}
-                                            variantColor="yellow"
+                                            colorScheme="yellow"
                                         >
                                             Preferred
                                         </Checkbox>
@@ -132,7 +133,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         onClick={() => {
                                             remove(index);
                                         }}
-                                        leftIcon="minus"
+                                        leftIcon={<MinusIcon />}
                                         size="sm"
                                     >
                                         {'Remove '}
@@ -151,7 +152,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         >
             <Button
                 onClick={() => append({})}
-                leftIcon="add"
+                leftIcon={<AddIcon />}
                 variant="ghost"
                 size="sm"
                 isDisabled={fields.length > 0 && !paymentMethodNames[paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.paymentMethodId]}

@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
-import { Flex, Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/core';
+import { CheckIcon, CopyIcon } from "@chakra-ui/icons"
+import { Flex, Icon, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody, ModalFooter } from '@chakra-ui/react';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
 
 const PaymentMethodButtonModal = (props) => {
@@ -47,7 +48,7 @@ const PaymentMethodButtonModal = (props) => {
                     textAlign="center"
                 >
                     <Button
-                        leftIcon={hasCopied ? "check" : "copy"}
+                        leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
                         onClick={onCopy}
                     >
                         {hasCopied ? "Copied" : "Copy"}

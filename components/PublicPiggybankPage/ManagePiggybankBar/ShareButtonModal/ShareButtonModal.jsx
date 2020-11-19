@@ -13,8 +13,8 @@ import {
     ModalFooter,
     Text,
     Heading,
-    Icon,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
+import { ShareIcon } from '../../../Icons/CustomIcons';
 import CopyLinkShareButton from '../../../Buttons/CopyLinkShareButton';
 import PiggybankQRCode from './PiggybankQRCode';
 import ShareEmbedButton from './ShareEmbedButton';
@@ -27,9 +27,9 @@ const ShareButtonModal = ({ buttonColor }) => {
     return (
         <>
         <Button
-            leftIcon="share"
+            leftIcon={<ShareIcon />}
             onClick={onOpen}
-            variantColor={buttonColor}
+            colorScheme={buttonColor}
             isDisabled={isOpen}
         >
             Share
@@ -42,7 +42,7 @@ const ShareButtonModal = ({ buttonColor }) => {
                     mt={4}
                 >
                     <Flex align="center" justify="center">
-                        <Icon name="share" mr={2} />
+                        <ShareIcon mr={2} />
                         Share
                     </Flex>
                 </Heading>
@@ -56,7 +56,7 @@ const ShareButtonModal = ({ buttonColor }) => {
                             <Text>Share with anyone, anywhere</Text>
                         </Box>
                         <Flex align="center" flexGrow={1} justify="center" mt={2}>
-                            <CopyLinkShareButton textToCopy={publicUrl} buttonVariantColor="green" />
+                            <CopyLinkShareButton textToCopy={publicUrl} buttoncolorScheme="green" />
                         </Flex>
                     </Flex>
                     <ShareEmbedButton

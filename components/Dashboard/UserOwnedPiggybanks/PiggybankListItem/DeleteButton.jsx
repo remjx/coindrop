@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@chakra-ui/core';
+import { Button } from '@chakra-ui/react';
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
 import { db } from '../../../../utils/client/db';
 
@@ -36,8 +37,8 @@ const DeleteButton = (props) => {
     });
     return (
         <Button
-            leftIcon="delete"
-            variantColor={awaitingDeleteConfirmation ? "red" : undefined}
+            leftIcon={<DeleteIcon />}
+            colorScheme={awaitingDeleteConfirmation ? "red" : undefined}
             onClick={handleDelete}
             isLoading={isDeleting}
             loadingText="Deleting"

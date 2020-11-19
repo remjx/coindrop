@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/core";
+import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { useUser } from '../../utils/auth/useUser';
@@ -16,7 +16,7 @@ BoxMargin.propTypes = {
     children: PropTypes.element.isRequired,
 };
 
-const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
+const CreatePiggybankInput = ({ onCancel, createButtoncolorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
@@ -65,7 +65,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
                 <BoxMargin>
                     <Button
                         ml={1}
-                        variantColor={createButtonVariantColor}
+                        colorScheme={createButtoncolorScheme}
                         isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
                         isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
                         loadingText="Creating"
@@ -112,12 +112,12 @@ const CreatePiggybankInput = ({ onCancel, createButtonVariantColor }) => {
 
 CreatePiggybankInput.propTypes = {
     onCancel: PropTypes.func,
-    createButtonVariantColor: PropTypes.string,
+    createButtoncolorScheme: PropTypes.string,
 };
 
 CreatePiggybankInput.defaultProps = {
     onCancel: null,
-    createButtonVariantColor: "orange",
+    createButtoncolorScheme: "orange",
 };
 
 export default CreatePiggybankInput;

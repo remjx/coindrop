@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Box, Flex, Icon, useTheme } from '@chakra-ui/core';
+import { Box, Flex, useTheme } from '@chakra-ui/react';
+import { PiggyLogoIcon, KofiIcon, BuyMeACoffeeIcon, PatreonIcon } from "../Icons/CustomIcons";
 import styles from './CompetitorComparisonTable.module.scss';
 
 const data = [
@@ -11,6 +12,7 @@ const data = [
         isOpenSource: 'Yes',
         fees: 'Free',
         membershipFeatures: 'No',
+        icon: <PiggyLogoIcon />,
     },
     {
         id: 'kofi',
@@ -20,6 +22,7 @@ const data = [
         isOpenSource: 'No',
         fees: 'Freemium',
         membershipFeatures: '$9/mo',
+        icon: <KofiIcon ml={1} />,
     },
     {
         id: 'buymeacoffee',
@@ -29,6 +32,7 @@ const data = [
         isOpenSource: 'No',
         fees: '5%',
         membershipFeatures: 'Yes',
+        icon: <BuyMeACoffeeIcon ml={1} />,
     },
     {
         id: 'patreon',
@@ -38,6 +42,7 @@ const data = [
         isOpenSource: 'No',
         fees: '5-12%',
         membershipFeatures: 'Yes',
+        icon: <PatreonIcon ml={1} />,
     },
 ];
 const coindropData = data.find(obj => obj.id === 'coindrop');
@@ -87,13 +92,13 @@ const CompetitorComparisonTable = () => {
                         <th>
                             <Flex align="center">
                                 {coindropData.displayName}
-                                <Icon ml={1} name="piggyLogo" size="19px" />
+                                <PiggyLogoIcon ml={1} size="19px" />
                             </Flex>
                         </th>
                         {competitorData.map(obj => (
                             <th>
                                 {obj.displayName}
-                                <Icon ml={1} name={obj.id} />
+                                {obj.icon}
                             </th>
                         ))}
                     </tr>
@@ -143,12 +148,12 @@ const CompetitorComparisonTable = () => {
                             <th>
                                 <Flex align="center">
                                     Coindrop
-                                    <Icon ml={1} name="piggyLogo" size="19px" />
+                                    <PiggyLogoIcon ml={1} size="19px" />
                                 </Flex>
                             </th>
                             <th>
                                 {obj.displayName}
-                                <Icon ml={1} name={obj.id} />
+                                {obj.icon}
                             </th>
                         </tr>
                         <tr>

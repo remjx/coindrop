@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Flex, Button } from '@chakra-ui/core';
+import { Flex, Button } from '@chakra-ui/react';
+import { AddIcon } from "@chakra-ui/icons"
 import { maxPiggybanksPerUser } from '../../../../src/settings';
 import CreatePiggybankInput from '../../../CreatePiggybankInput/CreatePiggybankInput';
 
@@ -11,11 +12,11 @@ const AddPiggybankListItem = (props) => {
         if (!showInput) {
             return (
                 <Button
-                    leftIcon="add"
+                    leftIcon={<AddIcon />}
                     borderRadius="10px"
                     mt={3}
                     onClick={() => setShowInput(true)}
-                    variantColor="green"
+                    colorScheme="green"
                 >
                     Create new
                 </Button>
@@ -34,7 +35,7 @@ const AddPiggybankListItem = (props) => {
             >
                 <CreatePiggybankInput
                     onCancel={() => setShowInput(false)}
-                    createButtonVariantColor="green"
+                    createButtoncolorScheme="green"
                 />
             </Flex>
         );

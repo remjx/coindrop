@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Flex, Box, Text, Progress, Link } from '@chakra-ui/core';
+import { Flex, Box, Text, Progress, Link } from '@chakra-ui/react';
 import { maxPiggybanksPerUser, githubReadmeHelpUrl } from '../../../src/settings';
 
 const PiggybankLimitUtilization = (props) => {

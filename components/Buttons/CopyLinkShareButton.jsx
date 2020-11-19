@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
-import { Button, useClipboard } from '@chakra-ui/core';
+import { Button, useClipboard } from '@chakra-ui/react';
+import { CheckIcon, LinkIcon } from "@chakra-ui/icons";
 
 const CopyLinkShareButton = (props) => {
-    const { textToCopy, buttonVariant, buttonVariantColor } = props;
+    const { textToCopy, buttonVariant, buttoncolorScheme } = props;
     const { onCopy, hasCopied } = useClipboard(textToCopy);
     return (
         <Button
-            leftIcon={hasCopied ? "check" : "link"}
+            leftIcon={hasCopied ? <CheckIcon /> : <LinkIcon />}
             onClick={onCopy}
             variant={buttonVariant}
-            variantColor={buttonVariantColor}
+            colorScheme={buttoncolorScheme}
         >
             {hasCopied ? "Copied" : "Copy Link"}
         </Button>
@@ -19,12 +20,12 @@ const CopyLinkShareButton = (props) => {
 CopyLinkShareButton.propTypes = {
     textToCopy: PropTypes.string.isRequired,
     buttonVariant: PropTypes.string,
-    buttonVariantColor: PropTypes.string,
+    buttoncolorScheme: PropTypes.string,
 };
 
 CopyLinkShareButton.defaultProps = {
     buttonVariant: undefined,
-    buttonVariantColor: undefined,
+    buttoncolorScheme: undefined,
 };
 
 export default CopyLinkShareButton;

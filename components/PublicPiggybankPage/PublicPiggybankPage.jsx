@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/core';
+import { SettingsIcon } from '@chakra-ui/icons';
+import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/react';
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
@@ -84,7 +85,7 @@ const PublicPiggybankPage = (props) => {
                         editButtonOptions={initialSetupComplete ? undefined : {
                             text: 'Set up',
                             color: 'green',
-                            iconName: 'settings',
+                            icon: <SettingsIcon />,
                         }}
                         initialSetupComplete={initialSetupComplete}
                     />

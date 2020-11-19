@@ -1,5 +1,4 @@
-import { theme as chakraTheme } from '@chakra-ui/core';
-import customIcons from "./Icons/CustomIcons";
+import { theme as chakraTheme } from '@chakra-ui/react';
 
 export const publicPiggybankThemeColorOptions = [
   "red",
@@ -77,10 +76,6 @@ const theme = {
   },
   fonts,
   breakpoints,
-  icons: {
-    ...chakraTheme.icons,
-    ...customIcons,
-  },
 };
 
 export default theme;

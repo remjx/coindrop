@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { InputGroup, InputLeftAddon, Spinner, Box, Icon, Input, InputRightElement } from '@chakra-ui/core';
+import { NotAllowedIcon, CheckIcon } from "@chakra-ui/icons";
+import { InputGroup, InputLeftAddon, Spinner, Box, Input, InputRightElement } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import useDebounce from '../../../utils/hooks/useDebounce';
 
@@ -31,10 +32,10 @@ const StatusIcon = ({ value, debouncedValue, isValidating, isValid, currentPiggy
     }
     if (isValid || value === currentPiggybankId) {
         return (
-            <Icon name="check" color="green.500" />
+            <CheckIcon color="green.500" />
         );
     }
-    return <Icon name="not-allowed" color="red.500" />;
+    return <NotAllowedIcon color="red.500" />;
 };
 StatusIcon.propTypes = {
     value: PropTypes.string.isRequired,

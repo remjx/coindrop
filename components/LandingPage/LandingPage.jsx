@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/core';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, Icon } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -33,7 +33,7 @@ const PaymentMethodTagAndManyMore = () => (
     <PaymentMethodTag
         label="... and many more"
         color="gray"
-        tagVariantColor="gray"
+        tagcolorScheme="gray"
     />
 );
 

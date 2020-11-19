@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
-import { Icon, Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/core';
+import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { QuestionIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
+import { LogoutIcon, HamburgerMenuIcon, GithubIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
@@ -50,11 +52,11 @@ const Dashboard = () => {
             >
                 <Logo />
                 <Flex>
-                    <Menu>
+                    <Menu placement="bottom-end">
                         <MenuButton as={Button} variant="ghost">
-                            <Icon name="hamburgerMenu" />
+                            <HamburgerMenuIcon />
                         </MenuButton>
-                        <MenuList placement="bottom-end">
+                        <MenuList>
                             <Link
                                 href="https://github.com/markjackson02/coindrop#coindrop-"
                                 target="_blank"
@@ -65,7 +67,7 @@ const Dashboard = () => {
                                         <Flex
                                             align="center"
                                         >
-                                            <Icon mr={2} name="github" />
+                                            <GithubIcon mr={2} />
                                             About
                                         </Flex>
                                 </MenuItem>
@@ -80,7 +82,7 @@ const Dashboard = () => {
                                         <Flex
                                             align="center"
                                         >
-                                            <Icon mr={2} name="question" />
+                                            <QuestionIcon mr={2} />
                                             Help
                                         </Flex>
                                 </MenuItem>
@@ -93,7 +95,7 @@ const Dashboard = () => {
                                 <Flex
                                     align="center"
                                 >
-                                    <Icon mr={2} name="logout" />
+                                    <LogoutIcon mr={2} />
                                     Log out
                                 </Flex>
                             </MenuItem>

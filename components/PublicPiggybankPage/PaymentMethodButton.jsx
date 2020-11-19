@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { useDisclosure, Icon, Text, Flex, useTheme, PseudoBox } from '@chakra-ui/core';
-import { paymentMethodNames } from '../../src/paymentMethods';
+import { useDisclosure, Icon, Text, Flex, useTheme, Box } from '@chakra-ui/react';
+import { paymentMethodNames, paymentMethodIcons } from '../../src/paymentMethods';
 import PaymentMethodButtonModal from './PaymentMethodButtonModal';
 
 const PaymentMethodButton = (props) => {
@@ -8,6 +8,7 @@ const PaymentMethodButton = (props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { paymentMethod, paymentMethodValue, isPreferred, accentColor } = props;
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
+    const Icon = paymentMethodIcons[paymentMethod];
     return (
         <>
         <PaymentMethodButtonModal
@@ -17,7 +18,7 @@ const PaymentMethodButton = (props) => {
             paymentMethodDisplayName={paymentMethodDisplayName}
             paymentMethodValue={paymentMethodValue}
         />
-        <PseudoBox
+        <Box
             as="button"
             lineHeight="1.2"
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
@@ -43,7 +44,7 @@ const PaymentMethodButton = (props) => {
             onClick={onOpen}
         >
             <Flex align="center">
-                <Icon name={paymentMethod} size="32px" />
+                <Icon boxSize="32px" />
                 <Text ml={2}>{paymentMethodDisplayName}</Text>
             </Flex>
             {isPreferred && (
@@ -54,7 +55,7 @@ const PaymentMethodButton = (props) => {
                     Preferred
                 </Text>
             )}
-        </PseudoBox>
+        </Box>
         </>
     );
 };
