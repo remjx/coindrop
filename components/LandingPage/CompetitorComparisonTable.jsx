@@ -76,7 +76,7 @@ const CompetitorComparisonTable = () => {
         );
     };
     StyledTd.propTypes = {
-        value: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     };
     return (
         <Box>
@@ -87,100 +87,109 @@ const CompetitorComparisonTable = () => {
                 display={['none', 'none', 'flex']}
             >
                 <table className={styles.comparisontable}>
-                    <tr>
-                        <th> </th>
-                        <th>
-                            <Flex align="center">
-                                {coindropData.displayName}
-                                <PiggyLogoIcon ml={1} size="19px" />
-                            </Flex>
-                        </th>
-                        {competitorData.map(obj => (
+                    <thead>
+                        <tr>
+                            <th> </th>
                             <th>
-                                {obj.displayName}
-                                {obj.icon}
+                                <Flex align="center">
+                                    {coindropData.displayName}
+                                    <PiggyLogoIcon ml={1} size="19px" />
+                                </Flex>
                             </th>
-                        ))}
-                    </tr>
-                    <tr>
-                        <td># Pages per account</td>
-                        {data.map(obj => (
-                            <StyledTd value={obj.numPagesPerAccount} />
-                        ))}
-                    </tr>
-                    <tr>
-                        <td>Payment methods</td>
-                        {data.map(obj => (
-                            <StyledTd value={obj.paymentMethods} />
-                        ))}
-                    </tr>
-                    <tr>
-                        <td>Open-source</td>
-                        {data.map(obj => (
-                            <StyledTd dataId="isOpenSource" value={obj.isOpenSource} />
-                        ))}
-                    </tr>
-                    <tr>
-                        <td>Fees</td>
-                        {data.map(obj => (
-                            <StyledTd value={obj.fees} />
-                        ))}
-                    </tr>
-                    <tr>
-                        <td>Memberships</td>
-                        {data.map(obj => (
-                            <StyledTd dataId="membershipFeatures" value={obj.membershipFeatures} />
-                        ))}
-                    </tr>
+                            {competitorData.map(obj => (
+                                <th key={obj.id}>
+                                    {obj.displayName}
+                                    {obj.icon}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td># Pages per account</td>
+                            {data.map(obj => (
+                                <StyledTd value={obj.numPagesPerAccount} key={obj.id} />
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Payment methods</td>
+                            {data.map(obj => (
+                                <StyledTd value={obj.paymentMethods} key={obj.id} />
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Open-source</td>
+                            {data.map(obj => (
+                                <StyledTd dataId="isOpenSource" value={obj.isOpenSource} key={obj.id} />
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Fees</td>
+                            {data.map(obj => (
+                                <StyledTd value={obj.fees} key={obj.id} />
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Memberships</td>
+                            {data.map(obj => (
+                                <StyledTd dataId="membershipFeatures" value={obj.membershipFeatures} key={obj.id} />
+                            ))}
+                        </tr>
+                    </tbody>
                 </table>
             </Flex>
 
             {competitorData.map(obj => (
                 <Flex
+                    key={obj.id}
                     id={`partial-width-comparison-table-${obj.id}`}
                     justify="center"
                     textAlign="center"
                     display={['flex', 'flex', 'none']}
                 >
                     <table className={styles.comparisontable}>
-                        <tr>
-                            <th> </th>
-                            <th>
-                                <Flex align="center">
-                                    Coindrop
-                                    <PiggyLogoIcon ml={1} size="19px" />
-                                </Flex>
-                            </th>
-                            <th>
-                                {obj.displayName}
-                                {obj.icon}
-                            </th>
-                        </tr>
-                        <tr>
-                            <td># Pages per account</td>
-                            <StyledTd value={coindropData.numPagesPerAccount} />
-                            <StyledTd value={obj.numPagesPerAccount} />
-                        </tr>
-                        <tr>
-                            <td>Payment methods</td>
-                            <StyledTd value={coindropData.paymentMethods} />
-                            <StyledTd value={obj.paymentMethods} />
-                        </tr>
-                        <tr>
-                            <td>Open-source</td>
-                            <StyledTd value={coindropData.isOpenSource} />
-                            <StyledTd value={obj.isOpenSource} />
-                        </tr>
-                        <tr>
-                            <td>Fees</td>
-                            <StyledTd value={coindropData.fees} />
-                            <StyledTd value={obj.fees} />
-                        </tr>
-                        <tr>
-                            <td>Memberships</td>
-                            <StyledTd value={coindropData.membershipFeatures} />
-                            <StyledTd value={obj.membershipFeatures} />
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th>
+                                    <Flex align="center">
+                                        Coindrop
+                                        <PiggyLogoIcon ml={1} size="19px" />
+                                    </Flex>
+                                </th>
+                                <th>
+                                    {obj.displayName}
+                                    {obj.icon}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td># Pages per account</td>
+                                <StyledTd value={coindropData.numPagesPerAccount} />
+                                <StyledTd value={obj.numPagesPerAccount} />
+                            </tr>
+                            <tr>
+                                <td>Payment methods</td>
+                                <StyledTd value={coindropData.paymentMethods} />
+                                <StyledTd value={obj.paymentMethods} />
+                            </tr>
+                            <tr>
+                                <td>Open-source</td>
+                                <StyledTd value={coindropData.isOpenSource} />
+                                <StyledTd value={obj.isOpenSource} />
+                            </tr>
+                            <tr>
+                                <td>Fees</td>
+                                <StyledTd value={coindropData.fees} />
+                                <StyledTd value={obj.fees} />
+                            </tr>
+                            <tr>
+                                <td>Memberships</td>
+                                <StyledTd value={coindropData.membershipFeatures} />
+                                <StyledTd value={obj.membershipFeatures} />
+                            </tr>
+                        </tbody>
                     </table>
                 </Flex>
             ))}
