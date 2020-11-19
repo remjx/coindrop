@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Heading, Box, Link, Stack, useTheme } from '@chakra-ui/react';
+import { Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -51,15 +51,27 @@ const PublicPiggybankPage = (props) => {
         return entries
         .sort(sortArrayByEntriesKeyAlphabetical)
         .map(([paymentMethodId, data]) => (
-            <PaymentMethodButton
-                key={paymentMethodId}
-                paymentMethod={paymentMethodId}
-                paymentMethodValue={data.address}
-                isPreferred={data.isPreferred}
-                accentColor={accentColor}
-            />
+            <WrapItem>
+                <PaymentMethodButton
+                    key={paymentMethodId}
+                    paymentMethod={paymentMethodId}
+                    paymentMethodValue={data.address}
+                    isPreferred={data.isPreferred}
+                    accentColor={accentColor}
+                />
+            </WrapItem>
         ));
     }
+    const WrapGroup = ({ children }) => (
+        <Wrap
+            justify="center"
+        >
+            {children}
+        </Wrap>
+    );
+    WrapGroup.propTypes = {
+        children: PropTypes.element.isRequired,
+    };
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (
@@ -128,16 +140,26 @@ const PublicPiggybankPage = (props) => {
                                 :
                             </Heading>
                         </Box>
-                        <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                        <WrapGroup>
+                            <PaymentMethodButtonsFromEntries
+                                entries={preferredAddresses}
+                            />
+                        </WrapGroup>
+                        <WrapGroup>
+                            <PaymentMethodButtonsFromEntries
+                                entries={otherAddresses}
+                            />
+                        </WrapGroup>
+                        {/* <Stack spacing={4} mx={4} direction="row" wrap="wrap" justify="center">
                             <PaymentMethodButtonsFromEntries
                                 entries={preferredAddresses}
                             />
                         </Stack>
-                        <Stack spacing={8} mx={4} direction="row" wrap="wrap" justify="center">
+                        <Stack spacing={4} mx={4} direction="row" wrap="wrap" justify="center">
                             <PaymentMethodButtonsFromEntries
                                 entries={otherAddresses}
                             />
-                        </Stack>
+                        </Stack> */}
                         <PoweredByCoindropLink
                             accentColor={accentColor}
                         />
