@@ -22,7 +22,7 @@ const IconLinkText = ({ icon, text, href }) => (
     </Link>
 );
 IconLinkText.propTypes = {
-    icon: PropTypes.func.isRequired,
+    icon: PropTypes.object.isRequired,
     text: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
 };

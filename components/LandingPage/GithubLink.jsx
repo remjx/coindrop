@@ -11,7 +11,7 @@ const GithubLink = () => {
             <a
                 href={githubUrl}
                 className={styles['github-corner']}
-                ariaLabel="View source on GitHub"
+                aria-label="View source on GitHub"
                 target="_blank"
                 rel="noreferrer"
             >

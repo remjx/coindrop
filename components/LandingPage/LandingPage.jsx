@@ -69,6 +69,7 @@ const index = () => {
         .filter(([paymentMethodId, paymentMethodCategory]) => paymentMethodCategory === category)
         .map(([paymentMethodId]) => (
             <PaymentMethodTag
+                key={paymentMethodId}
                 label={paymentMethodNames[paymentMethodId]}
                 iconName={paymentMethodId}
                 iconSize={paymentMethodId === 'venmo' ? "32px" : paymentMethodId === 'bitcoinBCH' ? "22px" : undefined}

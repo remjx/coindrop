@@ -17,7 +17,6 @@ function initialize() {
 }
 export const verifyIdToken = (token) => {
   initialize();
-  console.log('**verifying id token...**')
   return admin
     .auth()
     .verifyIdToken(token)

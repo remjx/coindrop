@@ -4,7 +4,6 @@ import { paymentMethodIcons } from "../../src/paymentMethods";
 
 const PaymentMethodTag = ({ label, iconName, iconSize, color, tagColorScheme }) => {
     const Icon = paymentMethodIcons[iconName];
-    console.log("Icon", Icon);
     return (
         <Box mx={1} my={1}>
             <Tag size="lg" colorScheme={tagColorScheme}>
@@ -18,7 +17,7 @@ const PaymentMethodTag = ({ label, iconName, iconSize, color, tagColorScheme }) 
 PaymentMethodTag.propTypes = {
     label: PropTypes.string.isRequired,
     iconSize: PropTypes.string,
-    iconName: PropTypes.string.isRequired,
+    iconName: PropTypes.string,
     color: PropTypes.string,
     tagColorScheme: PropTypes.string,
 };
@@ -26,6 +25,7 @@ PaymentMethodTag.defaultProps = {
     iconSize: "16px",
     tagColorScheme: undefined,
     color: undefined,
+    iconName: undefined,
 };
 
 export default PaymentMethodTag;
