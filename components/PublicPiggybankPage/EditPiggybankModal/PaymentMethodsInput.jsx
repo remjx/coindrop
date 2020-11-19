@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { AddIcon, MinusIcon, StarIcon } from "@chakra-ui/icons";
 import {
     Accordion,
     AccordionItem,
@@ -11,14 +11,13 @@ import {
     Flex,
     FormLabel,
     Input,
-    Icon,
     Checkbox,
     Select,
     Text,
     useTheme,
 } from "@chakra-ui/react";
 import { useWatch } from "react-hook-form";
-import { paymentMethodNames } from '../../../src/paymentMethods';
+import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 import { sortByIsPreferredThenAlphabetical } from './util';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
@@ -42,6 +41,8 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
                     .map((item, index) => {
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
+                    console.log('watchedData?.paymentMethodId', watchedData?.paymentMethodId)
+                    const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId];
                     return (
                         <AccordionItem
                             key={item.id}
@@ -49,14 +50,13 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                             <AccordionButton>
                                 <Flex flex="1" textAlign="left" align="center">
                                     <Flex mr={1} align="center">
-                                        <Icon mr={2} name={watchedData?.paymentMethodId} />
+                                        <PaymentMethodIcon mr={2} />
                                         {paymentMethodNames[watchedData?.paymentMethodId] ?? 'New payment method'}
                                     </Flex>
                                     {watchedData?.isPreferred && (
                                         <Flex>
-                                            <Icon
+                                            <StarIcon
                                                 ml={2}
-                                                name="star"
                                                 size="16px"
                                                 color={colors.yellow['400']}
                                             />
