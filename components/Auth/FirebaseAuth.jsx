@@ -19,10 +19,10 @@ const firebaseAuthConfig = {
   signInSuccessUrl: '/dashboard',
   callbacks: {
     // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
-    signInSuccessWithAuthResult: ({ user }) => {
-      const userData = mapUserData(user);
+    signInSuccessWithAuthResult: async ({ user }, redirectUrl) => {
+      const userData = await mapUserData(user);
       setUserCookie(userData);
-      return false;
+      // return false;
     },
   },
 };
