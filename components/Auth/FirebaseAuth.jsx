@@ -10,6 +10,7 @@ import { mapUserData } from '../../utils/auth/mapUserData';
 initFirebase();
 
 const firebaseAuthConfig = {
+  // only 'popup' method works which does not work consistently on mobile https://github.com/vercel/next.js/pull/18599
   signInFlow: 'popup',
   signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
