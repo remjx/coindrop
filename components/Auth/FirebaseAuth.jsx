@@ -10,7 +10,7 @@ import { mapUserData } from '../../utils/auth/mapUserData';
 initFirebase();
 
 const firebaseAuthConfig = {
-  signInFlow: 'redirect',
+  signInFlow: 'popup',
   signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -36,22 +36,13 @@ const firebaseAuthConfig = {
 //   </Flex>
 // );
 
-const FirebaseAuth = () => {
-  // Do not SSR FirebaseUI, because it is not supported.
-  // https://github.com/firebase/firebaseui-web/issues/213
-  const [renderAuth, setRenderAuth] = useState(false);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setRenderAuth(true);
-    }
-  }, []);
-  if (!renderAuth) return null;
-  return (
+const FirebaseAuth = () => (
+  <div>
     <StyledFirebaseAuth
       uiConfig={firebaseAuthConfig}
       firebaseAuth={firebase.auth()}
     />
-  );
-};
+  </div>
+);
 
 export default FirebaseAuth;
