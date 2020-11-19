@@ -84,7 +84,7 @@ const PublicPiggybankPage = (props) => {
     return (
         <>
         <NextSeo
-            title={`${name}'s Coindrop (coindrop.to/${piggybankName})`}
+            title={`${name ?? piggybankName}'s Coindrop (coindrop.to/${piggybankName})`}
             description={`Send money to ${name} with no fees`}
         />
         <PublicPiggybankDataProvider
