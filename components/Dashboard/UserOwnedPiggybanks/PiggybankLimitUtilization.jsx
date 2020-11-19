@@ -5,7 +5,7 @@ import { maxPiggybanksPerUser, githubReadmeHelpUrl } from '../../../src/settings
 const PiggybankLimitUtilization = (props) => {
     const { numActivePiggybanks } = props;
     const pctUtilization = (numActivePiggybanks / maxPiggybanksPerUser) * 100;
-    let color = 'green';
+    let color = 'blue';
     if (pctUtilization >= 90) {
         color = 'red';
     } else if (pctUtilization >= 80) {
@@ -21,7 +21,7 @@ const PiggybankLimitUtilization = (props) => {
             >
                 <Progress
                     value={pctUtilization}
-                    color={color}
+                    colorScheme={color}
                     size="sm"
                 />
                 <Flex wrap="wrap" justify="space-around">

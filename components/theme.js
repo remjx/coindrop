@@ -1,4 +1,4 @@
-import { theme as chakraTheme } from '@chakra-ui/react';
+import { extendTheme } from '@chakra-ui/react';
 
 export const publicPiggybankThemeColorOptions = [
   "red",
@@ -12,14 +12,8 @@ export const publicPiggybankThemeColorOptions = [
   "purple",
 ];
 
-const fonts = { ...chakraTheme.fonts, mono: `'Menlo', monospace` };
-
-const breakpoints = ['40em', '52em', '64em'];
-
-const theme = {
-  ...chakraTheme,
+const theme = extendTheme({
   colors: {
-    ...chakraTheme.colors,
     black: '#16161D',
     logoPrimary: '#FFB655',
     mainGray: "#6C6B6F",
@@ -74,8 +68,9 @@ const theme = {
       900: "#744210",
     },
   },
-  fonts,
-  breakpoints,
-};
+  fonts: {
+    mono: `'Menlo', monospace`,
+  },
+});
 
 export default theme;
