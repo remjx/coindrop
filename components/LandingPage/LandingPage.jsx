@@ -33,7 +33,7 @@ const PaymentMethodTagAndManyMore = () => (
     <PaymentMethodTag
         label="... and many more"
         color="gray"
-        tagcolorScheme="gray"
+        tagColorScheme="gray"
     />
 );
 

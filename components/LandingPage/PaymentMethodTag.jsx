@@ -2,12 +2,12 @@ import { Box, Tag, TagLabel } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { paymentMethodIcons } from "../../src/paymentMethods";
 
-const PaymentMethodTag = ({ label, iconName, iconSize, color, tagcolorScheme }) => {
+const PaymentMethodTag = ({ label, iconName, iconSize, color, tagColorScheme }) => {
     const Icon = paymentMethodIcons[iconName];
     console.log("Icon", Icon);
     return (
         <Box mx={1} my={1}>
-            <Tag size="lg" colorScheme={tagcolorScheme}>
+            <Tag size="lg" colorScheme={tagColorScheme}>
                 {iconName && (<Icon verticalAlign="top" color={color} boxSize={iconSize} mr={2} />)}
                 <TagLabel py={1}>{label}</TagLabel>
             </Tag>
@@ -20,11 +20,11 @@ PaymentMethodTag.propTypes = {
     iconSize: PropTypes.string,
     iconName: PropTypes.string.isRequired,
     color: PropTypes.string,
-    tagcolorScheme: PropTypes.string,
+    tagColorScheme: PropTypes.string,
 };
 PaymentMethodTag.defaultProps = {
     iconSize: "16px",
-    tagcolorScheme: undefined,
+    tagColorScheme: undefined,
     color: undefined,
 };
 

@@ -56,7 +56,7 @@ const ShareButtonModal = ({ buttonColor }) => {
                             <Text>Share with anyone, anywhere</Text>
                         </Box>
                         <Flex align="center" flexGrow={1} justify="center" mt={2}>
-                            <CopyLinkShareButton textToCopy={publicUrl} buttoncolorScheme="green" />
+                            <CopyLinkShareButton textToCopy={publicUrl} buttonColorScheme="green" />
                         </Flex>
                     </Flex>
                     <ShareEmbedButton

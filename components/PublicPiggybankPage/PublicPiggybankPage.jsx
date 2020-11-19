@@ -47,21 +47,6 @@ const PublicPiggybankPage = (props) => {
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
-    function PaymentMethodButtonsFromEntries({ entries }) {
-        return entries
-        .sort(sortArrayByEntriesKeyAlphabetical)
-        .map(([paymentMethodId, data]) => (
-            <WrapItem>
-                <PaymentMethodButton
-                    key={paymentMethodId}
-                    paymentMethod={paymentMethodId}
-                    paymentMethodValue={data.address}
-                    isPreferred={data.isPreferred}
-                    accentColor={accentColor}
-                />
-            </WrapItem>
-        ));
-    }
     const WrapGroup = ({ children }) => (
         <Wrap
             justify="center"
@@ -71,6 +56,28 @@ const PublicPiggybankPage = (props) => {
     );
     WrapGroup.propTypes = {
         children: PropTypes.element.isRequired,
+    };
+    function PaymentMethodButtonsFromEntries({ entries }) {
+        return (
+            <WrapGroup>
+                {entries
+                .sort(sortArrayByEntriesKeyAlphabetical)
+                .map(([paymentMethodId, data]) => (
+                    <WrapItem>
+                        <PaymentMethodButton
+                            key={paymentMethodId}
+                            paymentMethod={paymentMethodId}
+                            paymentMethodValue={data.address}
+                            isPreferred={data.isPreferred}
+                            accentColor={accentColor}
+                        />
+                    </WrapItem>
+                ))}
+            </WrapGroup>
+        );
+    }
+    PaymentMethodButtonsFromEntries.propTypes = {
+        entries: PropTypes.any.isRequired,
     };
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
@@ -140,26 +147,12 @@ const PublicPiggybankPage = (props) => {
                                 :
                             </Heading>
                         </Box>
-                        <WrapGroup>
-                            <PaymentMethodButtonsFromEntries
-                                entries={preferredAddresses}
-                            />
-                        </WrapGroup>
-                        <WrapGroup>
-                            <PaymentMethodButtonsFromEntries
-                                entries={otherAddresses}
-                            />
-                        </WrapGroup>
-                        {/* <Stack spacing={4} mx={4} direction="row" wrap="wrap" justify="center">
-                            <PaymentMethodButtonsFromEntries
-                                entries={preferredAddresses}
-                            />
-                        </Stack>
-                        <Stack spacing={4} mx={4} direction="row" wrap="wrap" justify="center">
-                            <PaymentMethodButtonsFromEntries
-                                entries={otherAddresses}
-                            />
-                        </Stack> */}
+                        <PaymentMethodButtonsFromEntries
+                            entries={preferredAddresses}
+                        />
+                        <PaymentMethodButtonsFromEntries
+                            entries={otherAddresses}
+                        />
                         <PoweredByCoindropLink
                             accentColor={accentColor}
                         />
