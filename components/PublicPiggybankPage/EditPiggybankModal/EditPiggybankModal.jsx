@@ -29,6 +29,7 @@ import EditUrlInput from './EditUrlInput';
 import { convertPaymentMethodsFieldArrayToDbMap } from './util';
 import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
+import AvatarInput from './AvatarInput';
 
 function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
@@ -138,6 +139,7 @@ const EditPiggybankModal = (props) => {
                                 value={watchedPiggybankId}
                             />
                         </FormControl>
+                        <AvatarInput />
                         <FormControl
                             mt={formControlTopMargin}
                         >
