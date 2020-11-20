@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
+import { Photo } from './photo/Photo';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
@@ -19,6 +20,7 @@ const PublicPiggybankPage = (props) => {
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
+    console.log('initialPiggybankDbData', initialPiggybankDbData)
     const { query: { piggybankName }} = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId) {
@@ -109,6 +111,7 @@ const PublicPiggybankPage = (props) => {
                         initialSetupComplete={initialSetupComplete}
                     />
                 )}
+                <Photo />
                 {initialSetupComplete ? (
                     <Box
                         mb={6}
@@ -118,6 +121,7 @@ const PublicPiggybankPage = (props) => {
                             my={2}
                             mx={3}
                         >
+                            <Photo />
                             <Heading textAlign="center">
                                 Choose a payment method to
                                 {` ${verb} `}

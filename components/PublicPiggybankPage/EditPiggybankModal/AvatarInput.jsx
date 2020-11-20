@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useRouter } from "next/router";
 import { useUser } from '../../../utils/auth/useUser';
 import { storage } from '../../../utils/client/storage';
+import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 
 export const getFileExtensionFromMimeType = (mimeType) => mimeType.split('/')[1];
 
@@ -9,7 +10,8 @@ const onInputChange = async ({ event, uid, piggybankName }) => {
     const file = event?.target?.files?.[0];
     const fileExtension = getFileExtensionFromMimeType(file.type);
     const storageRef = storage.ref();
-    const photoRef = storageRef.child(`images/users/${uid}/coindrops/${piggybankName}.${fileExtension}`);
+    const photoPath = piggybankImageStoragePath({ ownerUid: uid, piggybankName });
+    const photoRef = storageRef.child(photoPath);
     console.log('photoRef', photoRef);
     if (file) {
       try {
@@ -26,7 +28,7 @@ const onInputChange = async ({ event, uid, piggybankName }) => {
 };
 
 const AvatarInput = () => {
-    const inputRef = useRef(null)
+    const inputRef = useRef(null);
     const { query: { piggybankName } } = useRouter();
     const { user } = useUser();
     const uid = user?.id;
