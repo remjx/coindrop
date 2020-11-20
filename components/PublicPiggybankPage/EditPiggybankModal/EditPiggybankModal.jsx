@@ -17,6 +17,11 @@ import {
     Input,
     Select,
     useTheme,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -119,6 +124,147 @@ const EditPiggybankModal = (props) => {
         register("accentColor");
     }, [register]);
     const formControlTopMargin = 2;
+    const SettingsForm = () => (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <ModalBody>
+                <FormControl isRequired>
+                    <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
+                    <EditUrlInput
+                        register={register}
+                        value={watchedPiggybankId}
+                    />
+                </FormControl>
+                <AvatarInput />
+                <FormControl
+                    mt={formControlTopMargin}
+                >
+                    <FormLabel
+                        htmlFor="input-accentColor"
+                    >
+                        Theme
+                    </FormLabel>
+                    <Flex wrap="wrap" justify="center">
+                        {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
+                            <Box
+                                key={colorName}
+                                as="button"
+                                bg={hexCode}
+                                w="36px"
+                                h="36px"
+                                borderRadius="50%"
+                                mx={1}
+                                my={1}
+                                onClick={handleAccentColorChange}
+                                data-colorname={colorName}
+                            >
+                                {watchedAccentColor === colorName && (
+                                    <CheckIcon color="#FFF" />
+                                )}
+                            </Box>
+                        ))}
+                    </Flex>
+                </FormControl>
+                <FormControl
+                    isRequired
+                    mt={formControlTopMargin}
+                >
+                    <FormLabel
+                        htmlFor="input-name"
+                    >
+                        Name
+                    </FormLabel>
+                    <Input
+                        id="input-name"
+                        name="name"
+                        ref={register}
+                    />
+                </FormControl>
+                <FormControl
+                    isRequired
+                    mt={formControlTopMargin}
+                >
+                    <FormLabel
+                        htmlFor="input-verb"
+                    >
+                        Payment action name
+                    </FormLabel>
+                    <Select
+                        id="input-verb"
+                        name="verb"
+                        ref={register}
+                    >
+                        <option value="pay">Pay</option>
+                        <option value="donate to">Donate to</option>
+                        <option value="support">Support</option>
+                    </Select>
+                </FormControl>
+                <FormControl
+                    mt={formControlTopMargin}
+                >
+                    <FormLabel
+                        htmlFor="input-website"
+                    >
+                        Website
+                    </FormLabel>
+                    <Input
+                        id="input-website"
+                        name="website"
+                        ref={register}
+                        placeholder="http://"
+                        type="url"
+                    />
+                </FormControl>
+                <FormControl
+                    mt={formControlTopMargin}
+                    isRequired
+                >
+                    <FormLabel
+                        htmlFor="input-paymentmethods"
+                    >
+                        Payment Methods
+                    </FormLabel>
+                    <PaymentMethodsInput
+                        fields={fields}
+                        control={control}
+                        register={register}
+                        remove={remove}
+                        append={append}
+                        fieldArrayName={paymentMethodsFieldArrayName}
+                    />
+                </FormControl>
+            </ModalBody>
+            <Flex
+                id="modal-footer"
+                justify="space-between"
+                m={6}
+            >
+                <DeleteButton
+                    id={initialPiggybankId}
+                />
+                <Flex>
+                    <Button
+                        variant="ghost"
+                        onClick={onClose}
+                    >
+                        Cancel
+                    </Button>
+                    <Button
+                        colorScheme="green"
+                        mx={1}
+                        type="submit"
+                        isLoading={isSubmitting}
+                        loadingText="Submitting"
+                        isDisabled={
+                            !isDirty
+                            && initialAccentColor === watchedAccentColor // controlled accentColor field is not showing up in formState.dirtyFields
+                        }
+                    >
+                        Submit
+                    </Button>
+                </Flex>
+            </Flex>
+        </form>
+    );
     return (
         <Modal
             isOpen={isOpen}
@@ -130,145 +276,25 @@ const EditPiggybankModal = (props) => {
             <ModalContent>
                 <ModalHeader>Configure</ModalHeader>
                 <ModalCloseButton />
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <ModalBody>
-                        <FormControl isRequired>
-                            <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
-                            <EditUrlInput
-                                register={register}
-                                value={watchedPiggybankId}
-                            />
-                        </FormControl>
-                        <AvatarInput />
-                        <FormControl
-                            mt={formControlTopMargin}
-                        >
-                            <FormLabel
-                                htmlFor="input-accentColor"
-                            >
-                                Theme
-                            </FormLabel>
-                            <Flex wrap="wrap" justify="center">
-                                {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
-                                    <Box
-                                        key={colorName}
-                                        as="button"
-                                        bg={hexCode}
-                                        w="36px"
-                                        h="36px"
-                                        borderRadius="50%"
-                                        mx={1}
-                                        my={1}
-                                        onClick={handleAccentColorChange}
-                                        data-colorname={colorName}
-                                    >
-                                        {watchedAccentColor === colorName && (
-                                            <CheckIcon color="#FFF" />
-                                        )}
-                                    </Box>
-                                ))}
-                            </Flex>
-                        </FormControl>
-                        <FormControl
-                            isRequired
-                            mt={formControlTopMargin}
-                        >
-                            <FormLabel
-                                htmlFor="input-name"
-                            >
-                                Name
-                            </FormLabel>
-                            <Input
-                                id="input-name"
-                                name="name"
-                                ref={register}
-                            />
-                        </FormControl>
-                        <FormControl
-                            isRequired
-                            mt={formControlTopMargin}
-                        >
-                            <FormLabel
-                                htmlFor="input-verb"
-                            >
-                                Payment action name
-                            </FormLabel>
-                            <Select
-                                id="input-verb"
-                                name="verb"
-                                ref={register}
-                            >
-                                <option value="pay">Pay</option>
-                                <option value="donate to">Donate to</option>
-                                <option value="support">Support</option>
-                            </Select>
-                        </FormControl>
-                        <FormControl
-                            mt={formControlTopMargin}
-                        >
-                            <FormLabel
-                                htmlFor="input-website"
-                            >
-                                Website
-                            </FormLabel>
-                            <Input
-                                id="input-website"
-                                name="website"
-                                ref={register}
-                                placeholder="http://"
-                                type="url"
-                            />
-                        </FormControl>
-                        <FormControl
-                            mt={formControlTopMargin}
-                            isRequired
-                        >
-                            <FormLabel
-                                htmlFor="input-paymentmethods"
-                            >
-                                Payment Methods
-                            </FormLabel>
-                            <PaymentMethodsInput
-                                fields={fields}
-                                control={control}
-                                register={register}
-                                remove={remove}
-                                append={append}
-                                fieldArrayName={paymentMethodsFieldArrayName}
-                            />
-                        </FormControl>
-                    </ModalBody>
-                    <Flex
-                        id="modal-footer"
-                        justify="space-between"
-                        m={6}
-                    >
-                        <DeleteButton
-                            id={initialPiggybankId}
-                        />
-                        <Flex>
-                            <Button
-                                variant="ghost"
-                                onClick={onClose}
-                            >
-                                Cancel
-                            </Button>
-                            <Button
-                                colorScheme="green"
-                                mx={1}
-                                type="submit"
-                                isLoading={isSubmitting}
-                                loadingText="Submitting"
-                                isDisabled={
-                                    !isDirty
-                                    && initialAccentColor === watchedAccentColor // controlled accentColor field is not showing up in formState.dirtyFields
-                                }
-                            >
-                                Submit
-                            </Button>
-                        </Flex>
-                    </Flex>
-                </form>
+                <Tabs>
+                    <TabList>
+                        <Tab>Photo</Tab>
+                        <Tab>Settings</Tab>
+                        <Tab>???</Tab>
+                    </TabList>
+
+                    <TabPanels>
+                        <TabPanel>
+                            <AvatarInput />
+                        </TabPanel>
+                        <TabPanel>
+                            <SettingsForm />
+                        </TabPanel>
+                        <TabPanel>
+                        <p>three!</p>
+                        </TabPanel>
+                    </TabPanels>
+                </Tabs>
             </ModalContent>
         </Modal>
     );
