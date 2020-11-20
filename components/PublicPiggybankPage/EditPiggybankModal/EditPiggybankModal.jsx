@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
+import { RiErrorWarningLine } from 'react-icons/ri';
 import {
     Box,
     Flex,
@@ -14,6 +15,7 @@ import {
     ModalCloseButton,
     FormControl,
     FormLabel,
+    Icon,
     Input,
     Select,
     useTheme,
@@ -22,6 +24,7 @@ import {
     Tab,
     TabPanels,
     TabPanel,
+    Text,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -134,7 +137,6 @@ const EditPiggybankModal = (props) => {
                         value={watchedPiggybankId}
                     />
                 </FormControl>
-                <AvatarInput />
                 <FormControl
                     mt={formControlTopMargin}
                 >
@@ -265,6 +267,24 @@ const EditPiggybankModal = (props) => {
             </Flex>
         </form>
     );
+    // const StatusIcon = ({ requiredFields }) => {
+    //     let status = 'ok';
+    //     requiredFields.forEach(requiredField => {
+    //         if (!piggybankDbData[requiredField]) {
+    //             status='warning'
+    //         }
+    //     })
+    //     if (status === 'ok') {
+    //         return <CheckIcon color="green.500" />;
+    //     }
+    //     if (status === 'warning') {
+    //         return <Icon as={RiErrorWarningLine} color="orange.500" />;
+    //     }
+    //     return null;
+    // };
+    // StatusIcon.propTypes = {
+    //     requiredFields: PropTypes.arrayOf(PropTypes.string).isRequired,
+    // };
     return (
         <Modal
             isOpen={isOpen}
@@ -278,7 +298,10 @@ const EditPiggybankModal = (props) => {
                 <ModalCloseButton />
                 <Tabs>
                     <TabList>
-                        <Tab>Photo</Tab>
+                        <Tab>
+                            Photo
+                            {/* <StatusIcon pl={1} requiredFields={["has_avatar"]} /> */}
+                        </Tab>
                         <Tab>Settings</Tab>
                         <Tab>???</Tab>
                     </TabList>
