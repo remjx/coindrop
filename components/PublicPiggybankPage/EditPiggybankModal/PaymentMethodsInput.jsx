@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { AddIcon, MinusIcon, StarIcon } from "@chakra-ui/icons";
+import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
     Accordion,
     AccordionItem,
@@ -49,7 +49,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                             <AccordionButton>
                                 <Flex flex="1" textAlign="left" align="center">
                                     <Flex mr={1} align="center">
-                                        <PaymentMethodIcon mr={2} />
+                                        {PaymentMethodIcon ? <PaymentMethodIcon mr={2} /> : <QuestionOutlineIcon mr={2} />}
                                         {paymentMethodNames[watchedData?.paymentMethodId] ?? 'New payment method'}
                                     </Flex>
                                     {watchedData?.isPreferred && (
