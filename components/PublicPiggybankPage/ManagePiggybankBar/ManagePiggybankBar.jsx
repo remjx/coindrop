@@ -80,7 +80,7 @@ ManagePiggybankBar.propTypes = {
     editButtonOptions: PropTypes.shape({
         text: PropTypes.string.isRequired,
         color: PropTypes.string,
-        icon: PropTypes.string.isRequired,
+        icon: PropTypes.object.isRequired,
     }),
     initialSetupComplete: PropTypes.bool.isRequired,
 };
