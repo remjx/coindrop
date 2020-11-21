@@ -57,7 +57,7 @@ const PublicPiggybankPage = (props) => {
         </Wrap>
     );
     WrapGroup.propTypes = {
-        children: PropTypes.element.isRequired,
+        children: PropTypes.arrayOf(PropTypes.element).isRequired,
     };
     function PaymentMethodButtonsFromEntries({ entries }) {
         return (
@@ -65,7 +65,7 @@ const PublicPiggybankPage = (props) => {
                 {entries
                 .sort(sortArrayByEntriesKeyAlphabetical)
                 .map(([paymentMethodId, data]) => (
-                    <WrapItem>
+                    <WrapItem key={paymentMethodId}>
                         <PaymentMethodButton
                             key={paymentMethodId}
                             paymentMethod={paymentMethodId}
