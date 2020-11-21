@@ -267,24 +267,6 @@ const EditPiggybankModal = (props) => {
             </Flex>
         </form>
     );
-    // const StatusIcon = ({ requiredFields }) => {
-    //     let status = 'ok';
-    //     requiredFields.forEach(requiredField => {
-    //         if (!piggybankDbData[requiredField]) {
-    //             status='warning'
-    //         }
-    //     })
-    //     if (status === 'ok') {
-    //         return <CheckIcon color="green.500" />;
-    //     }
-    //     if (status === 'warning') {
-    //         return <Icon as={RiErrorWarningLine} color="orange.500" />;
-    //     }
-    //     return null;
-    // };
-    // StatusIcon.propTypes = {
-    //     requiredFields: PropTypes.arrayOf(PropTypes.string).isRequired,
-    // };
     return (
         <Modal
             isOpen={isOpen}
@@ -300,10 +282,8 @@ const EditPiggybankModal = (props) => {
                     <TabList>
                         <Tab>
                             Photo
-                            {/* <StatusIcon pl={1} requiredFields={["has_avatar"]} /> */}
                         </Tab>
                         <Tab>Settings</Tab>
-                        <Tab>???</Tab>
                     </TabList>
 
                     <TabPanels>
