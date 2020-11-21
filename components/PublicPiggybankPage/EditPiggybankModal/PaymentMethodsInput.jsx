@@ -40,9 +40,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 {
                 sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
                     .map((item, index) => {
-                        console.log('ITEM', item)
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
-                    console.log('paymentMethod watched data', watchedData);
                     const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId];
                     return (
                         <AccordionItem

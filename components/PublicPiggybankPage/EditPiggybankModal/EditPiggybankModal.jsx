@@ -15,16 +15,9 @@ import {
     ModalCloseButton,
     FormControl,
     FormLabel,
-    Icon,
     Input,
     Select,
     useTheme,
-    Tabs,
-    TabList,
-    Tab,
-    TabPanels,
-    TabPanel,
-    Text,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -85,6 +78,7 @@ const EditPiggybankModal = (props) => {
         piggybankId: watchedPiggybankId,
     } = watch(["accentColor", "piggybankId"]);
     const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
+    console.log('initialPiggybankId', initialPiggybankId)
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
@@ -140,7 +134,7 @@ const EditPiggybankModal = (props) => {
                 <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
-
+                        <AvatarInput />
                         <FormControl isRequired>
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
