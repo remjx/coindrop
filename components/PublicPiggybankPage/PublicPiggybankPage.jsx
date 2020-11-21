@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -21,7 +21,6 @@ const PublicPiggybankPage = (props) => {
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
-    console.log('initialPiggybankDbData', initialPiggybankDbData)
     const { query: { piggybankName }} = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId) {
@@ -98,7 +97,6 @@ const PublicPiggybankPage = (props) => {
             }}
         >
         <AvatarContextProvider>
-
             <Box
                 maxW="1280px"
                 mx="auto"
@@ -124,7 +122,9 @@ const PublicPiggybankPage = (props) => {
                             my={2}
                             mx={3}
                         >
-                            <Avatar />
+                            <Center>
+                                <Avatar />
+                            </Center>
                             <Heading textAlign="center">
                                 Choose a payment method to
                                 {` ${verb} `}

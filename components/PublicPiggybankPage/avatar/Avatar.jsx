@@ -18,6 +18,9 @@ export const Avatar = () => {
                 src={`${gsPublicImageURL}?${imageUploadedDateTime}`}
                 alt="avatar"
                 className={styles.image}
+                boxSize="250px"
+                objectFit="cover"
+                borderRadius="full"
             />
         </div>
     );
