@@ -247,6 +247,7 @@ const EditPiggybankModal = (props) => {
                     >
                         <DeleteButton
                             id={initialPiggybankId}
+                            ownerUid={piggybankDbData.owner_uid}
                         />
                         <Flex>
                             <Button

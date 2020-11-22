@@ -4,9 +4,11 @@ import { Button } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
 import { db } from '../../../../utils/client/db';
+import { piggybankImageStoragePath } from '../../../../utils/storage/image-paths';
+import { storage } from '../../../../utils/client/storage';
 
 const DeleteButton = (props) => {
-    const { id } = props;
+    const { id, ownerUid } = props;
     const { push } = useRouter();
     const [awaitingDeleteConfirmation, setAwaitingDeleteConfirmation] = useState();
     const [isDeleting, setIsDeleting] = useState();
@@ -16,6 +18,9 @@ const DeleteButton = (props) => {
         }
         try {
             setIsDeleting(true);
+            const storageRef = storage.ref();
+            const avatarRef = storageRef.child(piggybankImageStoragePath({ ownerUid, piggybankName: id }));
+            await avatarRef.delete();
             await db
                 .collection('piggybanks')
                 .doc(id)
@@ -50,6 +55,7 @@ const DeleteButton = (props) => {
 
 DeleteButton.propTypes = {
     id: PropTypes.string.isRequired,
+    ownerUid: PropTypes.string.isRequired,
 };
 
 DeleteButton.defaultProps = {

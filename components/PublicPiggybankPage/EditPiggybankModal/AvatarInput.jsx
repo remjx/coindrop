@@ -4,7 +4,7 @@ import { WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { useUser } from '../../../utils/auth/useUser';
 import { storage } from '../../../utils/client/storage';
-import { piggybankImageStoragePath, publicPiggybankImageURL } from '../../../utils/storage/image-paths';
+import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 import { AvatarContext } from '../context/avatar-context';
 import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
