@@ -1,5 +1,6 @@
 import { useState, useRef, useContext } from "react";
-import { Center, Box, Button, Stack, Image as ChakraImage, Text } from "@chakra-ui/react";
+import { Center, Box, Button, Stack, Text } from "@chakra-ui/react";
+import Image from 'next/image';
 import { WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from 'uuid';
@@ -96,7 +97,7 @@ const AvatarInput = () => {
             {
               currentAvatarStorageId
               ? <Avatar />
-              : <ChakraImage src="/avatar-placeholder.png" alt="avatar placeholder" />
+              : <Image width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
           <Center my={5}>
