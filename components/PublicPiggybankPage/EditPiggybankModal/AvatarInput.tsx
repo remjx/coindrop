@@ -1,7 +1,9 @@
 import { useState, useRef, useContext } from "react";
-import { Center, Box, Button, Stack, Text } from "@chakra-ui/react";
+import { Flex, FormLabel, Center, Box, Button, Stack, Text } from "@chakra-ui/react";
+// Conflict with built-in Javascript Image class:
+// eslint-disable-next-line import/no-named-default
 import { default as NextImage } from 'next/image';
-import { WarningIcon } from "@chakra-ui/icons";
+import { DeleteIcon, WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from 'uuid';
 import { useUser } from '../../../utils/auth/useUser';
@@ -93,23 +95,43 @@ const AvatarInput = () => {
       }
     };
     return (
+      <>
+        <FormLabel htmlFor="avatar-input">Image</FormLabel>
         <Stack>
-          <Box mx="auto" mb={3}>
+          <Box mx="auto">
             {
               currentAvatarStorageId
               ? <Avatar />
               : <NextImage width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
-          <Center my={5}>
-            <FileInput
-              text={currentAvatarStorageId ? "Upload new image" : "Upload image"}
-              id="avatar-input"
-              inputRef={inputRef}
-              style={{display: "block", margin: "auto"}}
-              accept="image/png, image/jpeg, image/webp"
-              onChange={onInputChange}
-            />
+          <Center>
+            <Flex wrap="wrap" justify="center">
+              <Box mt={1}>
+                <FileInput
+                  text={currentAvatarStorageId ? "Upload new image" : "Upload image"}
+                  id="avatar-input"
+                  inputRef={inputRef}
+                  style={{display: "block", margin: "auto"}}
+                  accept="image/png, image/jpeg, image/webp"
+                  onChange={onInputChange}
+                />
+              </Box>
+              {currentAvatarStorageId && (
+                <Box ml={2} mt={1}>
+                  <Button
+                    onClick={() => {
+                      setAvatar(null);
+                    }}
+                    colorScheme="red"
+                    size="sm"
+                    leftIcon={<DeleteIcon />}
+                  >
+                    Remove image
+                  </Button>
+                </Box>
+              )}
+            </Flex>
           </Center>
           {fileSelectErrorMessage && (
             <Text textAlign="center" color="red.500">
@@ -117,17 +139,8 @@ const AvatarInput = () => {
               {fileSelectErrorMessage}
             </Text>
           )}
-          {currentAvatarStorageId && (
-            <Button
-              onClick={() => {
-                setAvatar(null);
-              }}
-              colorScheme="red"
-            >
-              Remove image
-            </Button>
-          )}
         </Stack>
+      </>
     );
 };
 
