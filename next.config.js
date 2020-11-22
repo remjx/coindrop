@@ -4,4 +4,8 @@ const withBundleAnalyzer = bundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withBundleAnalyzer({});
+module.exports = withBundleAnalyzer({
+    images: {
+        domains: ['storage.googleapis.com'],
+    },
+});

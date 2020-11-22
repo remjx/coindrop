@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import { Image } from '@chakra-ui/react';
+import Image from 'next/image';
 import styles from './Avatar.module.css';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankImageURL } from '../../../utils/storage/image-paths';
@@ -18,9 +18,8 @@ export const Avatar = () => {
                 src={`${gsPublicImageURL}?${imageUploadedDateTime}`}
                 alt="avatar"
                 className={styles.image}
-                boxSize="250px"
-                objectFit="cover"
-                borderRadius="full"
+                width={250}
+                height={250}
             />
         </div>
     );
