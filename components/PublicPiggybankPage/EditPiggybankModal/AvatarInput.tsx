@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from "react";
 import { Center, Box, Button, Stack, Text } from "@chakra-ui/react";
-import Image from 'next/image';
+import { default as NextImage } from 'next/image';
 import { WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from 'uuid';
@@ -85,6 +85,7 @@ const AvatarInput = () => {
           } else if (message === imageDimensionsError) {
             setFileSelectErrorMessage("Width and height must be at least 250px");
           } else {
+            console.log(err);
             setFileSelectErrorMessage("Error during upload. Please try again.");
           }
           clearInput();
@@ -97,7 +98,7 @@ const AvatarInput = () => {
             {
               currentAvatarStorageId
               ? <Avatar />
-              : <Image width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
+              : <NextImage width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
           <Center my={5}>
