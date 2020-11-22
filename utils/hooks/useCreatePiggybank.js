@@ -1,3 +1,5 @@
+// This is only used to create a new piggybank from scratch, not replace an existing one.
+
 import axios from 'axios';
 import { useState, useEffect, useContext } from 'react';
 import { mutate } from 'swr';

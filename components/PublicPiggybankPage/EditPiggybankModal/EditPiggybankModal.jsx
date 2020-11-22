@@ -78,7 +78,6 @@ const EditPiggybankModal = (props) => {
         piggybankId: watchedPiggybankId,
     } = watch(["accentColor", "piggybankId"]);
     const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
-    console.log('initialPiggybankId', initialPiggybankId)
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
@@ -86,6 +85,7 @@ const EditPiggybankModal = (props) => {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
                 owner_uid: piggybankDbData.owner_uid,
+                has_avatar: piggybankDbData.has_avatar,
             };
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
@@ -94,7 +94,8 @@ const EditPiggybankModal = (props) => {
                 await axios.post(
                     '/api/createPiggybank',
                     {
-                        piggybankName: formData.piggybankId, // TODO: rename this to piggybankId
+                        oldPiggybankName: initialPiggybankId,
+                        newPiggybankName: formData.piggybankId,
                         piggybankData: dataToSubmit,
                     },
                     {

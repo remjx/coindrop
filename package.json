@@ -16,6 +16,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@google-cloud/firestore": "^4.2.0",
+    "@google-cloud/storage": "^5.5.0",
     "@next/bundle-analyzer": "^9.5.3",
     "axios": "^0.20.0",
     "firebase": "7.19.1",
