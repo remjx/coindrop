@@ -14,7 +14,6 @@ import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 import { sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
-import { AvatarContextProvider } from './context/avatar-context';
 
 const PublicPiggybankPage = (props) => {
     // TODO: useSwr to refresh piggybankDbData after initial load
@@ -96,7 +95,6 @@ const PublicPiggybankPage = (props) => {
                 refreshPiggybankDbData,
             }}
         >
-        <AvatarContextProvider>
             <Box
                 maxW="1280px"
                 mx="auto"
@@ -171,7 +169,6 @@ const PublicPiggybankPage = (props) => {
                     </Heading>
                 )}
             </Box>
-        </AvatarContextProvider>
         </PublicPiggybankDataProvider>
         </>
     );

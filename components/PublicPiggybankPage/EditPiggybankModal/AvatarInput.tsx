@@ -2,16 +2,16 @@ import { useState, useRef, useContext } from "react";
 import { Center, Box, Button, Stack, Image as ChakraImage, Text } from "@chakra-ui/react";
 import { WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { v4 as uuidV4 } from 'uuid';
 import { useUser } from '../../../utils/auth/useUser';
 import { storage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
-import { AvatarContext } from '../context/avatar-context';
 import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput } from '../../Buttons/file-input/FileInput';
 
-function getImageDimensions(file) {
+function getImageDimensions(file): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = window.URL.createObjectURL(file);
@@ -27,31 +27,38 @@ function getImageDimensions(file) {
 
 const AvatarInput = () => {
     const inputRef = useRef(null);
-    const { setImageUploadedDateTime } = useContext(AvatarContext);
     const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankData);
-    const hasAvatar = piggybankDbData.has_avatar;
-    const { query: { piggybankName } } = useRouter();
+    const currentAvatarStorageId = piggybankDbData.avatar_storage_id;
+    const { query: { piggybankName: piggybankNameQuery } } = useRouter();
+    const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
     const { user } = useUser();
     const uid = user?.id;
     const piggybankRef = db.collection('piggybanks').doc(piggybankName);
     const fileSizeError = "Image too large";
     const contentTypeError = "Only images are accepted";
     const imageDimensionsError = "Image height and width must be >= 250px";
-    const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState();
+    const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
-    const setHasAvatar = async (value) => {
-      const has_avatar = value;
-      await piggybankRef.set({
-        has_avatar,
-      }, { merge: true });
-      setPiggybankDbData({ ...piggybankDbData, has_avatar });
+    const deleteOldAvatar = async () => {
+      if (currentAvatarStorageId) {
+        const path = piggybankImageStoragePath({ ownerUid: uid, piggybankName, imageAs: "avatar", imageStorageId: currentAvatarStorageId });
+        await storage.ref().child(path).delete();
+      }
     };
-    const onInputChange = async ({ event }) => {
+    const setAvatar = async (newAvatarStorageId) => {
+      Promise.all([
+        piggybankRef.set({ avatar_storage_id: newAvatarStorageId }, { merge: true }),
+        deleteOldAvatar(),
+      ]);
+      setPiggybankDbData({ ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
+    };
+    const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
       const file = event?.target?.files?.[0];
       const storageRef = storage.ref();
-      const photoPath = piggybankImageStoragePath({ ownerUid: uid, piggybankName });
-      const photoRef = storageRef.child(photoPath);
+      const newAvatarStorageId = uuidV4();
+      const newAvatarPath = piggybankImageStoragePath({ ownerUid: uid, piggybankName, imageAs: "avatar", imageStorageId: newAvatarStorageId });
+      const newAvatarRef = storageRef.child(newAvatarPath);
       if (file) {
         try {
           const contentType = file.type;
@@ -65,12 +72,9 @@ const AvatarInput = () => {
           if (width < 250 || height < 250) {
             throw new Error(imageDimensionsError);
           }
-          await photoRef.put(file);
-          setImageUploadedDateTime(Date.now());
+          await newAvatarRef.put(file);
           clearInput();
-          if (!hasAvatar) {
-            setHasAvatar(true);
-          }
+          setAvatar(newAvatarStorageId);
         } catch (err) {
           const { message } = err;
           if (message === fileSizeError) {
@@ -90,19 +94,19 @@ const AvatarInput = () => {
         <Stack>
           <Box mx="auto" mb={3}>
             {
-              hasAvatar
+              currentAvatarStorageId
               ? <Avatar />
               : <ChakraImage src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
           <Center my={5}>
             <FileInput
-              text={hasAvatar ? "Upload new image" : "Upload image"}
+              text={currentAvatarStorageId ? "Upload new image" : "Upload image"}
               id="avatar-input"
               inputRef={inputRef}
               style={{display: "block", margin: "auto"}}
               accept="image/png, image/jpeg, image/webp"
-              onChange={(event) => onInputChange({ event, uid, piggybankName })}
+              onChange={onInputChange}
             />
           </Center>
           {fileSelectErrorMessage && (
@@ -111,10 +115,10 @@ const AvatarInput = () => {
               {fileSelectErrorMessage}
             </Text>
           )}
-          {hasAvatar && (
+          {currentAvatarStorageId && (
             <Button
               onClick={() => {
-                setHasAvatar(false);
+                setAvatar(null);
               }}
               colorScheme="red"
             >

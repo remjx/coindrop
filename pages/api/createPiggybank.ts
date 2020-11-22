@@ -1,5 +1,6 @@
 import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
+import { v4 as uuidV4 } from 'uuid';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser } from '../../src/settings';
@@ -32,29 +33,38 @@ async function isUserUnderPiggybankLimit(uid) {
     .collection('piggybanks')
     .where('owner_uid', '==', uid)
     .get();
-  if (piggybanks._size >= maxPiggybanksPerUser) {
+  if (piggybanks.size >= maxPiggybanksPerUser) {
     throw new Error(userOverPiggybankLimitErrorMessage);
   }
   return true;
 }
 
-async function renameAvatarFile({ ownerUid, oldPiggybankName, newPiggybankName }) {
-  if (oldPiggybankName) {
+async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }: {
+  ownerUid: string
+  oldPiggybankName: string
+  oldAvatarStorageId: string
+  newPiggybankName: string
+  newAvatarStorageId: string
+}) {
+  if (oldPiggybankName && oldAvatarStorageId) {
     const bucketName = process.env.FIREBASE_STORAGE_BUCKET_NAME;
-    const srcFilename = piggybankImageStoragePath({ ownerUid, piggybankName: oldPiggybankName });
-    const destFilename = piggybankImageStoragePath({ ownerUid, piggybankName: newPiggybankName });
+    const srcFilename = piggybankImageStoragePath({ ownerUid, piggybankName: oldPiggybankName, imageAs: "avatar", imageStorageId: oldAvatarStorageId });
+    const destFilename = piggybankImageStoragePath({ ownerUid, piggybankName: newPiggybankName, imageAs: "avatar", imageStorageId: newAvatarStorageId });
     await storage.bucket(bucketName).file(srcFilename).move(destFilename);
   }
 }
 
 const createPiggybank = async (req, res) => {
+  // TODO: Extend req type to add expected req.body
   try {
     const {
       oldPiggybankName,
       newPiggybankName,
       piggybankData,
     } = req.body;
+    const { avatar_storage_id: oldAvatarStorageId } = piggybankData;
     const { uid } = req.headers;
+    const newAvatarStorageId = (oldPiggybankName && oldAvatarStorageId) ? uuidV4() : null;
     await Promise.all([
       isPiggybankNameNonexistant(newPiggybankName),
       isUserUnderPiggybankLimit(uid),
@@ -64,10 +74,11 @@ const createPiggybank = async (req, res) => {
         .collection('piggybanks')
         .doc(newPiggybankName)
         .set({
-          owner_uid: uid,
           ...piggybankData,
+          owner_uid: uid,
+          avatar_storage_id: newAvatarStorageId,
         }),
-      renameAvatarFile({ ownerUid: uid, oldPiggybankName, newPiggybankName }),
+      renameAvatarFile({ ownerUid: uid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }),
     ]);
     return res.status(200).end();
   } catch (error) {
@@ -77,7 +88,6 @@ const createPiggybank = async (req, res) => {
     if (error.message === userOverPiggybankLimitErrorMessage) {
       return res.status(406).send(userOverPiggybankLimitErrorMessage);
     }
-    console.log(error)
     return res.status(500).end();
   }
 };

@@ -49,6 +49,7 @@ const EditPiggybankModal = (props) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    const { avatar_storage_id: currentAvatarStorageId } = piggybankDbData;
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
     const initialAccentColor = piggybankDbData.accentColor ?? 'orange';
     const {
@@ -85,7 +86,7 @@ const EditPiggybankModal = (props) => {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
                 owner_uid: piggybankDbData.owner_uid,
-                has_avatar: piggybankDbData.has_avatar ?? false,
+                avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
@@ -247,8 +248,7 @@ const EditPiggybankModal = (props) => {
                         m={6}
                     >
                         <DeleteButton
-                            id={initialPiggybankId}
-                            ownerUid={piggybankDbData.owner_uid}
+                            piggybankName={initialPiggybankId}
                         />
                         <Flex>
                             <Button
