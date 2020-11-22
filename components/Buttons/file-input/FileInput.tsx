@@ -1,4 +1,4 @@
-import { Tag, TagLeftIcon, TagLabel, Text } from '@chakra-ui/react';
+import { Tag, TagLeftIcon, Text } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 import { CgSoftwareUpload } from 'react-icons/cg';
 import styles from './FileInput.module.css';
