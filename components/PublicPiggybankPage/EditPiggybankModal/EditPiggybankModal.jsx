@@ -85,7 +85,7 @@ const EditPiggybankModal = (props) => {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
                 owner_uid: piggybankDbData.owner_uid,
-                has_avatar: piggybankDbData.has_avatar,
+                has_avatar: piggybankDbData.has_avatar ?? false,
             };
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);

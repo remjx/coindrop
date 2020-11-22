@@ -13,7 +13,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
         setSubmitStatus('submitting');
         setError(null);
         const data = {
-            piggybankName: candidatePiggybankPath,
+            newPiggybankName: candidatePiggybankPath,
         };
         const headers = {
             token: user.token,

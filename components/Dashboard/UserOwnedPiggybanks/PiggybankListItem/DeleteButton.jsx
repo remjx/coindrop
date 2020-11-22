@@ -20,11 +20,10 @@ const DeleteButton = (props) => {
             setIsDeleting(true);
             const storageRef = storage.ref();
             const avatarRef = storageRef.child(piggybankImageStoragePath({ ownerUid, piggybankName: id }));
-            await avatarRef.delete();
-            await db
-                .collection('piggybanks')
-                .doc(id)
-                .delete();
+            await Promise.all([
+                avatarRef.delete(),
+                db.collection('piggybanks').doc(id).delete(),
+            ]);
             push('/dashboard');
         } catch (err) {
             setAwaitingDeleteConfirmation(false);
