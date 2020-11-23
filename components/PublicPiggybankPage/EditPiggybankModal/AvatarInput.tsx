@@ -112,7 +112,6 @@ const AvatarInput = () => {
                   text={currentAvatarStorageId ? "Upload new image" : "Upload image"}
                   id="avatar-input"
                   inputRef={inputRef}
-                  style={{display: "block", margin: "auto"}}
                   accept="image/png, image/jpeg, image/webp"
                   onChange={onInputChange}
                 />

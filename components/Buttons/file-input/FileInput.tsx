@@ -7,7 +7,7 @@ type Props = {
     id: string
     text: string
     accept: string
-    onChange: () => void
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
     inputRef: any
 }
 
