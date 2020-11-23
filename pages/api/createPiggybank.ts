@@ -88,7 +88,6 @@ const createPiggybank = async (req, res) => {
     if (error.message === userOverPiggybankLimitErrorMessage) {
       return res.status(406).send(userOverPiggybankLimitErrorMessage);
     }
-    console.log(error)
     return res.status(500).end();
   }
 };
