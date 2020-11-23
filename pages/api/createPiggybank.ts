@@ -62,7 +62,7 @@ const createPiggybank = async (req, res) => {
       newPiggybankName,
       piggybankData,
     } = req.body;
-    const { avatar_storage_id: oldAvatarStorageId } = piggybankData;
+    const oldAvatarStorageId = piggybankData?.avatar_storage_id;
     const { uid } = req.headers;
     const newAvatarStorageId = (oldPiggybankName && oldAvatarStorageId) ? uuidV4() : null;
     await Promise.all([
@@ -88,6 +88,7 @@ const createPiggybank = async (req, res) => {
     if (error.message === userOverPiggybankLimitErrorMessage) {
       return res.status(406).send(userOverPiggybankLimitErrorMessage);
     }
+    console.log(error)
     return res.status(500).end();
   }
 };

@@ -12,7 +12,7 @@ import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
-import { FileInput } from '../../Buttons/file-input/FileInput';
+import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ function getImageDimensions(file: File): Promise<{ width: number, height: number
 }
 
 const AvatarInput: FunctionComponent = () => {
-    const inputRef = useRef(null);
+    const inputRef = useRef<FileInputRef>(null);
     const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankData);
     const currentAvatarStorageId = piggybankDbData.avatar_storage_id;
     const { query: { piggybankName: piggybankNameQuery } } = useRouter();
@@ -110,7 +110,7 @@ const AvatarInput: FunctionComponent = () => {
                 <FileInput
                   text={currentAvatarStorageId ? "Upload new image" : "Upload image"}
                   id="avatar-input"
-                  inputRef={inputRef}
+                  ref={inputRef}
                   accept="image/png, image/jpeg, image/webp"
                   onChange={onInputChange}
                 />
