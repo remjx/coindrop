@@ -47,7 +47,7 @@ async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId
   newAvatarStorageId: string
 }) {
   if (oldPiggybankName && oldAvatarStorageId) {
-    const bucketName = process.env.FIREBASE_STORAGE_BUCKET_NAME;
+    const bucketName = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_NAME;
     const srcFilename = piggybankImageStoragePath({ ownerUid, piggybankName: oldPiggybankName, imageAs: "avatar", imageStorageId: oldAvatarStorageId });
     const destFilename = piggybankImageStoragePath({ ownerUid, piggybankName: newPiggybankName, imageAs: "avatar", imageStorageId: newAvatarStorageId });
     await storage.bucket(bucketName).file(srcFilename).move(destFilename);
