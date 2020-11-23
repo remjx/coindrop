@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, FunctionComponent } from "react";
 import { Flex, FormLabel, Center, Box, Button, Stack, Text } from "@chakra-ui/react";
 // Conflict with built-in Javascript Image class:
 // eslint-disable-next-line import/no-named-default
@@ -14,7 +14,7 @@ import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput } from '../../Buttons/file-input/FileInput';
 
-function getImageDimensions(file): Promise<{ width: number, height: number }> {
+function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.src = window.URL.createObjectURL(file);
@@ -28,7 +28,7 @@ function getImageDimensions(file): Promise<{ width: number, height: number }> {
   });
 }
 
-const AvatarInput = () => {
+const AvatarInput: FunctionComponent = () => {
     const inputRef = useRef(null);
     const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankData);
     const currentAvatarStorageId = piggybankDbData.avatar_storage_id;
@@ -87,7 +87,6 @@ const AvatarInput = () => {
           } else if (message === imageDimensionsError) {
             setFileSelectErrorMessage("Width and height must be at least 250px");
           } else {
-            console.log(err);
             setFileSelectErrorMessage("Error during upload. Please try again.");
           }
           clearInput();

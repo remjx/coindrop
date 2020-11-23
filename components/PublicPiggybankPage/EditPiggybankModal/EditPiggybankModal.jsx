@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import { RiErrorWarningLine } from 'react-icons/ri';
 import {
     Box,
     Flex,

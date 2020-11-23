@@ -1,6 +1,7 @@
+import { FunctionComponent } from 'react';
 import { FileInput } from '../components/Buttons/file-input/FileInput';
 
-const Test = () => (
+const Test: FunctionComponent = () => (
     <FileInput
       text="Upload photo"
       id="avatar-input"
