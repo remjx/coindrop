@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const FileInput: FunctionComponent<Props> = ({ id, text, accept, onChange, inputRef }: Props) => (
-    <div className={`${styles.wrapper}`}>
+    <div>
         <input
             type="file"
             name={id}
