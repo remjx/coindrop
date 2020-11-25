@@ -5,11 +5,13 @@
       "jest": true,
     },
     "extends": [
-        "airbnb"
+        "airbnb",
+        "plugin:cypress/recommended"
     ],
     "plugins": [
         "no-only-tests",
-        "react-hooks"
+        "react-hooks",
+        "cypress"
     ],
     "parser": "@typescript-eslint/parser",
     "overrides": [

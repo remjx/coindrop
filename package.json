@@ -7,7 +7,10 @@
     "start": "next start",
     "lint": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
+    "tsc": "./node_modules/.bin/tsc",
     "test": "jest --watch",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
@@ -47,8 +50,10 @@
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "babel-jest": "^26.3.0",
+    "cypress": "^6.0.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jest": "^24.0.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
