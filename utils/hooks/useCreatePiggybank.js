@@ -1,3 +1,5 @@
+// This is only used to create a new piggybank from scratch, not replace an existing one.
+
 import axios from 'axios';
 import { useState, useEffect, useContext } from 'react';
 import { mutate } from 'swr';
@@ -11,7 +13,7 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
         setSubmitStatus('submitting');
         setError(null);
         const data = {
-            piggybankName: candidatePiggybankPath,
+            newPiggybankName: candidatePiggybankPath,
         };
         const headers = {
             token: user.token,

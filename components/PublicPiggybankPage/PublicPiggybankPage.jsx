@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
+import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
@@ -90,6 +91,7 @@ const PublicPiggybankPage = (props) => {
         <PublicPiggybankDataProvider
             data={{
                 piggybankDbData,
+                setPiggybankDbData,
                 refreshPiggybankDbData,
             }}
         >
@@ -118,6 +120,9 @@ const PublicPiggybankPage = (props) => {
                             my={2}
                             mx={3}
                         >
+                            <Center>
+                                <Avatar />
+                            </Center>
                             <Heading textAlign="center">
                                 Choose a payment method to
                                 {` ${verb} `}

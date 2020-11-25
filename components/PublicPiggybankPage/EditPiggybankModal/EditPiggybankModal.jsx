@@ -29,6 +29,7 @@ import EditUrlInput from './EditUrlInput';
 import { convertPaymentMethodsFieldArrayToDbMap } from './util';
 import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
+import AvatarInput from './AvatarInput';
 
 function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
@@ -47,6 +48,7 @@ const EditPiggybankModal = (props) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    const { avatar_storage_id: currentAvatarStorageId } = piggybankDbData;
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
     const initialAccentColor = piggybankDbData.accentColor ?? 'orange';
     const {
@@ -83,6 +85,7 @@ const EditPiggybankModal = (props) => {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
                 owner_uid: piggybankDbData.owner_uid,
+                avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
@@ -91,7 +94,8 @@ const EditPiggybankModal = (props) => {
                 await axios.post(
                     '/api/createPiggybank',
                     {
-                        piggybankName: formData.piggybankId, // TODO: rename this to piggybankId
+                        oldPiggybankName: initialPiggybankId,
+                        newPiggybankName: formData.piggybankId,
                         piggybankData: dataToSubmit,
                     },
                     {
@@ -131,6 +135,7 @@ const EditPiggybankModal = (props) => {
                 <ModalCloseButton />
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
+                        <AvatarInput />
                         <FormControl isRequired>
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
@@ -242,7 +247,7 @@ const EditPiggybankModal = (props) => {
                         m={6}
                     >
                         <DeleteButton
-                            id={initialPiggybankId}
+                            piggybankName={initialPiggybankId}
                         />
                         <Flex>
                             <Button
