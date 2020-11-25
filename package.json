@@ -51,6 +51,7 @@
     "@typescript-eslint/parser": "^4.1.1",
     "babel-jest": "^26.3.0",
     "cypress": "^6.0.0",
+    "cypress-firebase": "^1.5.0",
     "eslint": "^7.9.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-cypress": "^2.11.2",

@@ -15,7 +15,11 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+
+const admin = require("firebase-admin");
+const cypressFirebasePlugin = require("cypress-firebase").plugin;
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  const extendedConfig = cypressFirebasePlugin(on, config, admin);
+  return extendedConfig;
 };

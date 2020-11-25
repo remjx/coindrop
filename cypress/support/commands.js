@@ -1,3 +1,17 @@
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/database";
+import "firebase/firestore";
+import { attachCustomCommands } from "cypress-firebase";
+
+// const fbConfig = {
+//   // Your config from Firebase Console
+// };
+
+// firebase.initializeApp(fbConfig);
+firebase.initializeApp();
+
+attachCustomCommands({ Cypress, cy, firebase });
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite

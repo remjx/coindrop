@@ -30,6 +30,9 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Google Firebase
+serviceAccount.json
+
 # vercel
 .vercel
 
