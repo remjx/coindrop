@@ -32,7 +32,7 @@ const UserOwnedPiggybanks = ({ uid }) => {
         const numActivePiggybanks = data.length;
         return (
             <>
-            <Stack spacing={4} my={4}>
+            <Stack spacing={4} my={4} id="user-owned-coindrops">
                 {
                 numActivePiggybanks > 0
                 ? (

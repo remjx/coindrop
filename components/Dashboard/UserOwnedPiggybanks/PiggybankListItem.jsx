@@ -22,7 +22,7 @@ function PiggybankListItem({ id }) {
             }}
         >
             <NextLink href={`/${id}`} passHref>
-                <a>
+                <a id={`link-to-coindrop-${id}`}>
                     <Box
                         py={5}
                         shadow="md"

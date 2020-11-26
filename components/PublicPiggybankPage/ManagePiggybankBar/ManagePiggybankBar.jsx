@@ -55,6 +55,7 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
                 </Box>
                 <Box mx={3} mt={2}>
                     <Button
+                        id="configure-coindrop-button"
                         leftIcon={editButtonOptions.icon}
                         onClick={onEditOpen}
                         colorScheme={editButtonOptions.color}

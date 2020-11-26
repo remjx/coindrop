@@ -12,6 +12,7 @@ const AddPiggybankListItem = (props) => {
         if (!showInput) {
             return (
                 <Button
+                    id="create-new-coindrop-button"
                     leftIcon={<AddIcon />}
                     borderRadius="10px"
                     mt={3}

@@ -96,7 +96,7 @@ const AvatarInput: FunctionComponent = () => {
     return (
       <>
         <FormLabel htmlFor="avatar-input">Image</FormLabel>
-        <Stack>
+        <Stack id="avatar-input-container">
           <Box mx="auto">
             {
               currentAvatarStorageId
