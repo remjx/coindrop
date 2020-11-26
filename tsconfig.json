@@ -23,7 +23,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "cypress/integration/landing-page/test-firestore.js"
+    "**/*.tsx", "cypress/integration/landing-page/test-firestore.ts"
   ],
   "exclude": [
     "node_modules"
