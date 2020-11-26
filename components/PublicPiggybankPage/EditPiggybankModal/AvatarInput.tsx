@@ -13,6 +13,7 @@ import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
+import { deleteImage } from '../../../src/db/mutations/delete-image';
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -42,16 +43,14 @@ const AvatarInput: FunctionComponent = () => {
     const imageDimensionsError = "Image height and width must be >= 250px";
     const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
-    const deleteOldAvatar = async () => {
-      if (currentAvatarStorageId) {
-        const path = piggybankImageStoragePath({ ownerUid: uid, piggybankName, imageAs: "avatar", imageStorageId: currentAvatarStorageId });
-        await storage.ref().child(path).delete();
-      }
-    };
     const setAvatar = async (newAvatarStorageId) => {
       Promise.all([
         piggybankRef.set({ avatar_storage_id: newAvatarStorageId }, { merge: true }),
-        deleteOldAvatar(),
+        deleteImage({
+          storageId: currentAvatarStorageId,
+          ownerUid: uid,
+          piggybankName,
+        }),
       ]);
       setPiggybankDbData({ ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
     };
