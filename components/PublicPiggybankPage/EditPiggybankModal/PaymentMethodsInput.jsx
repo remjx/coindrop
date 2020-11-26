@@ -40,11 +40,13 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 {
                 sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
                     .map((item, index) => {
+                        console.log('item', item);
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
                     const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId];
                     return (
                         <AccordionItem
                             key={item.id}
+                            id={`accordion-item-${watchedData.paymentMethodId}`}
                         >
                             <AccordionButton>
                                 <Flex flex="1" textAlign="left" align="center">
@@ -150,6 +152,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
             mt={2}
         >
             <Button
+                id="add-payment-method-button"
                 onClick={() => append({})}
                 leftIcon={<AddIcon />}
                 variant="ghost"

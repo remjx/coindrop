@@ -19,6 +19,7 @@ const PaymentMethodButton = (props) => {
             paymentMethodValue={paymentMethodValue}
         />
         <Box
+            id={`payment-method-button-${paymentMethod}`}
             as="button"
             lineHeight="1.2"
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"

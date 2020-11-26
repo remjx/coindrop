@@ -58,7 +58,7 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
         </Flex>
         {isDisplayed && (
             <Flex justify="center">
-                <Box>
+                <Box id="payment-method-qr-code-container">
                     <Text
                         textAlign="center"
                         mb={1}
@@ -66,7 +66,6 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
                         {publicUrl}
                     </Text>
                     <QRCode
-                        id="qrcode"
                         value={fullPublicUrl}
                         size={225}
                     />
