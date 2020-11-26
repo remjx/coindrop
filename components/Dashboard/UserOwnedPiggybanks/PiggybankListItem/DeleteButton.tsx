@@ -3,9 +3,8 @@ import { Button } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
 import { db } from '../../../../utils/client/db';
-import { piggybankImageStoragePath } from '../../../../utils/storage/image-paths';
-import { storage } from '../../../../utils/client/storage';
 import { PublicPiggybankData } from '../../../PublicPiggybankPage/PublicPiggybankDataContext';
+import { deleteImage } from '../../../../src/db/mutations/delete-image';
 
 type Props = {
     piggybankName: string
@@ -27,15 +26,12 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
         }
         try {
             setIsDeleting(true);
-            const storageRef = storage.ref();
-            const avatarRef = storageRef.child(piggybankImageStoragePath({
-                ownerUid,
-                piggybankName,
-                imageAs: "avatar",
-                imageStorageId: avatar_storage_id,
-            }));
             await Promise.all([
-                avatarRef.delete(),
+                deleteImage({
+                    storageId: avatar_storage_id,
+                    ownerUid,
+                    piggybankName,
+                }),
                 db.collection('piggybanks').doc(piggybankName).delete(),
             ]);
             push('/dashboard');
