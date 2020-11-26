@@ -9,16 +9,17 @@ const AuthModal = (props) => {
     const onClose = () => router.push('/');
     return (
         <Modal
+            id="auth-modal"
             isOpen={isOpen}
             onClose={onClose}
         >
             <ModalOverlay />
             <ModalContent>
-            <ModalHeader textAlign="center" mb={-3}>Sign in to continue</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                <FirebaseAuth />
-            </ModalBody>
+                <ModalHeader textAlign="center" mb={-3}>Sign in to continue</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                    <FirebaseAuth />
+                </ModalBody>
             </ModalContent>
         </Modal>
     );
