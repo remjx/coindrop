@@ -40,7 +40,6 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                 {
                 sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
                     .map((item, index) => {
-                        console.log('item', item);
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
                     const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId];
                     return (
@@ -73,7 +72,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                 </Flex>
                                 <AccordionIcon />
                             </AccordionButton>
-                            <AccordionPanel pb={4}>
+                            <AccordionPanel pb={4} id={`accordion-panel-${watchedData.paymentMethodId}`}>
                                 <input
                                     ref={register()}
                                     name={`${fieldArrayName}[${index}].id`}
@@ -111,7 +110,12 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "block" : "none"}
                                 >
                                     <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
-                                    <Input name={`${fieldArrayName}[${index}].address`} ref={register()} defaultValue={item.address} />
+                                    <Input
+                                        id={`address-input-${watchedData.paymentMethodId}`}
+                                        name={`${fieldArrayName}[${index}].address`}
+                                        ref={register()}
+                                        defaultValue={item.address}
+                                    />
                                     <Box>
                                         <Checkbox
                                             name={`${fieldArrayName}[${index}].isPreferred`}

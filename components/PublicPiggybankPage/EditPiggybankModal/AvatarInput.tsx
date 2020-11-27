@@ -100,7 +100,7 @@ const AvatarInput: FunctionComponent = () => {
             {
               currentAvatarStorageId
               ? <Avatar />
-              : <NextImage width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
+              : <NextImage id="avatar-img" width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
           <Center>
