@@ -3,10 +3,10 @@ describe('Landing page', () => {
     cy.logout();
   });
 
-  const testID = "jwYLtI";
-  const testCoindropName = `test-coindrop-tid-${testID}`;
+  const testID_jwylti = "jwylti";
+  const testCoindropName_jwylti = `test-coindrop-tid-${testID_jwylti}`;
   it('Displays auth modal when user clicks Log In button', () => {
-    cy.callFirestore("delete", `piggybanks/${testCoindropName}`);
+    cy.callFirestore("delete", `piggybanks/${testCoindropName_jwylti}`);
     cy.visit('/');
     cy.get('#log-in-button').click();
     cy.url().should('eq', `${Cypress.config().baseUrl}/auth`);
@@ -18,14 +18,17 @@ describe('Landing page', () => {
     .contains("Sign in with Facebook");
   });
 
-  it(`Creates Coindrop if Create button is pressed and user logs in (Test ID: ${testID})`, () => {
+  const testID_lr9rzm = "lr9rzm";
+  const testCoindropName_lr9rzm = `test-coindrop-tid-${testID_lr9rzm}`;
+  it(`Creates Coindrop if Create button is pressed and user logs in (Test ID: ${testID_lr9rzm})`, () => {
+    cy.callFirestore("delete", `piggybanks/${testCoindropName_lr9rzm}`);
     cy.visit('/');
     cy.get("#create-coindrop-input")
-      .type(testCoindropName);
+      .type(testCoindropName_lr9rzm);
     cy.get("#create-coindrop-form").submit();
     cy.login();
     cy.url().should('eq', `${Cypress.config().baseUrl}/dashboard`);
-    cy.contains(testCoindropName);
+    cy.contains(testCoindropName_lr9rzm);
   });
 });
 

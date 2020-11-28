@@ -24,9 +24,10 @@ describe('App', () => {
     const testID_qee1vc = "qee1vc";
     const testCoindropName_qee1vc = `test-coindrop-tid-${testID_qee1vc}`;
     const paymentMethodValue = 'cashApp';
+    const paymentMethodDisplayName = "CashApp";
     const name = 'Test Name';
     const address = 'Test Address';
-    it.only('Happy path Coindrop initialization', () => {
+    it('Happy path Coindrop initialization', () => {
         cy.callFirestore("delete", `piggybanks/${testCoindropName_qee1vc}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName_qee1vc}`, { owner_uid: Cypress.env("TEST_UID") });
         cy.visit(`/${testCoindropName_qee1vc}`);
@@ -54,7 +55,7 @@ describe('App', () => {
         // Result
         cy.get(`#payment-method-button-${paymentMethodValue}`)
             .click();
-        cy.contains(`${name}'s CashApp address`);
+        cy.contains(`${name}'s ${paymentMethodDisplayName} address`);
         cy.contains(address);
         cy.get('canvas#payment-method-qr-code');
     });

@@ -1,6 +1,10 @@
 {
   "name": "with-firebase-authentication",
   "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "node ./src/embed-button/generate.js && next build",
@@ -44,7 +48,6 @@
     "uuid": "^8.3.0",
     "yup": "^0.29.3"
   },
-  "license": "GPL-3.0-only",
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
