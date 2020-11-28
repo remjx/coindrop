@@ -7,7 +7,8 @@
     "start": "next start",
     "lint": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
-    "test": "jest --watch",
+    "test:local": "jest --watch",
+    "test": "jest",
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
