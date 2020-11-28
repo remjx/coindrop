@@ -115,6 +115,7 @@ const index = () => {
                 <Flex align="center">
                     <NextLink href="/auth">
                         <Button
+                            id="log-in-button"
                             mr={2}
                             isDisabled={router.pathname === '/auth'}
                         >

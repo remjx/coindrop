@@ -133,7 +133,7 @@ const EditPiggybankModal = (props) => {
             <ModalContent>
                 <ModalHeader>Configure</ModalHeader>
                 <ModalCloseButton />
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form id="configure-coindrop-form" onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
                         <AvatarInput />
                         <FormControl isRequired>
