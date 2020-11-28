@@ -1,10 +1,7 @@
 {
-  "name": "with-firebase-authentication",
+  "name": "coindrop.to",
   "version": "1.0.0",
   "license": "GPL-3.0-only",
-  "engines": {
-    "node": "12.x"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "node ./src/embed-button/generate.js && next build",
