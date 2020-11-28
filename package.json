@@ -12,10 +12,11 @@
     "lint": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
     "tsc": "./node_modules/.bin/tsc",
-    "test": "jest --watch",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:gentestid": "node cypress/generate-test-id.js",
+    "test:local": "jest --watch",
+    "test": "jest",
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
