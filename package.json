@@ -17,7 +17,8 @@
     "cy:gentestid": "node cypress/generate-test-id.js",
     "test:local": "jest --watch",
     "test": "jest",
-    "cleaninstall": "rm -rf ./node_modules && yarn"
+    "cleaninstall": "rm -rf ./node_modules && yarn",
+    "print:env": "node print-env.js"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.0.0",
