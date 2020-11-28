@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "node ./src/embed-button/generate.js && next build",
     "start": "next start",
-    "start:ci": "echo $SERVICE_ACCOUNT >> ./serviceAccount.json && next start",
+    "start:ci": "next start",
     "lint": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "./node_modules/.bin/eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
     "tsc": "./node_modules/.bin/tsc",

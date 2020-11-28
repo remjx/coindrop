@@ -12,6 +12,7 @@ env:
   SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
   FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
   FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
 on:
   push:
@@ -57,5 +58,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           build: yarn run build
-          start: npx firebase login:ci && yarn start
+          start: yarn start
           wait-on: http://localhost:3000
