@@ -5,11 +5,13 @@
       "jest": true,
     },
     "extends": [
-        "airbnb"
+        "airbnb",
+        "plugin:cypress/recommended"
     ],
     "plugins": [
         "no-only-tests",
-        "react-hooks"
+        "react-hooks",
+        "cypress"
     ],
     "parser": "@typescript-eslint/parser",
     "overrides": [
@@ -33,6 +35,12 @@
                 "plugin:jest/recommended"
             ],
             "plugins": ["jest"]
+        },
+        {
+            "files": ["cypress/support/commands.js", "cypress/plugins/index.js"],
+            "rules": {
+                "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+            }
         }
     ],
     "rules": {
@@ -100,8 +108,7 @@
                 "**/*.test.js",
                 "**/*.spec.js",
                 "**/*.test.jsx",
-                "**/*.spec.jsx",
-                "./client/setupTests.js"
+                "**/*.spec.jsx"
             ]}
         ],
         "import/no-unresolved": "error",

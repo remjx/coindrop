@@ -1,7 +1,23 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
+
+env:
+  NEXT_PUBLIC_FIREBASE_DATABASE_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_DATABASE_URL }}
+  NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY }}
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_URL }}
+  NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_NAME: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_NAME }}
+  CYPRESS_TEST_UID: ${{ secrets.CYPRESS_TEST_UID }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_DATABASE_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_DATABASE_URL }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_URL }}
+  CYPRESS_NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_NAME: ${{ secrets.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_NAME }}
+  SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+  FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+  FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
 on:
   push:
@@ -38,3 +54,14 @@ jobs:
     - run: yarn install
     - run: yarn run lint
     - run: yarn run test
+  cypress-run:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          build: yarn run build
+          start: yarn start
+          wait-on: http://localhost:3000

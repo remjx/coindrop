@@ -95,12 +95,12 @@ const AvatarInput: FunctionComponent = () => {
     return (
       <>
         <FormLabel htmlFor="avatar-input">Image</FormLabel>
-        <Stack>
+        <Stack id="avatar-input-container">
           <Box mx="auto">
             {
               currentAvatarStorageId
               ? <Avatar />
-              : <NextImage width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
+              : <NextImage id="avatar-img" width={250} height={250} src="/avatar-placeholder.png" alt="avatar placeholder" />
             }
           </Box>
           <Center>

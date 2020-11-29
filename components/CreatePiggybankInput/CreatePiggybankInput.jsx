@@ -24,8 +24,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
-    async function handleCreateUrl(event) {
-        event.preventDefault();
+    async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
@@ -36,8 +35,13 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
             router.push('/auth');
         }
     }
+    function onSubmit(event) {
+        event.preventDefault();
+        handleCreateUrl();
+    }
+    const inputName = "create-coindrop-input";
     return (
-        <form>
+        <form id="create-coindrop-form" onSubmit={onSubmit}>
             <Flex
                 align="center"
                 justify="center"
@@ -49,6 +53,8 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
                             coindrop.to/
                         </InputLeftAddon>
                         <Input
+                            name={inputName}
+                            id={inputName}
                             maxLength="32"
                             roundedLeft="0"
                             placeholder="my-custom-url"
@@ -69,7 +75,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
                         isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
                         isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
                         loadingText="Creating"
-                        onClick={handleCreateUrl}
+                        onClick={onSubmit}
                         type="submit"
                     >
                         Create

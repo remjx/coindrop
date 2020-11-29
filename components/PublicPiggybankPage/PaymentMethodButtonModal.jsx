@@ -58,6 +58,7 @@ const PaymentMethodButtonModal = (props) => {
                 <Text mb={2} textAlign="center">or scan QR Code:</Text>
                 <Flex justify="center">
                     <QRCode
+                        id="payment-method-qr-code"
                         value={paymentMethodValue}
                         size={225}
                     />

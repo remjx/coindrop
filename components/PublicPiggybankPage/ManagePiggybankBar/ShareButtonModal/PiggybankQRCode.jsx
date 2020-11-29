@@ -66,7 +66,6 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
                         {publicUrl}
                     </Text>
                     <QRCode
-                        id="qrcode"
                         value={fullPublicUrl}
                         size={225}
                     />
