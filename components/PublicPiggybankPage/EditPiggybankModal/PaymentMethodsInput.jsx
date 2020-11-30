@@ -66,6 +66,8 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                     setIsAddressTouched(true);
                                     if (openAccordionItemIndex !== index && !paymentMethodsDataWatch.find(paymentMethod => paymentMethod.address === "")) {
                                         setOpenAccordionItemIndex(index);
+                                    } else {
+                                        setOpenAccordionItemIndex(undefined);
                                     }
                                 }}
                             >
@@ -108,6 +110,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         ref={register()}
                                         defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
                                         isInvalid={containsInvalidAddress && isAddressTouched}
+                                        onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
                                         {Object.entries(paymentMethodNames)

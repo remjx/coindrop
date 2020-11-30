@@ -58,7 +58,6 @@ const EditPiggybankModal = (props) => {
         setValue,
         watch,
         control,
-        trigger,
         formState: { isDirty },
     } = useForm({
         defaultValues: {
@@ -240,7 +239,6 @@ const EditPiggybankModal = (props) => {
                                 register={register}
                                 remove={remove}
                                 append={append}
-                                trigger={trigger}
                                 fieldArrayName={paymentMethodsFieldArrayName}
                             />
                         </FormControl>
