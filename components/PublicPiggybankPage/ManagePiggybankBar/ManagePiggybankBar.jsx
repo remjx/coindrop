@@ -2,10 +2,10 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { ArrowBackIcon, SettingsIcon } from "@chakra-ui/icons";
-
 import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
+import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalValidationContext';
 
 /* eslint-disable react/jsx-props-no-spreading */
 const LinkButton = ({ href, children, ...rest }) => (
@@ -29,10 +29,12 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
     return (
         <Box>
             {isEditOpen && ( // this conditional is needed to force remount of form so latest values are used
-                <EditPiggybankModal
-                    isOpen={isEditOpen}
-                    onClose={onEditClose}
-                />
+                <AdditionalValidationProvider>
+                    <EditPiggybankModal
+                        isOpen={isEditOpen}
+                        onClose={onEditClose}
+                    />
+                </AdditionalValidationProvider>
             )}
             <Flex
                 justify={["center", null, "space-between"]}

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { NotAllowedIcon, CheckIcon } from "@chakra-ui/icons";
 import { InputGroup, InputLeftAddon, Spinner, Box, Input, InputRightElement } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import useDebounce from '../../../utils/hooks/useDebounce';
+import { AdditionalValidation } from './AdditionalValidationContext';
 
 async function isUrlAvailable(path) {
     try {
@@ -49,6 +50,7 @@ const EditUrlInput = ({ register, value }) => {
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const debouncedValue = useDebounce(value, 1500);
+    const { setIsPiggybankIdAvailable } = useContext(AdditionalValidation);
     useEffect(
         () => {
             if (debouncedValue && debouncedValue !== currentPiggybankId) {
@@ -62,6 +64,13 @@ const EditUrlInput = ({ register, value }) => {
         [debouncedValue],
     );
     const isUrlUnchanged = value === currentPiggybankId;
+    useEffect(() => {
+        if ((isValid && !isValidating) || isUrlUnchanged) {
+            setIsPiggybankIdAvailable(true);
+        } else {
+            setIsPiggybankIdAvailable(false);
+        }
+    }, [isValidating, isValid, isUrlUnchanged]);
     return (
         <InputGroup>
             <InputLeftAddon>

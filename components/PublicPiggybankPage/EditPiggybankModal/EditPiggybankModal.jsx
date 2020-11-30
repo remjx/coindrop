@@ -30,6 +30,7 @@ import { convertPaymentMethodsFieldArrayToDbMap } from './util';
 import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
+import { AdditionalValidation } from './AdditionalValidationContext';
 
 function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     return Object.entries(paymentMethods)
@@ -77,7 +78,9 @@ const EditPiggybankModal = (props) => {
         accentColor: watchedAccentColor,
         piggybankId: watchedPiggybankId,
     } = watch(["accentColor", "piggybankId"]);
+    const isAccentColorDirty = initialAccentColor !== watchedAccentColor;
     const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
+    const { isPiggybankIdAvailable } = useContext(AdditionalValidation);
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
@@ -261,13 +264,17 @@ const EditPiggybankModal = (props) => {
                                 mx={1}
                                 type="submit"
                                 isLoading={isSubmitting}
-                                loadingText="Submitting"
+                                loadingText="Saving"
                                 isDisabled={
-                                    !isDirty
-                                    && initialAccentColor === watchedAccentColor // controlled accentColor field is not showing up in formState.dirtyFields
+                                    (
+                                        !isDirty
+                                        && !isAccentColorDirty // controlled accentColor field is not showing up in formState.dirtyFields
+                                    )
+                                    || !isPiggybankIdAvailable
+                                    || !initialPiggybankId
                                 }
                             >
-                                Submit
+                                Save
                             </Button>
                         </Flex>
                     </Flex>
