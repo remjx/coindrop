@@ -80,7 +80,7 @@ const EditPiggybankModal = (props) => {
     } = watch(["accentColor", "piggybankId"]);
     const isAccentColorDirty = initialAccentColor !== watchedAccentColor;
     const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
-    const { isPiggybankIdAvailable } = useContext(AdditionalValidation);
+    const { isPiggybankIdAvailable, setIsAddressTouched } = useContext(AdditionalValidation);
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
@@ -272,6 +272,7 @@ const EditPiggybankModal = (props) => {
                                     || !isPiggybankIdAvailable
                                     || !initialPiggybankId
                                 }
+                                onClick={() => setIsAddressTouched(true)}
                             >
                                 Save
                             </Button>

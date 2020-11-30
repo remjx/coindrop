@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
+import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -39,8 +40,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         }
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
-    const [isAddressTouched, setIsAddressTouched] = useState(false);
-    console.log('isAddressTouched', isAddressTouched);
+    const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
     return (
         <>
         {fields.length < 1
