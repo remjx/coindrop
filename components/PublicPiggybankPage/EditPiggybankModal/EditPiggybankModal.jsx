@@ -26,7 +26,7 @@ import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../the
 import PaymentMethodsInput from './PaymentMethodsInput';
 import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
 import EditUrlInput from './EditUrlInput';
-import { convertPaymentMethodsFieldArrayToDbMap } from './util';
+import { convertPaymentMethodsFieldArrayToDbMap, sortByIsPreferredThenAlphabetical } from './util';
 import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
@@ -58,6 +58,7 @@ const EditPiggybankModal = (props) => {
         setValue,
         watch,
         control,
+        trigger,
         formState: { isDirty },
     } = useForm({
         defaultValues: {
@@ -66,7 +67,7 @@ const EditPiggybankModal = (props) => {
             website: piggybankDbData.website ?? '',
             name: piggybankDbData.name ?? '',
             verb: piggybankDbData.verb ?? 'pay',
-            paymentMethods: initialPaymentMethodsDataFieldArray,
+            paymentMethods: sortByIsPreferredThenAlphabetical(initialPaymentMethodsDataFieldArray),
         },
     });
     const paymentMethodsFieldArrayName = "paymentMethods";
@@ -239,6 +240,7 @@ const EditPiggybankModal = (props) => {
                                 register={register}
                                 remove={remove}
                                 append={append}
+                                trigger={trigger}
                                 fieldArrayName={paymentMethodsFieldArrayName}
                             />
                         </FormControl>
