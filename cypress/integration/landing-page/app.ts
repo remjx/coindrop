@@ -7,6 +7,10 @@ describe('App', () => {
     const testID_dbk8fi = "dbk8fi";
     const testCoindropName_dbk8fi = `test-coindrop-tid-${testID_dbk8fi}`;
     it('Allows creation of new Coindrop', () => {
+        cy.intercept({
+            method: 'POST',
+            url: '/api/createPiggybank',
+        }).as('createPiggybank');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
         cy.get('#create-new-coindrop-button')
@@ -15,6 +19,7 @@ describe('App', () => {
             .type(testCoindropName_dbk8fi);
         cy.get('#create-coindrop-form')
             .submit();
+        cy.wait('@createPiggybank');
         cy.get('#user-owned-coindrops')
             .contains(`coindrop.to/${testCoindropName_dbk8fi}`);
         cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
@@ -42,8 +47,6 @@ describe('App', () => {
         cy.get('input#input-name')
             .type(name);
         cy.get('button#add-payment-method-button')
-            .click();
-        cy.get('#accordion-button-accordion-item-default-blank')
             .click();
         cy.get(`#accordion-panel-accordion-item-default-blank`)
             .find('select')

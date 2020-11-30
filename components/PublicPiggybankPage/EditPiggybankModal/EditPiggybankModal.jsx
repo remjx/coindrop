@@ -26,7 +26,7 @@ import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../the
 import PaymentMethodsInput from './PaymentMethodsInput';
 import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
 import EditUrlInput from './EditUrlInput';
-import { convertPaymentMethodsFieldArrayToDbMap } from './util';
+import { convertPaymentMethodsFieldArrayToDbMap, sortByIsPreferredThenAlphabetical } from './util';
 import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
@@ -66,7 +66,7 @@ const EditPiggybankModal = (props) => {
             website: piggybankDbData.website ?? '',
             name: piggybankDbData.name ?? '',
             verb: piggybankDbData.verb ?? 'pay',
-            paymentMethods: initialPaymentMethodsDataFieldArray,
+            paymentMethods: sortByIsPreferredThenAlphabetical(initialPaymentMethodsDataFieldArray),
         },
     });
     const paymentMethodsFieldArrayName = "paymentMethods";
@@ -80,7 +80,7 @@ const EditPiggybankModal = (props) => {
     } = watch(["accentColor", "piggybankId"]);
     const isAccentColorDirty = initialAccentColor !== watchedAccentColor;
     const isUrlUnchanged = initialPiggybankId === watchedPiggybankId;
-    const { isPiggybankIdAvailable } = useContext(AdditionalValidation);
+    const { isPiggybankIdAvailable, setIsAddressTouched } = useContext(AdditionalValidation);
     const onSubmit = async (formData) => {
         try {
             setIsSubmitting(true);
@@ -227,7 +227,6 @@ const EditPiggybankModal = (props) => {
                         </FormControl>
                         <FormControl
                             mt={formControlTopMargin}
-                            isRequired
                         >
                             <FormLabel
                                 htmlFor="input-paymentmethods"
@@ -273,6 +272,7 @@ const EditPiggybankModal = (props) => {
                                     || !isPiggybankIdAvailable
                                     || !initialPiggybankId
                                 }
+                                onClick={() => setIsAddressTouched(true)}
                             >
                                 Save
                             </Button>

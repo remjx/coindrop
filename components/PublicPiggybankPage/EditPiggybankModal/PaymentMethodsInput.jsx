@@ -1,3 +1,4 @@
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
@@ -9,6 +10,7 @@ import {
     Box,
     Button,
     Flex,
+    FormControl,
     FormLabel,
     Input,
     Checkbox,
@@ -18,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useWatch } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
-import { sortByIsPreferredThenAlphabetical } from './util';
+import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -28,6 +30,17 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         control,
         name: fieldArrayName,
     });
+    const [openAccordionItemIndex, setOpenAccordionItemIndex] = useState(-1);
+    useEffect(() => {
+        if (
+            paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.paymentMethodId === "default-blank"
+            || paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.address === ""
+        ) {
+            setOpenAccordionItemIndex(paymentMethodsDataWatch.length - 1);
+        }
+    }, [paymentMethodsDataWatch]);
+    const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
+    const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
     return (
         <>
         {fields.length < 1
@@ -36,9 +49,10 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
             <Accordion
                 allowToggle
                 defaultIndex={-1}
+                index={openAccordionItemIndex}
             >
                 {
-                sortByIsPreferredThenAlphabetical(fields) // TODO: re-enable this sort
+                fields
                     .map((item, index) => {
                     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
                     const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId];
@@ -47,7 +61,16 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                             key={item.id}
                             id={`accordion-item-${watchedData.paymentMethodId}`}
                         >
-                            <AccordionButton>
+                            <AccordionButton
+                                onClick={() => {
+                                    setIsAddressTouched(true);
+                                    if (openAccordionItemIndex !== index && !paymentMethodsDataWatch.find(paymentMethod => paymentMethod.address === "")) {
+                                        setOpenAccordionItemIndex(index);
+                                    } else {
+                                        setOpenAccordionItemIndex(undefined);
+                                    }
+                                }}
+                            >
                                 <Flex flex="1" textAlign="left" align="center">
                                     <Flex mr={1} align="center">
                                         {PaymentMethodIcon ? <PaymentMethodIcon mr={2} /> : <QuestionOutlineIcon mr={2} />}
@@ -86,8 +109,10 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                         name={`${fieldArrayName}[${index}].paymentMethodId`}
                                         ref={register()}
                                         defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
+                                        isInvalid={containsInvalidAddress && isAddressTouched}
+                                        onChange={() => setIsAddressTouched(false)}
                                     >
-                                        <option hidden disabled value="default-blank">Select a payment method...</option>
+                                        <option hidden disabled value="default-blank">Select...</option>
                                         {Object.entries(paymentMethodNames)
                                             .sort((a, b) => {
                                                 const [aId] = a;
@@ -109,25 +134,28 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                     mx={3}
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "block" : "none"}
                                 >
-                                    <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
-                                    <Input
-                                        id={`address-input-${watchedData.paymentMethodId}`}
-                                        name={`${fieldArrayName}[${index}].address`}
-                                        ref={register()}
-                                        defaultValue={item.address}
-                                    />
-                                    <Box>
-                                        <Checkbox
-                                            name={`${fieldArrayName}[${index}].isPreferred`}
+                                    <FormControl isRequired>
+                                        <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
+                                        <Input
+                                            id={`address-input-${watchedData.paymentMethodId}`}
+                                            name={`${fieldArrayName}[${index}].address`}
                                             ref={register()}
-                                            defaultValue={item?.isPreferred}
-                                            defaultIsChecked={item?.isPreferred}
-                                            mt={1}
-                                            colorScheme="yellow"
-                                        >
-                                            Preferred
-                                        </Checkbox>
-                                    </Box>
+                                            defaultValue={item.address}
+                                            isInvalid={containsInvalidAddress && isAddressTouched}
+                                        />
+                                        <Box>
+                                            <Checkbox
+                                                name={`${fieldArrayName}[${index}].isPreferred`}
+                                                ref={register()}
+                                                defaultValue={item?.isPreferred}
+                                                defaultIsChecked={item?.isPreferred}
+                                                mt={1}
+                                                colorScheme="yellow"
+                                            >
+                                                Preferred
+                                            </Checkbox>
+                                        </Box>
+                                    </FormControl>
                                 </Box>
                                 <Flex
                                     justify="flex-end"
@@ -136,6 +164,7 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
                                     <Button
                                         onClick={() => {
                                             remove(index);
+                                            setIsAddressTouched(false);
                                         }}
                                         leftIcon={<MinusIcon />}
                                         size="sm"
@@ -157,11 +186,20 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         >
             <Button
                 id="add-payment-method-button"
-                onClick={() => append({})}
+                onClick={() => {
+                    append({});
+                    setIsAddressTouched(false);
+                }}
                 leftIcon={<AddIcon />}
                 variant="ghost"
                 size="sm"
-                isDisabled={fields.length > 0 && !paymentMethodNames[paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.paymentMethodId]}
+                isDisabled={
+                    (
+                        fields.length > 0
+                        && !paymentMethodNames[paymentMethodsDataWatch[paymentMethodsDataWatch.length - 1]?.paymentMethodId]
+                    )
+                    || containsInvalidAddress
+                }
             >
                 Add payment method
             </Button>
