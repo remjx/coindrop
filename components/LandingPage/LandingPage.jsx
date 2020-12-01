@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, useColorMode } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -46,6 +46,7 @@ const index = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
+    const { colorMode, toggleColorMode } = useColorMode();
     useEffect(() => {
         if (router.pathname === '/auth') {
             onAuthOpen();
@@ -122,6 +123,9 @@ const index = () => {
                             Log in
                         </Button>
                     </NextLink>
+                    <Button onClick={toggleColorMode}>
+                        Color Mode
+                    </Button>
                 </Flex>
             </Flex>
             <Box
