@@ -23,7 +23,7 @@ type Props = {
     onAuthOpen: () => void | null
 }
 
-export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, createButtonColorScheme }) => {
+export const CreatePiggybankInput: FunctionComponent<Props> = ({ isAuthOpen, onAuthOpen, onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');

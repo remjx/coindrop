@@ -10,7 +10,7 @@ const TypewriterEffect = dynamic(
 );
 
 const Typewriter = () => {
-    const [didMount, setDidMount] = useState();
+    const [didMount, setDidMount] = useState(false);
     useEffect(() => {
         setDidMount(true);
     }, []);

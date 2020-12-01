@@ -9,14 +9,13 @@ import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { twitterUrl } from '../../src/settings';
-import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
-import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
 import Footer from './Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
+import { PaymentMethodTags } from './PaymentMethodTags';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -28,14 +27,6 @@ const ContentContainer = ({ children }) => (
 ContentContainer.propTypes = {
     children: PropTypes.any.isRequired,
 };
-
-const PaymentMethodTagAndManyMore = () => (
-    <PaymentMethodTag
-        label="... and many more"
-        color="gray"
-        tagColorScheme="gray"
-    />
-);
 
 const LandingPage: FunctionComponent = () => {
     const {
@@ -57,30 +48,6 @@ const LandingPage: FunctionComponent = () => {
             router.push('/dashboard');
         }
     }, [user, router.pathname]);
-    const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
-    const PaymentMethodTags = ({ category }) => paymentMethodCategoriesArr
-        .filter(([, paymentMethodCategory]) => paymentMethodCategory === category)
-        .map(([paymentMethodId]) => {
-            let iconSize;
-            switch (paymentMethodId) {
-                case 'venmo':
-                    iconSize = '32px';
-                    break;
-                case 'bitcoinBCH':
-                    iconSize = '22px';
-                    break;
-                default:
-                    iconSize = undefined;
-            }
-            return (
-                <PaymentMethodTag
-                    key={paymentMethodId}
-                    label={paymentMethodNames[paymentMethodId]}
-                    iconName={paymentMethodId}
-                    iconSize={iconSize}
-                />
-            );
-        });
     return (
         <>
         <NextSeo
@@ -199,7 +166,6 @@ const LandingPage: FunctionComponent = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                     <Box
@@ -210,7 +176,6 @@ const LandingPage: FunctionComponent = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                 </Flex>

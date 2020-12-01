@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "cypress/integration/landing-page/test-firestore.ts"
+    "cypress/integration/landing-page/test-firestore.ts", "components/LandingPage/Typewriter.jsx"
   ],
   "exclude": [
     "node_modules"
