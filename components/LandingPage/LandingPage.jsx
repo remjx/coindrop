@@ -6,7 +6,7 @@ import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from 
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
-import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { twitterUrl } from '../../src/settings';
 import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
@@ -145,7 +145,9 @@ const index = () => {
                 <Box
                     mt={2}
                 >
-                    <CreatePiggybankInput />
+                    <CreatePiggybankInput
+
+                    />
                 </Box>
                 <Text
                     fontSize="sm"

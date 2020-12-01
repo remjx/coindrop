@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FunctionComponent, useState } from 'react';
 import { Flex, Button } from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 import { maxPiggybanksPerUser } from '../../../../src/settings';
-import CreatePiggybankInput from '../../../CreatePiggybankInput/CreatePiggybankInput';
+import { CreatePiggybankInput } from '../../../CreatePiggybankInput/CreatePiggybankInput';
 
-const AddPiggybankListItem = (props) => {
-    const { numActivePiggybanks } = props;
-    const [showInput, setShowInput] = useState();
+type Props = {
+    numActivePiggybanks: number
+}
+
+const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks }) => {
+    const [showInput, setShowInput] = useState(false);
     if (numActivePiggybanks < maxPiggybanksPerUser) {
         if (!showInput) {
             return (
@@ -37,19 +39,13 @@ const AddPiggybankListItem = (props) => {
                 <CreatePiggybankInput
                     onCancel={() => setShowInput(false)}
                     createButtonColorScheme="green"
+                    isAuthOpen={null}
+                    onAuthOpen={null}
                 />
             </Flex>
         );
     }
     return null;
-};
-
-AddPiggybankListItem.propTypes = {
-    numActivePiggybanks: PropTypes.number.isRequired,
-};
-
-AddPiggybankListItem.defaultProps = {
-
 };
 
 export default AddPiggybankListItem;
