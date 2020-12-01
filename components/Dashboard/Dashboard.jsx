@@ -3,8 +3,8 @@ import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import { QuestionIcon } from "@chakra-ui/icons";
+import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { SunIcon, MoonIcon, QuestionIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
 import { LogoutIcon, HamburgerMenuIcon, GithubIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
@@ -18,6 +18,7 @@ import { githubReadmeHelpUrl } from '../../src/settings';
 const Dashboard = () => {
     const router = useRouter();
     const { user, logout } = useUser();
+    const { colorMode, toggleColorMode } = useColorMode();
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState();
     const { pendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
@@ -103,6 +104,16 @@ const Dashboard = () => {
                                 >
                                     <LogoutIcon mr={2} />
                                     Log out
+                                </Flex>
+                            </MenuItem>
+                            <MenuItem
+                                onClick={toggleColorMode}
+                            >
+                                <Flex
+                                    align="center"
+                                >
+                                    {colorMode === 'dark' ? <SunIcon mr={2} /> : <MoonIcon mr={2} />}
+                                    {colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
                                 </Flex>
                             </MenuItem>
                         </MenuList>

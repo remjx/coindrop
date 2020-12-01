@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link, useColorMode } from '@chakra-ui/react';
+import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
@@ -17,6 +16,7 @@ import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
 import Footer from './Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
+import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -46,14 +46,6 @@ const index = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
-    const { colorMode, toggleColorMode } = useColorMode();
-    useEffect(() => {
-        if (router.pathname === '/auth') {
-            onAuthOpen();
-        } else {
-            onAuthClose();
-        }
-    }, [router.pathname]);
     useEffect(() => {
         router.prefetch('/dashboard');
     }, []);
@@ -114,18 +106,15 @@ const index = () => {
             >
                 <Logo mr={2} />
                 <Flex align="center">
-                    <NextLink href="/auth">
-                        <Button
-                            id="log-in-button"
-                            mr={2}
-                            isDisabled={router.pathname === '/auth'}
-                        >
-                            Log in
-                        </Button>
-                    </NextLink>
-                    <Button onClick={toggleColorMode}>
-                        Color Mode
+                    <Button
+                        id="log-in-button"
+                        mr={2}
+                        isDisabled={isAuthOpen}
+                        onClick={onAuthOpen}
+                    >
+                        Log in
                     </Button>
+                    <ToggleColorModeButton />
                 </Flex>
             </Flex>
             <Box
@@ -137,7 +126,6 @@ const index = () => {
             >
                 <Heading
                     textAlign="center"
-                    color={theme.colors.gray['700']}
                     as="h1"
                 >
                     {'Your '}
