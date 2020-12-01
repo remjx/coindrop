@@ -79,8 +79,8 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ isAuthOpen, onA
                     <Button
                         ml={1}
                         colorScheme={createButtonColorScheme}
-                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
-                        isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
+                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
+                        isLoading={submitStatus === 'submitting'}
                         loadingText="Creating"
                         onClick={onSubmit}
                         type="submit"

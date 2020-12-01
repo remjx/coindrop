@@ -9,7 +9,6 @@ describe('Landing page', () => {
     cy.callFirestore("delete", `piggybanks/${testCoindropName_jwylti}`);
     cy.visit('/');
     cy.get('#log-in-button').click();
-    cy.url().should('eq', `${Cypress.config().baseUrl}/auth`);
     cy.get("#chakra-modal-auth-modal")
       .contains("Sign in to continue");
     cy.get("#firebaseui_container")
