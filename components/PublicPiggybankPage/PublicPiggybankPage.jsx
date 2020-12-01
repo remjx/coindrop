@@ -168,7 +168,7 @@ const PublicPiggybankPage = (props) => {
                     </Box>
                 ) : (
                     <Heading mt={4} textAlign="center">
-                        {piggybankExists ? 'This piggybank has not been set up yet.' : 'This piggybank does not exist'}
+                        {piggybankExists ? 'This Coindrop has not been set up yet.' : 'This Coindrop does not exist'}
                         {/* TODO: Include action buttons to log in or landing page */}
                     </Heading>
                 )}

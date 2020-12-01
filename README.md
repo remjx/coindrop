@@ -14,7 +14,7 @@ Often, receivers will request a specific form of payment, but the potential send
 
 ## Solution ✔️
 
-Receivers create a Coindrop address e.g. [coindrop\.to/satoshi-nakamoto](https://coindrop.to/satoshi-nakamoto) and list all their accepted forms of payment. They publish/send the link as a substitute any time they would normally publish/send payment address(es) individually. The sender then chooses which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
+Receivers create a Coindrop page e.g. [coindrop\.to/satoshi-nakamoto](https://coindrop.to/satoshi-nakamoto) and list all their accepted forms of payment. They publish/send the link as a substitute any time they would normally publish/send payment address(es) individually. The sender then chooses which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
 
 ### When/where to use it? 🕒
 
@@ -28,7 +28,7 @@ This software is licensed under the [GNU General Public License v3.0](LICENSE).
 
 ## Support for all payment methods 🌎
 
-Virtually any payment method with an address can be listed on your piggybank page. Coindrop will never delist a payment method unless it is:
+Virtually any payment method with an address can be listed on your Coindrop page. Coindrop will never delist a payment method unless it is:
 * Against the law
 * Unsafe or insecure
 
