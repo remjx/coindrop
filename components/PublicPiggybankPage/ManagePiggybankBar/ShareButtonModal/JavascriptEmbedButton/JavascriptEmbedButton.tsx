@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { ViewOffIcon, ViewIcon, CheckIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Text, Image, useClipboard } from '@chakra-ui/react';
-import { SourceCodeIcon } from "../../../Icons/CustomIcons";
-import styles from '../../../../src/embed-button/embed-button.module.css';
+import { useState, useEffect, FunctionComponent } from 'react';
+import { CheckIcon, RepeatIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Text, Input, useClipboard } from '@chakra-ui/react';
+import { SourceCodeIcon } from "../../../../Icons/CustomIcons";
+import styles from '../../../../../src/embed-button/embed-button.module.css';
 
 const fullBaseUrl = 'https://coindrop.to/';
 function shuffle(array) {
@@ -42,21 +41,27 @@ const svg = (
     </svg>
 );
 
-const ShareEmbedButton = (props) => {
-    const { fullPublicUrl, publicUrl, piggybankName } = props;
+type Props = {
+    publicUrl: string
+    piggybankName: string
+}
+
+type ButtonPreviewProps = {
+    text?: string
+    isHtmlOnly?: boolean
+}
+
+const JavascriptEmbedButton: FunctionComponent<Props> = ({ publicUrl, piggybankName }) => {
     const [customText, setCustomText] = useState(publicUrl);
     const scriptButtonHtml = `<script type="text/javascript" src="${fullBaseUrl}embed-button.js" data-id="coindrop-button" data-slug="${piggybankName}" data-customText="${customText}" ></script>`;
-    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" alt="Coindrop.to me" style="height: 57px !important;width: 229px !important;" ></a>`;
     const { onCopy: onCopyScript, hasCopied: hasCopiedScript } = useClipboard(scriptButtonHtml);
-    const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
     const initialShuffleTextArray = [publicUrl, ...shuffleCustomTextOptions];
     const [shuffleTextArray] = useState(initialShuffleTextArray);
     const [shuffleCustomTextIndex, setShuffleCustomTextIndex] = useState(0);
-    const [isDisplayed, setIsDisplayed] = useState(false);
     useEffect(() => {
         setCustomText(shuffleTextArray[shuffleCustomTextIndex]);
     }, [shuffleCustomTextIndex]);
-    const ButtonPreview = ({ text, isHtmlOnly }) => (
+    const ButtonPreview: FunctionComponent<ButtonPreviewProps> = ({ text = "coindrop.to me", isHtmlOnly = false }) => (
         <a href={`${fullBaseUrl}${piggybankName}`} target="_blank" rel="noreferrer">
             <button type="button" className={isHtmlOnly ? `${styles["coindrop-button"]} ${styles["coindrop-html-button"]}` : styles["coindrop-button"]}>
                 <div className={styles["coindrop-button-content"]}>
@@ -66,123 +71,48 @@ const ShareEmbedButton = (props) => {
             </button>
         </a>
     );
-    ButtonPreview.propTypes = {
-        text: PropTypes.string,
-        isHtmlOnly: PropTypes.bool,
-    };
-    ButtonPreview.defaultProps = {
-        text: 'coindrop.to me',
-        isHtmlOnly: false,
-    };
     return (
         <Box>
-            <Flex>
-                <Box>
-                    <Heading
-                        as="h2"
-                        size="lg"
-                    >
-                        Button
-                    </Heading>
-                    <Text>Embed on a website</Text>
-                </Box>
-                <Flex align="center" flexGrow={1} justify="center" mt={2} wrap="wrap">
-                    {isDisplayed ? (
-                        <Button
-                            leftIcon={<ViewOffIcon />}
-                            onClick={() => setIsDisplayed(false)}
-                            variant="outline"
-                            colorScheme="green"
-                        >
-                            Hide
-                        </Button>
-                    ) : (
-                        <Button
-                            leftIcon={<ViewIcon />}
-                            onClick={() => setIsDisplayed(true)}
-                            colorScheme="green"
-                        >
-                            View
-                        </Button>
-                    )}
-                </Flex>
+            <Box textAlign="center" mt={3}>
+                <ButtonPreview text={customText} />
+            </Box>
+            <Flex justify="center" align="center" textAlign="center" mb={3}>
+                <Input
+                    variant="flushed"
+                    width="350px"
+                    value={customText}
+                    textAlign="center"
+                    onChange={(e) => setCustomText(e.target.value)}
+                />
             </Flex>
-            {isDisplayed && (
-                <>
-                {/* Needs more testing */}
-                    {/* <Heading as="h3" size="md" ml={4} mt={2}>With custom text</Heading>
-                    <Box textAlign="center" mt={3}>
-                        <ButtonPreview text={customText} />
-                    </Box>
-                    <Flex justify="center" align="center" textAlign="center" mb={3}>
-                        <Input
-                            variant="flushed"
-                            width="350px"
-                            value={customText}
-                            textAlign="center"
-                            onChange={(e) => setCustomText(e.target.value)}
-                        />
-                    </Flex>
-                    <Box textAlign="center">
-                        <Flex justify="center" wrap="wrap">
-                            <Button
-                                leftIcon={<RepeatIcon />}
-                                variant="outline"
-                                colorScheme="green"
-                                onClick={() => {
-                                    setShuffleCustomTextIndex(shuffleCustomTextIndex === shuffleCustomTextOptions.length - 1 ? 0 : shuffleCustomTextIndex + 1);
-                                }}
-                                mx={1}
-                                mb={1}
-                            >
-                                Shake It Up
-                            </Button>
-                            <Button
-                                leftIcon={hasCopiedScript ? <CheckIcon /> : <SourceCodeIcon />}
-                                colorScheme="green"
-                                mx={1}
-                                mb={1}
-                                onClick={onCopyScript}
-                            >
-                                {hasCopiedScript ? 'Copied' : 'Copy Code'}
-                            </Button>
-                        </Flex>
-                        <Text fontSize="sm">For websites that support JavaScript embed</Text>
-                    </Box> */}
-                {/* <Heading as="h3" size="md" ml={4} mt={2}>With default text</Heading> */}
-                <Box textAlign="center" my={3}>
-                    {/* <ButtonPreview
-                        text="coindrop.to me"
-                        isHtmlOnly
-                    /> */}
-                    <Image display="block" mx="auto" src="/embed-button.png" />
-                </Box>
-                <Box textAlign="center">
+            <Box textAlign="center">
+                <Flex justify="center" wrap="wrap">
                     <Button
-                        leftIcon={hasCopiedImage ? <CheckIcon /> : <SourceCodeIcon />} // TODO: Fix icon
+                        leftIcon={<RepeatIcon />}
+                        variant="outline"
                         colorScheme="green"
+                        onClick={() => {
+                            setShuffleCustomTextIndex(shuffleCustomTextIndex === shuffleCustomTextOptions.length - 1 ? 0 : shuffleCustomTextIndex + 1);
+                        }}
+                        mx={1}
                         mb={1}
-                        onClick={onCopyImage}
                     >
-                        {hasCopiedImage ? 'Copied' : 'Copy HTML Code'}
+                        Shake It Up
                     </Button>
-                    {/* <Text fontSize="sm">For websites that support HTML embed</Text> */}
-                    {/* <Text fontSize="xs">Note: button hover color does not change with this option</Text> */}
-                </Box>
-                </>
-            )}
+                    <Button
+                        leftIcon={hasCopiedScript ? <CheckIcon /> : <SourceCodeIcon />}
+                        colorScheme="green"
+                        mx={1}
+                        mb={1}
+                        onClick={onCopyScript}
+                    >
+                        {hasCopiedScript ? 'Copied' : 'Copy Code'}
+                    </Button>
+                </Flex>
+                <Text fontSize="sm">For websites that support JavaScript embed</Text>
+            </Box>
         </Box>
     );
 };
 
-ShareEmbedButton.propTypes = {
-    fullPublicUrl: PropTypes.string.isRequired,
-    publicUrl: PropTypes.string.isRequired,
-    piggybankName: PropTypes.string.isRequired,
-};
-
-ShareEmbedButton.defaultProps = {
-
-};
-
-export default ShareEmbedButton;
+export default JavascriptEmbedButton;
