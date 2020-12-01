@@ -17,7 +17,7 @@ BoxMargin.propTypes = {
 };
 
 type Props = {
-    onCancel?: () => void | null
+    onCancel: () => void | null
     createButtonColorScheme: "orange" | "green"
     isAuthOpen: boolean | null
     onAuthOpen: () => void | null

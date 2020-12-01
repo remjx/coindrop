@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
@@ -37,7 +37,7 @@ const PaymentMethodTagAndManyMore = () => (
     />
 );
 
-const index = () => {
+const LandingPage: FunctionComponent = () => {
     const {
         isOpen: isAuthOpen,
         onOpen: onAuthOpen,
@@ -104,7 +104,7 @@ const index = () => {
                 justify="space-between"
                 wrap="wrap"
             >
-                <Logo mr={2} />
+                <Logo />
                 <Flex align="center">
                     <Button
                         id="log-in-button"
@@ -146,7 +146,10 @@ const index = () => {
                     mt={2}
                 >
                     <CreatePiggybankInput
-
+                        isAuthOpen={isAuthOpen}
+                        onAuthOpen={onAuthOpen}
+                        createButtonColorScheme="orange"
+                        onCancel={null}
                     />
                 </Box>
                 <Text
@@ -242,4 +245,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default LandingPage;

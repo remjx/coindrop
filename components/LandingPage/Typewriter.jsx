@@ -30,7 +30,7 @@ const Typewriter = () => {
             />
         );
     }
-    return 'payments';
+    return <span>payments</span>;
 };
 
 export default Typewriter;
