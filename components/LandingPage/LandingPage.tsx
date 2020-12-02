@@ -38,24 +38,18 @@ const LandingPage: FunctionComponent = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
-    useEffect(() => {
-        router.prefetch('/dashboard');
-    }, []);
     useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
-        if (
-            user
-            && router.pathname !== '/dashboard'
-        ) {
+        if (user) {
             router.push('/dashboard');
         }
-    }, [user, router.pathname]);
+    }, [user]);
     useEffect(() => {
-        if (router.pathname === '/auth') {
+        if (router.query.auth) {
             onAuthOpen();
         } else {
             onAuthClose();
         }
-    }, [router.pathname]);
+    }, [router.query]);
     return (
         <>
         <NextSeo
@@ -80,7 +74,7 @@ const LandingPage: FunctionComponent = () => {
             >
                 <Logo />
                 <Flex align="center">
-                    <NextLink href="/auth">
+                    <NextLink href="/?auth=1" shallow>
                         <Button
                             id="log-in-button"
                             mr={2}

@@ -9,7 +9,7 @@ type Props = {
 
 const AuthModal: FunctionComponent<Props> = ({ isOpen }) => {
     const router = useRouter();
-    const onClose = () => router.push('/');
+    const onClose = () => router.push('/', undefined, { shallow: true });
     return (
         <Modal
             id="auth-modal"
