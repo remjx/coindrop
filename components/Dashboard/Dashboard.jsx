@@ -6,13 +6,13 @@ import { NextSeo } from 'next-seo';
 import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { SunIcon, MoonIcon, QuestionIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
+import cookies from 'js-cookie';
 import { LogoutIcon, HamburgerMenuIcon, GithubIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
-import { CreatePiggybankContext } from '../AppContext/AppContext';
 import { githubReadmeHelpUrl } from '../../src/settings';
 
 const Dashboard = () => {
@@ -21,8 +21,8 @@ const Dashboard = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState();
-    const { pendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     const { submitStatus } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
