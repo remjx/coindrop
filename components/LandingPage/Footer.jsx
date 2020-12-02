@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useTheme, Flex, Text, Box, Link } from '@chakra-ui/react';
+import { useColorModeValue, Flex, Text, Box, Link } from '@chakra-ui/react';
 import { LockIcon, InfoIcon } from "@chakra-ui/icons";
 import {
     githubOpenSourceLicenseUrl,
@@ -27,10 +27,10 @@ IconLinkText.propTypes = {
 };
 
 const Footer = () => {
-    const { colors: { gray } } = useTheme();
+    const backgroundColor = useColorModeValue("gray.200", "gray.600");
     return (
         <Box
-            bg={gray['100']}
+            bg={backgroundColor}
             py={1}
         >
             <Flex justify="space-around" wrap="wrap">

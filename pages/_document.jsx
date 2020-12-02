@@ -1,6 +1,7 @@
 // Favicons generated with generated with https://realfavicongenerator.net/
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ColorModeScript } from '@chakra-ui/react';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -23,6 +24,7 @@ class MyDocument extends Document {
             <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
+          <ColorModeScript initialColorMode="light" />
           <Main />
           <NextScript />
         </body>

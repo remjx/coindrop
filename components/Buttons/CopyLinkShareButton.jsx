@@ -12,7 +12,7 @@ const CopyLinkShareButton = (props) => {
             variant={buttonVariant}
             colorScheme={buttonColorScheme}
         >
-            {hasCopied ? "Copied" : "Copy Link"}
+            {hasCopied ? "Copied" : "Copy"}
         </Button>
     );
 };

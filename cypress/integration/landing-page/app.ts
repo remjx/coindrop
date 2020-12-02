@@ -37,7 +37,7 @@ describe('App', () => {
         cy.callFirestore("set", `piggybanks/${testCoindropName_qee1vc}`, { owner_uid: Cypress.env("TEST_UID") });
         cy.visit(`/${testCoindropName_qee1vc}`);
         // Uninitialized Coindrop page
-        cy.contains('This piggybank has not been set up yet.');
+        cy.contains('This Coindrop has not been set up yet.');
         cy.get('#configure-coindrop-button')
             .click();
         // Configure

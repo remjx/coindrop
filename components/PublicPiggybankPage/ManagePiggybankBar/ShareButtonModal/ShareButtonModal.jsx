@@ -46,14 +46,13 @@ const ShareButtonModal = ({ buttonColor }) => {
                         Share
                     </Flex>
                 </Heading>
-                <Text textAlign="center" fontWeight="bold">{publicUrl}</Text>
                 <ModalBody>
                     <Flex mb={4} wrap="wrap">
                         <Box>
                             <Heading as="h2" size="lg">
                                 Link
                             </Heading>
-                            <Text>Share with anyone, anywhere</Text>
+                            <Text>{publicUrl}</Text>
                         </Box>
                         <Flex align="center" flexGrow={1} justify="center" mt={2}>
                             <CopyLinkShareButton textToCopy={publicUrl} buttonColorScheme="green" />

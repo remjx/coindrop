@@ -10,7 +10,7 @@ const TypewriterEffect = dynamic(
 );
 
 const Typewriter = () => {
-    const [didMount, setDidMount] = useState();
+    const [didMount, setDidMount] = useState(false);
     useEffect(() => {
         setDidMount(true);
     }, []);
@@ -30,7 +30,7 @@ const Typewriter = () => {
             />
         );
     }
-    return 'payments';
+    return <span>payments</span>;
 };
 
 export default Typewriter;

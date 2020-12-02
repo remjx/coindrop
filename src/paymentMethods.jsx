@@ -134,7 +134,7 @@ const paymentMethods = [
         category: 'app',
         icon: createIcon({
             displayName: "MetalPayIcon",
-            path: <g fill="#000">
+            path: <g fill="currentColor">
                 <path d="M546.05 537.92h67.34v925.32h-67.34zM808.76 692.15h71.66v604.12h-71.66zM1105.19 852.16h67.8v291.04h-67.8zM1386.5 536.76h67.45v925.32h-67.45z" />
                   </g>,
             viewBox: "0 0 2000 2000",

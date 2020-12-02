@@ -1,22 +1,22 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import NextLink from 'next/link';
 import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
-import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { twitterUrl } from '../../src/settings';
-import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
-import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
 import Footer from './Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
+import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
+import { PaymentMethodTags } from './PaymentMethodTags';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -29,15 +29,7 @@ ContentContainer.propTypes = {
     children: PropTypes.any.isRequired,
 };
 
-const PaymentMethodTagAndManyMore = () => (
-    <PaymentMethodTag
-        label="... and many more"
-        color="gray"
-        tagColorScheme="gray"
-    />
-);
-
-const index = () => {
+const LandingPage: FunctionComponent = () => {
     const {
         isOpen: isAuthOpen,
         onOpen: onAuthOpen,
@@ -46,13 +38,6 @@ const index = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
-    useEffect(() => {
-        if (router.pathname === '/auth') {
-            onAuthOpen();
-        } else {
-            onAuthClose();
-        }
-    }, [router.pathname]);
     useEffect(() => {
         router.prefetch('/dashboard');
     }, []);
@@ -64,30 +49,13 @@ const index = () => {
             router.push('/dashboard');
         }
     }, [user, router.pathname]);
-    const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
-    const PaymentMethodTags = ({ category }) => paymentMethodCategoriesArr
-        .filter(([, paymentMethodCategory]) => paymentMethodCategory === category)
-        .map(([paymentMethodId]) => {
-            let iconSize;
-            switch (paymentMethodId) {
-                case 'venmo':
-                    iconSize = '32px';
-                    break;
-                case 'bitcoinBCH':
-                    iconSize = '22px';
-                    break;
-                default:
-                    iconSize = undefined;
-            }
-            return (
-                <PaymentMethodTag
-                    key={paymentMethodId}
-                    label={paymentMethodNames[paymentMethodId]}
-                    iconName={paymentMethodId}
-                    iconSize={iconSize}
-                />
-            );
-        });
+    useEffect(() => {
+        if (router.pathname === '/auth') {
+            onAuthOpen();
+        } else {
+            onAuthClose();
+        }
+    }, [router.pathname]);
     return (
         <>
         <NextSeo
@@ -96,7 +64,6 @@ const index = () => {
         />
         <AuthModal
             isOpen={isAuthOpen}
-            onClose={onAuthClose}
         />
         <GithubLink />
         <Box
@@ -111,17 +78,18 @@ const index = () => {
                 justify="space-between"
                 wrap="wrap"
             >
-                <Logo mr={2} />
+                <Logo />
                 <Flex align="center">
                     <NextLink href="/auth">
                         <Button
                             id="log-in-button"
                             mr={2}
-                            isDisabled={router.pathname === '/auth'}
+                            isDisabled={isAuthOpen}
                         >
                             Log in
                         </Button>
                     </NextLink>
+                    <ToggleColorModeButton />
                 </Flex>
             </Flex>
             <Box
@@ -133,7 +101,6 @@ const index = () => {
             >
                 <Heading
                     textAlign="center"
-                    color={theme.colors.gray['700']}
                     as="h1"
                 >
                     {'Your '}
@@ -153,7 +120,10 @@ const index = () => {
                 <Box
                     mt={2}
                 >
-                    <CreatePiggybankInput />
+                    <CreatePiggybankInput
+                        createButtonColorScheme="orange"
+                        onCancel={null}
+                    />
                 </Box>
                 <Text
                     fontSize="sm"
@@ -202,7 +172,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                     <Box
@@ -213,7 +182,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                 </Flex>
@@ -248,4 +216,4 @@ const index = () => {
     );
 };
 
-export default index;
+export default LandingPage;
