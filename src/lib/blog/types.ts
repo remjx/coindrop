@@ -1,7 +1,7 @@
 export type PostMetaData = {
     author: string
     datePublished: string
-    dateModified: string
+    dateModified?: string
     title: string
     description: string
     images: string[]
