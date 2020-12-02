@@ -2,10 +2,8 @@ import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import NextLink from 'next/link';
 import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
-import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -15,8 +13,8 @@ import FAQ from './FAQ';
 import GithubLink from './GithubLink';
 import Footer from './Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
-import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import { PaymentMethodTags } from './PaymentMethodTags';
+import { Navbar } from '../Navbar/Navbar';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -66,26 +64,7 @@ const LandingPage: FunctionComponent = () => {
             px={4}
             mb={6}
         >
-            <Flex
-                id="navbar"
-                align="center"
-                justify="space-between"
-                wrap="wrap"
-            >
-                <Logo />
-                <Flex align="center">
-                    <NextLink href="/?auth=1" shallow>
-                        <Button
-                            id="log-in-button"
-                            mr={2}
-                            isDisabled={isAuthOpen}
-                        >
-                            Log in
-                        </Button>
-                    </NextLink>
-                    <ToggleColorModeButton />
-                </Flex>
-            </Flex>
+            <Navbar isAuthOpen={isAuthOpen} />
             <Box
                 border="1px solid"
                 padding="10px"
