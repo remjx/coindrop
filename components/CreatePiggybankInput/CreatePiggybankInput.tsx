@@ -1,5 +1,5 @@
 import { useState, FunctionComponent } from 'react';
-import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/react";
+import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
@@ -28,6 +28,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const errorTextColor = useColorModeValue("red.500", "red.300");
     async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
@@ -97,7 +98,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
                 )}
             </Flex>
             {error && (
-                <Text textAlign="center" color="red.500">
+                <Text mt={2} textAlign="center" color={errorTextColor}>
                     {error}
                 </Text>
             )}
