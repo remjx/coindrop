@@ -19,11 +19,9 @@ BoxMargin.propTypes = {
 type Props = {
     onCancel: () => void | null
     createButtonColorScheme: "orange" | "green"
-    isAuthOpen: boolean | null
-    onAuthOpen: () => void | null
 }
 
-export const CreatePiggybankInput: FunctionComponent<Props> = ({ isAuthOpen, onAuthOpen, onCancel, createButtonColorScheme }) => {
+export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
@@ -37,9 +35,9 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ isAuthOpen, onA
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
             setIsCreateTriggered(true);
-        } else if (!isAuthOpen) {
+        } else if (router.pathname !== '/auth') {
             setPendingLoginCreatePiggybankPath(candidatePiggybankPath);
-            onAuthOpen();
+            router.push('/auth');
         }
     }
     function onSubmit(event) {

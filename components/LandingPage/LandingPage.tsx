@@ -121,8 +121,6 @@ const LandingPage: FunctionComponent = () => {
                     mt={2}
                 >
                     <CreatePiggybankInput
-                        isAuthOpen={isAuthOpen}
-                        onAuthOpen={onAuthOpen}
                         createButtonColorScheme="orange"
                         onCancel={null}
                     />
