@@ -53,6 +53,7 @@ const CompetitorComparisonTable = () => {
     const green = useColorModeValue(theme.colors.green['500'], theme.colors.green['300']);
     const red = useColorModeValue(theme.colors.red['500'], theme.colors.red['300']);
     const orange = useColorModeValue(theme.colors.orange['500'], theme.colors.orange['300']);
+    const logoOutlineColor = useColorModeValue(theme.colors.gray['800'], theme.colors.gray['900']);
     const StyledTd = ({ value }) => {
         let backgroundColor;
         switch (value) {
@@ -93,7 +94,7 @@ const CompetitorComparisonTable = () => {
                             <th>
                                 <Flex align="center">
                                     {coindropData.displayName}
-                                    <PiggyLogoIcon ml={1} size="19px" />
+                                    <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
                                 </Flex>
                             </th>
                             {competitorData.map(obj => (
@@ -154,7 +155,7 @@ const CompetitorComparisonTable = () => {
                                 <th>
                                     <Flex align="center">
                                         Coindrop
-                                        <PiggyLogoIcon ml={1} size="19px" />
+                                        <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
                                     </Flex>
                                 </th>
                                 <th>
