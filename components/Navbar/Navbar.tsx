@@ -20,7 +20,11 @@ export const Navbar: FunctionComponent<Props> = ({ isAuthOpen }) => {
             justify="space-between"
             wrap="wrap"
         >
-            <Logo />
+            <NextLink href="/" shallow>
+                <Button variant="link">
+                    <Logo />
+                </Button>
+            </NextLink>
             <Flex align="center">
                 {user
                 && pathname !== '/' // prevent flash of "Dashboard" text when logging in from landing page
