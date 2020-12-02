@@ -1,10 +1,10 @@
-import { useState, useContext, FunctionComponent } from 'react';
-import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/react";
+import { useState, FunctionComponent } from 'react';
+import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
-import { CreatePiggybankContext } from '../AppContext/AppContext';
 import { piggybankPathRegex } from '../../src/settings';
 
 const BoxMargin = ({ children }) => (
@@ -27,8 +27,8 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const errorTextColor = useColorModeValue("red.500", "red.300");
     async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
@@ -36,7 +36,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
         } else if (user) {
             setIsCreateTriggered(true);
         } else if (router.pathname === '/') {
-            setPendingLoginCreatePiggybankPath(candidatePiggybankPath);
+            cookies.set('pendingLoginCreatePiggybankPath', candidatePiggybankPath);
             router.push('/?auth=1', undefined, { shallow: true });
         }
     }
@@ -98,7 +98,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
                 )}
             </Flex>
             {error && (
-                <Text textAlign="center" color="red.500">
+                <Text mt={2} textAlign="center" color={errorTextColor}>
                     {error}
                 </Text>
             )}
