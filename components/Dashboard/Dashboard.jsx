@@ -95,6 +95,16 @@ const Dashboard = () => {
                                 </MenuItem>
                             </Link>
                             <MenuItem
+                                onClick={toggleColorMode}
+                            >
+                                <Flex
+                                    align="center"
+                                >
+                                    {colorMode === 'dark' ? <SunIcon mr={2} /> : <MoonIcon mr={2} />}
+                                    {colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
+                                </Flex>
+                            </MenuItem>
+                            <MenuItem
                                 onClick={() => {
                                     logout();
                                 }}
@@ -104,16 +114,6 @@ const Dashboard = () => {
                                 >
                                     <LogoutIcon mr={2} />
                                     Log out
-                                </Flex>
-                            </MenuItem>
-                            <MenuItem
-                                onClick={toggleColorMode}
-                            >
-                                <Flex
-                                    align="center"
-                                >
-                                    {colorMode === 'dark' ? <SunIcon mr={2} /> : <MoonIcon mr={2} />}
-                                    {colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
                                 </Flex>
                             </MenuItem>
                         </MenuList>

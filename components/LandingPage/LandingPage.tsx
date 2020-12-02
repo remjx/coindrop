@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import NextLink from 'next/link';
 import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
@@ -48,6 +49,13 @@ const LandingPage: FunctionComponent = () => {
             router.push('/dashboard');
         }
     }, [user, router.pathname]);
+    useEffect(() => {
+        if (router.pathname === '/auth') {
+            onAuthOpen();
+        } else {
+            onAuthClose();
+        }
+    }, [router.pathname]);
     return (
         <>
         <NextSeo
@@ -56,7 +64,6 @@ const LandingPage: FunctionComponent = () => {
         />
         <AuthModal
             isOpen={isAuthOpen}
-            onClose={onAuthClose}
         />
         <GithubLink />
         <Box
@@ -73,14 +80,15 @@ const LandingPage: FunctionComponent = () => {
             >
                 <Logo />
                 <Flex align="center">
-                    <Button
-                        id="log-in-button"
-                        mr={2}
-                        isDisabled={isAuthOpen}
-                        onClick={onAuthOpen}
-                    >
-                        Log in
-                    </Button>
+                    <NextLink href="/auth">
+                        <Button
+                            id="log-in-button"
+                            mr={2}
+                            isDisabled={isAuthOpen}
+                        >
+                            Log in
+                        </Button>
+                    </NextLink>
                     <ToggleColorModeButton />
                 </Flex>
             </Flex>
