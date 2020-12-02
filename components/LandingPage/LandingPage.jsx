@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
-import Typewriter from './Typewriter';
 import Logo from '../Logo/Logo';
 import AuthModal from '../Auth/AuthModal';
 import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
@@ -136,19 +135,10 @@ const index = () => {
                     color={theme.colors.gray['700']}
                     as="h1"
                 >
-                    {'Your '}
-                    <span style={{textDecoration: "underline"}}>
-                        free
-                    </span>
-                    {' webpage for '}
-                    <span style={{whiteSpace: "nowrap" }}>peer-to-peer</span>
-                    {' '}
-                    <Box display="inline-block">
-                        <Typewriter />
-                    </Box>
+                    The easiest way to accept donations and tips
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Enter your addresses. Let the sender choose how to pay you. Zero fees.
+                    Enter your addresses. Let the sender pay you directly. Zero fees.
                 </Text>
                 <Box
                     mt={2}
