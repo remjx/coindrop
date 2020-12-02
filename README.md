@@ -1,26 +1,29 @@
-⚠️ Note: Coindrop is in closed beta while we refine the user experience. Request an invite by DMing [@coindrop_to on Twitter](https://twitter.com/coindrop_to). ⚠️
-
 # Coindrop 💰
 
 Create a simple webpage for accepting payments & donations. Open-source, zero-fee, and free forever.
 
 Get started at [coindrop.to](https://coindrop.to).
 
+⚠️ Coindrop is in closed beta while we refine the user experience. Request an invite by DMing [@coindrop_to on Twitter](https://twitter.com/coindrop_to).
+
 ## Problem ❓
 
-Senders and receivers of money need to agree on medium of exchange. With so many apps, currencies, and digital assets available to perform this service, it is not trivial to find the best payment method to use.
+Senders and receivers of money must agree on a medium of exchange. With so many apps, currencies, and digital assets available to perform this service, it is not trivial to find the best payment method to use.
 
 Often, receivers will request a specific form of payment, but the potential sender does not have access to this form of payment, or it is not convenient for them. This causes unnecessary friction and potential abandonment of the transaction.
 
 ## Solution ✔️
 
-Receivers create a Coindrop page e.g. [coindrop\.to/satoshi-nakamoto](https://coindrop.to/satoshi-nakamoto) and list all their accepted forms of payment. They publish/send the link as a substitute any time they would normally publish/send payment address(es) individually. The sender then chooses which to use according to their preference (typically in order to maximize convenience and minimize transaction fees).
+Receivers create a Coindrop page e.g. [coindrop\.to/satoshi-nakamoto](https://coindrop.to/satoshi-nakamoto) and list all their accepted forms of payment. Then receivers use their Coindrop link, button, or QR code anywhere they want to accept payments. The sender simply chooses which payment method to use according to their preference (typically to maximize convenience and minimize transaction fees).
 
 ### When/where to use it? 🕒
 
+* Want to accept donations on the internet? ✔️ Post your Coindrop link on your social media profile, or embed a Coindrop button on your website:
+
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;<a href="https://coindrop.to/coindrop" target="_blank"><img src="https://coindrop.to/embed-button.png" style="border-radius: 10px;" alt="Coindrop.to me" style="height: 57px !important;width: 229px !important;" ></a>
+
 * Does someone owe you money? ✔️ Send them your Coindrop link
-* Would you like to accept donations? ✔️ Create a Coindrop for your brand and share it on your website or social media profile
-* Do you provide services to customers in the real world and want to receive tips? ✔️ Add your Coindrop link or QR Code to your tip jar or business card
+* Do you provide services to customers in the real world and want to receive tips? ✔️ Add your Coindrop link to your business card, or print a QR Code for the tip jar
 
 ### Open-source 👀
 
