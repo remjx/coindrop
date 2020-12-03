@@ -15,7 +15,7 @@ type LatestPostsItemProps = {
 }
 
 const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
-    const { slug, datePublished, title, description, coverImage, coverImageDescr } = post;
+    const { slug, title, description, coverImage, coverImageDescr } = post;
     const coverImageUrl = `/blog-images/${slug}/${coverImage}`;
     const Link: FunctionComponent = ({ children }) => (
         <NextLink href={`/blog/${slug}`}>
@@ -49,6 +49,7 @@ export type LatestPostsProps = {
 }
 
 export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, pageTotal }) => {
+    console.log('LatestPosts posts', posts);
     return (
         <Box
             id="page-container"
@@ -65,12 +66,13 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
                 Blog - Latest Posts
             </Heading>
             {
-                posts.length > 1
-                ? posts.map(post => <LatestPostsItem post={post} />)
+                posts.length >= 1
+                ? posts.map(post => <LatestPostsItem key={post.slug} post={post} />)
                 : <Text textAlign="center" mb={4}>No posts yet.</Text>
             }
             <Flex justify="space-around" align="center">
-                <NextLink href={page <= 1 ? '#' : `/blog/page/${page - 1}`}>
+                {/* TODO: is this bad for SEO? remove link if on last page? */}
+                <NextLink href={`/blog/page/${page - 1}`}>
                     <a>
                         <Button
                             disabled={page <= 1}
@@ -80,7 +82,8 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
                     </a>
                 </NextLink>
                 <Text>Page {page} of {pageTotal}</Text> {/* eslint-disable-line react/jsx-one-expression-per-line */}
-                <NextLink href={page >= pageTotal ? '#' : `/blog/page/${page + 1}`}>
+                {/* TODO: is this bad for SEO? remove link if on last page? */}
+                <NextLink href={`/blog/page/${page + 1}`}>
                     <a>
                         <Button
                             disabled={page >= pageTotal}

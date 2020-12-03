@@ -13,17 +13,17 @@ export function getPostBySlug(slug: string, fields: string[]): Partial<PostType>
   const realSlug = slug.replace(/\.mdx$/, '');
   const fullPath = join(postsDirectory, `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data: allData, content }: { data: PostFrontMatter, content: string } = matter(fileContents);
+  const { data, content }: { data: Partial<PostFrontMatter>, content: string } = matter(fileContents);
   const filteredData: Partial<PostType> = {};
   fields.forEach((field) => {
     if (field === 'slug') {
-        filteredData[field] = realSlug;
-    }
-    if (field === 'content') {
-        filteredData[field] = content;
-    }
-    if (allData[field]) {
-        filteredData[field] = allData[field];
+      filteredData[field] = realSlug;
+    } else if (field === 'content') {
+      filteredData[field] = content;
+    } else if (field.startsWith('date')) {
+      filteredData[field] = data[field].toISOString();
+    } else if (data[field]) {
+      filteredData[field] = data[field];
     }
   });
   return filteredData;

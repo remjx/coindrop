@@ -3,17 +3,16 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
-import { SunIcon, MoonIcon, QuestionIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
 import cookies from 'js-cookie';
-import { LogoutIcon, HamburgerMenuIcon, GithubIcon } from '../Icons/CustomIcons';
+import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
-import { githubReadmeHelpUrl } from '../../src/settings';
 import Footer from '../Footer/Footer';
 
 const Dashboard = () => {

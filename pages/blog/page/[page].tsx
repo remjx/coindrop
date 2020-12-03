@@ -27,7 +27,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const pageNum = parseInt(Array.isArray(pageStr) ? pageStr[0] : pageStr, 10);
     let posts = getAllPosts([
         'author',
-        'datePublished',
         'title',
         'description',
         'coverImage',
@@ -36,7 +35,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ]);
     const pageTotal = Math.ceil(posts.length / postsPerPage);
     posts = posts
-        .sort((post1, post2) => (post1.datePublished > post2.datePublished ? -1 : 1))
+        .sort((post1, post2) => (new Date(post1.datePublished) > new Date(post2.datePublished) ? -1 : 1))
         .slice((pageNum - 1) * postsPerPage, pageNum * postsPerPage);
     return {
         props: {

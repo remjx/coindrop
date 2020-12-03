@@ -5,9 +5,8 @@ import markdownToHtml from '../../src/lib/blog/markdownToHtml';
 import { PostType } from '../../src/lib/blog/types';
 import { Post } from '../../components/Blog/Post/Post';
 
-const BlogPost: FunctionComponent<PostType> = (props) => (
-  <Post {...props} />
-);
+// eslint-disable-next-line react/jsx-props-no-spreading
+const BlogPost: FunctionComponent<PostType> = (props) => <Post {...props} />;
 
 export default BlogPost;
 
