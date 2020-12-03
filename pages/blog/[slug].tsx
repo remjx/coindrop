@@ -2,37 +2,38 @@ import { FunctionComponent } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getAllPosts, getPostBySlug } from '../../src/lib/blog/getPosts';
 import markdownToHtml from '../../src/lib/blog/markdownToHtml';
-import { BlogLayout, BlogLayoutProps } from '../../components/Blog/BlogLayout';
+import { PostType } from '../../src/lib/blog/types';
+import { Post } from '../../components/Blog/Post/Post';
 
-type BlogPostProps = BlogLayoutProps & { contentHtml: string, slug: string }
-
-const BlogPost: FunctionComponent<BlogPostProps> = ({ contentHtml, meta, slug }) => (
-  <BlogLayout meta={meta} slug={slug}>
-      <div
-        dangerouslySetInnerHTML={{ __html: contentHtml }} // eslint-disable-line react/no-danger
-      />
-  </BlogLayout>
+const BlogPost: FunctionComponent<PostType> = (props) => (
+  <Post {...props} />
 );
 
 export default BlogPost;
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const post = getPostBySlug(params.slug);
-  const contentHtml = await markdownToHtml(post.content || '');
-  const { content, slug, ...meta } = post; // eslint-disable-line @typescript-eslint/no-unused-vars
-
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+  const post = getPostBySlug(slug, [
+    'author',
+    'datePublished',
+    'dateModified',
+    'title',
+    'description',
+    'images',
+    'content',
+    'slug',
+  ]);
+  const content = await markdownToHtml(post.content || '');
   return {
     props: {
-      meta,
-      slug,
-      contentHtml,
+      ...post,
+      content,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = getAllPosts();
-
+  const posts = getAllPosts(['slug']);
   return {
     paths: posts.map(post => ({
         params: {

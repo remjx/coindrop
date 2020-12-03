@@ -11,7 +11,7 @@ type Authors = {
 export const authors: Authors = {
     "Mark Jackson": {
         avatar: "/authors/mark-jackson.jpg",
-        handle: "@remjjx",
-        url: "https://twitter.com/remjjx",
+        handle: "@remjxd",
+        url: "https://twitter.com/remjxd",
     },
 };

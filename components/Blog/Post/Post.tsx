@@ -3,28 +3,22 @@ import { FunctionComponent } from 'react';
 import { Box, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { Navbar } from '../Navbar/Navbar';
-import { PostMetaData } from '../../src/lib/blog/types';
-import { authors } from '../../blog/authors';
-import styles from './BlogLayout.module.scss';
+import { Navbar } from '../../Navbar/Navbar';
+import { PostType } from '../../../src/lib/blog/types';
+import { authors } from '../../../blog/authors';
+import styles from './Post.module.scss';
 
 dayjs.extend(relativeTime);
 
-export type BlogLayoutProps = {
-    meta: PostMetaData
-    slug: string
-}
-export const BlogLayout: FunctionComponent<BlogLayoutProps> = ({
-        meta: {
-            author,
-            datePublished,
-            dateModified,
-            title,
-            description,
-            images,
-        },
+export const Post: FunctionComponent<PostType> = ({
+        author,
+        datePublished,
+        dateModified,
+        title,
+        description,
+        images,
         slug,
-        children,
+        content,
     }) => {
     const { avatar: authorAvatar, handle: authorHandle, url: authorUrl } = authors[author];
     return (
@@ -52,6 +46,7 @@ export const BlogLayout: FunctionComponent<BlogLayoutProps> = ({
                 mb={6}
             >
                 <Navbar isAuthOpen={null} />
+                <hr />
                 <Heading
                     as="h1"
                     size="2xl"
@@ -74,25 +69,29 @@ export const BlogLayout: FunctionComponent<BlogLayoutProps> = ({
                         id="author"
                         align="center"
                         justify="center"
-                        >
+                    >
                         <Avatar name={author} src={authorAvatar} size="sm" />
-                        <Text fontSize="sm">
                             <Flex direction="column" ml={1} align="flex-start">
-                                <Text>
-                                    {author}
+                                <Text fontSize="sm">
+                                    <Text>
+                                        {author}
+                                    </Text>
+                                    <Link href={authorUrl} isExternal>
+                                        {authorHandle}
+                                    </Link>
                                 </Text>
-                                <Link href={authorUrl} isExternal>
-                                    {authorHandle}
-                                </Link>
                             </Flex>
-                        </Text>
                     </Flex>
                 </Box>
+                <hr />
                 <Box
                     id="body-container"
                     className={styles.all}
+                    mt={4}
                 >
-                    {children}
+                    <div
+                        dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
+                    />
                 </Box>
                 <Text
                     id="modified-date"

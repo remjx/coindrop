@@ -45,7 +45,7 @@ As mentioned above, this software is licensed under the [GNU General Public Lice
 
 ## Maintainers 🛠️
 
-* [Mark Jackson](https://twitter.com/markjackson02)
+* [Mark Jackson](https://twitter.com/remjxd)
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
