@@ -16,12 +16,13 @@ export const getStaticProps: GetStaticProps = async () => {
     'datePublished',
     'title',
     'description',
-    'images',
+    'coverImage',
+    'coverImageDescr',
     'slug',
   ]);
   return {
     props: {
-      ...post,
+      posts,
     },
   };
 };
