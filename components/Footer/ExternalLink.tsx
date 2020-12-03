@@ -10,7 +10,6 @@ export const ExternalLink: FunctionComponent<Props> = ({ href, text }) => (
     <Link
         href={href}
         isExternal
-        mr={3}
     >
         <FooterText>
             {text}

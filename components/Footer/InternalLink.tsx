@@ -10,9 +10,7 @@ type Props = {
     prefetch?: boolean
 }
 export const InternalLink: FunctionComponent<Props> = ({ href, text, prefetch = false }) => (
-    <Box
-        mr={3}
-    >
+    <Box>
         <Link
             href={href}
             prefetch={prefetch}

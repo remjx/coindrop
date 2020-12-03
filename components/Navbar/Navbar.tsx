@@ -33,6 +33,7 @@ export const Navbar: FunctionComponent<Props> = ({ isAuthOpen }) => {
                             <Button
                                 id="dashboard-button"
                                 mr={2}
+                                colorScheme="orange"
                             >
                                 Dashboard
                             </Button>
@@ -43,8 +44,9 @@ export const Navbar: FunctionComponent<Props> = ({ isAuthOpen }) => {
                                 id="log-in-button"
                                 mr={2}
                                 isDisabled={isAuthOpen}
+                                colorScheme={pathname === '/' ? undefined : "orange"}
                             >
-                                Log in
+                                Log in / Sign up
                             </Button>
                         </NextLink>
                     )}

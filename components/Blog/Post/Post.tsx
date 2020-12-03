@@ -1,12 +1,14 @@
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { FunctionComponent } from 'react';
-import { Box, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
+import { Box, Link, Text, Heading, Avatar, Flex, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@chakra-ui/react';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Navbar } from '../../Navbar/Navbar';
 import { PostType } from '../../../src/lib/blog/types';
 import { authors } from '../../../blog/authors';
 import styles from './Post.module.scss';
+import Footer from '../../Footer/Footer';
 
 dayjs.extend(relativeTime);
 
@@ -47,6 +49,11 @@ export const Post: FunctionComponent<PostType> = ({
             >
                 <Navbar isAuthOpen={null} />
                 <hr />
+                <Breadcrumb my={2} textAlign="center" spacing="4px" separator={<ChevronRightIcon color="gray.500" />}>
+                    <BreadcrumbItem>
+                        <BreadcrumbLink href="#">Blog</BreadcrumbLink>
+                    </BreadcrumbItem>
+                </Breadcrumb>
                 <Heading
                     as="h1"
                     size="2xl"
@@ -99,6 +106,7 @@ export const Post: FunctionComponent<PostType> = ({
                 >
                     {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
                 </Text>
+                <Footer />
             </Box>
         </>
     );

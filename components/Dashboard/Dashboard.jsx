@@ -14,6 +14,7 @@ import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { githubReadmeHelpUrl } from '../../src/settings';
+import Footer from '../Footer/Footer';
 
 const Dashboard = () => {
     const router = useRouter();
@@ -64,36 +65,6 @@ const Dashboard = () => {
                             <HamburgerMenuIcon />
                         </MenuButton>
                         <MenuList>
-                            <Link
-                                href="https://github.com/markjackson02/coindrop#coindrop-"
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{textDecoration: "none"}}
-                            >
-                                <MenuItem>
-                                        <Flex
-                                            align="center"
-                                        >
-                                            <GithubIcon mr={2} />
-                                            About
-                                        </Flex>
-                                </MenuItem>
-                            </Link>
-                            <Link
-                                href={githubReadmeHelpUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{textDecoration: "none"}}
-                            >
-                                <MenuItem>
-                                        <Flex
-                                            align="center"
-                                        >
-                                            <QuestionIcon mr={2} />
-                                            Help
-                                        </Flex>
-                                </MenuItem>
-                            </Link>
                             <MenuItem
                                 onClick={toggleColorMode}
                             >
@@ -125,6 +96,9 @@ const Dashboard = () => {
                     uid={user.id}
                 />
             )}
+            <Box mt={10}>
+                <Footer />
+            </Box>
         </Box>
         </>
     );

@@ -6,4 +6,4 @@ Master branch is the only supported version, which is deployed to https://coindr
 
 ## Reporting a Vulnerability
 
-Please contact us directly via @coindrop_to on Twitter.
+Please contact us directly via the support email on our website.

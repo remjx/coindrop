@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 import { Button, Box, Text, Heading, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 import { Navbar } from '../../Navbar/Navbar';
 import { PostType } from '../../../src/lib/blog/types';
 import styles from './LatestPosts.module.scss';
@@ -19,26 +19,26 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
     const coverImageUrl = `/blog-images/${slug}/${coverImage}`;
     const Link: FunctionComponent = ({ children }) => (
         <NextLink href={`/blog/${slug}`}>
-            <a>
+            <a className={styles.link}>
                 {children}
             </a>
         </NextLink>
     );
     return (
-        <Link>
-            <Flex borderWidth="1px" borderRadius="lg">
+        <Flex borderWidth="1px" borderRadius="lg" mb={4}>
+            <Flex flex="none">
                 <Link>
-                    <Image src={coverImageUrl} width={250} height={250} alt={coverImageDescr} />
+                    <Image src={coverImageUrl} width={200} height={200} alt={coverImageDescr} />
                 </Link>
-                <Box>
-                    <Link>
-                        <Heading as="h2">{title}</Heading>
-                    </Link>
-                    <Text>{description}</Text>
-                    <Text>{dayjs(datePublished).format('MMM DD, YYYY')}</Text>
-                </Box>
             </Flex>
-        </Link>
+            <Box my={3} mx={4}>
+                <Link>
+                    <Heading as="h2">{title}</Heading>
+                </Link>
+                {/* <Text fontSize="sm">{dayjs(datePublished).format('MMM DD, YYYY')}</Text> */}
+                <Text>{description}</Text>
+            </Box>
+        </Flex>
     );
 };
 
@@ -52,32 +52,42 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
     return (
         <Box
             id="page-container"
-            maxW="960px"
+            maxW="940px"
             mx="auto"
-            px={4}
-            mb={6}
         >
             <Navbar isAuthOpen={null} />
             <hr />
-            <Heading>
-                Latest Posts
+            <Heading
+                as="h1"
+                my={6}
+                textAlign="center"
+            >
+                Blog - Latest Posts
             </Heading>
-            {posts.map(post => <LatestPostsItem post={post} />)}
+            {
+                posts.length > 1
+                ? posts.map(post => <LatestPostsItem post={post} />)
+                : <Text textAlign="center" mb={4}>No posts yet.</Text>
+            }
             <Flex justify="space-around" align="center">
-                <NextLink href={`/blog/page/${page - 1}`}>
-                    <Button
-                        disabled={page === 1}
-                    >
-                        Newer
-                    </Button>
+                <NextLink href={page <= 1 ? '#' : `/blog/page/${page - 1}`}>
+                    <a>
+                        <Button
+                            disabled={page <= 1}
+                        >
+                            Newer
+                        </Button>
+                    </a>
                 </NextLink>
                 <Text>Page {page} of {pageTotal}</Text> {/* eslint-disable-line react/jsx-one-expression-per-line */}
-                <NextLink href={`/blog/page/${page + 1}`}>
-                    <Button
-                        disabled={page === pageTotal}
-                    >
-                        Older
-                    </Button>
+                <NextLink href={page >= pageTotal ? '#' : `/blog/page/${page + 1}`}>
+                    <a>
+                        <Button
+                            disabled={page >= pageTotal}
+                        >
+                            Older
+                        </Button>
+                    </a>
                 </NextLink>
             </Flex>
             <Footer />

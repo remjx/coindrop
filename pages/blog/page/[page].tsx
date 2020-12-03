@@ -4,7 +4,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPosts } from '../../../src/lib/blog/getPosts';
 import { LatestPosts, LatestPostsProps } from '../../../components/Blog/LatestPosts/LatestPosts';
 
-const postsPerPage = 1;
+const postsPerPage = 8;
 
 const LatestPostsPage: FunctionComponent<LatestPostsProps> = (props) => {
   const { page } = props;
