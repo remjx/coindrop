@@ -1,14 +1,24 @@
 import { FunctionComponent } from 'react';
+import { NextSeo } from 'next-seo';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { getAllPosts } from '../../../../src/lib/blog/getPosts';
-import { LatestPosts, LatestPostsProps } from '../../../../components/Blog/LatestPosts/LatestPosts';
+import { getAllPosts } from '../../../src/lib/blog/getPosts';
+import { LatestPosts, LatestPostsProps } from '../../../components/Blog/LatestPosts/LatestPosts';
 
 const postsPerPage = 1;
 
-const LatestPostsPage: FunctionComponent<LatestPostsProps> = (props) => (
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  <LatestPosts {...props} />
-);
+const LatestPostsPage: FunctionComponent<LatestPostsProps> = (props) => {
+  const { page } = props;
+  return (
+    <>
+      <NextSeo
+        title={page === 1 ? "Coindrop Blog" : `Coindrop Blog | Page ${page}`}
+        description="Learn about the easiest way to accept donations and tips"
+      />
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+      <LatestPosts {...props} />
+    </>
+  );
+};
 
 export default LatestPostsPage;
 

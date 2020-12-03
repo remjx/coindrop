@@ -11,7 +11,7 @@ import { twitterUrl } from '../../src/settings';
 import UseCasesList from './UseCasesList';
 import FAQ from './FAQ';
 import GithubLink from './GithubLink';
-import Footer from './Footer';
+import Footer from '../Footer/Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
@@ -183,8 +183,8 @@ const LandingPage: FunctionComponent = () => {
                 </Text>
                 <FAQ />
             </ContentContainer>
+            <Footer />
         </Box>
-        <Footer />
         </>
     );
 };

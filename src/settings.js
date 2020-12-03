@@ -5,6 +5,7 @@ export const maxPiggybanksPerUser = 10;
 export const githubUrl = 'https://github.com/markjackson02/coindrop';
 export const markJacksonUrl = 'https://twitter.com/remjxd';
 export const twitterUrl = "https://twitter.com/coindrop_to";
+export const instagramUrl = "https://www.instagram.com/coindrop.to/";
 export const githubReadmeHelpUrl = "https://github.com/markjackson02/coindrop#contributions-%EF%B8%8F%EF%B8%8F";
 export const githubPrivacyPolicyUrl = "https://github.com/markjackson02/coindrop/blob/master/PRIVACY_POLICY.md";
 export const githubTermsOfServiceUrl = "https://github.com/markjackson02/coindrop/blob/master/TERMS_OF_SERVICE.md";

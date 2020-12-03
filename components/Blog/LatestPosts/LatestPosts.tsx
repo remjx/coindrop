@@ -1,13 +1,14 @@
 /* eslint-disable arrow-body-style */
-import { NextSeo } from 'next-seo';
+
 import { FunctionComponent } from 'react';
 import { Button, Box, Text, Heading, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
-import { default as NextLink } from 'next/link';
+import NextLink from 'next/link';
 import dayjs from 'dayjs';
 import { Navbar } from '../../Navbar/Navbar';
 import { PostType } from '../../../src/lib/blog/types';
 import styles from './LatestPosts.module.scss';
+import Footer from '../../Footer/Footer';
 
 type LatestPostsItemProps = {
     post: Partial<PostType>
@@ -49,42 +50,37 @@ export type LatestPostsProps = {
 
 export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, pageTotal }) => {
     return (
-        <>
-            <NextSeo
-                title="Latest Posts | Coindrop"
-                // description={description}
-            />
-            <Box
-                id="page-container"
-                maxW="960px"
-                mx="auto"
-                px={4}
-                mb={6}
-            >
-                <Navbar isAuthOpen={null} />
-                <hr />
-                <Heading>
-                    Latest Posts
-                </Heading>
+        <Box
+            id="page-container"
+            maxW="960px"
+            mx="auto"
+            px={4}
+            mb={6}
+        >
+            <Navbar isAuthOpen={null} />
+            <hr />
+            <Heading>
+                Latest Posts
+            </Heading>
+            {posts.map(post => <LatestPostsItem post={post} />)}
+            <Flex justify="space-around" align="center">
+                <NextLink href={`/blog/page/${page - 1}`}>
+                    <Button
+                        disabled={page === 1}
+                    >
+                        Newer
+                    </Button>
+                </NextLink>
                 <Text>Page {page} of {pageTotal}</Text> {/* eslint-disable-line react/jsx-one-expression-per-line */}
-                {posts.map(post => <LatestPostsItem post={post} />)}
-                <Flex justify="space-around">
-                    <NextLink href={`/blog/browse/latest/${page - 1}`}>
-                        <Button
-                            disabled={page === 1}
-                        >
-                            Newer
-                        </Button>
-                    </NextLink>
-                    <NextLink href={`/blog/browse/latest/${page + 1}`}>
-                        <Button
-                            disabled={page === pageTotal}
-                        >
-                            Older
-                        </Button>
-                    </NextLink>
-                </Flex>
-            </Box>
-        </>
+                <NextLink href={`/blog/page/${page + 1}`}>
+                    <Button
+                        disabled={page === pageTotal}
+                    >
+                        Older
+                    </Button>
+                </NextLink>
+            </Flex>
+            <Footer />
+        </Box>
     );
 };
