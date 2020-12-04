@@ -19,43 +19,41 @@ const Footer: FunctionComponent = () => {
     return (
         <Box mt={10}>
             <hr />
-            <Box
-                p={2}
-            >
-                <Flex justify="space-between" wrap="wrap">
-                    <Flex
-                        align="center"
-                        wrap="wrap"
-                        justify="center"
-                    >
-                        <InternalLink
-                            href="/"
-                            text="Home"
-                        />
-                        <Divider />
-                        <InternalLink
-                            href="/blog/page/1"
-                            text="Blog"
-                        />
-                        <Divider />
-                        <InternalLink
-                            href="/faq"
-                            text="FAQ"
-                        />
-                        <Divider />
-                        <ExternalLink
-                            href={githubTermsOfServiceUrl}
-                            text="Terms"
-                        />
-                        <Divider />
-                        <ExternalLink
-                            href={`mailto:${coindropEmail}`}
-                            text="Support"
-                        />
-                    </Flex>
-                    <SocialLinks />
+            <Flex justify="space-between" wrap="wrap">
+                <Flex
+                    align="center"
+                    wrap="wrap"
+                    justify="center"
+                    mx={["auto", null, "initial"]}
+                    p={2}
+                >
+                    <InternalLink
+                        href="/"
+                        text="Home"
+                    />
+                    <Divider />
+                    <InternalLink
+                        href="/blog/page/1"
+                        text="Blog"
+                    />
+                    <Divider />
+                    <InternalLink
+                        href="/faq"
+                        text="FAQ"
+                    />
+                    <Divider />
+                    <ExternalLink
+                        href={githubTermsOfServiceUrl}
+                        text="Terms"
+                    />
+                    <Divider />
+                    <ExternalLink
+                        href={`mailto:${coindropEmail}`}
+                        text="Support"
+                    />
                 </Flex>
-            </Box>
+                <SocialLinks />
+            </Flex>
         </Box>
     );
 };
