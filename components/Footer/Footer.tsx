@@ -20,12 +20,13 @@ const Footer: FunctionComponent = () => {
         <Box mt={10}>
             <hr />
             <Box
-                py={2}
+                p={2}
             >
                 <Flex justify="space-between" wrap="wrap">
                     <Flex
                         align="center"
                         wrap="wrap"
+                        justify="center"
                     >
                         <InternalLink
                             href="/"
