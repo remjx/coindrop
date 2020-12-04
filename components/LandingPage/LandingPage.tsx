@@ -74,10 +74,12 @@ const LandingPage: FunctionComponent = () => {
                     textAlign="center"
                     as="h1"
                 >
-                    The easiest way to accept donations and tips
+                    The easiest way to accept donations and tips.
+                    <br />
+                    Zero fees.
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Enter your addresses. Let the sender pay you directly. Zero fees.
+                    List your payment methods. Let the sender pay you directly.
                 </Text>
                 <Box
                     mt={2}
