@@ -39,8 +39,8 @@ const accordionText: AccordionText[] = [
                     <ListItem>Through the payment provider of choice (e.g. PayPal)</ListItem>
                 </UnorderedList>
                 <Text mb="1rem">
-                    {'Depending on the payment method you choose, there may be a small transaction fee. '}
-                    <b>That&apos;s the beauty of Coindrop - you can choose the payment method with the lowest transaction fee.</b>
+                    {'Depending on the payment method senders choose, there may be a small transaction fee for them. '}
+                    <b>That&apos;s the beauty of Coindrop - senders can choose the payment method with the lowest transaction fee.</b>
                 </Text>
                 <Text mb="1rem">
                     To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements and offers. Keep in mind all the code to this website is open-source so if we implement something you don&apos;t like, you can always fork the project on Github :)
@@ -52,7 +52,7 @@ const accordionText: AccordionText[] = [
         title: "What if one of my payment methods is not listed?",
         body: (
             <Text>
-                {"We will add any payment method you wish as long as it's safe and not against the law. Submit a request "}
+                {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
                 <Link
                     href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
                     isExternal
@@ -105,7 +105,7 @@ const accordionText: AccordionText[] = [
 ];
 
 const FAQ: FunctionComponent = () => {
-    const panelBgColor = useColorModeValue("gray.100", undefined);
+    const panelBgColor = useColorModeValue("gray.50", undefined);
     return (
         <Box>
             <Box my={6}>
