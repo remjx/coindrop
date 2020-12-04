@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
-// eslint-disable-next-line no-unused-vars
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { Box, Text, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
 import cookies from 'js-cookie';
@@ -27,7 +25,7 @@ const Dashboard = () => {
         if (!user) {
             router.push('/');
         }
-    });
+    }, [user]);
     useEffect(() => {
         if (pendingLoginCreatePiggybankPath) {
             setCandidatePiggybankPath(pendingLoginCreatePiggybankPath);
@@ -38,8 +36,7 @@ const Dashboard = () => {
         if (submitStatus === 'success' && user) {
             mutate(user.id);
         }
-    }, [submitStatus]);
-    if (!user) return null;
+    }, [submitStatus, user]);
     return (
         <>
         <NextSeo
@@ -90,10 +87,13 @@ const Dashboard = () => {
                     </Menu>
                 </Flex>
             </Flex>
-            {user?.id && (
+            {user?.id
+            ? (
                 <UserOwnedPiggybanks
                     uid={user.id}
                 />
+            ) : (
+                <Text>You are not logged in. Redirecting...</Text>
             )}
             <Box mt={10}>
                 <Footer />
@@ -101,14 +101,6 @@ const Dashboard = () => {
         </Box>
         </>
     );
-};
-
-Dashboard.propTypes = {
-
-};
-
-Dashboard.defaultProps = {
-
 };
 
 export default Dashboard;
