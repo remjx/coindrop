@@ -18,10 +18,8 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             token: user.token,
         };
         try {
-            cookies.remove('pendingLoginCreatePiggybankPath');
             await axios.post('/api/createPiggybank', data, { headers });
             setSubmitStatus('success');
-            setCandidatePiggybankPath('');
             mutate(user.id);
         } catch (err) {
             setSubmitStatus('error');
@@ -36,13 +34,16 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
                 } else {
                     setError('Server error. Please try again.');
                 }
-              } else if (err.request) {
+            } else if (err.request) {
                 setError('Request timed out. Please try again.');
-              } else {
+            } else {
                 setError('Error sending request. Please try again.');
-              }
+            }
+        } finally {
+            setIsTriggered(false);
+            setCandidatePiggybankPath('');
+            cookies.remove('pendingLoginCreatePiggybankPath');
         }
-        setIsTriggered(false);
     }
     useEffect(() => {
         if (isTriggered && user) {
