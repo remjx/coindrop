@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useDisclosure, Box, Flex, useTheme, Heading, Text, Link } from '@chakra-ui/react';
-import Typewriter from './Typewriter';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -75,19 +74,12 @@ const LandingPage: FunctionComponent = () => {
                     textAlign="center"
                     as="h1"
                 >
-                    {'Your '}
-                    <span style={{textDecoration: "underline"}}>
-                        free
-                    </span>
-                    {' webpage for '}
-                    <span style={{whiteSpace: "nowrap" }}>peer-to-peer</span>
-                    {' '}
-                    <Box display="inline-block">
-                        <Typewriter />
-                    </Box>
+                    The easiest way to accept donations and tips.
+                    <br />
+                    Zero fees.
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    Enter your addresses. Let the sender choose how to pay you. Zero fees.
+                    List your payment methods. Let the sender pay you directly.
                 </Text>
                 <Box
                     mt={2}

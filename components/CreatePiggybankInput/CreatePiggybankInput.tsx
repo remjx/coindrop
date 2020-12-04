@@ -62,7 +62,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
                             id={inputName}
                             maxLength={32}
                             roundedLeft="0"
-                            placeholder="my-custom-url"
+                            placeholder="your-name"
                             onChange={(e) => {
                                 setError(null);
                                 setCandidatePiggybankPath(e.target.value);
