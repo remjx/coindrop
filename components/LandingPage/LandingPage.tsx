@@ -89,21 +89,6 @@ const LandingPage: FunctionComponent = () => {
                         onCancel={null}
                     />
                 </Box>
-                <Text
-                    fontSize="sm"
-                    textAlign="center"
-                    mt={4}
-                >
-                    {'Coindrop is currently in beta. '}
-                    <Link
-                        href={twitterUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        <b>Request an invite</b>
-                    </Link>
-                    .
-                </Text>
             </Box>
             <ContentContainer>
                 <Flex

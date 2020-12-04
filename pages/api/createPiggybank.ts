@@ -4,7 +4,6 @@ import { v4 as uuidV4 } from 'uuid';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser } from '../../src/settings';
-import requireBetaInvite from '../../server/middleware/requireBetaInvite';
 import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
 
 const storage = new Storage({
@@ -94,7 +93,6 @@ const createPiggybank = async (req, res) => {
 
 const handler = nc()
   .use(requireFirebaseToken)
-  .use(requireBetaInvite)
   .post(createPiggybank);
 
 export default handler;
