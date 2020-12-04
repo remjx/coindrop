@@ -9,6 +9,7 @@ import { useUser } from '../../utils/auth/useUser';
 export const Navbar: FunctionComponent = () => {
     const { user } = useUser();
     const { pathname } = useRouter();
+    const childFlexMx = ["auto", null, "initial"];
     return (
         <Flex
             id="navbar"
@@ -16,12 +17,14 @@ export const Navbar: FunctionComponent = () => {
             justify="space-between"
             wrap="wrap"
         >
-            <NextLink href="/" shallow>
-                <Button variant="link">
-                    <Logo />
-                </Button>
-            </NextLink>
-            <Flex align="center">
+            <Flex mx={childFlexMx}>
+                <NextLink href="/" shallow>
+                    <Button variant="link">
+                        <Logo />
+                    </Button>
+                </NextLink>
+            </Flex>
+            <Flex align="center" mx={childFlexMx}>
                 {user
                 && pathname !== '/' // prevent flash of "Dashboard" text when logging in from landing page
                     ? (

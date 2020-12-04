@@ -26,7 +26,7 @@ async function fetchUserOwnedPiggybanks(uid) {
 const UserOwnedPiggybanks = ({ uid }) => {
     const { data, error } = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
-        return `Error getting data, please try refreshing the page.`;
+        return <Text>Error getting data, please try refreshing the page.</Text>;
     }
     if (data) {
         const numActivePiggybanks = data.length;
