@@ -19,6 +19,7 @@ describe('Landing page', () => {
 
   const testID_lr9rzm = "lr9rzm";
   const testCoindropName_lr9rzm = `test-coindrop-tid-${testID_lr9rzm}`;
+  // TODO: Fix this test, it is flaky
   it(`Creates Coindrop if Create button is pressed and user logs in (Test ID: ${testID_lr9rzm})`, () => {
     cy.intercept({
       method: 'POST',
