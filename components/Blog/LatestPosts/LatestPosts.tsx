@@ -55,7 +55,7 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
             maxW="940px"
             mx="auto"
         >
-            <Navbar isAuthOpen={null} />
+            <Navbar />
             <hr />
             <Heading
                 as="h1"

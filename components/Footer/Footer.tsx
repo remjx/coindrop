@@ -38,6 +38,11 @@ const Footer: FunctionComponent = () => {
                             text="Blog"
                         />
                         <Divider />
+                        <InternalLink
+                            href="/faq"
+                            text="FAQ"
+                        />
+                        <Divider />
                         <ExternalLink
                             href={githubTermsOfServiceUrl}
                             text="Terms"

@@ -46,7 +46,7 @@ export const Post: FunctionComponent<PostType> = ({
                 px={4}
                 mb={6}
             >
-                <Navbar isAuthOpen={null} />
+                <Navbar />
                 <hr />
                 <Heading
                     as="h1"
