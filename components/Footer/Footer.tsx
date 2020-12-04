@@ -16,12 +16,10 @@ const Divider: FunctionComponent = () => (
 );
 
 const Footer: FunctionComponent = () => {
-    // const backgroundColor = useColorModeValue("gray.200", "gray.600");
     return (
         <Box mt={10}>
             <hr />
             <Box
-                // bg={backgroundColor}
                 py={2}
             >
                 <Flex justify="space-between" wrap="wrap">

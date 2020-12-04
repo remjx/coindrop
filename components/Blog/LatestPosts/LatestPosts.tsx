@@ -49,7 +49,6 @@ export type LatestPostsProps = {
 }
 
 export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, pageTotal }) => {
-    console.log('LatestPosts posts', posts);
     return (
         <Box
             id="page-container"

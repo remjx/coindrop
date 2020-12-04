@@ -36,7 +36,7 @@ export const Post: FunctionComponent<PostType> = ({
                 dateModified={dateModified}
                 authorName={author}
                 publisherName="Coindrop"
-                publisherLogo="https://coindrop.to/piggy-256.png"
+                publisherLogo="https://coindrop.to/piggy-256.png" // TODO: change this to a valid AMP logo size https://developers.google.com/search/docs/data-types/article
                 description={description}
             />
             <Box
