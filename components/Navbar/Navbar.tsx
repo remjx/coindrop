@@ -6,11 +6,7 @@ import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import { useUser } from '../../utils/auth/useUser';
 
-type Props = {
-    isAuthOpen: boolean | null
-}
-
-export const Navbar: FunctionComponent<Props> = ({ isAuthOpen }) => {
+export const Navbar: FunctionComponent = () => {
     const { user } = useUser();
     const { pathname } = useRouter();
     return (
@@ -43,7 +39,6 @@ export const Navbar: FunctionComponent<Props> = ({ isAuthOpen }) => {
                             <Button
                                 id="log-in-button"
                                 mr={2}
-                                isDisabled={isAuthOpen}
                                 colorScheme={pathname === '/' ? undefined : "orange"}
                             >
                                 Log in / Sign up

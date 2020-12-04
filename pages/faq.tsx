@@ -8,13 +8,16 @@ import {
     AccordionPanel,
     AccordionIcon,
     Box,
+    Container,
+    Heading,
     Text,
     Link,
     useColorModeValue,
     UnorderedList,
     ListItem,
 } from "@chakra-ui/react";
-import { coindropEmail, githubUrl, markJacksonWebsite } from '../../src/settings';
+import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
+import { coindropEmail, githubUrl, markJacksonWebsite } from '../src/settings';
 
 type AccordionText = {
     title: string
@@ -22,7 +25,7 @@ type AccordionText = {
 }
 const accordionText: AccordionText[] = [
     {
-        title: "No fees? How?",
+        title: "How are there no fees?",
         body: (
             <Box>
                 <Text mb="1rem">
@@ -46,10 +49,10 @@ const accordionText: AccordionText[] = [
         ),
     },
     {
-        title: "What if one of my preferred payment methods is not listed?",
+        title: "What if one of my payment methods is not listed?",
         body: (
             <Text>
-                {"As long as it's safe and not against the law, we will add any payment method you wish. Submit a request "}
+                {"We will add any payment method you wish as long as it's safe and not against the law. Submit a request "}
                 <Link
                     href="https://github.com/markjackson02/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
                     isExternal
@@ -105,26 +108,36 @@ const FAQ: FunctionComponent = () => {
     const panelBgColor = useColorModeValue("gray.100", undefined);
     return (
         <Box>
-            <Accordion defaultIndex={-1} allowToggle>
-                {accordionText.map(({title, body}) => (
-                    <AccordionItem key={title}>
-                        <AccordionButton>
-                        <Box flex="1" textAlign="left">
-                            {title}
-                        </Box>
-                        <AccordionIcon />
-                        </AccordionButton>
-                        <AccordionPanel>
-                            <Box
-                                p={4}
-                                bg={panelBgColor}
-                            >
-                                {body}
+            <Box my={6}>
+                <Heading as="h1" textAlign="center">
+                    FAQ
+                </Heading>
+                <Text textAlign="center">
+                    Frequently Asked Questions
+                </Text>
+            </Box>
+            <Container maxW="lg">
+                <Accordion defaultIndex={-1} allowToggle>
+                    {accordionText.map(({title, body}) => (
+                        <AccordionItem key={title}>
+                            <AccordionButton>
+                            <Box flex="1" textAlign="left">
+                                {title}
                             </Box>
-                        </AccordionPanel>
-                    </AccordionItem>
-                ))}
-            </Accordion>
+                            <AccordionIcon />
+                            </AccordionButton>
+                            <AccordionPanel>
+                                <Box
+                                    p={4}
+                                    bg={panelBgColor}
+                                >
+                                    {body}
+                                </Box>
+                            </AccordionPanel>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            </Container>
             <Text textAlign="center" mt={4} fontSize="sm">
                 {"Do you have a question that's not answered here? Send it to "}
                 <Link href={`mailto:${coindropEmail}`} isExternal>
@@ -135,4 +148,4 @@ const FAQ: FunctionComponent = () => {
     );
 };
 
-export default FAQ;
+export default withDefaultLayout(FAQ);

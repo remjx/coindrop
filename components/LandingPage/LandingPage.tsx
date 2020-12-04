@@ -9,7 +9,6 @@ import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInp
 import { useUser } from '../../utils/auth/useUser';
 import { twitterUrl } from '../../src/settings';
 import UseCasesList from './UseCasesList';
-import FAQ from './FAQ';
 import GithubLink from './GithubLink';
 import Footer from '../Footer/Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
@@ -64,7 +63,7 @@ const LandingPage: FunctionComponent = () => {
             px={4}
             mb={6}
         >
-            <Navbar isAuthOpen={isAuthOpen} />
+            <Navbar />
             <Box
                 border="1px solid"
                 padding="10px"
@@ -115,9 +114,6 @@ const LandingPage: FunctionComponent = () => {
                 </Text>
             </Box>
             <ContentContainer>
-                <Heading as="h2" size="lg" textAlign="center">
-                    Perfect for...
-                </Heading>
                 <Flex
                     justify="center"
                     mt={2}
@@ -127,15 +123,8 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually
-                    {' '}
-                    <u>all</u>
-                    {' '}
-                    payment methods
+                    Supports virtually all payment methods
                 </Heading>
-                <Text textAlign="center">
-                    Pick &amp; choose which to feature on your page
-                </Text>
                 <Flex direction={['column', 'row']}>
                     <Box
                         mt={4}
@@ -161,27 +150,9 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Alternatives
+                    Coindrop vs. the alternatives
                 </Heading>
-                <Text
-                    textAlign="center"
-                    mb={2}
-                >
-                    Other platforms you may consider
-                </Text>
                 <CompetitorComparisonTable />
-            </ContentContainer>
-            <ContentContainer>
-                <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    FAQ
-                </Heading>
-                <Text
-                    textAlign="center"
-                    mb={5}
-                >
-                    Frequently Asked Questions
-                </Text>
-                <FAQ />
             </ContentContainer>
             <Footer />
         </Box>
