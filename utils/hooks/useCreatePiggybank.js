@@ -18,11 +18,11 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             token: user.token,
         };
         try {
+            cookies.remove('pendingLoginCreatePiggybankPath');
             await axios.post('/api/createPiggybank', data, { headers });
             setSubmitStatus('success');
             setCandidatePiggybankPath('');
             mutate(user.id);
-            cookies.remove('pendingLoginCreatePiggybankPath');
         } catch (err) {
             setSubmitStatus('error');
             setError(err.statusText);

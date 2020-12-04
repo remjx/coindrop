@@ -3,17 +3,17 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Link, Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
-import { SunIcon, MoonIcon, QuestionIcon } from "@chakra-ui/icons";
+import { Box, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import { mutate } from 'swr';
 import cookies from 'js-cookie';
-import { LogoutIcon, HamburgerMenuIcon, GithubIcon } from '../Icons/CustomIcons';
+import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { useUser } from '../../utils/auth/useUser';
 import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
-import { githubReadmeHelpUrl } from '../../src/settings';
+import Footer from '../Footer/Footer';
 
 const Dashboard = () => {
     const router = useRouter();
@@ -64,36 +64,6 @@ const Dashboard = () => {
                             <HamburgerMenuIcon />
                         </MenuButton>
                         <MenuList>
-                            <Link
-                                href="https://github.com/markjackson02/coindrop#coindrop-"
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{textDecoration: "none"}}
-                            >
-                                <MenuItem>
-                                        <Flex
-                                            align="center"
-                                        >
-                                            <GithubIcon mr={2} />
-                                            About
-                                        </Flex>
-                                </MenuItem>
-                            </Link>
-                            <Link
-                                href={githubReadmeHelpUrl}
-                                target="_blank"
-                                rel="noreferrer"
-                                style={{textDecoration: "none"}}
-                            >
-                                <MenuItem>
-                                        <Flex
-                                            align="center"
-                                        >
-                                            <QuestionIcon mr={2} />
-                                            Help
-                                        </Flex>
-                                </MenuItem>
-                            </Link>
                             <MenuItem
                                 onClick={toggleColorMode}
                             >
@@ -125,6 +95,9 @@ const Dashboard = () => {
                     uid={user.id}
                 />
             )}
+            <Box mt={10}>
+                <Footer />
+            </Box>
         </Box>
         </>
     );
