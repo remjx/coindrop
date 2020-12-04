@@ -1,10 +1,10 @@
-import { useState, useContext } from 'react';
-import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text } from "@chakra-ui/react";
+import { useState, FunctionComponent } from 'react';
+import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
-import { CreatePiggybankContext } from '../AppContext/AppContext';
 import { piggybankPathRegex } from '../../src/settings';
 
 const BoxMargin = ({ children }) => (
@@ -16,23 +16,28 @@ BoxMargin.propTypes = {
     children: PropTypes.element.isRequired,
 };
 
-const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
+type Props = {
+    onCancel: () => void | null
+    createButtonColorScheme: "orange" | "green"
+}
+
+export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
-    const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState();
+    const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const errorTextColor = useColorModeValue("red.500", "red.300");
     async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
             setIsCreateTriggered(true);
-        } else if (router.pathname !== '/auth') {
-            setPendingLoginCreatePiggybankPath(candidatePiggybankPath);
-            router.push('/auth');
+        } else if (router.pathname === '/') {
+            cookies.set('pendingLoginCreatePiggybankPath', candidatePiggybankPath);
+            router.push('/?auth=1', undefined, { shallow: true });
         }
     }
     function onSubmit(event) {
@@ -55,7 +60,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
                         <Input
                             name={inputName}
                             id={inputName}
-                            maxLength="32"
+                            maxLength={32}
                             roundedLeft="0"
                             placeholder="my-custom-url"
                             onChange={(e) => {
@@ -72,8 +77,8 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
                     <Button
                         ml={1}
                         colorScheme={createButtonColorScheme}
-                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || router.pathname === '/auth'}
-                        isLoading={submitStatus === 'submitting' || router.pathname === '/auth'}
+                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
+                        isLoading={submitStatus === 'submitting'}
                         loadingText="Creating"
                         onClick={onSubmit}
                         type="submit"
@@ -93,7 +98,7 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
                 )}
             </Flex>
             {error && (
-                <Text textAlign="center" color="red.500">
+                <Text mt={2} textAlign="center" color={errorTextColor}>
                     {error}
                 </Text>
             )}
@@ -115,15 +120,3 @@ const CreatePiggybankInput = ({ onCancel, createButtonColorScheme }) => {
         </form>
     );
 };
-
-CreatePiggybankInput.propTypes = {
-    onCancel: PropTypes.func,
-    createButtonColorScheme: PropTypes.string,
-};
-
-CreatePiggybankInput.defaultProps = {
-    onCancel: null,
-    createButtonColorScheme: "orange",
-};
-
-export default CreatePiggybankInput;

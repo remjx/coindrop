@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { Spinner, Box, Flex, Heading, useTheme } from '@chakra-ui/react';
+import { Spinner, Box, Flex, Heading, useTheme, useColorModeValue } from '@chakra-ui/react';
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 function PiggybankListItem({ id }) {
     const { colors } = useTheme();
     const [isLoading, setIsLoading] = useState();
+    const hoverBg = useColorModeValue(colors.gray['100'], colors.gray['600']);
+    const activeBg = useColorModeValue(colors.gray['200'], colors.gray['700']);
     return (
         <Box
             onClick={() => setIsLoading(true)}
             cursor="pointer"
             mt={3}
-            bg={isLoading ? colors.gray['100'] : undefined}
+            bg={isLoading ? hoverBg : undefined}
             _hover={{
-                bg: colors.gray['100'],
+                bg: hoverBg,
                 textDecoration: "none",
             }}
             _active={{
-                bg: colors.gray['200'],
+                bg: activeBg,
             }}
         >
             <NextLink href={`/${id}`} passHref>

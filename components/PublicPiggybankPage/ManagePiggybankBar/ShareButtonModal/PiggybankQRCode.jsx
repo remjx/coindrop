@@ -23,7 +23,7 @@ const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
                 <Heading as="h2" size="lg">
                     QR Code
                 </Heading>
-                <Text>Scan with smartphone camera</Text>
+                <Text>Scan or print</Text>
             </Box>
             <Flex align="center" flexGrow={1} justify="center" mt={2} wrap="wrap">
             {isDisplayed ? (

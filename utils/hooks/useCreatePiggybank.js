@@ -1,14 +1,13 @@
 // This is only used to create a new piggybank from scratch, not replace an existing one.
 
 import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { mutate } from 'swr';
-import { CreatePiggybankContext } from '../../components/AppContext/AppContext';
+import cookies from 'js-cookie';
 
 const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, user, isTriggered, setIsTriggered) => {
     const [submitStatus, setSubmitStatus] = useState('idle');
     const [error, setError] = useState();
-    const { setPendingLoginCreatePiggybankPath } = useContext(CreatePiggybankContext);
     async function triggerCreation() {
         setSubmitStatus('submitting');
         setError(null);
@@ -19,11 +18,11 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
             token: user.token,
         };
         try {
+            cookies.remove('pendingLoginCreatePiggybankPath');
             await axios.post('/api/createPiggybank', data, { headers });
             setSubmitStatus('success');
             setCandidatePiggybankPath('');
             mutate(user.id);
-            setPendingLoginCreatePiggybankPath(null);
         } catch (err) {
             setSubmitStatus('error');
             setError(err.statusText);

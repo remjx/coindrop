@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Box, Flex, useTheme } from '@chakra-ui/react';
+import { useTheme, Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import { PiggyLogoIcon, KofiIcon, BuyMeACoffeeIcon, PatreonIcon } from "../Icons/CustomIcons";
 import styles from './CompetitorComparisonTable.module.scss';
 
@@ -50,9 +50,10 @@ const competitorData = data.filter(obj => obj.id !== 'coindrop');
 
 const CompetitorComparisonTable = () => {
     const theme = useTheme();
-    const green = theme.colors.green['400'];
-    const red = theme.colors.red['500'];
-    const orange = theme.colors.orange['500'];
+    const green = useColorModeValue(theme.colors.green['500'], theme.colors.green['300']);
+    const red = useColorModeValue(theme.colors.red['500'], theme.colors.red['300']);
+    const orange = useColorModeValue(theme.colors.orange['500'], theme.colors.orange['300']);
+    const logoOutlineColor = useColorModeValue(theme.colors.gray['800'], theme.colors.gray['900']);
     const StyledTd = ({ value }) => {
         let backgroundColor;
         switch (value) {
@@ -70,7 +71,7 @@ const CompetitorComparisonTable = () => {
                 backgroundColor = red;
         }
         return (
-            <td style={{backgroundColor}}>
+            <td style={{backgroundColor, color: "white"}}>
                 {value}
             </td>
         );
@@ -93,7 +94,7 @@ const CompetitorComparisonTable = () => {
                             <th>
                                 <Flex align="center">
                                     {coindropData.displayName}
-                                    <PiggyLogoIcon ml={1} size="19px" />
+                                    <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
                                 </Flex>
                             </th>
                             {competitorData.map(obj => (
@@ -154,7 +155,7 @@ const CompetitorComparisonTable = () => {
                                 <th>
                                     <Flex align="center">
                                         Coindrop
-                                        <PiggyLogoIcon ml={1} size="19px" />
+                                        <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
                                     </Flex>
                                 </th>
                                 <th>

@@ -1,6 +1,7 @@
 // Favicons generated with generated with https://realfavicongenerator.net/
 
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { ColorModeScript } from '@chakra-ui/react';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -13,7 +14,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
             <link href="https://fonts.googleapis.com/css2?family=Changa:wght@500&display=swap" rel="stylesheet" />
-            <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap" rel="stylesheet" />
+            {/* <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap" rel="stylesheet" /> */}
             <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
@@ -23,6 +24,7 @@ class MyDocument extends Document {
             <meta name="theme-color" content="#ffffff" />
         </Head>
         <body>
+          <ColorModeScript initialColorMode="light" />
           <Main />
           <NextScript />
         </body>

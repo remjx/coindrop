@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useDisclosure, Text, Flex, useTheme, Box } from '@chakra-ui/react';
+import { useDisclosure, Text, Flex, useTheme, Box, useColorModeValue } from '@chakra-ui/react';
 import { paymentMethodNames, paymentMethodIcons } from '../../src/paymentMethods';
 import PaymentMethodButtonModal from './PaymentMethodButtonModal';
 
@@ -9,6 +9,7 @@ const PaymentMethodButton = (props) => {
     const { paymentMethod, paymentMethodValue, isPreferred, accentColor } = props;
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     const Icon = paymentMethodIcons[paymentMethod];
+    const textColor = useColorModeValue("gray.800", "white");
     return (
         <>
         <PaymentMethodButtonModal
@@ -24,17 +25,17 @@ const PaymentMethodButton = (props) => {
             lineHeight="1.2"
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
             borderWidth={isPreferred ? "2px" : "1px"}
-            rounded="2px"
+            rounded="6px"
             fontSize="18px"
             fontWeight="semibold"
-            bg="white"
+            bg={useColorModeValue("gray.100", "gray.800")}
             borderColor={isPreferred ? theme.colors[accentColor]['500'] : theme.colors.gray['300']}
             p={4}
             m={2}
             shadow="md"
-            color={theme.colors.gray['800']}
+            color={textColor}
             _hover={{
-                bg: theme.colors.gray['200'],
+                bg: useColorModeValue("gray.200", "gray.500"),
                 transform: "scale(0.98)",
             }}
             _active={{
@@ -51,7 +52,7 @@ const PaymentMethodButton = (props) => {
             {isPreferred && (
                 <Text
                     fontSize="xs"
-                    color={theme.colors.gray['500']}
+                    color={textColor}
                 >
                     Preferred
                 </Text>

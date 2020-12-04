@@ -1,21 +1,18 @@
-import { useEffect } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, Button, useTheme, Heading, Text, Link } from '@chakra-ui/react';
-import Logo from '../Logo/Logo';
+import { useDisclosure, Box, Flex, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import AuthModal from '../Auth/AuthModal';
-import CreatePiggybankInput from '../CreatePiggybankInput/CreatePiggybankInput';
+import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import { twitterUrl } from '../../src/settings';
-import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
 import UseCasesList from './UseCasesList';
-import FAQ from './FAQ';
-import PaymentMethodTag from './PaymentMethodTag';
 import GithubLink from './GithubLink';
-import Footer from './Footer';
+import Footer from '../Footer/Footer';
 import CompetitorComparisonTable from './CompetitorComparisonTable';
+import { PaymentMethodTags } from './PaymentMethodTags';
+import { Navbar } from '../Navbar/Navbar';
 
 const ContentContainer = ({ children }) => (
     <Box
@@ -28,15 +25,7 @@ ContentContainer.propTypes = {
     children: PropTypes.any.isRequired,
 };
 
-const PaymentMethodTagAndManyMore = () => (
-    <PaymentMethodTag
-        label="... and many more"
-        color="gray"
-        tagColorScheme="gray"
-    />
-);
-
-const index = () => {
+const LandingPage: FunctionComponent = () => {
     const {
         isOpen: isAuthOpen,
         onOpen: onAuthOpen,
@@ -45,48 +34,18 @@ const index = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
+    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
+        if (user) {
+            router.push('/dashboard');
+        }
+    }, [user]);
     useEffect(() => {
-        if (router.pathname === '/auth') {
+        if (router.query.auth) {
             onAuthOpen();
         } else {
             onAuthClose();
         }
-    }, [router.pathname]);
-    useEffect(() => {
-        router.prefetch('/dashboard');
-    }, []);
-    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
-        if (
-            user
-            && router.pathname !== '/dashboard'
-        ) {
-            router.push('/dashboard');
-        }
-    }, [user, router.pathname]);
-    const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
-    const PaymentMethodTags = ({ category }) => paymentMethodCategoriesArr
-        .filter(([, paymentMethodCategory]) => paymentMethodCategory === category)
-        .map(([paymentMethodId]) => {
-            let iconSize;
-            switch (paymentMethodId) {
-                case 'venmo':
-                    iconSize = '32px';
-                    break;
-                case 'bitcoinBCH':
-                    iconSize = '22px';
-                    break;
-                default:
-                    iconSize = undefined;
-            }
-            return (
-                <PaymentMethodTag
-                    key={paymentMethodId}
-                    label={paymentMethodNames[paymentMethodId]}
-                    iconName={paymentMethodId}
-                    iconSize={iconSize}
-                />
-            );
-        });
+    }, [router.query]);
     return (
         <>
         <NextSeo
@@ -95,7 +54,6 @@ const index = () => {
         />
         <AuthModal
             isOpen={isAuthOpen}
-            onClose={onAuthClose}
         />
         <GithubLink />
         <Box
@@ -104,25 +62,7 @@ const index = () => {
             px={4}
             mb={6}
         >
-            <Flex
-                id="navbar"
-                align="center"
-                justify="space-between"
-                wrap="wrap"
-            >
-                <Logo mr={2} />
-                <Flex align="center">
-                    <NextLink href="/auth">
-                        <Button
-                            id="log-in-button"
-                            mr={2}
-                            isDisabled={router.pathname === '/auth'}
-                        >
-                            Log in
-                        </Button>
-                    </NextLink>
-                </Flex>
-            </Flex>
+            <Navbar />
             <Box
                 border="1px solid"
                 padding="10px"
@@ -132,7 +72,6 @@ const index = () => {
             >
                 <Heading
                     textAlign="center"
-                    color={theme.colors.gray['700']}
                     as="h1"
                 >
                     The easiest way to accept donations and tips
@@ -143,7 +82,10 @@ const index = () => {
                 <Box
                     mt={2}
                 >
-                    <CreatePiggybankInput />
+                    <CreatePiggybankInput
+                        createButtonColorScheme="orange"
+                        onCancel={null}
+                    />
                 </Box>
                 <Text
                     fontSize="sm"
@@ -162,9 +104,6 @@ const index = () => {
                 </Text>
             </Box>
             <ContentContainer>
-                <Heading as="h2" size="lg" textAlign="center">
-                    Perfect for...
-                </Heading>
                 <Flex
                     justify="center"
                     mt={2}
@@ -174,15 +113,8 @@ const index = () => {
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually
-                    {' '}
-                    <u>all</u>
-                    {' '}
-                    payment methods
+                    Supports virtually all payment methods
                 </Heading>
-                <Text textAlign="center">
-                    Pick &amp; choose which to feature on your page
-                </Text>
                 <Flex direction={['column', 'row']}>
                     <Box
                         mt={4}
@@ -192,7 +124,6 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="app" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                     <Box
@@ -203,39 +134,20 @@ const index = () => {
                         </Heading>
                         <Flex wrap="wrap" justify="center" mt={3}>
                             <PaymentMethodTags category="digital-asset" />
-                            <PaymentMethodTagAndManyMore />
                         </Flex>
                     </Box>
                 </Flex>
             </ContentContainer>
             <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Alternatives
+                    Coindrop vs. the alternatives
                 </Heading>
-                <Text
-                    textAlign="center"
-                    mb={2}
-                >
-                    Other platforms you may consider
-                </Text>
                 <CompetitorComparisonTable />
             </ContentContainer>
-            <ContentContainer>
-                <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    FAQ
-                </Heading>
-                <Text
-                    textAlign="center"
-                    mb={5}
-                >
-                    Frequently Asked Questions
-                </Text>
-                <FAQ />
-            </ContentContainer>
+            <Footer />
         </Box>
-        <Footer />
         </>
     );
 };
 
-export default index;
+export default LandingPage;

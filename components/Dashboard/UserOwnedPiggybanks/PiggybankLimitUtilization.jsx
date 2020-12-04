@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Flex, Box, Text, Progress, Link } from '@chakra-ui/react';
-import { maxPiggybanksPerUser, githubReadmeHelpUrl } from '../../../src/settings';
+import { maxPiggybanksPerUser, coindropEmail } from '../../../src/settings';
 
 const PiggybankLimitUtilization = (props) => {
     const { numActivePiggybanks } = props;
@@ -33,7 +33,7 @@ const PiggybankLimitUtilization = (props) => {
                         {' Coindrops'}
                     </Text>
                     <Text mt={2}>
-                        <Link href={githubReadmeHelpUrl} target="_blank" rel="noreferrer">
+                        <Link href={`mailto:${coindropEmail}`} target="_blank" rel="noreferrer">
                             <u>Contact us</u>
                         </Link>
                         {" to request a limit increase (it's free)"}

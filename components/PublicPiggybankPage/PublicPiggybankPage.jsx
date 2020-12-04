@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -14,6 +14,7 @@ import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
 import { sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
+import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 
 const PublicPiggybankPage = (props) => {
     // TODO: useSwr to refresh piggybankDbData after initial load
@@ -111,6 +112,9 @@ const PublicPiggybankPage = (props) => {
                         initialSetupComplete={initialSetupComplete}
                     />
                 )}
+                <Flex mt={2} mr={6} justify="flex-end">
+                    <ToggleColorModeButton />
+                </Flex>
                 {initialSetupComplete ? (
                     <Box
                         mb={6}
@@ -164,7 +168,7 @@ const PublicPiggybankPage = (props) => {
                     </Box>
                 ) : (
                     <Heading mt={4} textAlign="center">
-                        {piggybankExists ? 'This piggybank has not been set up yet.' : 'This piggybank does not exist'}
+                        {piggybankExists ? 'This Coindrop has not been set up yet.' : 'This Coindrop does not exist'}
                         {/* TODO: Include action buttons to log in or landing page */}
                     </Heading>
                 )}
