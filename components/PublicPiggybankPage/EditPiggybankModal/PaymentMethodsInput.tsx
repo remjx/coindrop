@@ -164,7 +164,7 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                             <Checkbox
                                                 name={`${fieldArrayName}[${index}].isPreferred`}
                                                 ref={register()}
-                                                defaultValue={item?.isPreferred ? 1 : 0} // TODO: not sure if this is correct
+                                                defaultValue={item?.isPreferred ? 1 : 0}
                                                 defaultIsChecked={item?.isPreferred}
                                                 mt={1}
                                                 colorScheme="yellow"
