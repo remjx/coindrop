@@ -18,12 +18,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["cypress"]
+    "types": ["jest"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "components/PublicPiggybankPage/EditPiggybankModal/EditPiggybankModal.jsx"
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules"

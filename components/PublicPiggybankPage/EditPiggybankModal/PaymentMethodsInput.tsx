@@ -24,7 +24,7 @@ import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
-type PaymentMethod = {
+export type PaymentMethod = {
     address: string
     id: string
     isPreferred: boolean

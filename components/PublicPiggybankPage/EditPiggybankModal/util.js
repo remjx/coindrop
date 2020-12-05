@@ -1,12 +1,14 @@
-import { paymentMethodIds } from '../../../src/paymentMethods';
-
+"use strict";
+exports.__esModule = true;
+exports.convertPaymentMethodsFieldArrayToDbMap = exports.sortByIsPreferredThenAlphabetical = void 0;
+var paymentMethods_1 = require("../../../src/paymentMethods");
 // Preferred should be at the top, sorted alphabetecally within this group
 // Non preferred should be below, sorted alphabetically within this group
-export function sortByIsPreferredThenAlphabetical(arr) {
+function sortByIsPreferredThenAlphabetical(arr) {
     return arr
-    .sort((a, b) => {
-        const { paymentMethodId: aPaymentMethodId, isPreferred: aIsPreferred } = a;
-        const { paymentMethodId: bPaymentMethodId, isPreferred: bIsPreferred } = b;
+        .sort(function (a, b) {
+        var aPaymentMethodId = a.paymentMethodId, aIsPreferred = a.isPreferred;
+        var bPaymentMethodId = b.paymentMethodId, bIsPreferred = b.isPreferred;
         if (aIsPreferred && !bIsPreferred) {
             return -1;
         }
@@ -19,19 +21,24 @@ export function sortByIsPreferredThenAlphabetical(arr) {
         return 1;
     });
 }
-
+exports.sortByIsPreferredThenAlphabetical = sortByIsPreferredThenAlphabetical;
 /* eslint-disable no-param-reassign */
-export function convertPaymentMethodsFieldArrayToDbMap(paymentMethods) {
-    return paymentMethods.reduce((result, paymentMethod) => {
-        if (!paymentMethodIds.includes(paymentMethod.paymentMethodId)) {
+function convertPaymentMethodsFieldArrayToDbMap(paymentMethods) {
+    return paymentMethods.reduce(function (result, paymentMethod) {
+        if (!paymentMethods_1.paymentMethodIds.includes(paymentMethod.paymentMethodId)) {
             return result;
         }
-        Object.entries(paymentMethod).forEach(([field, value]) => {
+        console.log('result before', result);
+        Object.entries(paymentMethod).forEach(function (_a) {
+            var field = _a[0], value = _a[1];
             if (field === 'paymentMethodId') {
+                console.log('EXECUTING MYSTERY LOGIC');
                 result[value] = {};
             }
         });
-        Object.entries(paymentMethod).forEach(([field, value]) => {
+        console.log('result after', result);
+        Object.entries(paymentMethod).forEach(function (_a) {
+            var field = _a[0], value = _a[1];
             if (field !== 'id' && field !== 'paymentMethodId') {
                 result[paymentMethod.paymentMethodId][field] = value;
             }
@@ -39,4 +46,5 @@ export function convertPaymentMethodsFieldArrayToDbMap(paymentMethods) {
         return result;
     }, {});
 }
+exports.convertPaymentMethodsFieldArrayToDbMap = convertPaymentMethodsFieldArrayToDbMap;
 /* eslint-enable no-param-reassign */

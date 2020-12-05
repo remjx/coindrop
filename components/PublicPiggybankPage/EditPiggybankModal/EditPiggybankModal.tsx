@@ -31,14 +31,14 @@ import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
-type PaymentMethods = {
+export type PaymentMethodsDbObj = {
     [key: string]: {
         address: string
         isPreferred: boolean
     }
 }
 
-function convertPaymentMethodsDataToFieldArray(paymentMethods: PaymentMethods = {}) {
+function convertPaymentMethodsDataToFieldArray(paymentMethods: PaymentMethodsDbObj = {}) {
     return Object.entries(paymentMethods)
     .map(([paymentMethodId, paymentMethodData]) => ({
         id: uuidv4(), // react-hook-form requires unchanging id

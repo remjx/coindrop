@@ -1,49 +1,71 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { expect } from '@jest/globals';
 import { sortByIsPreferredThenAlphabetical } from './util';
 
 describe('sortByIsPreferredThenAlphabetical', () => {
     test('sorts correctly', () => {
         const inputArr = [
             {
+                id: "c",
                 paymentMethodId: "c",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "b",
                 paymentMethodId: "b",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "a",
                 paymentMethodId: "a",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "d",
                 paymentMethodId: "d",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "e",
                 paymentMethodId: "e",
                 isPreferred: true,
+                address: "123",
             },
         ];
         const outputArr = [
             {
+                id: "d",
                 paymentMethodId: "d",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "e",
                 paymentMethodId: "e",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "a",
                 paymentMethodId: "a",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "b",
                 paymentMethodId: "b",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "c",
                 paymentMethodId: "c",
                 isPreferred: false,
+                address: "123",
             },
         ];
         const result = sortByIsPreferredThenAlphabetical(inputArr);
@@ -53,46 +75,66 @@ describe('sortByIsPreferredThenAlphabetical', () => {
     test('sorts correctly (d+e swapped)', () => {
         const inputArr = [
             {
+                id: "c",
                 paymentMethodId: "c",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "b",
                 paymentMethodId: "b",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "a",
                 paymentMethodId: "a",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "e",
                 paymentMethodId: "e",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "d",
                 paymentMethodId: "d",
                 isPreferred: true,
+                address: "123",
             },
         ];
         const outputArr = [
             {
+                id: "d",
                 paymentMethodId: "d",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "e",
                 paymentMethodId: "e",
                 isPreferred: true,
+                address: "123",
             },
             {
+                id: "a",
                 paymentMethodId: "a",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "b",
                 paymentMethodId: "b",
                 isPreferred: false,
+                address: "123",
             },
             {
+                id: "c",
                 paymentMethodId: "c",
                 isPreferred: false,
+                address: "123",
             },
         ];
         const result = sortByIsPreferredThenAlphabetical(inputArr);
