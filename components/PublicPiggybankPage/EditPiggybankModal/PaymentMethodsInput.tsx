@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext, FunctionComponent } from 'react';
-import PropTypes from 'prop-types';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
     Accordion,
@@ -18,7 +17,7 @@ import {
     Text,
     useTheme,
 } from "@chakra-ui/react";
-import { useWatch, Control, ArrayField } from "react-hook-form";
+import { useWatch, Control } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
@@ -34,7 +33,6 @@ export type PaymentMethod = {
 type Props = {
     control: Control
     register: any
-    // fields: Partial<PaymentMethod[]>,
     fields: any
     remove: (index: number) => void
     append: (data: Record<string, unknown>) => void

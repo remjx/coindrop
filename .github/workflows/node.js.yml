@@ -53,6 +53,8 @@ jobs:
           ${{ runner.os }}-
     - run: yarn install
     - run: yarn run lint
+    - run: yarn run lint:tsc
+    - run: yarn run lint:tsc:cypress
     - run: yarn run test
   cypress-run:
     runs-on: ubuntu-16.04
