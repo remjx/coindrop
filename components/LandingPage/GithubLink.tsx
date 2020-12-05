@@ -1,10 +1,11 @@
 // Based on https://github.com/tholman/github-corners
 
 import { Box, useTheme } from '@chakra-ui/react';
+import { FunctionComponent } from 'react';
 import { githubUrl } from '../../src/settings';
 import styles from './GithubLink.module.css';
 
-const GithubLink = () => {
+const GithubLink: FunctionComponent = () => {
     const { colors: { gray } } = useTheme();
     return (
         <Box display={['none', 'none', 'none', 'block']}>
@@ -26,7 +27,6 @@ const GithubLink = () => {
                         top: 0,
                         border: 0,
                         right: 0,
-                        ariaHidden: true,
                     }}
                 >
                     <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />

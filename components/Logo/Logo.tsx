@@ -1,8 +1,12 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import { Flex, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
 import { PiggyLogoIcon } from "../Icons/CustomIcons";
 
-const Logo = ({ text }) => {
+type Props = {
+    text?: string
+}
+
+const Logo: FunctionComponent<Props> = ({ text = 'coindrop' }) => {
     const theme = useTheme();
     const fontColor = useColorModeValue(theme.colors.gray['600'], theme.colors.gray['50']);
     const logoOutlineColor = useColorModeValue(theme.colors.gray['800'], theme.colors.gray['900']);
@@ -30,14 +34,6 @@ const Logo = ({ text }) => {
             <LogoText />
         </Flex>
     );
-};
-
-Logo.propTypes = {
-    text: PropTypes.string,
-};
-
-Logo.defaultProps = {
-    text: 'coindrop',
 };
 
 export default Logo;

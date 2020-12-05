@@ -1,9 +1,19 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import { useTheme, Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import { PiggyLogoIcon, KofiIcon, BuyMeACoffeeIcon, PatreonIcon } from "../Icons/CustomIcons";
 import styles from './CompetitorComparisonTable.module.scss';
 
-const data = [
+type Competitor = {
+    id: string
+    displayName: string,
+    numPagesPerAccount: string | number,
+    paymentMethods: string,
+    isOpenSource: 'Yes' | 'No',
+    fees: string,
+    membershipFeatures: string,
+    icon: JSX.Element,
+}
+const data: Competitor[] = [
     {
         id: 'coindrop',
         displayName: 'Coindrop',
@@ -48,13 +58,13 @@ const data = [
 const coindropData = data.find(obj => obj.id === 'coindrop');
 const competitorData = data.filter(obj => obj.id !== 'coindrop');
 
-const CompetitorComparisonTable = () => {
+const CompetitorComparisonTable: FunctionComponent = () => {
     const theme = useTheme();
     const green = useColorModeValue(theme.colors.green['500'], theme.colors.green['300']);
     const red = useColorModeValue(theme.colors.red['500'], theme.colors.red['300']);
     const orange = useColorModeValue(theme.colors.orange['500'], theme.colors.orange['300']);
     const logoOutlineColor = useColorModeValue(theme.colors.gray['800'], theme.colors.gray['900']);
-    const StyledTd = ({ value }) => {
+    const StyledTd: FunctionComponent<{ value: string | number }> = ({ value }) => {
         let backgroundColor;
         switch (value) {
             case 'Unlimited':
@@ -75,9 +85,6 @@ const CompetitorComparisonTable = () => {
                 {value}
             </td>
         );
-    };
-    StyledTd.propTypes = {
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     };
     return (
         <Box>
@@ -121,7 +128,7 @@ const CompetitorComparisonTable = () => {
                         <tr>
                             <td>Open-source</td>
                             {data.map(obj => (
-                                <StyledTd dataId="isOpenSource" value={obj.isOpenSource} key={obj.id} />
+                                <StyledTd value={obj.isOpenSource} key={obj.id} />
                             ))}
                         </tr>
                         <tr>
@@ -133,7 +140,7 @@ const CompetitorComparisonTable = () => {
                         <tr>
                             <td>Memberships</td>
                             {data.map(obj => (
-                                <StyledTd dataId="membershipFeatures" value={obj.membershipFeatures} key={obj.id} />
+                                <StyledTd value={obj.membershipFeatures} key={obj.id} />
                             ))}
                         </tr>
                     </tbody>
