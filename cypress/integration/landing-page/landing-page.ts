@@ -37,7 +37,7 @@ describe('Landing page', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/dashboard`);
     cy.wait("@createPiggybank");
     cy.wait("@getUserOwnedPiggybanks");
-    cy.contains(testCoindropName_lr9rzm, 8000);
+    cy.contains(testCoindropName_lr9rzm, { timeout: 8000 });
   });
 });
 
