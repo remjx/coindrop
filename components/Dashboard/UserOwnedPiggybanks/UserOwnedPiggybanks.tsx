@@ -7,7 +7,7 @@ import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import { PaymentMethod } from '../../PublicPiggybankPage/EditPiggybankModal/PaymentMethodsInput';
 
-async function fetchUserOwnedPiggybanks(uid) {
+async function fetchUserOwnedPiggybanks(uid: string): Promise<{ id: string }[]> {
     const piggybanks = await db
         .collection('piggybanks')
         .where('owner_uid', '==', uid)
