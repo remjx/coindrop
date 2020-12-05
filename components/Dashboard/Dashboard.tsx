@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Box, Text, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { mutate } from 'swr';
 import cookies from 'js-cookie';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
@@ -18,8 +17,8 @@ const Dashboard: FunctionComponent = () => {
     const { user, logout } = useUser();
     const { colorMode, toggleColorMode } = useColorMode();
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState();
-    const { submitStatus } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
+    useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
@@ -32,11 +31,6 @@ const Dashboard: FunctionComponent = () => {
             setIsCreateTriggered(true);
         }
     }, []);
-    useEffect(() => {
-        if (submitStatus === 'success' && user) {
-            mutate(user.id);
-        }
-    }, [submitStatus, user]);
     return (
         <>
         <NextSeo

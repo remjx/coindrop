@@ -4,8 +4,6 @@ Create a simple webpage for accepting payments & donations. Open-source, zero-fe
 
 Get started at [coindrop.to](https://coindrop.to).
 
-⚠️ Coindrop is in closed beta while we refine the user experience. Request an invite by DMing [@coindrop_to on Twitter](https://twitter.com/coindrop_to).
-
 ## Problem ❓
 
 Senders and receivers of money must agree on a medium of exchange. With so many apps, currencies, and digital assets available to perform this service, it is not trivial to find the best payment method to use.
@@ -49,7 +47,7 @@ As mentioned above, this software is licensed under the [GNU General Public Lice
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
-Please use [Github Issues](https://github.com/markjackson02/coindrop/issues) to submit bug reports or request new features.
+Please use [Github Issues](https://github.com/remjx/coindrop/issues) to submit bug reports or request new features.
 
 ## Contact ✉️
 
