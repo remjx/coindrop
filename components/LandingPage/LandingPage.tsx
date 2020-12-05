@@ -2,11 +2,10 @@ import { FunctionComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, useTheme, Heading, Text, Link } from '@chakra-ui/react';
+import { useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
-import { twitterUrl } from '../../src/settings';
 import UseCasesList from './UseCasesList';
 import GithubLink from './GithubLink';
 import Footer from '../Footer/Footer';
@@ -89,21 +88,6 @@ const LandingPage: FunctionComponent = () => {
                         onCancel={null}
                     />
                 </Box>
-                <Text
-                    fontSize="sm"
-                    textAlign="center"
-                    mt={4}
-                >
-                    {'Coindrop is currently in beta. '}
-                    <Link
-                        href={twitterUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        <b>Request an invite</b>
-                    </Link>
-                    .
-                </Text>
             </Box>
             <ContentContainer>
                 <Flex
