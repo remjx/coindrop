@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { FunctionComponent, useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { NotAllowedIcon, CheckIcon } from "@chakra-ui/icons";
@@ -45,8 +45,14 @@ StatusIcon.propTypes = {
     currentPiggybankId: PropTypes.string.isRequired,
 };
 
-const EditUrlInput = ({ register, value }) => {
-    const { query: { piggybankName: currentPiggybankId }} = useRouter();
+type Props = {
+    register: any // from react-hook-form useForm
+    value: string
+}
+
+const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
+    const { query: { piggybankName }} = useRouter();
+    const currentPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const debouncedValue = useDebounce(value, 1500);
@@ -78,7 +84,7 @@ const EditUrlInput = ({ register, value }) => {
             </InputLeftAddon>
             <Input
                 id="input-piggybankId"
-                maxLength="32"
+                maxLength={32}
                 roundedLeft="0"
                 isInvalid={!isValid && !isValidating && value === debouncedValue && !isUrlUnchanged}
                 ref={register}
@@ -95,15 +101,6 @@ const EditUrlInput = ({ register, value }) => {
             </InputRightElement>
         </InputGroup>
     );
-};
-
-EditUrlInput.propTypes = {
-    register: PropTypes.any.isRequired,
-    value: PropTypes.string.isRequired,
-};
-
-EditUrlInput.defaultProps = {
-
 };
 
 export default EditUrlInput;
