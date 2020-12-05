@@ -22,26 +22,13 @@ export function sortByIsPreferredThenAlphabetical(arr: PaymentMethod[]): Payment
     });
 }
 
-/* eslint-disable no-param-reassign */
 export function convertPaymentMethodsFieldArrayToDbMap(paymentMethods: PaymentMethod[]): PaymentMethodsDbObj {
-    return paymentMethods.reduce((result, paymentMethod) => {
-        if (!paymentMethodIds.includes(paymentMethod.paymentMethodId)) {
-            return result;
+    const paymentMethodsDbObj = {};
+    paymentMethods.forEach(paymentMethod => {
+        const { paymentMethodId, ...data } = paymentMethod;
+        if (paymentMethodIds.includes(paymentMethod.paymentMethodId)) {
+            paymentMethodsDbObj[paymentMethodId] = data;
         }
-        console.log('result before', result)
-        Object.entries(paymentMethod).forEach(([field, value]) => {
-            if (field === 'paymentMethodId') {
-                console.log('EXECUTING MYSTERY LOGIC')
-                result[value] = {};
-            }
-        });
-        console.log('result after', result)
-        Object.entries(paymentMethod).forEach(([field, value]) => {
-            if (field !== 'id' && field !== 'paymentMethodId') {
-                result[paymentMethod.paymentMethodId][field] = value;
-            }
-        });
-        return result;
-    }, {});
+    });
+    return paymentMethodsDbObj;
 }
-/* eslint-enable no-param-reassign */
