@@ -23,7 +23,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "components/PublicPiggybankPage/ManagePiggybankBar/ShareButtonModal/PiggybankQRCode.jsx"
   ],
   "exclude": [
     "node_modules"

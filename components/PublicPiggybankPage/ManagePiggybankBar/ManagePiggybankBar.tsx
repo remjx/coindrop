@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import NextLink from 'next/link';
-import { ArrowBackIcon, SettingsIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
@@ -23,9 +23,18 @@ LinkButton.propTypes = {
 };
 /* eslint-enable react/jsx-props-no-spreading */
 
-const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
+type Props = {
+    editButtonOptions: {
+        text: string
+        color: string
+        icon: JSX.Element
+    },
+    initialSetupComplete: boolean
+}
+
+const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initialSetupComplete }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
-    const [isDashboardLoading, setIsDashboardLoading] = useState();
+    const [isDashboardLoading, setIsDashboardLoading] = useState(false);
     return (
         <Box>
             {isEditOpen && ( // this conditional is needed to force remount of form so latest values are used
@@ -77,23 +86,6 @@ const ManagePiggybankBar = ({ editButtonOptions, initialSetupComplete }) => {
             </Flex>
         </Box>
     );
-};
-
-ManagePiggybankBar.propTypes = {
-    editButtonOptions: PropTypes.shape({
-        text: PropTypes.string.isRequired,
-        color: PropTypes.string,
-        icon: PropTypes.object.isRequired,
-    }),
-    initialSetupComplete: PropTypes.bool.isRequired,
-};
-
-ManagePiggybankBar.defaultProps = {
-    editButtonOptions: {
-        text: 'Configure',
-        color: undefined,
-        icon: <SettingsIcon />,
-    },
 };
 
 export default ManagePiggybankBar;

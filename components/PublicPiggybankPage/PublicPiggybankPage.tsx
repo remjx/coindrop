@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
@@ -11,27 +11,47 @@ import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
-import PublicPiggybankDataProvider from './PublicPiggybankDataContext';
+import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggybankDataContext';
 import { sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 
-const PublicPiggybankPage = (props) => {
+type Props = {
+    initialPiggybankDbData: PublicPiggybankData
+}
+
+const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     // TODO: useSwr to refresh piggybankDbData after initial load
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
     const { query: { piggybankName }} = useRouter();
-    const [piggybankDbData, setPiggybankDbData] = useState(initialPiggybankDbData);
-    async function refreshPiggybankDbData(piggybankId) {
+    const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
+    async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
         try {
             const piggybankRef = await db
                 .collection('piggybanks')
                 .doc(piggybankId)
                 .get();
             if (piggybankRef.exists) {
-                const data = piggybankRef.data();
-                setPiggybankDbData(data);
+                const {
+                    name,
+                    website,
+                    accentColor,
+                    verb,
+                    owner_uid,
+                    paymentMethods,
+                    avatar_storage_id,
+                } = piggybankRef.data();
+                setPiggybankDbData({
+                    name,
+                    website,
+                    accentColor,
+                    verb,
+                    owner_uid,
+                    paymentMethods,
+                    avatar_storage_id,
+                });
             }
         } catch (error) {
             throw new Error(error);
@@ -104,11 +124,18 @@ const PublicPiggybankPage = (props) => {
                 && user.id === owner_uid
                 && (
                     <ManagePiggybankBar
-                        editButtonOptions={initialSetupComplete ? undefined : {
-                            text: 'Set up',
-                            color: 'green',
-                            icon: <SettingsIcon />,
-                        }}
+                        editButtonOptions={
+                            initialSetupComplete
+                            ? ({
+                                text: 'Configure',
+                                color: undefined,
+                                icon: <SettingsIcon />,
+                            }) : ({
+                                text: 'Set up',
+                                color: 'green',
+                                icon: <SettingsIcon />,
+                            })
+                        }
                         initialSetupComplete={initialSetupComplete}
                     />
                 )}
@@ -176,13 +203,6 @@ const PublicPiggybankPage = (props) => {
         </PublicPiggybankDataProvider>
         </>
     );
-};
-
-PublicPiggybankPage.propTypes = {
-    initialPiggybankDbData: PropTypes.object.isRequired,
-};
-
-PublicPiggybankPage.defaultProps = {
 };
 
 export default PublicPiggybankPage;
