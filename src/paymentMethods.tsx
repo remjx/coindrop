@@ -1,9 +1,16 @@
 // If the icon's viewBox is `0 0 24 24`, you can ignore `viewBox`
 // TODO: add officialWebsite to the object properties
 
-import { createIcon } from "@chakra-ui/react";
+import { createIcon, ComponentWithAs, IconProps } from "@chakra-ui/react";
 
-const paymentMethods = [
+type PaymentMethod = {
+    id: string
+    displayName: string
+    category: 'app' | 'digital-asset'
+    icon: ComponentWithAs<"svg", IconProps>
+}
+
+const paymentMethods: PaymentMethod[] = [
     {
         id: "payPal",
         displayName: "PayPal",
@@ -227,8 +234,8 @@ const paymentMethods = [
         category: 'digital-asset',
         icon: createIcon({
             displayName: "DashIcon",
-            path: <g fill="#008DE4" id="Layer_2" dataname="Layer 2">
-                <g id="Layer_1-2" dataname="Layer 1">
+            path: <g fill="#008DE4" id="Layer_2">
+                <g id="Layer_1-2">
                     <path className="cls-1" d="M336.25 0h-186.9l-15.5 86.6 168.7.2c83.1 0 107.6 30.2 106.9 80.2-.4 25.6-11.5 69-16.3 83.1-12.8 37.5-39.1 80.2-137.7 80.1l-164-.1L76 416.8h186.5c65.8 0 93.7-7.7 123.4-21.3 65.7-30.5 104.8-95.3 120.5-179.9C529.65 89.6 500.65 0 336.25 0" />
                     <path className="cls-1" d="M68.7 164.9c-49 0-56 31.9-60.6 51.2C2 241.3 0 251.6 0 251.6h191.4c49 0 56-31.9 60.6-51.2 6.1-25.2 8.1-35.5 8.1-35.5z" />
                 </g>
@@ -310,24 +317,24 @@ const paymentMethods = [
     },
 ];
 
-export const paymentMethodIcons = paymentMethods.reduce((result, item) => {
+export const paymentMethodIcons: { [id: string]: ComponentWithAs<"svg", IconProps> } = paymentMethods.reduce((result, item) => {
     // eslint-disable-next-line no-param-reassign
     result[item.id] = item.icon;
     return result;
 }, {});
 
-export const paymentMethodNames = paymentMethods.reduce((result, item) => {
+export const paymentMethodNames: { [id: string]: string } = paymentMethods.reduce((result, item) => {
     // eslint-disable-next-line no-param-reassign
     result[item.id] = item.displayName;
     return result;
 }, {});
 
-export const paymentMethodCategories = paymentMethods.reduce((result, item) => {
+export const paymentMethodCategories: { [id: string]: string } = paymentMethods.reduce((result, item) => {
     // eslint-disable-next-line no-param-reassign
     result[item.id] = item.category;
     return result;
 }, {});
 
-export const paymentMethodIds = paymentMethods.map(obj => obj.id);
+export const paymentMethodIds: string[] = paymentMethods.map(obj => obj.id);
 
 export default paymentMethods;

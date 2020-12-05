@@ -1,6 +1,8 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+import { NextHandler } from 'next-connect';
 import { verifyIdToken } from '../../utils/auth/firebaseAdmin';
 
-const requireFirebaseToken = async (req, res, next) => {
+const requireFirebaseToken = async (req: NextApiRequest, res: NextApiResponse, next: NextHandler): Promise<void> => {
     try {
         const {token} = req.headers;
         const verifiedIdToken = await verifyIdToken(token);
