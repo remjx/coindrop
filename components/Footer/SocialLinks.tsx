@@ -32,7 +32,13 @@ const SocialLink: FunctionComponent<SocialLinkProps> = ({ icon, href }) => (
 
 export const SocialLinks: FunctionComponent = () => {
     return (
-        <Flex align="center" wrap="wrap" justify="center">
+        <Flex
+            align="center"
+            wrap="wrap"
+            justify="center"
+            mx={["auto", null, "initial"]}
+            p={2}
+        >
             <SocialLink icon={FaTwitter} href={twitterUrl} />
             <SocialLink icon={FaInstagram} href={instagramUrl} />
             <SocialLink icon={FaFacebook} href={facebookUrl} />
