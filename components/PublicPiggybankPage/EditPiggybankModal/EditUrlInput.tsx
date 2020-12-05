@@ -1,6 +1,5 @@
 import { FunctionComponent, useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import PropTypes from 'prop-types';
 import { NotAllowedIcon, CheckIcon } from "@chakra-ui/icons";
 import { InputGroup, InputLeftAddon, Spinner, Box, Input, InputRightElement } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
@@ -22,7 +21,20 @@ async function isUrlAvailable(path: string) {
     }
 }
 
-const StatusIcon = ({ value, debouncedValue, isValidating, isValid, currentPiggybankId }) => {
+type StatusIconProps = {
+    value: string
+    debouncedValue: string
+    isValidating: boolean
+    isValid: boolean
+    currentPiggybankId: string
+};
+const StatusIcon: FunctionComponent<StatusIconProps> = ({
+    value,
+    debouncedValue,
+    isValidating,
+    isValid,
+    currentPiggybankId,
+}) => {
     if (isValidating || value !== debouncedValue) {
         return (
             <Box>
@@ -36,13 +48,6 @@ const StatusIcon = ({ value, debouncedValue, isValidating, isValid, currentPiggy
         );
     }
     return <NotAllowedIcon color="red.500" />;
-};
-StatusIcon.propTypes = {
-    value: PropTypes.string.isRequired,
-    debouncedValue: PropTypes.string.isRequired,
-    isValidating: PropTypes.bool.isRequired,
-    isValid: PropTypes.bool.isRequired,
-    currentPiggybankId: PropTypes.string.isRequired,
 };
 
 type Props = {

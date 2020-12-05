@@ -24,6 +24,7 @@ function useCreatePiggybank(
     const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
     const [error, setError] = useState('');
     async function triggerCreation() {
+        setIsTriggered(false);
         setSubmitStatus('submitting');
         setError(null);
         const data = {
@@ -53,7 +54,6 @@ function useCreatePiggybank(
                 setError('Error sending request. Please try again.');
             }
         } finally {
-            setIsTriggered(false);
             setCandidatePiggybankPath('');
             cookies.remove('pendingLoginCreatePiggybankPath');
         }

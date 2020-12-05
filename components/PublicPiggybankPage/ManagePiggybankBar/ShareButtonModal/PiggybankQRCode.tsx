@@ -1,5 +1,4 @@
 import { FunctionComponent, useState } from 'react';
-import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import { ViewOffIcon, ViewIcon } from '@chakra-ui/icons';
 import { Flex, Box, Heading, Text, Button } from '@chakra-ui/react';
@@ -79,11 +78,6 @@ const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl })
         )}
         </>
     );
-};
-
-PiggybankQRCode.propTypes = {
-    fullPublicUrl: PropTypes.string.isRequired,
-    publicUrl: PropTypes.string.isRequired,
 };
 
 export default PiggybankQRCode;

@@ -1,5 +1,4 @@
 import { FunctionComponent, useState } from 'react';
-import PropTypes from 'prop-types';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
@@ -12,7 +11,7 @@ import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggybankDataContext';
-import { sortArrayByEntriesKeyAlphabetical } from './util';
+import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 
@@ -53,38 +52,34 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
-    const WrapGroup = ({ children }) => (
+    const WrapGroup: FunctionComponent = ({ children }) => (
         <Wrap
             justify="center"
         >
             {children}
         </Wrap>
     );
-    WrapGroup.propTypes = {
-        children: PropTypes.arrayOf(PropTypes.element).isRequired,
-    };
-    function PaymentMethodButtonsFromEntries({ entries }) {
-        return (
-            <WrapGroup>
-                {entries
-                .sort(sortArrayByEntriesKeyAlphabetical)
-                .map(([paymentMethodId, data]) => (
-                    <WrapItem key={paymentMethodId}>
-                        <PaymentMethodButton
-                            key={paymentMethodId}
-                            paymentMethod={paymentMethodId}
-                            paymentMethodValue={data.address}
-                            isPreferred={data.isPreferred}
-                            accentColor={accentColor}
-                        />
-                    </WrapItem>
-                ))}
-            </WrapGroup>
-        );
+
+    type PaymentMethodButtonsFromEntriesProps = {
+        entries: PaymentMethodDbObjEntry[]
     }
-    PaymentMethodButtonsFromEntries.propTypes = {
-        entries: PropTypes.any.isRequired,
-    };
+    const PaymentMethodButtonsFromEntries: FunctionComponent<PaymentMethodButtonsFromEntriesProps> = ({ entries }) => (
+        <WrapGroup>
+            {entries
+            .sort(sortArrayByEntriesKeyAlphabetical)
+            .map(([paymentMethodId, data]) => (
+                <WrapItem key={paymentMethodId}>
+                    <PaymentMethodButton
+                        key={paymentMethodId}
+                        paymentMethod={paymentMethodId}
+                        paymentMethodValue={data.address}
+                        isPreferred={data.isPreferred}
+                        accentColor={accentColor}
+                    />
+                </WrapItem>
+            ))}
+        </WrapGroup>
+    );
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
     return (

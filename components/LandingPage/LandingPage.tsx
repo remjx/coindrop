@@ -1,5 +1,4 @@
 import { FunctionComponent, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
@@ -13,16 +12,13 @@ import CompetitorComparisonTable from './CompetitorComparisonTable';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
 
-const ContentContainer = ({ children }) => (
+const ContentContainer: FunctionComponent = ({ children }) => (
     <Box
         my={12}
     >
         {children}
     </Box>
 );
-ContentContainer.propTypes = {
-    children: PropTypes.any.isRequired,
-};
 
 const LandingPage: FunctionComponent = () => {
     const {

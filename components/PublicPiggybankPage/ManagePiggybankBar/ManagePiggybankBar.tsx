@@ -1,27 +1,25 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FunctionComponent, useState } from 'react';
-import PropTypes from 'prop-types';
 import NextLink from 'next/link';
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Link as ChakraLink, Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
 import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalValidationContext';
 
-/* eslint-disable react/jsx-props-no-spreading */
-const LinkButton = ({ href, children, ...rest }) => (
+type LinkButtonProps = {
+    href: string
+    buttonProps: ButtonProps
+}
+const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, children, buttonProps }) => (
     <NextLink href={href} passHref>
         <ChakraLink style={{textDecoration: "none"}}>
-            <Button {...rest}>
+            <Button {...buttonProps}>
                 {children}
             </Button>
         </ChakraLink>
     </NextLink>
 );
-LinkButton.propTypes = {
-    href: PropTypes.string.isRequired,
-    children: PropTypes.string.isRequired,
-};
-/* eslint-enable react/jsx-props-no-spreading */
 
 type Props = {
     editButtonOptions: {
@@ -57,9 +55,11 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                 >
                     <LinkButton
                         href="/dashboard"
-                        leftIcon={<ArrowBackIcon />}
-                        isLoading={isDashboardLoading}
-                        loadingText="Loading"
+                        buttonProps={{
+                            leftIcon: <ArrowBackIcon />,
+                            isLoading: isDashboardLoading,
+                            loadingText: "Loading",
+                        }}
                     >
                         Dashboard
                     </LinkButton>

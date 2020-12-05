@@ -1,20 +1,16 @@
 import { useState, FunctionComponent } from 'react';
 import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue } from "@chakra-ui/react";
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { piggybankPathRegex } from '../../src/settings';
 
-const BoxMargin = ({ children }) => (
+const BoxMargin: FunctionComponent = ({ children }) => (
     <Box mt={2}>
         {children}
     </Box>
 );
-BoxMargin.propTypes = {
-    children: PropTypes.element.isRequired,
-};
 
 type Props = {
     onCancel: () => void | null
