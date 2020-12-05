@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState, FunctionComponent } from 'react';
 import { ViewOffIcon, ViewIcon, CheckIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Heading, Text, Image, useClipboard } from '@chakra-ui/react';
 import { SourceCodeIcon } from "../../../Icons/CustomIcons";
@@ -7,8 +6,11 @@ import styles from './HtmlEmbedButton.module.scss';
 
 const fullBaseUrl = 'https://coindrop.to/';
 
-const ShareEmbedButton = (props) => {
-    const { fullPublicUrl } = props;
+type Props = {
+    fullPublicUrl: string
+}
+
+const ShareEmbedButton: FunctionComponent<Props> = ({ fullPublicUrl }) => {
     const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" style="border-radius: 10px;" alt="Coindrop.to me" style="height: 57px !important;width: 229px !important;" ></a>`;
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
     const [isDisplayed, setIsDisplayed] = useState(false);
@@ -64,14 +66,6 @@ const ShareEmbedButton = (props) => {
             )}
         </Box>
     );
-};
-
-ShareEmbedButton.propTypes = {
-    fullPublicUrl: PropTypes.string.isRequired,
-};
-
-ShareEmbedButton.defaultProps = {
-
 };
 
 export default ShareEmbedButton;

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import {
     Button,
@@ -14,14 +13,20 @@ import {
     Text,
     Heading,
 } from '@chakra-ui/react';
+import { FunctionComponent } from 'react';
 import { ShareIcon } from '../../../Icons/CustomIcons';
 import CopyLinkShareButton from '../../../Buttons/CopyLinkShareButton';
 import PiggybankQRCode from './PiggybankQRCode';
 import ShareEmbedButton from './ShareEmbedButton';
 
-const ShareButtonModal = ({ buttonColor }) => {
+type Props = {
+    buttonColor: string
+}
+
+const ShareButtonModal: FunctionComponent<Props> = ({ buttonColor }) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
-    const { query: { piggybankName }} = useRouter();
+    const { query: { piggybankName: piggybankNameQuery }} = useRouter();
+    const piggybankName = Array.isArray(piggybankNameQuery) ? piggybankNameQuery[0] : piggybankNameQuery;
     const publicUrl = `coindrop.to/${piggybankName}`;
     const fullPublicUrl = `https://${publicUrl}`;
     return (
@@ -60,8 +65,6 @@ const ShareButtonModal = ({ buttonColor }) => {
                     </Flex>
                     <ShareEmbedButton
                         fullPublicUrl={fullPublicUrl}
-                        publicUrl={publicUrl}
-                        piggybankName={piggybankName}
                     />
                     <PiggybankQRCode
                         fullPublicUrl={fullPublicUrl}
@@ -73,14 +76,6 @@ const ShareButtonModal = ({ buttonColor }) => {
         </Modal>
         </>
     );
-};
-
-ShareButtonModal.propTypes = {
-    buttonColor: PropTypes.string,
-};
-
-ShareButtonModal.defaultProps = {
-    buttonColor: undefined,
 };
 
 export default ShareButtonModal;

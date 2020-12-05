@@ -34,24 +34,8 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                 .doc(piggybankId)
                 .get();
             if (piggybankRef.exists) {
-                const {
-                    name,
-                    website,
-                    accentColor,
-                    verb,
-                    owner_uid,
-                    paymentMethods,
-                    avatar_storage_id,
-                } = piggybankRef.data();
-                setPiggybankDbData({
-                    name,
-                    website,
-                    accentColor,
-                    verb,
-                    owner_uid,
-                    paymentMethods,
-                    avatar_storage_id,
-                });
+                const data = piggybankRef.data() as PublicPiggybankData;
+                setPiggybankDbData(data);
             }
         } catch (error) {
             throw new Error(error);
