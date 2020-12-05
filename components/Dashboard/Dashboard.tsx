@@ -19,13 +19,13 @@ const Dashboard: FunctionComponent = () => {
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
-    const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
     useDidMountEffect(() => {
         if (!user) {
             router.push('/');
         }
     }, [user]);
     useEffect(() => {
+        const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
         if (pendingLoginCreatePiggybankPath) {
             setCandidatePiggybankPath(pendingLoginCreatePiggybankPath);
             setIsCreateTriggered(true);

@@ -19,14 +19,12 @@ describe('Landing page', () => {
 
   const testID_lr9rzm = "lr9rzm";
   const testCoindropName_lr9rzm = `test-coindrop-tid-${testID_lr9rzm}`;
-  // TODO: Fix this test, it is flaky
   it(`Creates Coindrop if Create button is pressed and user logs in (Test ID: ${testID_lr9rzm})`, () => {
     cy.intercept({
       method: 'POST',
       url: '/api/createPiggybank',
     }).as('createPiggybank');
     cy.intercept({
-      method: 'POST',
       url: /^https:\/\/firestore.googleapis.com\/.*/,
     }).as('getUserOwnedPiggybanks');
     cy.callFirestore("delete", `piggybanks/${testCoindropName_lr9rzm}`);
@@ -38,7 +36,9 @@ describe('Landing page', () => {
     cy.url().should('eq', `${Cypress.config().baseUrl}/dashboard`);
     cy.wait("@createPiggybank");
     cy.wait("@getUserOwnedPiggybanks");
-    cy.contains(testCoindropName_lr9rzm);
+    cy.reload(); // This is a workaround for not being able to clearly identify the proper XHR requests to intercept
+    cy.get('#user-owned-coindrops')
+        .contains(`coindrop.to/${testCoindropName_lr9rzm}`);
   });
 });
 
