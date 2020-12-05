@@ -47,7 +47,7 @@ As mentioned above, this software is licensed under the [GNU General Public Lice
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
-Please use [Github Issues](https://github.com/markjackson02/coindrop/issues) to submit bug reports or request new features.
+Please use [Github Issues](https://github.com/remjx/coindrop/issues) to submit bug reports or request new features.
 
 ## Contact ✉️
 
