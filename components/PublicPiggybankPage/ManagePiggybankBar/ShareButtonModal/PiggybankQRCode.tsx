@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import PropTypes from 'prop-types';
 import QRCode from 'qrcode.react';
 import { ViewOffIcon, ViewIcon } from '@chakra-ui/icons';
 import { Flex, Box, Heading, Text, Button } from '@chakra-ui/react';
 import { PrintIcon } from '../../../Icons/CustomIcons';
 
-const PiggybankQRCode = ({ publicUrl, fullPublicUrl }) => {
-    const [isDisplayed, setIsDisplayed] = useState();
+type Props = {
+    publicUrl: string
+    fullPublicUrl: string
+}
+
+const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl }) => {
+    const [isDisplayed, setIsDisplayed] = useState(false);
     const onPrint = () => {
-        const canvas = document.getElementById('qrcode');
+        const canvas = document.getElementById('qrcode') as HTMLCanvasElement;
         const imgCanvas = canvas.toDataURL();
         const myWindow = window.open();
         myWindow.document.write(`<div><div>${publicUrl}</div><br /><img src="${imgCanvas}" /></div>`);
