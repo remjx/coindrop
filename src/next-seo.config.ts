@@ -1,4 +1,6 @@
-export default {
+import { DefaultSeoProps } from 'next-seo';
+
+const defaultSeo: DefaultSeoProps = {
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -34,3 +36,5 @@ export default {
       appId: '316849812722335',
   },
 };
+
+export default defaultSeo;

@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import useSWR from 'swr';
 import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
+import { PaymentMethod } from '../../PublicPiggybankPage/EditPiggybankModal/PaymentMethodsInput';
 
 async function fetchUserOwnedPiggybanks(uid) {
     const piggybanks = await db
@@ -23,8 +24,12 @@ async function fetchUserOwnedPiggybanks(uid) {
     return piggybankData;
 }
 
-const UserOwnedPiggybanks = ({ uid }) => {
-    const { data, error } = useSWR(uid, fetchUserOwnedPiggybanks);
+type Props = {
+    uid: string
+}
+
+const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
+    const { data, error }: { data?: PaymentMethod[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         return <Text>Error getting data, please try refreshing the page.</Text>;
     }
@@ -55,7 +60,7 @@ const UserOwnedPiggybanks = ({ uid }) => {
                     <Heading
                         textAlign="center"
                     >
-                        No piggybanks yet!
+                        No Coindrops yet
                     </Heading>
                 )
                 }
@@ -74,18 +79,10 @@ const UserOwnedPiggybanks = ({ uid }) => {
             textAlign="center"
             mt={6}
         >
-            <Text mb={2}>Loading piggybanks...</Text>
+            <Text mb={2}>Loading...</Text>
             <Spinner size="lg" />
         </Box>
     );
-};
-
-UserOwnedPiggybanks.propTypes = {
-    uid: PropTypes.string.isRequired,
-};
-
-UserOwnedPiggybanks.defaultProps = {
-
 };
 
 export default UserOwnedPiggybanks;
