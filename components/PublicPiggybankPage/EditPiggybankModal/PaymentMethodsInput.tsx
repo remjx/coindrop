@@ -18,31 +18,32 @@ import {
     Text,
     useTheme,
 } from "@chakra-ui/react";
-import { useWatch, Control } from "react-hook-form";
+import { useWatch, Control, ArrayField } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
-type Props = {
-    control: Control
-    register: () => void
-    fields: Record<string, unknown>[],
-    remove: () => void
-    append: () => void
-    fieldArrayName: string,
-};
-
-type PaymentMethods = {
+type PaymentMethod = {
     address: string
     id: string
     isPreferred: boolean
     paymentMethodId: string
 }
 
+type Props = {
+    control: Control
+    register: any
+    // fields: Partial<PaymentMethod[]>,
+    fields: any
+    remove: (index: number) => void
+    append: (data: Record<string, unknown>) => void
+    fieldArrayName: string,
+};
+
 const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
-    const paymentMethodsDataWatch: PaymentMethods[] = useWatch({
+    const paymentMethodsDataWatch: PaymentMethod[] = useWatch({
         control,
         name: fieldArrayName,
     });
@@ -163,7 +164,7 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                             <Checkbox
                                                 name={`${fieldArrayName}[${index}].isPreferred`}
                                                 ref={register()}
-                                                defaultValue={item?.isPreferred}
+                                                defaultValue={item?.isPreferred ? 1 : 0} // TODO: not sure if this is correct
                                                 defaultIsChecked={item?.isPreferred}
                                                 mt={1}
                                                 colorScheme="yellow"
