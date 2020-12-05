@@ -54,7 +54,7 @@ const accordionText: AccordionText[] = [
             <Text>
                 {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
                 <Link
-                    href="https://github.com/remjxp/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
+                    href="https://github.com/remjx/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
                     isExternal
                 >
                     <u>here</u>
