@@ -13,7 +13,7 @@ import { mapUserData, User } from './mapUserData';
 initFirebase();
 
 type UseUser = {
-  user: User,
+  user: User | null,
   logout: () => void,
 }
 

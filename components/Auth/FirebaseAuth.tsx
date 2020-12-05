@@ -18,6 +18,7 @@ const firebaseAuthConfig = {
   signInSuccessUrl: '/dashboard',
   callbacks: {
     // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
+    // TODO: What is the TS type for this function?
     signInSuccessWithAuthResult: ({ user }) => {
       const userData = mapUserData(user);
       setUserCookie(userData);

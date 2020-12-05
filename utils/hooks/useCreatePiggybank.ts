@@ -1,13 +1,28 @@
 // This is only used to create a new piggybank from scratch, not replace an existing one.
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { mutate } from 'swr';
 import cookies from 'js-cookie';
+import { User } from '../auth/mapUserData';
 
-const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, user, isTriggered, setIsTriggered) => {
-    const [submitStatus, setSubmitStatus] = useState('idle');
-    const [error, setError] = useState();
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
+
+type UseCreatePiggybank = {
+    submitStatus: SubmitStatus
+    error: string
+    setError: Dispatch<SetStateAction<string>>
+}
+
+function useCreatePiggybank(
+    candidatePiggybankPath: string,
+    setCandidatePiggybankPath: Dispatch<SetStateAction<string>>,
+    user: User,
+    isTriggered: boolean,
+    setIsTriggered: Dispatch<SetStateAction<boolean>>,
+): UseCreatePiggybank {
+    const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+    const [error, setError] = useState('');
     async function triggerCreation() {
         setSubmitStatus('submitting');
         setError(null);
@@ -49,6 +64,6 @@ const useCreatePiggybank = (candidatePiggybankPath, setCandidatePiggybankPath, u
         }
     }, [isTriggered, user]);
     return { submitStatus, error, setError };
-};
+}
 
 export default useCreatePiggybank;
