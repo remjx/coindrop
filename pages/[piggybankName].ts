@@ -1,8 +1,10 @@
+import { GetServerSideProps } from 'next';
 import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggybankPage';
 import { db } from '../utils/auth/firebaseAdmin';
 
-export async function getServerSideProps(context) {
-  const { piggybankName } = context.params;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { piggybankName: piggybankNameParam } = context.params;
+  const piggybankName = Array.isArray(piggybankNameParam) ? piggybankNameParam[0] : piggybankNameParam;
   let piggybankDbData = {};
   const piggybank = await db()
     .collection('piggybanks')
@@ -16,6 +18,6 @@ export async function getServerSideProps(context) {
       initialPiggybankDbData: piggybankDbData,
     },
   };
-}
+};
 
 export default PublicPiggybankPage;
