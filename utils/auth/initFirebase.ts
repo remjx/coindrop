@@ -10,7 +10,7 @@ const config = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET_URL,
 };
 
-export default function initFirebase() {
+export default function initFirebase(): void {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }

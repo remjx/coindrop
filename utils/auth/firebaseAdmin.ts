@@ -15,7 +15,7 @@ function initialize() {
     });
   }
 }
-export const verifyIdToken = (token) => {
+export const verifyIdToken = (token: string): Promise<admin.auth.DecodedIdToken> => {
   initialize();
   return admin
     .auth()
@@ -25,7 +25,7 @@ export const verifyIdToken = (token) => {
     });
 };
 
-export const db = () => {
+export const db = (): FirebaseFirestore.Firestore => {
   initialize();
   return admin.firestore();
 };

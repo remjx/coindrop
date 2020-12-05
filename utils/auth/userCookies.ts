@@ -1,6 +1,7 @@
 import cookies from 'js-cookie';
+import { User } from './mapUserData';
 
-export const getUserFromCookie = () => {
+export const getUserFromCookie = (): User | undefined => {
   const cookie = cookies.get('auth');
   if (!cookie) {
     return undefined;
@@ -8,7 +9,7 @@ export const getUserFromCookie = () => {
   return JSON.parse(cookie);
 };
 
-export const setUserCookie = (user) => {
+export const setUserCookie = (user: User): void => {
   cookies.set('auth', user, {
     // firebase id tokens expire in one hour
     // set cookie expiry to match
@@ -16,4 +17,4 @@ export const setUserCookie = (user) => {
   });
 };
 
-export const removeUserCookie = () => cookies.remove('auth');
+export const removeUserCookie = (): void => { cookies.remove('auth'); };

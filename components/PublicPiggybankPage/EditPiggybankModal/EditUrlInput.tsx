@@ -7,7 +7,7 @@ import { db } from '../../../utils/client/db';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
-async function isUrlAvailable(path) {
+async function isUrlAvailable(path: string) {
     try {
         const piggybankRef = await db
             .collection('piggybanks')

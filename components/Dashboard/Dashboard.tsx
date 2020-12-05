@@ -18,7 +18,7 @@ const Dashboard: FunctionComponent = () => {
     const { user, logout } = useUser();
     const { colorMode, toggleColorMode } = useColorMode();
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState();
+    const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const { submitStatus } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
     const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
     useDidMountEffect(() => {

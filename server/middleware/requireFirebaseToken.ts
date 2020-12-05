@@ -4,7 +4,8 @@ import { verifyIdToken } from '../../utils/auth/firebaseAdmin';
 
 const requireFirebaseToken = async (req: NextApiRequest, res: NextApiResponse, next: NextHandler): Promise<void> => {
     try {
-        const {token} = req.headers;
+        const { token: tokenHeader } = req.headers;
+        const token = Array.isArray(tokenHeader) ? tokenHeader[0] : tokenHeader;
         const verifiedIdToken = await verifyIdToken(token);
         req.headers.uid = verifiedIdToken.uid;
         req.headers.email = verifiedIdToken.email;
