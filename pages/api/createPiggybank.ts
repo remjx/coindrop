@@ -1,5 +1,6 @@
 import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidV4 } from 'uuid';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
@@ -15,7 +16,7 @@ const storage = new Storage({
 });
 
 const piggybankExistsErrorMessage = 'A piggybank with this name already exists.';
-async function isPiggybankNameNonexistant(piggybankName) {
+async function isPiggybankNameNonexistant(piggybankName: string) {
   const piggybank = await db()
     .collection('piggybanks')
     .doc(piggybankName)
@@ -27,7 +28,7 @@ async function isPiggybankNameNonexistant(piggybankName) {
 }
 
 const userOverPiggybankLimitErrorMessage = 'Piggybank limit has been reached.';
-async function isUserUnderPiggybankLimit(uid) {
+async function isUserUnderPiggybankLimit(uid: string): Promise<boolean | Error> {
   const piggybanks = await db()
     .collection('piggybanks')
     .where('owner_uid', '==', uid)
@@ -53,8 +54,8 @@ async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId
   }
 }
 
-const createPiggybank = async (req, res) => {
-  // TODO: Extend req type to add expected req.body
+const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
+  // TODO: Extend req type to add expected req.body?
   try {
     const {
       oldPiggybankName,
@@ -62,7 +63,8 @@ const createPiggybank = async (req, res) => {
       piggybankData,
     } = req.body;
     const oldAvatarStorageId = piggybankData?.avatar_storage_id;
-    const { uid } = req.headers;
+    const { uid: uidHeader } = req.headers;
+    const uid = Array.isArray(uidHeader) ? uidHeader[0] : uidHeader;
     const newAvatarStorageId = (oldPiggybankName && oldAvatarStorageId) ? uuidV4() : null;
     await Promise.all([
       isPiggybankNameNonexistant(newPiggybankName),

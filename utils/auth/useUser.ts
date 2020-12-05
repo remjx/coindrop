@@ -13,12 +13,12 @@ import { mapUserData, User } from './mapUserData';
 initFirebase();
 
 type UseUser = {
-  user: User,
+  user: User | null,
   logout: () => void,
 }
 
 const useUser = (): UseUser => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User>(null);
   const router = useRouter();
 
   const logout = async () => firebase
@@ -27,7 +27,7 @@ const useUser = (): UseUser => {
       .then(() => {
         router.push('/');
       });
-      // // TODO: How to handle this?
+      // // TODO: How to handle this? use async/await instead of .then?
       // .catch((e) => {
       //   console.error('logout error', e);
       // });
