@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, FunctionComponent } from 'react';
 import PropTypes from 'prop-types';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
@@ -18,13 +18,22 @@ import {
     Text,
     useTheme,
 } from "@chakra-ui/react";
-import { useWatch } from "react-hook-form";
+import { useWatch, Control } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
-const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove, append }) => {
+type Props = {
+    control: Control
+    register: () => void
+    fields: Record<string, unknown>[],
+    remove: () => void
+    append: () => void
+    fieldArrayName: string,
+};
+
+const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const paymentMethodsDataWatch = useWatch({
         control,
@@ -206,19 +215,6 @@ const PaymentMethodsInput = ({ fieldArrayName, fields, control, register, remove
         </Flex>
         </>
     );
-};
-
-PaymentMethodsInput.propTypes = {
-    control: PropTypes.any.isRequired,
-    register: PropTypes.any.isRequired,
-    fields: PropTypes.arrayOf(PropTypes.object),
-    remove: PropTypes.func.isRequired,
-    append: PropTypes.func.isRequired,
-    fieldArrayName: PropTypes.string.isRequired,
-};
-
-PaymentMethodsInput.defaultProps = {
-    fields: [],
 };
 
 export default PaymentMethodsInput;
