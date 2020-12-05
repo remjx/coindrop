@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import { Flex, Box, Text, Progress, Link } from '@chakra-ui/react';
 import { maxPiggybanksPerUser, coindropEmail } from '../../../src/settings';
 
-const PiggybankLimitUtilization = (props) => {
-    const { numActivePiggybanks } = props;
+type Props = {
+    numActivePiggybanks: number
+};
+
+const PiggybankLimitUtilization: FunctionComponent<Props> = ({ numActivePiggybanks }) => {
     const pctUtilization = (numActivePiggybanks / maxPiggybanksPerUser) * 100;
     let color = 'blue';
     if (pctUtilization >= 90) {
@@ -43,14 +46,6 @@ const PiggybankLimitUtilization = (props) => {
         );
     }
     return null;
-};
-
-PiggybankLimitUtilization.propTypes = {
-    numActivePiggybanks: PropTypes.number.isRequired,
-};
-
-PiggybankLimitUtilization.defaultProps = {
-
 };
 
 export default PiggybankLimitUtilization;

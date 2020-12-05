@@ -1,12 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { FunctionComponent, useState } from 'react';
 import NextLink from 'next/link';
 import { Spinner, Box, Flex, Heading, useTheme, useColorModeValue } from '@chakra-ui/react';
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
-function PiggybankListItem({ id }) {
+type Props = {
+    id: string
+}
+
+const PiggybankListItem: FunctionComponent<Props> = ({ id }) => {
     const { colors } = useTheme();
-    const [isLoading, setIsLoading] = useState();
+    const [isLoading, setIsLoading] = useState(false);
     const hoverBg = useColorModeValue(colors.gray['100'], colors.gray['600']);
     const activeBg = useColorModeValue(colors.gray['200'], colors.gray['700']);
     return (
@@ -56,9 +59,6 @@ function PiggybankListItem({ id }) {
             </NextLink>
         </Box>
     );
-}
-PiggybankListItem.propTypes = {
-    id: PropTypes.string.isRequired,
 };
 
 export default PiggybankListItem;
