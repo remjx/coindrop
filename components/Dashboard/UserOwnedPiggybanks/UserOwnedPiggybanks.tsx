@@ -5,9 +5,10 @@ import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
-import { PaymentMethod } from '../../PublicPiggybankPage/EditPiggybankModal/PaymentMethodsInput';
 
-async function fetchUserOwnedPiggybanks(uid: string): Promise<{ id: string }[]> {
+type PiggybankDocumentID = string
+
+async function fetchUserOwnedPiggybanks(uid: string): Promise<PiggybankDocumentID[]> {
     const piggybanks = await db
         .collection('piggybanks')
         .where('owner_uid', '==', uid)
@@ -17,9 +18,7 @@ async function fetchUserOwnedPiggybanks(uid: string): Promise<{ id: string }[]> 
     }
     const piggybankData = [];
     piggybanks.forEach(piggybank => {
-        piggybankData.push({
-            id: piggybank.id,
-        });
+        piggybankData.push(piggybank.id);
     });
     return piggybankData;
 }
@@ -29,7 +28,7 @@ type Props = {
 }
 
 const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
-    const { data, error }: { data?: PaymentMethod[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
+    const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         return <Text>Error getting data, please try refreshing the page.</Text>;
     }
@@ -49,10 +48,10 @@ const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
                     >
                         My Coindrops
                     </Heading>
-                    {data.map(piggybank => (
+                    {data.map(piggybankDocumentID => (
                         <PiggybankListItem
-                            key={piggybank.id}
-                            id={piggybank.id}
+                            key={piggybankDocumentID}
+                            id={piggybankDocumentID}
                         />
                     ))}
                     </>
