@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -32,7 +31,14 @@ import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
 import { AdditionalValidation } from './AdditionalValidationContext';
 
-function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
+type PaymentMethods = {
+    [key: string]: {
+        address: string
+        isPreferred: boolean
+    }
+}
+
+function convertPaymentMethodsDataToFieldArray(paymentMethods: PaymentMethods = {}) {
     return Object.entries(paymentMethods)
     .map(([paymentMethodId, paymentMethodData]) => ({
         id: uuidv4(), // react-hook-form requires unchanging id
@@ -41,13 +47,18 @@ function convertPaymentMethodsDataToFieldArray(paymentMethods = {}) {
     }));
 }
 
-const EditPiggybankModal = (props) => {
-    const { isOpen, onClose } = props;
-    const [isSubmitting, setIsSubmitting] = useState();
+type Props = {
+    isOpen: boolean,
+    onClose: () => void,
+}
+
+const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const { colors } = useTheme();
     const { user } = useUser();
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
-    const { push: routerPush, query: { piggybankName: initialPiggybankId } } = useRouter();
+    const { push: routerPush, query: { piggybankName } } = useRouter();
+    const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
     const { avatar_storage_id: currentAvatarStorageId } = piggybankDbData;
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
@@ -282,15 +293,6 @@ const EditPiggybankModal = (props) => {
             </ModalContent>
         </Modal>
     );
-};
-
-EditPiggybankModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-};
-
-EditPiggybankModal.defaultProps = {
-
 };
 
 export default EditPiggybankModal;
