@@ -1,12 +1,23 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import { useDisclosure, Text, Flex, useTheme, Box, useColorModeValue } from '@chakra-ui/react';
 import { paymentMethodNames, paymentMethodIcons } from '../../src/paymentMethods';
 import PaymentMethodButtonModal from './PaymentMethodButtonModal';
 
-const PaymentMethodButton = (props) => {
+type Props = {
+    paymentMethod: string
+    paymentMethodValue: string
+    isPreferred: boolean
+    accentColor: string
+}
+
+const PaymentMethodButton: FunctionComponent<Props> = ({
+    paymentMethod,
+    paymentMethodValue,
+    isPreferred,
+    accentColor,
+}) => {
     const theme = useTheme();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { paymentMethod, paymentMethodValue, isPreferred, accentColor } = props;
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     const Icon = paymentMethodIcons[paymentMethod];
     const textColor = useColorModeValue("gray.800", "white");
@@ -60,18 +71,6 @@ const PaymentMethodButton = (props) => {
         </Box>
         </>
     );
-};
-
-PaymentMethodButton.propTypes = {
-    paymentMethod: PropTypes.string.isRequired,
-    paymentMethodValue: PropTypes.string.isRequired,
-    isPreferred: PropTypes.bool,
-    accentColor: PropTypes.string,
-};
-
-PaymentMethodButton.defaultProps = {
-    isPreferred: false,
-    accentColor: "orange",
 };
 
 export default PaymentMethodButton;

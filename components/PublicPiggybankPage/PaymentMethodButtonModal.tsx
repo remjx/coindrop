@@ -1,13 +1,19 @@
-import { useContext } from 'react';
-import PropTypes from 'prop-types';
+import { FunctionComponent, useContext } from 'react';
 import QRCode from 'qrcode.react';
 import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
 import { PublicPiggybankData } from './PublicPiggybankDataContext';
 import { paymentMethodIcons } from '../../src/paymentMethods';
 
-const PaymentMethodButtonModal = (props) => {
-    const { isOpen, onClose, paymentMethod, paymentMethodDisplayName, paymentMethodValue } = props;
+type Props = {
+    isOpen: boolean
+    onClose: () => void
+    paymentMethod: string
+    paymentMethodDisplayName: string
+    paymentMethodValue: string
+}
+
+const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, paymentMethod, paymentMethodDisplayName, paymentMethodValue }) => {
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
     const { piggybankDbData } = useContext(PublicPiggybankData);
     const { name } = piggybankDbData;
@@ -67,18 +73,6 @@ const PaymentMethodButtonModal = (props) => {
             </ModalContent>
         </Modal>
     );
-};
-
-PaymentMethodButtonModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    paymentMethod: PropTypes.string.isRequired,
-    paymentMethodDisplayName: PropTypes.string.isRequired,
-    paymentMethodValue: PropTypes.string.isRequired,
-};
-
-PaymentMethodButtonModal.defaultProps = {
-
 };
 
 export default PaymentMethodButtonModal;

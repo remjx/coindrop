@@ -1,10 +1,13 @@
-import PropTypes from 'prop-types';
+import { FunctionComponent } from 'react';
 import NextLink from 'next/link';
 import { Box, Link as ChakraLink, Flex, Text, useTheme, Button } from '@chakra-ui/react';
 import { GithubIcon } from '../Icons/CustomIcons';
 
-const PoweredByCoindropLink = (props) => {
-    const { accentColor } = props;
+type Props = {
+    accentColor: string
+}
+
+const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange' }) => {
     const { colors } = useTheme();
     return (
         <Box
@@ -36,14 +39,6 @@ const PoweredByCoindropLink = (props) => {
             </NextLink>
         </Box>
     );
-};
-
-PoweredByCoindropLink.propTypes = {
-    accentColor: PropTypes.string,
-};
-
-PoweredByCoindropLink.defaultProps = {
-    accentColor: "orange",
 };
 
 export default PoweredByCoindropLink;
