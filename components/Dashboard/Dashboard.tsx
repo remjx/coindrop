@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Box, Text, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { mutate } from 'swr';
 import cookies from 'js-cookie';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
