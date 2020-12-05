@@ -7,7 +7,7 @@ export type PublicPiggybankData = {
     name: string
     website: string
     accentColor: string
-    verb: 'pay' | 'donate to' | 'support'
+    verb: string
     owner_uid: string
     paymentMethods: PaymentMethodsDbObj
     avatar_storage_id: string
