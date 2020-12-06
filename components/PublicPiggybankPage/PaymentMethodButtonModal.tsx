@@ -38,7 +38,7 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
                 mb={3}
                 mx="auto"
             >
-                <Flex align="center">
+                <Flex justify="center" align="center">
                     <Icon
                         mr={2}
                         boxSize="48px"
