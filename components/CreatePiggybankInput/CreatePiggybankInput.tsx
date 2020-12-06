@@ -1,5 +1,5 @@
 import { useState, FunctionComponent } from 'react';
-import { Box, List, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue, UnorderedList } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
@@ -99,19 +99,19 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
                 </Text>
             )}
             {isCandidatePiggybankPathInvalid && (
-                <Text
-                    textAlign="center"
-                >
-                    Your URL is required to:
-                    <Text>
-                        <List styleType="disc">
-                            <ListItem>Start with a letter</ListItem>
-                            <ListItem>Only include lowercase letters, numbers, -, and _</ListItem>
-                            <ListItem>End with a letter or number</ListItem>
-                            <ListItem>Have maximum length of 32 characters</ListItem>
-                        </List>
+                <Box mt={2}>
+                    <Text
+                        textAlign="center"
+                    >
+                        Requirements:
+                        <UnorderedList listStylePosition="inside">
+                            <ListItem>Starts with a letter</ListItem>
+                            <ListItem>Only includes letters, numbers, dashes (-), and underscores (_)</ListItem>
+                            <ListItem>Ends with a letter or number</ListItem>
+                            <ListItem>Has a maximum length of 32 characters</ListItem>
+                        </UnorderedList>
                     </Text>
-                </Text>
+                </Box>
             )}
         </form>
     );

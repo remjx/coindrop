@@ -35,6 +35,7 @@ function useCreatePiggybank(
         };
         try {
             await axios.post('/api/createPiggybank', data, { headers });
+            setCandidatePiggybankPath('');
             setSubmitStatus('success');
             mutate(user.id);
         } catch (err) {
@@ -45,6 +46,8 @@ function useCreatePiggybank(
                     setError('A piggybank with this name already exists.');
                 } else if (err.response.status === 406) {
                     setError('You\'ve reached the maximum number of piggybanks. Contact support to increase your limit.');
+                } else if (err.response.status === 400) {
+                    setError('Coindrop name does not meet the requirements.');
                 } else {
                     setError('Server error. Please try again.');
                 }
@@ -54,7 +57,6 @@ function useCreatePiggybank(
                 setError('Error sending request. Please try again.');
             }
         } finally {
-            setCandidatePiggybankPath('');
             cookies.remove('pendingLoginCreatePiggybankPath');
         }
     }
