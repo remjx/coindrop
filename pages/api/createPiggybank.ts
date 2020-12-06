@@ -100,7 +100,6 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
     ]);
     return res.status(200).end();
   } catch (error) {
-    console.log('error', error)
     if (error.message === piggybankExistsErrorMessage) {
       return res.status(409).send(piggybankExistsErrorMessage);
     }
