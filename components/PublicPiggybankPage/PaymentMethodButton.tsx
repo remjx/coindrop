@@ -22,9 +22,12 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
     const Icon = paymentMethodIcons[paymentMethod];
     const textColor = useColorModeValue("gray.800", "white");
     const bgColor = useColorModeValue("gray.100", "gray.800");
-    const bgColorHover = useColorModeValue("gray.200", "gray.500");
-    const bgColorActive = useColorModeValue("gray.300", "gray.500");
+    const bgColorHover = useColorModeValue("gray.200", "gray.700");
+    const bgColorActive = useColorModeValue("gray.300", "gray.600");
     const borderColor = isPreferred
+        ? theme.colors[accentColor]['500']
+        : useColorModeValue("gray.300", "gray.600");
+    const borderColorHover = isPreferred
         ? theme.colors[accentColor]['500']
         : useColorModeValue("gray.300", "gray.500");
     return (
@@ -55,10 +58,12 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
             _hover={{
                 bg: bgColorHover,
                 transform: "scale(0.98)",
+                borderColor: borderColorHover,
             }}
             _active={{
                 bg: bgColorActive,
                 transform: "scale(0.96)",
+                borderColor: borderColorHover,
             }}
             _focus={{
                 outline: "none",
