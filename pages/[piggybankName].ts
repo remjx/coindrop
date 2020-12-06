@@ -3,8 +3,11 @@ import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggyba
 import { db } from '../utils/auth/firebaseAdmin';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { piggybankName: piggybankNameParam } = context.params;
-  const piggybankName = Array.isArray(piggybankNameParam) ? piggybankNameParam[0] : piggybankNameParam;
+  const { piggybankName: piggybankNameParamCaseInsensitive } = context.params;
+  const piggybankNameCaseInsensitive = Array.isArray(piggybankNameParamCaseInsensitive)
+    ? piggybankNameParamCaseInsensitive[0]
+    : piggybankNameParamCaseInsensitive;
+  const piggybankName = piggybankNameCaseInsensitive.toLowerCase();
   let piggybankDbData = {};
   const piggybank = await db()
     .collection('piggybanks')

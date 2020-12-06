@@ -4,8 +4,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidV4 } from 'uuid';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
-import { maxPiggybanksPerUser } from '../../src/settings';
+import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';
 import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
+import { PublicPiggybankData } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
 
 const storage = new Storage({
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -39,6 +40,14 @@ async function isUserUnderPiggybankLimit(uid: string): Promise<boolean | Error> 
   return true;
 }
 
+const nameInvalidErrorMessage = 'Coindrop name does not meet the requirements';
+function isNameValid(piggybankName: string): Error | true {
+  if (!piggybankName.match(piggybankPathRegex)) {
+    throw new Error(nameInvalidErrorMessage);
+  }
+  return true;
+}
+
 async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }: {
   ownerUid: string
   oldPiggybankName: string
@@ -54,14 +63,20 @@ async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId
   }
 }
 
+type ReqBody = {
+  oldPiggybankName?: string
+  newPiggybankName: string
+  piggybankData?: PublicPiggybankData
+}
+
 const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
-  // TODO: Extend req type to add expected req.body?
   try {
     const {
       oldPiggybankName,
-      newPiggybankName,
+      newPiggybankName: newPiggybankNameCaseInsensitive,
       piggybankData,
-    } = req.body;
+    }: ReqBody = req.body;
+    const newPiggybankName = newPiggybankNameCaseInsensitive.toLowerCase();
     const oldAvatarStorageId = piggybankData?.avatar_storage_id;
     const { uid: uidHeader } = req.headers;
     const uid = Array.isArray(uidHeader) ? uidHeader[0] : uidHeader;
@@ -69,16 +84,18 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
     await Promise.all([
       isPiggybankNameNonexistant(newPiggybankName),
       isUserUnderPiggybankLimit(uid),
+      isNameValid(newPiggybankName),
     ]);
+    const newPiggybankData: PublicPiggybankData = {
+      ...piggybankData,
+      owner_uid: uid,
+      avatar_storage_id: newAvatarStorageId,
+    };
     await Promise.all([
       db()
         .collection('piggybanks')
         .doc(newPiggybankName)
-        .set({
-          ...piggybankData,
-          owner_uid: uid,
-          avatar_storage_id: newAvatarStorageId,
-        }),
+        .set(newPiggybankData),
       renameAvatarFile({ ownerUid: uid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }),
     ]);
     return res.status(200).end();
@@ -88,6 +105,9 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     if (error.message === userOverPiggybankLimitErrorMessage) {
       return res.status(406).send(userOverPiggybankLimitErrorMessage);
+    }
+    if (error.message === nameInvalidErrorMessage) {
+      return res.status(400).send(nameInvalidErrorMessage);
     }
     return res.status(500).end();
   }
