@@ -21,6 +21,12 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     const Icon = paymentMethodIcons[paymentMethod];
     const textColor = useColorModeValue("gray.800", "white");
+    const bgColor = useColorModeValue("gray.100", "gray.800");
+    const bgColorHover = useColorModeValue("gray.200", "gray.500");
+    const bgColorActive = useColorModeValue("gray.300", "gray.500");
+    const borderColor = isPreferred
+        ? theme.colors[accentColor]['500']
+        : useColorModeValue("gray.300", "gray.500");
     return (
         <>
         <PaymentMethodButtonModal
@@ -31,30 +37,32 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
             paymentMethodValue={paymentMethodValue}
         />
         <Box
-            id={`payment-method-button-${paymentMethod}`}
             as="button"
+            id={`payment-method-button-${paymentMethod}`}
+            onClick={onOpen}
             lineHeight="1.2"
             transition="all 0.2s cubic-bezier(.08,.52,.52,1)"
             borderWidth={isPreferred ? "2px" : "1px"}
             rounded="6px"
             fontSize="18px"
             fontWeight="semibold"
-            bg={useColorModeValue("gray.100", "gray.800")}
-            borderColor={isPreferred ? theme.colors[accentColor]['500'] : theme.colors.gray['300']}
+            bg={bgColor}
+            borderColor={borderColor}
             p={4}
             m={2}
             shadow="md"
             color={textColor}
             _hover={{
-                bg: useColorModeValue("gray.200", "gray.500"),
+                bg: bgColorHover,
                 transform: "scale(0.98)",
             }}
             _active={{
-                bg: theme.colors.gray['300'],
+                bg: bgColorActive,
                 transform: "scale(0.96)",
-                // TODO: This is somehow getting a black border, should be accentColor.
             }}
-            onClick={onOpen}
+            _focus={{
+                outline: "none",
+            }}
         >
             <Flex align="center">
                 <Icon boxSize="32px" />
