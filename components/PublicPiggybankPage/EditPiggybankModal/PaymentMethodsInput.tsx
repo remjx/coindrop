@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { useWatch, Control } from "react-hook-form";
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
+// TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
