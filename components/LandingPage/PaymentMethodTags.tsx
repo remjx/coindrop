@@ -1,9 +1,12 @@
 import { FunctionComponent } from 'react';
-import { paymentMethodCategories, paymentMethodNames } from '../../src/paymentMethods';
+import { paymentMethods, Category } from '../../src/paymentMethods';
 import PaymentMethodTag from './PaymentMethodTag';
 
+const paymentMethodsForLandingPage = paymentMethods
+    .filter(paymentMethod => paymentMethod.displayOnLandingPage === true);
+
 type PaymentMethodTagsProps = {
-    category: "app" | "digital-asset"
+    category: Category
 }
 
 const PaymentMethodTagAndManyMore = () => (
@@ -14,14 +17,13 @@ const PaymentMethodTagAndManyMore = () => (
     />
 );
 
-const paymentMethodCategoriesArr = Object.entries(paymentMethodCategories);
 export const PaymentMethodTags: FunctionComponent<PaymentMethodTagsProps> = ({ category }) => (
     <>
-    {paymentMethodCategoriesArr
-        .filter(([, paymentMethodCategory]) => paymentMethodCategory === category)
-        .map(([paymentMethodId]) => {
+    {paymentMethodsForLandingPage
+        .filter(paymentMethod => paymentMethod.category === category)
+        .map(paymentMethod => {
             let iconSize;
-            switch (paymentMethodId) {
+            switch (paymentMethod.id) {
                 case 'venmo':
                     iconSize = '32px';
                     break;
@@ -33,9 +35,9 @@ export const PaymentMethodTags: FunctionComponent<PaymentMethodTagsProps> = ({ c
             }
             return (
                 <PaymentMethodTag
-                    key={paymentMethodId}
-                    label={paymentMethodNames[paymentMethodId]}
-                    iconName={paymentMethodId}
+                    key={paymentMethod.id}
+                    label={paymentMethod.displayName}
+                    iconName={paymentMethod.id}
                     iconSize={iconSize}
                 />
             );

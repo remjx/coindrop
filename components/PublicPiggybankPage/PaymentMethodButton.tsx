@@ -20,6 +20,7 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
     const { isOpen, onOpen, onClose } = useDisclosure();
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     const Icon = paymentMethodIcons[paymentMethod];
+    if (!paymentMethodDisplayName || !Icon) return null;
     const textColor = useColorModeValue("gray.800", "white");
     const bgColor = useColorModeValue("gray.50", "gray.700");
     const bgColorHover = useColorModeValue("gray.100", "gray.600");
