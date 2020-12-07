@@ -30,7 +30,7 @@ const data: Competitor[] = [
         numPagesPerAccount: 1,
         paymentMethods: 'PayPal, Credit Card',
         isOpenSource: 'No',
-        fees: 'Freemium',
+        fees: '3%',
         membershipFeatures: '$9/mo',
         icon: <KofiIcon ml={1} />,
     },

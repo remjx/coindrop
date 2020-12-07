@@ -1,5 +1,6 @@
 import { Flex, List, ListItem, Text as ChakraText } from "@chakra-ui/react";
 import { FunctionComponent, ReactElement } from "react";
+import { QRCodeIcon } from '../Icons/CustomIcons';
 
 const Text: FunctionComponent = ({ children }) => (
     <ChakraText
@@ -17,16 +18,28 @@ type UseCase = {
 const useCasesArr: UseCase[] = [
     {
         id: "1",
-        value: <Text>✔️ Accept donations anywhere on the internet with your Coindrop link</Text>,
+        value: (
+            <Text>
+                {'✔️ Accept donations from anywhere with your link '}
+            </Text>
+        ),
     },
     {
         id: "2",
-        value: <Text>✔️ Accept tips in the real world by displaying your Coindrop QR Code</Text>,
+        value: (
+            <Text>
+                {'✔️ Accept tips from smartphone cameras with your QR Code '}
+                <QRCodeIcon />
+            </Text>
+        ),
     },
     {
         id: "3",
-        // eslint-disable-next-line react/jsx-one-expression-per-line
-        value: <Text>✔️ Free and open-source with <b>zero fees</b></Text>,
+        value: <Text>✔️ Zero fees</Text>,
+    },
+    {
+        id: "4",
+        value: <Text>✔️ Open-source</Text>,
     },
 ];
 
