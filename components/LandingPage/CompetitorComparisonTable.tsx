@@ -20,7 +20,7 @@ const data: Competitor[] = [
         numPagesPerAccount: 'Unlimited',
         paymentMethods: 'Any',
         isOpenSource: 'Yes',
-        fees: 'Free',
+        fees: 'None',
         membershipFeatures: 'No',
         icon: <PiggyLogoIcon />,
     },
@@ -69,7 +69,7 @@ const CompetitorComparisonTable: FunctionComponent = () => {
         switch (value) {
             case 'Unlimited':
             case 'Any':
-            case 'Free':
+            case 'None':
             case 'Freemium':
             case 'Yes':
                 backgroundColor = green;
