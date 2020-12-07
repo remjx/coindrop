@@ -114,9 +114,9 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td># Pages per account</td>
+                            <td>Fees</td>
                             {data.map(obj => (
-                                <StyledTd value={obj.numPagesPerAccount} key={obj.id} />
+                                <StyledTd value={obj.fees} key={obj.id} />
                             ))}
                         </tr>
                         <tr>
@@ -126,15 +126,15 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                             ))}
                         </tr>
                         <tr>
-                            <td>Open-source</td>
+                            <td># Pages per account</td>
                             {data.map(obj => (
-                                <StyledTd value={obj.isOpenSource} key={obj.id} />
+                                <StyledTd value={obj.numPagesPerAccount} key={obj.id} />
                             ))}
                         </tr>
                         <tr>
-                            <td>Fees</td>
+                            <td>Open-source</td>
                             {data.map(obj => (
-                                <StyledTd value={obj.fees} key={obj.id} />
+                                <StyledTd value={obj.isOpenSource} key={obj.id} />
                             ))}
                         </tr>
                         <tr>
@@ -173,9 +173,9 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td># Pages per account</td>
-                                <StyledTd value={coindropData.numPagesPerAccount} />
-                                <StyledTd value={obj.numPagesPerAccount} />
+                                <td>Fees</td>
+                                <StyledTd value={coindropData.fees} />
+                                <StyledTd value={obj.fees} />
                             </tr>
                             <tr>
                                 <td>Payment methods</td>
@@ -183,14 +183,14 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                                 <StyledTd value={obj.paymentMethods} />
                             </tr>
                             <tr>
+                                <td># Pages per account</td>
+                                <StyledTd value={coindropData.numPagesPerAccount} />
+                                <StyledTd value={obj.numPagesPerAccount} />
+                            </tr>
+                            <tr>
                                 <td>Open-source</td>
                                 <StyledTd value={coindropData.isOpenSource} />
                                 <StyledTd value={obj.isOpenSource} />
-                            </tr>
-                            <tr>
-                                <td>Fees</td>
-                                <StyledTd value={coindropData.fees} />
-                                <StyledTd value={obj.fees} />
                             </tr>
                             <tr>
                                 <td>Memberships</td>
