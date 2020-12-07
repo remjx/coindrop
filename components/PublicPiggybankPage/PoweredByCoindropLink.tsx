@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import NextLink from 'next/link';
-import { Box, Link as ChakraLink, Flex, Text, useTheme, Button } from '@chakra-ui/react';
+import { Box, Button, Link as ChakraLink, Flex, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
 import { GithubIcon } from '../Icons/CustomIcons';
 
 type Props = {
@@ -9,6 +9,8 @@ type Props = {
 
 const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange' }) => {
     const { colors } = useTheme();
+    const borderColor = useColorModeValue("gray.300", "gray.600");
+    const bgHover = useColorModeValue("gray.50", "gray.600");
     return (
         <Box
             textAlign="center"
@@ -16,24 +18,35 @@ const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange
         >
             <NextLink href="/" passHref>
                 <ChakraLink style={{textDecoration: "none"}}>
-                    <Button variant="outline">
-                        <Flex align="center">
+                    <Button
+                        variant="outline"
+                        _hover={{
+                            bg: bgHover,
+                        }}
+                    >
+                        <Flex
+                            align="center"
+                            justify="center"
+                        >
                             <GithubIcon mr={1} />
                             <Text
                                 textAlign="center"
-                                fontFamily="Changa"
+                                fontFamily="Changa, system-ui, sans-serif"
                                 fontWeight="300"
                             >
                                 Powered by
-                                <span
+                                <Text
+                                    as="span"
+                                    fontWeight="500"
                                     style={{
-                                        color: colors[accentColor]['500'], // TODO: Use user accent color if exists
+                                        color: colors[accentColor]['500'],
                                     }}
                                 >
                                     {' Coindrop'}
-                                </span>
+                                </Text>
                             </Text>
                         </Flex>
+
                     </Button>
                 </ChakraLink>
             </NextLink>

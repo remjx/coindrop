@@ -45,7 +45,7 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
             )}
             <Flex
                 justify={["center", null, "space-between"]}
-                mt={4}
+                my={4}
                 mx={6}
                 wrap="wrap"
             >
@@ -84,6 +84,7 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                     />
                 </Box>
             </Flex>
+            <hr />
         </Box>
     );
 };

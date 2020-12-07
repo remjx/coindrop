@@ -21,12 +21,12 @@ const PaymentMethodButton: FunctionComponent<Props> = ({
     const paymentMethodDisplayName = paymentMethodNames[paymentMethod];
     const Icon = paymentMethodIcons[paymentMethod];
     const textColor = useColorModeValue("gray.800", "white");
-    const bgColor = useColorModeValue("gray.100", "gray.800");
-    const bgColorHover = useColorModeValue("gray.200", "gray.700");
-    const bgColorActive = useColorModeValue("gray.300", "gray.600");
+    const bgColor = useColorModeValue("gray.50", "gray.700");
+    const bgColorHover = useColorModeValue("gray.100", "gray.600");
+    const bgColorActive = useColorModeValue("gray.200", "gray.500");
     const borderColor = isPreferred
         ? theme.colors[accentColor]['500']
-        : useColorModeValue("gray.300", "gray.600");
+        : useColorModeValue("gray.300", "gray.500");
     const borderColorHover = isPreferred
         ? theme.colors[accentColor]['500']
         : useColorModeValue("gray.300", "gray.500");

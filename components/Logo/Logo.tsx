@@ -16,7 +16,7 @@ const Logo: FunctionComponent<Props> = ({ text = 'coindrop' }) => {
     const LogoText = () => (
         <Text
             fontSize={["4xl", "5xl"]}
-            fontFamily="Changa"
+            fontFamily="Changa, system-ui, sans-serif"
             fontWeight={500}
             color={fontColor}
             ml={2}
