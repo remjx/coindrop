@@ -2,7 +2,7 @@ type PostFrontMatterData = {
     author: string
     title: string
     description: string
-    coverImage: string // stored in public/blog-images/[slug]/
+    coverImage: string // stored in public/blog-content/[slug]/
     coverImageDescr: string
     images: string[]
         // per https://developers.google.com/search/docs/data-types/article,

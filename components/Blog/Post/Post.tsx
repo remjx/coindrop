@@ -48,62 +48,64 @@ export const Post: FunctionComponent<PostType> = ({
             >
                 <Navbar />
                 <hr />
-                <Heading
-                    as="h1"
-                    size="2xl"
-                    textAlign="center"
-                    my={6}
-                >
-                    {title}
-                </Heading>
-                <Box
-                    align="center"
-                    mb={4}
-                >
-                    <Text
-                        id="publish-date"
+                <article>
+                    <Heading
+                        as="h1"
+                        size="2xl"
+                        textAlign="center"
+                        my={6}
+                    >
+                        {title}
+                    </Heading>
+                    <Box
+                        align="center"
                         mb={4}
                     >
-                        {`${dayjs(datePublished).format('dddd, MMMM D, YYYY')} (${dayjs(datePublished).fromNow()})`}
-                    </Text>
-                    <Flex
-                        id="author"
-                        align="center"
-                        justify="center"
-                    >
-                        <Avatar name={author} src={authorAvatar} size="sm" />
-                            <Flex direction="column" ml={1} align="flex-start">
-                                <Text fontSize="sm">
-                                    <Text>
-                                        {author}
+                        <Text
+                            id="publish-date"
+                            mb={4}
+                        >
+                            {`${dayjs(datePublished).format('dddd, MMMM D, YYYY')} (${dayjs(datePublished).fromNow()})`}
+                        </Text>
+                        <Flex
+                            id="author"
+                            align="center"
+                            justify="center"
+                        >
+                            <Avatar name={author} src={authorAvatar} size="sm" />
+                                <Flex direction="column" ml={1} align="flex-start">
+                                    <Text fontSize="sm">
+                                        <Text>
+                                            {author}
+                                        </Text>
+                                        <Link href={authorUrl} isExternal>
+                                            {authorHandle}
+                                        </Link>
                                     </Text>
-                                    <Link href={authorUrl} isExternal>
-                                        {authorHandle}
-                                    </Link>
-                                </Text>
-                            </Flex>
-                    </Flex>
-                </Box>
-                <hr />
-                <Box
-                    id="body-container"
-                    className={styles.all}
-                    mt={4}
-                >
-                    <div
-                        dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
-                    />
-                </Box>
-                {dateModified && (
-                    <Text
-                        id="modified-date"
+                                </Flex>
+                        </Flex>
+                    </Box>
+                    <hr />
+                    <Box
+                        id="body-container"
+                        className={styles.all}
                         mt={4}
-                        fontSize="sm"
-                        textAlign="center"
                     >
-                        {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
-                    </Text>
-                )}
+                        <div
+                            dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
+                        />
+                    </Box>
+                    {dateModified && (
+                        <Text
+                            id="modified-date"
+                            mt={4}
+                            fontSize="sm"
+                            textAlign="center"
+                        >
+                            {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
+                        </Text>
+                    )}
+                </article>
                 <Footer />
             </Box>
         </>

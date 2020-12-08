@@ -16,7 +16,10 @@ type LatestPostsItemProps = {
 
 const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
     const { slug, title, description, coverImage, coverImageDescr } = post;
-    const coverImageUrl = `/blog-images/${slug}/${coverImage}`;
+    const coverImageUrl = `/blog-content/${slug}/${coverImage}`;
+    console.log('slug', slug)
+    console.log('coverImage', coverImage)
+    console.log('coverImageUrl', coverImageUrl)
     const Link: FunctionComponent = ({ children }) => (
         <NextLink href={`/blog/${slug}`}>
             <a className={styles.link}>
