@@ -4,14 +4,14 @@ import { Box, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Navbar } from '../../Navbar/Navbar';
-import { PostType } from '../../../src/lib/blog/types';
+import { PostTypePostHydrate } from '../../../src/lib/blog/types';
 import { authors } from '../../../blog/authors';
 import styles from './Post.module.scss';
 import Footer from '../../Footer/Footer';
 
 dayjs.extend(relativeTime);
 
-export const Post: FunctionComponent<PostType> = ({
+export const Post: FunctionComponent<PostTypePostHydrate> = ({
         author,
         datePublished,
         dateModified,
@@ -91,9 +91,7 @@ export const Post: FunctionComponent<PostType> = ({
                         className={styles.all}
                         mt={4}
                     >
-                        <div
-                            dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
-                        />
+                        {content}
                     </Box>
                     {dateModified && (
                         <Text
