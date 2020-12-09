@@ -12,5 +12,5 @@ export const components = {
     ul: ({ children }) => <UnorderedList mb="1.5rem">{children}</UnorderedList>,
     ol: ({ children }) => <OrderedList mb="1.5rem">{children}</OrderedList>,
     li: ({ children }) => <ListItem fontSize="lg">{children}</ListItem>,
-    img: Image,
+    Image,
 };
