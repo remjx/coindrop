@@ -1,17 +1,16 @@
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { FunctionComponent } from 'react';
-import { Box, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
+import { Box, Container, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Navbar } from '../../Navbar/Navbar';
-import { PostType } from '../../../src/lib/blog/types';
+import { PostTypePostHydrate } from '../../../src/lib/blog/types';
 import { authors } from '../../../blog/authors';
-import styles from './Post.module.scss';
 import Footer from '../../Footer/Footer';
 
 dayjs.extend(relativeTime);
 
-export const Post: FunctionComponent<PostType> = ({
+export const Post: FunctionComponent<PostTypePostHydrate> = ({
         author,
         datePublished,
         dateModified,
@@ -25,7 +24,7 @@ export const Post: FunctionComponent<PostType> = ({
     return (
         <>
             <NextSeo
-                title={`${title} | Coindrop`}
+                title={`${title} | Coindrop blog`}
                 description={description}
             />
             <ArticleJsonLd
@@ -48,62 +47,67 @@ export const Post: FunctionComponent<PostType> = ({
             >
                 <Navbar />
                 <hr />
-                <Heading
-                    as="h1"
-                    size="2xl"
-                    textAlign="center"
-                    my={6}
-                >
-                    {title}
-                </Heading>
-                <Box
-                    align="center"
-                    mb={4}
-                >
-                    <Text
-                        id="publish-date"
+                <article>
+                    <Heading
+                        as="h1"
+                        size="2xl"
+                        textAlign="center"
+                        my={6}
+                    >
+                        {title}
+                    </Heading>
+                    <Flex
+                        direction={["column", null, "row"]}
+                        align={["initial", null, "center"]}
+                        alignItems="center"
+                        justify="center"
                         mb={4}
                     >
-                        {`${dayjs(datePublished).format('dddd, MMMM D, YYYY')} (${dayjs(datePublished).fromNow()})`}
-                    </Text>
-                    <Flex
-                        id="author"
-                        align="center"
-                        justify="center"
-                    >
-                        <Avatar name={author} src={authorAvatar} size="sm" />
-                            <Flex direction="column" ml={1} align="flex-start">
-                                <Text fontSize="sm">
-                                    <Text>
-                                        {author}
+                        <Text
+                            id="publish-date"
+                            mb={[4, null, "auto"]}
+                            mt={[0, null, "auto"]}
+                            textAlign="center"
+                            mr={[null, null, 12]}
+                        >
+                            {`${dayjs(datePublished).format('dddd, MMMM D, YYYY')} (${dayjs(datePublished).fromNow()})`}
+                        </Text>
+                        <Flex
+                            id="author"
+                            align="center"
+                            justify="center"
+                        >
+                            <Avatar name={author} src={authorAvatar} size="sm" />
+                                <Flex direction="column" ml={1} align="flex-start">
+                                    <Text fontSize="sm">
+                                        <Text>
+                                            {author}
+                                        </Text>
+                                        <Link href={authorUrl} isExternal>
+                                            {authorHandle}
+                                        </Link>
                                     </Text>
-                                    <Link href={authorUrl} isExternal>
-                                        {authorHandle}
-                                    </Link>
-                                </Text>
-                            </Flex>
+                                </Flex>
+                        </Flex>
                     </Flex>
-                </Box>
-                <hr />
-                <Box
-                    id="body-container"
-                    className={styles.all}
-                    mt={4}
-                >
-                    <div
-                        dangerouslySetInnerHTML={{ __html: content }} // eslint-disable-line react/no-danger
-                    />
-                </Box>
-                {dateModified && (
-                    <Text
-                        id="modified-date"
-                        mt={4}
-                        fontSize="sm"
-                        textAlign="center"
+                    <hr />
+                    <Container
+                        mt={8}
+                        maxW="md"
                     >
-                        {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
-                    </Text>
-                )}
+                        {content}
+                    </Container>
+                    {dateModified && (
+                        <Text
+                            id="modified-date"
+                            mt={4}
+                            fontSize="sm"
+                            textAlign="center"
+                        >
+                            {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
+                        </Text>
+                    )}
+                </article>
                 <Footer />
             </Box>
         </>

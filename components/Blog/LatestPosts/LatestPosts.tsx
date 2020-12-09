@@ -12,11 +12,12 @@ import Footer from '../../Footer/Footer';
 
 type LatestPostsItemProps = {
     post: Partial<PostType>
+    isLastOnPage: boolean
 }
 
-const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
+const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLastOnPage }) => {
     const { slug, title, description, coverImage, coverImageDescr } = post;
-    const coverImageUrl = `/blog-images/${slug}/${coverImage}`;
+    const coverImageUrl = `/blog-content/${slug}/${coverImage}`;
     const Link: FunctionComponent = ({ children }) => (
         <NextLink href={`/blog/${slug}`}>
             <a className={styles.link}>
@@ -25,7 +26,8 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
         </NextLink>
     );
     return (
-        <Flex borderWidth="1px" borderRadius="lg" mb={4}>
+        <>
+        <Flex mb={4} mx={6}>
             <Flex flex="none">
                 <Link>
                     <Image src={coverImageUrl} width={200} height={200} alt={coverImageDescr} />
@@ -35,10 +37,15 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post }) => {
                 <Link>
                     <Heading as="h2">{title}</Heading>
                 </Link>
-                {/* <Text fontSize="sm">{dayjs(datePublished).format('MMM DD, YYYY')}</Text> */}
-                <Text>{description}</Text>
+                <Text mt={3}>{description}</Text>
             </Box>
         </Flex>
+        {!isLastOnPage && (
+            <Box my={5}>
+                <hr />
+            </Box>
+        )}
+        </>
     );
 };
 
@@ -59,14 +66,15 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
             <hr />
             <Heading
                 as="h1"
-                my={6}
+                size="2xl"
+                my={10}
                 textAlign="center"
             >
-                Blog - Latest Posts
+                Latest Posts
             </Heading>
             {
                 posts.length >= 1
-                ? posts.map(post => <LatestPostsItem key={post.slug} post={post} />)
+                ? posts.map((post, index) => <LatestPostsItem key={post.slug} post={post} isLastOnPage={index === posts.length - 1} />)
                 : <Text textAlign="center" mb={4}>No posts yet.</Text>
             }
             <Flex justify="space-around" align="center">
