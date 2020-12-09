@@ -6,7 +6,6 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { Navbar } from '../../Navbar/Navbar';
 import { PostTypePostHydrate } from '../../../src/lib/blog/types';
 import { authors } from '../../../blog/authors';
-import styles from './Post.module.scss';
 import Footer from '../../Footer/Footer';
 
 dayjs.extend(relativeTime);
@@ -25,7 +24,7 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
     return (
         <>
             <NextSeo
-                title={`${title} | Coindrop`}
+                title={`${title} | Coindrop blog`}
                 description={description}
             />
             <ArticleJsonLd

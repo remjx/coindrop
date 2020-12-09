@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import renderToString from 'next-mdx-remote/render-to-string'
-import hydrate from 'next-mdx-remote/hydrate'
+import renderToString from 'next-mdx-remote/render-to-string';
+import hydrate from 'next-mdx-remote/hydrate';
 import { getAllPosts, getPostBySlug } from '../../src/lib/blog/getPosts';
 import { PostTypePreHydrate } from '../../src/lib/blog/types';
 import { Post } from '../../components/Blog/Post/Post';
@@ -14,8 +14,6 @@ const BlogPost: FunctionComponent<PostTypePreHydrate> = ({
   title,
   description,
   images,
-  coverImage,
-  coverImageDescr,
   slug,
   source,
 }) => {
@@ -28,8 +26,6 @@ const BlogPost: FunctionComponent<PostTypePreHydrate> = ({
         title={title}
         description={description}
         images={images}
-        coverImage={coverImage}
-        coverImageDescr={coverImageDescr}
         slug={slug}
         content={content}
       />

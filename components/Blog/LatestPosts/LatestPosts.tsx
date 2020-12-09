@@ -37,8 +37,7 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLast
                 <Link>
                     <Heading as="h2">{title}</Heading>
                 </Link>
-                {/* <Text fontSize="sm">{dayjs(datePublished).format('MMM DD, YYYY')}</Text> */}
-                <Text>{description}</Text>
+                <Text mt={3}>{description}</Text>
             </Box>
         </Flex>
         {!isLastOnPage && (

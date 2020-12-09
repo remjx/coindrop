@@ -19,10 +19,11 @@ export type PostFrontMatter = PostFrontMatterData & PostFrontMatterDates
 
 export type PostType = PostFrontMatterData & PostFrontMatterDates & {
     slug: string
+    content: any
 }
 
 export type PostTypePreHydrate = PostType & {
     source: string
 }
 
-export type PostTypePostHydrate = Omit<Omit<PostType & { content: any }, "coverImage">, "coverImageDescr">
+export type PostTypePostHydrate = Omit<Omit<PostType, "coverImage">, "coverImageDescr">
