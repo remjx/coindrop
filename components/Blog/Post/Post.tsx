@@ -57,13 +57,19 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                     >
                         {title}
                     </Heading>
-                    <Box
-                        align="center"
+                    <Flex
+                        direction={["column", null, "row"]}
+                        align={["initial", null, "center"]}
+                        alignItems="center"
+                        justify="center"
                         mb={4}
                     >
                         <Text
                             id="publish-date"
-                            mb={4}
+                            mb={[4, null, "auto"]}
+                            mt={[0, null, "auto"]}
+                            textAlign="center"
+                            mr={[null, null, 12]}
                         >
                             {`${dayjs(datePublished).format('dddd, MMMM D, YYYY')} (${dayjs(datePublished).fromNow()})`}
                         </Text>
@@ -84,7 +90,7 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                                     </Text>
                                 </Flex>
                         </Flex>
-                    </Box>
+                    </Flex>
                     <hr />
                     <Container
                         mt={8}
