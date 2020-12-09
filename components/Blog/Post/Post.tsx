@@ -1,6 +1,6 @@
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { FunctionComponent } from 'react';
-import { Box, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
+import { Box, Container, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Navbar } from '../../Navbar/Navbar';
@@ -86,13 +86,12 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                         </Flex>
                     </Box>
                     <hr />
-                    <Box
-                        id="body-container"
-                        className={styles.all}
-                        mt={4}
+                    <Container
+                        mt={8}
+                        maxW="md"
                     >
                         {content}
-                    </Box>
+                    </Container>
                     {dateModified && (
                         <Text
                             id="modified-date"
