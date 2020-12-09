@@ -6,6 +6,7 @@ export const components = {
     h3: ({ children }) => <Heading as="h3">{children}</Heading>,
     h4: ({ children }) => <Heading as="h4">{children}</Heading>,
     button: Button,
-    p: ({ children }) => <Text mb="1.5rem">{children}</Text>,
+    p: ({ children }) => <Text mb="1.5rem" fontSize="lg">{children}</Text>,
     Center,
+    Image,
 };
