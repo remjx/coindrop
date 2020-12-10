@@ -4,6 +4,7 @@ import { db } from '../utils/auth/firebaseAdmin';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { piggybankName: piggybankNameParamCaseInsensitive } = context.params;
+  console.log('piggybankName context', piggybankNameParamCaseInsensitive)
   const piggybankNameCaseInsensitive = Array.isArray(piggybankNameParamCaseInsensitive)
     ? piggybankNameParamCaseInsensitive[0]
     : piggybankNameParamCaseInsensitive;
@@ -14,12 +15,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
     .doc(piggybankName)
     .get();
   if (piggybank.exists) {
+    console.log('piggybank.exists')
     piggybankDbData = piggybank.data();
-  } else {
+  }
+  else {
+    console.log('returning notFound: true')
     return {
       notFound: true,
     };
   }
+  console.log('returning props...')
   return {
     props: {
       initialPiggybankDbData: piggybankDbData,
@@ -28,7 +33,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const piggybankDocumentReferences = await db()
     .collection('piggybanks')
     .listDocuments();
