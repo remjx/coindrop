@@ -1,6 +1,6 @@
 import { FunctionComponent, useState } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Flex, Center, Heading, Box, Link, Spinner, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -24,7 +24,7 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     // TODO: Split out Edit modal into new page?
     // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
-    const { query: { piggybankName }} = useRouter();
+    const { query: { piggybankName }, isFallback } = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
         try {
@@ -82,6 +82,16 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     );
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
+    if (isFallback) {
+        return (
+            <Flex align="center" justify="center">
+                <Spinner boxSize="32px" />
+                <Heading ml={2} fontSize="xl">
+                    Loading
+                </Heading>
+            </Flex>
+        );
+    }
     return (
         <>
         <NextSeo

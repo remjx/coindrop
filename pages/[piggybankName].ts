@@ -1,8 +1,8 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggybankPage';
 import { db } from '../utils/auth/firebaseAdmin';
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const { piggybankName: piggybankNameParamCaseInsensitive } = context.params;
   const piggybankNameCaseInsensitive = Array.isArray(piggybankNameParamCaseInsensitive)
     ? piggybankNameParamCaseInsensitive[0]
@@ -15,11 +15,28 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     .get();
   if (piggybank.exists) {
     piggybankDbData = piggybank.data();
+  } else {
+    return {
+      notFound: true,
+    };
   }
   return {
     props: {
       initialPiggybankDbData: piggybankDbData,
     },
+    revalidate: 1,
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const piggybankDocumentReferences = await db()
+    .collection('piggybanks')
+    .listDocuments();
+  const piggybankIds = piggybankDocumentReferences.map(ref => ref.id);
+  const paths = piggybankIds.map(piggybankId => ({ params: { piggybankName: piggybankId } }));
+  return {
+    paths,
+    fallback: true,
   };
 };
 
