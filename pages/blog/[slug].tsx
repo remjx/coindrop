@@ -4,7 +4,7 @@ import renderToString from 'next-mdx-remote/render-to-string';
 import hydrate from 'next-mdx-remote/hydrate';
 import { getAllPosts, getPostBySlug } from '../../src/lib/blog/getPosts';
 import { PostTypePreHydrate } from '../../src/lib/blog/types';
-import { Post } from '../../components/Blog/Post/Post';
+import Post from '../../components/Blog/Post/Post';
 import { components } from '../../components/Blog/ComponentMapping';
 
 const BlogPost: FunctionComponent<PostTypePreHydrate> = ({

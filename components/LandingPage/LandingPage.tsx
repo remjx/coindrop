@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
+import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -44,15 +44,15 @@ const LandingPage: FunctionComponent = () => {
     return (
         <>
         <NextSeo
-            title="Coindrop: free webpages for accepting peer-to-peer payments, donations, and tips"
-            description="Accept peer-to-peer donations anywhere on the web or in real life with zero fees"
+            title="Accept donations and tips anywhere. 100% Free, Zero Fees. | Coindrop"
+            description="Supports virtually any payment method or cryptocurrency. Let the sender choose how to pay you."
         />
         <AuthModal
             isOpen={isAuthOpen}
         />
         <GithubLink />
-        <Box
-            maxW="960px"
+        <Container
+            maxW="lg"
             mx="auto"
             px={4}
             mb={6}
@@ -127,7 +127,7 @@ const LandingPage: FunctionComponent = () => {
                 <CompetitorComparisonTable />
             </ContentContainer>
             <Footer />
-        </Box>
+        </Container>
         </>
     );
 };

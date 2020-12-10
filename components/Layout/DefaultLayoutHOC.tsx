@@ -1,12 +1,17 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { FunctionComponent, ComponentType } from 'react';
 import { Box, Container } from '@chakra-ui/react';
 import { Navbar } from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 
-export const withDefaultLayout = (Component: ComponentType): FunctionComponent => {
-    const WrappedComponent: FunctionComponent = () => (
+type Props = {
+    [key: string]: any
+}
+
+export const withDefaultLayout = (Component: ComponentType): FunctionComponent<Props> => {
+    const WrappedComponent: FunctionComponent = (props: Props) => (
         <Container
-            maxW="960px"
+            maxW="lg"
             mx="auto"
             px={4}
             mb={6}
@@ -14,7 +19,7 @@ export const withDefaultLayout = (Component: ComponentType): FunctionComponent =
             <Navbar />
             <Box mb={[2, 0]} />
             <hr />
-            <Component />
+            <Component {...props} />
             <Footer />
         </Container>
     );
