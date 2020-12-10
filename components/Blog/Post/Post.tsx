@@ -46,6 +46,7 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                 mb={6}
             >
                 <Navbar />
+                <Box mb={[2, 0]} />
                 <hr />
                 <article>
                     <Heading
