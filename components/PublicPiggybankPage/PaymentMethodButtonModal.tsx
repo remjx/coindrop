@@ -21,55 +21,55 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
-            <ModalHeader
-                textAlign="center"
-                mt={3}
-                mx="auto"
-            >
-                {name}
-                {"'s "}
-                {paymentMethodDisplayName}
-                {' address'}
-            </ModalHeader>
-            <ModalCloseButton />
-            <ModalBody
-                pt={0}
-                mb={3}
-                mx="auto"
-            >
-                <Flex justify="center" align="center">
-                    <Icon
-                        mr={2}
-                        boxSize="48px"
-                    />
-                    <Text
-                        wordBreak="break-all"
+            <ModalContent mx={6}>
+                <ModalHeader
+                    textAlign="center"
+                    mt={3}
+                    mx="auto"
+                >
+                    {name}
+                    {"'s "}
+                    {paymentMethodDisplayName}
+                    {' address'}
+                </ModalHeader>
+                <ModalCloseButton />
+                <ModalBody
+                    pt={0}
+                    mb={3}
+                    mx="auto"
+                >
+                    <Flex justify="center" align="center">
+                        <Icon
+                            mr={2}
+                            boxSize="48px"
+                        />
+                        <Text
+                            wordBreak="break-all"
+                            textAlign="center"
+                        >
+                            {paymentMethodValue}
+                        </Text>
+                    </Flex>
+                    <Box
+                        my={2}
                         textAlign="center"
                     >
-                        {paymentMethodValue}
-                    </Text>
-                </Flex>
-                <Box
-                    my={2}
-                    textAlign="center"
-                >
-                    <Button
-                        leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
-                        onClick={onCopy}
-                    >
-                        {hasCopied ? "Copied" : "Copy"}
-                    </Button>
-                </Box>
-                <Text mb={2} textAlign="center">or scan QR Code:</Text>
-                <Flex justify="center">
-                    <QRCode
-                        id="payment-method-qr-code"
-                        value={paymentMethodValue}
-                        size={225}
-                    />
-                </Flex>
-            </ModalBody>
+                        <Button
+                            leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
+                            onClick={onCopy}
+                        >
+                            {hasCopied ? "Copied" : "Copy"}
+                        </Button>
+                    </Box>
+                    <Text mb={2} textAlign="center">or scan QR Code:</Text>
+                    <Flex justify="center">
+                        <QRCode
+                            id="payment-method-qr-code"
+                            value={paymentMethodValue}
+                            size={225}
+                        />
+                    </Flex>
+                </ModalBody>
             </ModalContent>
         </Modal>
     );
