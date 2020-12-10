@@ -4,11 +4,9 @@ import { FunctionComponent } from 'react';
 import { Button, Box, Text, Heading, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
-// import dayjs from 'dayjs';
-import { Navbar } from '../../Navbar/Navbar';
 import { PostType } from '../../../src/lib/blog/types';
 import styles from './LatestPosts.module.scss';
-import Footer from '../../Footer/Footer';
+import { withDefaultLayout } from '../../Layout/DefaultLayoutHOC';
 
 type LatestPostsItemProps = {
     post: Partial<PostType>
@@ -72,14 +70,7 @@ export type LatestPostsProps = {
 
 export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, pageTotal }) => {
     return (
-        <Box
-            id="page-container"
-            maxW="940px"
-            mx="auto"
-        >
-            <Navbar />
-            <Box mb={[2, 0]} />
-            <hr />
+        <>
             <Heading
                 as="h1"
                 size="2xl"
@@ -116,7 +107,8 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
                     </a>
                 </NextLink>
             </Flex>
-            <Footer />
-        </Box>
+        </>
     );
 };
+
+export default withDefaultLayout(LatestPosts);

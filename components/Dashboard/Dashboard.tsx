@@ -1,7 +1,7 @@
 import { useState, useEffect, FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Box, Text, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { Container, Box, Text, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 import cookies from 'js-cookie';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
@@ -36,8 +36,8 @@ const Dashboard: FunctionComponent = () => {
         <NextSeo
             title="Dashboard | Coindrop"
         />
-        <Box
-            maxW="960px"
+        <Container
+            maxW="lg"
             mx="auto"
             px={4}
             mb={6}
@@ -92,7 +92,7 @@ const Dashboard: FunctionComponent = () => {
             <Box mt={10}>
                 <Footer />
             </Box>
-        </Box>
+        </Container>
         </>
     );
 };

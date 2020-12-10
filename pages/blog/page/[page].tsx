@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react';
 import { NextSeo } from 'next-seo';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPosts } from '../../../src/lib/blog/getPosts';
-import { LatestPosts, LatestPostsProps } from '../../../components/Blog/LatestPosts/LatestPosts';
+import { default as LatestPosts, LatestPostsProps } from '../../../components/Blog/LatestPosts/LatestPosts';
 
 const postsPerPage = 8;
 
