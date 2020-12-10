@@ -36,14 +36,24 @@ const accordionText: AccordionText[] = [
                 </Text>
                 <UnorderedList mb="1rem">
                     <ListItem>Peer-to-peer (e.g. Bitcoin)</ListItem>
-                    <ListItem>Through the payment provider of choice (e.g. PayPal)</ListItem>
+                    <ListItem>Through a payment provider of choice (e.g. PayPal)</ListItem>
                 </UnorderedList>
                 <Text mb="1rem">
                     {'Depending on the payment method senders choose, there may be a small transaction fee for them. '}
                     <b>That&apos;s the beauty of Coindrop - senders can choose the payment method with the lowest transaction fee.</b>
                 </Text>
+            </Box>
+        ),
+    },
+    {
+        title: "How does this site make money?",
+        body: (
+            <Box>
                 <Text mb="1rem">
-                    To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements and offers. Keep in mind all the code to this website is open-source so if we implement something you don&apos;t like, you can always fork the project on Github :)
+                    To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements, offers, and affiliate links.
+                </Text>
+                <Text>
+                    Keep in mind all code to this website is open-source so if we implement obtrusive monetization tactics, you can always fork the project on Github :)
                 </Text>
             </Box>
         ),
@@ -91,15 +101,27 @@ const accordionText: AccordionText[] = [
         ),
     },
     {
-        title: "How can I donate?",
+        title: "How can I support?",
         body: (
+            <>
             <Text>
+                {'Donate at '}
                 <NextLink href="/coindrop" passHref>
                     <Link>
                         <u>coindrop.to/coindrop</u>
                     </Link>
                 </NextLink>
             </Text>
+            <Text>
+                {'Give us a Like on '}
+                <Link href="https://alternativeto.net/software/coindrop/" isExternal>
+                    <u>AlternativeTo.net</u>
+                </Link>
+            </Text>
+            <Text mt={2}>
+                Thank you! 🙏
+            </Text>
+            </>
         ),
     },
 ];

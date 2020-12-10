@@ -86,17 +86,28 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                     maxW="md"
                 >
                     {content}
+                    {dateModified && (
+                        <>
+                        <Text
+                            id="modified-date"
+                            fontSize="sm"
+                            textAlign="center"
+                        >
+                            {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
+                        </Text>
+                        <Text
+                            fontSize="xs"
+                            textAlign="center"
+                        >
+                            <Link
+                                href={`https://github.com/remjx/coindrop/commits/master/blog/posts/${slug}/index.mdx`}
+                            >
+                                <u>View edits</u>
+                            </Link>
+                        </Text>
+                        </>
+                    )}
                 </Container>
-                {dateModified && (
-                    <Text
-                        id="modified-date"
-                        mt={4}
-                        fontSize="sm"
-                        textAlign="center"
-                    >
-                        {`Last updated ${dayjs(dateModified).format('dddd, MMMM D, YYYY')} (${dayjs(dateModified).fromNow()})`}
-                    </Text>
-                )}
             </article>
         </>
     );
