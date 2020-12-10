@@ -27,8 +27,12 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLast
     );
     return (
         <>
-        <Flex mb={4} mx={6}>
-            <Flex flex="none">
+        <Flex mb={4} mx={6} direction={["column", "row"]}>
+            <Flex
+                flex="none"
+                align={["center", "initial"]}
+                justify={["center", "initial"]}
+            >
                 <Link>
                     <Image src={coverImageUrl} width={200} height={200} alt={coverImageDescr} />
                 </Link>
@@ -38,6 +42,17 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLast
                     <Heading as="h2">{title}</Heading>
                 </Link>
                 <Text mt={3}>{description}</Text>
+                <Flex
+                    justify={["center", null, "flex-end"]}
+                    mt={2}
+                    mr={[null, null, 6]}
+                >
+                    <Link>
+                        <Button>
+                            Read more
+                        </Button>
+                    </Link>
+                </Flex>
             </Box>
         </Flex>
         {!isLastOnPage && (
@@ -63,6 +78,7 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
             mx="auto"
         >
             <Navbar />
+            <Box mb={[2, 0]} />
             <hr />
             <Heading
                 as="h1"
