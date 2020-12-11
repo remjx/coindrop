@@ -21,7 +21,7 @@ type Props = {
 
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     const { initialPiggybankDbData } = props;
-    const { query: { piggybankName }, isFallback } = useRouter();
+    const { query: { piggybankName } } = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
         try {
@@ -79,16 +79,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     );
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
-    if (isFallback) {
-        return (
-            <Flex align="center" justify="center">
-                <Spinner boxSize="32px" />
-                <Heading ml={2} fontSize="xl">
-                    Loading
-                </Heading>
-            </Flex>
-        );
-    }
     return (
         <>
         <NextSeo

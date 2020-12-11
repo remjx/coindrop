@@ -35,11 +35,12 @@ describe('App', () => {
     const paymentMethodDisplayName = "CashApp";
     const name = 'Test Name';
     const address = 'Test Address';
-    it('Happy path Coindrop initialization', () => {
+    it.only('Happy path Coindrop initialization', () => {
         cy.callFirestore("delete", `piggybanks/${testCoindropName_qee1vc}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName_qee1vc}`, { owner_uid: Cypress.env("TEST_UID") });
         cy.visit(`/${testCoindropName_qee1vc}`);
         // Uninitialized Coindrop page
+        cy.pause();
         cy.contains('This Coindrop has not been set up yet.');
         cy.get('#configure-coindrop-button')
             .click();
