@@ -270,6 +270,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                 Cancel
                             </Button>
                             <Button
+                                id="save-configuration-btn"
                                 colorScheme="green"
                                 mx={1}
                                 type="submit"
