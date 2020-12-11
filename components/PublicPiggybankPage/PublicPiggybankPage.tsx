@@ -14,7 +14,6 @@ import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggyb
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
-import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 
 type Props = {
     initialPiggybankDbData: PublicPiggybankData
@@ -22,7 +21,7 @@ type Props = {
 
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     const { initialPiggybankDbData } = props;
-    const { query: { piggybankName }, asPath, push } = useRouter();
+    const { query: { piggybankName } } = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
         try {
@@ -47,12 +46,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         verb,
         owner_uid,
     } = piggybankDbData;
-    useDidMountEffect(() => {
-        // Force fetch of latest data as static generation may serve old data
-        if (user && user.id === owner_uid) {
-            push(asPath);
-        }
-    }, []);
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
