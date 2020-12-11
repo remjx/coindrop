@@ -1,4 +1,5 @@
-import { createContext, FunctionComponent, Dispatch, SetStateAction } from 'react';
+import { createContext, FunctionComponent } from 'react';
+
 import { PaymentMethodsDbObj } from './EditPiggybankModal/EditPiggybankModal';
 
 export const PublicPiggybankData = createContext(null);
@@ -15,8 +16,9 @@ export type PublicPiggybankData = {
 
 type PublicPiggybankDataContext = {
     piggybankDbData: PublicPiggybankData
-    setPiggybankDbData: Dispatch<SetStateAction<PublicPiggybankData>>
-    refreshPiggybankDbData: (piggybankId: string) => Promise<void>
+    mutatePiggybankDbData: any // Trying to get this to work...
+        // import { responseInterface } from 'swr';
+        // type Mutate = Extract<responseInterface<Data, Error>, "mutate">
 }
 
 type Props = {

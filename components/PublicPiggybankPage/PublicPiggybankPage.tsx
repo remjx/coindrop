@@ -1,9 +1,10 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
 import { Avatar } from './avatar/Avatar';
@@ -22,21 +23,18 @@ type Props = {
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     const { initialPiggybankDbData } = props;
     const { query: { piggybankName } } = useRouter();
-    const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
-    async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
-        try {
-            const piggybankRef = await db
-                .collection('piggybanks')
-                .doc(piggybankId)
-                .get();
-            if (piggybankRef.exists) {
-                const data = piggybankRef.data() as PublicPiggybankData;
-                setPiggybankDbData(data);
-            }
-        } catch (error) {
-            throw new Error(error);
+    const fetchPublicPiggybankData = async ([, swrPiggybankName]) => {
+        const piggybankRef = await db
+            .collection('piggybanks')
+            .doc(swrPiggybankName)
+            .get();
+        if (piggybankRef.exists) {
+            return piggybankRef.data() as PublicPiggybankData;
         }
-    }
+        throw new Error('Piggybank does not exist');
+    };
+    const { data: swrPiggybankDbData, error } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
+    const piggybankDbData = swrPiggybankDbData ?? initialPiggybankDbData;
     const theme = useTheme();
     const { user } = useUser();
     const {
@@ -64,13 +62,13 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         <WrapGroup>
             {entries
             .sort(sortArrayByEntriesKeyAlphabetical)
-            .map(([paymentMethodId, data]) => (
+            .map(([paymentMethodId, paymentMethodData]) => (
                 <WrapItem key={paymentMethodId}>
                     <PaymentMethodButton
                         key={paymentMethodId}
                         paymentMethod={paymentMethodId}
-                        paymentMethodValue={data.address}
-                        isPreferred={data.isPreferred}
+                        paymentMethodValue={paymentMethodData.address}
+                        isPreferred={paymentMethodData.isPreferred}
                         accentColor={accentColor}
                     />
                 </WrapItem>
@@ -88,8 +86,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         <PublicPiggybankDataProvider
             data={{
                 piggybankDbData,
-                setPiggybankDbData,
-                refreshPiggybankDbData,
             }}
         >
             <Box

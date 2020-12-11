@@ -20,6 +20,7 @@ import {
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
+import { mutate } from 'swr';
 import { PublicPiggybankData } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';
@@ -102,7 +103,10 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
-                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                mutate(['publicPiggybankData', initialPiggybankId], () => {
+                    db.collection('piggybanks').doc(initialPiggybankId).set(formData);
+                    return formData;
+                });
             } else {
                 await db.collection('piggybanks').doc(initialPiggybankId).delete();
                 await axios.post(
@@ -120,7 +124,6 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 );
                 routerPush(`/${formData.piggybankId}`);
             }
-            await refreshPiggybankDbData(formData.piggybankId);
             onClose();
         } catch (error) {
             setIsSubmitting(false);
