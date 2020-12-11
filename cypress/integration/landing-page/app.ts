@@ -99,12 +99,12 @@ describe('App', () => {
         cy.get("input#input-piggybankId")
             .clear()
             .type(testCoindropName_uk3ld1_taken);
-        cy.get('#piggybank-id-not-allowed');
+        cy.get('#piggybank-id-not-allowed', { timeout: 5500 }); // add 1.5s for debounce
         cy.get('button#save-configuration-btn').should('be.disabled');
         cy.get("input#input-piggybankId")
             .clear()
             .type(testCoindropName_uk3ld1_new);
-        cy.get('#piggybank-id-ok');
+        cy.get('#piggybank-id-ok', { timeout: 5500 }); // add 1.5s for debounce
         cy.get('button#save-configuration-btn').should('not.be.disabled');
         cy.get('input#input-name')
             .clear()
