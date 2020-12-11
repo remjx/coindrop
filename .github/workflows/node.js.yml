@@ -61,8 +61,8 @@ jobs:
           build: yarn run build
           start: yarn start
           wait-on: http://localhost:3000
-          record: true
-          spec: cypress/integration/app/configure-coindrop.ts
+          record: false
+          # spec: cypress/integration/app/configure-coindrop.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
