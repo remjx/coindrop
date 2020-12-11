@@ -6,13 +6,17 @@ describe('App', () => {
 
     const testID_dbk8fi = "dbk8fi";
     const testCoindropName_dbk8fi = `test-coindrop-tid-${testID_dbk8fi}`;
-    it('Allows creation of new Coindrop', () => {
+    it.only('Allows creation of new Coindrop', () => {
         cy.intercept({
             method: 'POST',
             url: '/api/createPiggybank',
         }).as('createPiggybank');
+        cy.intercept({
+          url: /^https:\/\/firestore.googleapis.com\/.*/,
+        }).as('getUserOwnedPiggybanks');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
+        cy.wait('@getUserOwnedPiggybanks');
         cy.get('#create-new-coindrop-button')
             .click();
         cy.get('#create-coindrop-input')
@@ -20,8 +24,7 @@ describe('App', () => {
         cy.get('#create-coindrop-form')
             .submit();
         cy.wait('@createPiggybank');
-        cy.get('#user-owned-coindrops')
-            .contains(`coindrop.to/${testCoindropName_dbk8fi}`);
+        cy.contains(`coindrop.to/${testCoindropName_dbk8fi}`);
         cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
             .should('have.attr', 'href', `/${testCoindropName_dbk8fi}`);
     });
@@ -70,6 +73,10 @@ describe('App', () => {
     const name_initial = 'Test Name Initial';
     const name_new = 'Test Name New';
     it('Rename Coindrop page', () => {
+        cy.intercept({
+            method: 'POST',
+            url: '/api/createPiggybank',
+        }).as('createPiggybank');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_uk3ld1_initial}`);
         cy.callFirestore("delete", `piggybanks/${testCoindropName_uk3ld1_new}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName_uk3ld1_initial}`, {
@@ -104,7 +111,8 @@ describe('App', () => {
             .type(name_new);
         cy.get('#configure-coindrop-form')
             .submit();
-        cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_uk3ld1_new}`)
+        cy.wait('@createPiggybank');
+        cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_uk3ld1_new}`);
         cy.contains(`Choose a payment method to pay ${name_new}`);
         cy.visit(`/${testCoindropName_uk3ld1_initial}`, { failOnStatusCode: false });
         cy.contains('404 - Page Not Found');
