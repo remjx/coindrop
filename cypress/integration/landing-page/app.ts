@@ -115,6 +115,9 @@ describe('App', () => {
         cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_uk3ld1_new}`);
         cy.contains(`Choose a payment method to pay ${name_new}`);
         cy.visit(`/${testCoindropName_uk3ld1_initial}`, { failOnStatusCode: false });
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1001); // to exceed static regeneration `revalidate: 1` threshold
+        cy.reload();
         cy.contains('404 - Page Not Found');
     });
 });
