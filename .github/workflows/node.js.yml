@@ -68,3 +68,5 @@ jobs:
           build: yarn run build
           start: yarn start
           wait-on: http://localhost:3000
+          # record: true
+          # spec: cypress/integration/landing-page
