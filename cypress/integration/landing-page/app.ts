@@ -6,7 +6,7 @@ describe('App', () => {
 
     const testID_dbk8fi = "dbk8fi";
     const testCoindropName_dbk8fi = `test-coindrop-tid-${testID_dbk8fi}`;
-    it.only('Allows creation of new Coindrop', () => {
+    it('Allows creation of new Coindrop', () => {
         cy.intercept({
             method: 'POST',
             url: '/api/createPiggybank',
