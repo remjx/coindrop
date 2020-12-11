@@ -1,6 +1,6 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Flex, Center, Heading, Box, Link, Spinner, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -21,7 +21,7 @@ type Props = {
 
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
     const { initialPiggybankDbData } = props;
-    const { query: { piggybankName } } = useRouter();
+    const { query: { piggybankName }, asPath, push } = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
     async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
         try {
@@ -46,6 +46,12 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         verb,
         owner_uid,
     } = piggybankDbData;
+    useEffect(() => {
+        // Force fetch of latest data as static generation may serve old data
+        if (user && user.id === owner_uid) {
+            push(asPath);
+        }
+    }, []);
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
