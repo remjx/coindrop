@@ -1,4 +1,4 @@
-import { FunctionComponent, useState, useEffect } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
@@ -14,6 +14,7 @@ import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggyb
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
+import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 
 type Props = {
     initialPiggybankDbData: PublicPiggybankData
@@ -46,7 +47,7 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         verb,
         owner_uid,
     } = piggybankDbData;
-    useEffect(() => {
+    useDidMountEffect(() => {
         // Force fetch of latest data as static generation may serve old data
         if (user && user.id === owner_uid) {
             push(asPath);
