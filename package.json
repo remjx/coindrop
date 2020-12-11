@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "GPL-3.0-only",
   "scripts": {
-    "dev:local": "npm run expose:blog:content && cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev:local": "npm run expose:blog:content && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/next dev",
     "dev:vercel": "npm run expose:blog:content && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/vercel dev",
     "expose:blog:content": "node ./src/lib/blog/generate-static-files.js",
     "generate:static:files": "node ./src/embed-button/generate.js && npm run expose:blog:content",
@@ -39,7 +39,7 @@
     "gray-matter": "^4.0.2",
     "js-cookie": "^2.2.1",
     "minify": "^6.0.0",
-    "next": "^10.0.2",
+    "next": "^10.0.3",
     "next-connect": "^0.9.0",
     "next-mdx-remote": "^1.0.1",
     "next-seo": "^4.11.0",

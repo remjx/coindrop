@@ -20,10 +20,6 @@ type Props = {
 }
 
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
-    console.log('props', props)
-    // TODO: useSwr to refresh piggybankDbData after initial load
-    // TODO: Split out Edit modal into new page?
-    // TODO: alphabetize list of payment methods
     const { initialPiggybankDbData } = props;
     const { query: { piggybankName }, isFallback } = useRouter();
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
