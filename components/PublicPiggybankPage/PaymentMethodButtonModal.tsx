@@ -2,7 +2,7 @@ import { FunctionComponent, useContext } from 'react';
 import QRCode from 'qrcode.react';
 import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
 import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
-import { PublicPiggybankData } from './PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { paymentMethodIcons } from '../../src/paymentMethods';
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 
 const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, paymentMethod, paymentMethodDisplayName, paymentMethodValue }) => {
     const { onCopy, hasCopied } = useClipboard(paymentMethodValue);
-    const { piggybankDbData } = useContext(PublicPiggybankData);
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const { name } = piggybankDbData;
     const Icon = paymentMethodIcons[paymentMethod];
     return (

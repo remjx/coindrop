@@ -3,7 +3,7 @@ import { Button } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
 import { db } from '../../../../utils/client/db';
-import { PublicPiggybankData } from '../../../PublicPiggybankPage/PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from '../../../PublicPiggybankPage/PublicPiggybankDataContext';
 import { deleteImage } from '../../../../src/db/mutations/delete-image';
 
 type Props = {
@@ -19,7 +19,7 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
             avatar_storage_id,
             owner_uid: ownerUid,
         },
-    } = useContext(PublicPiggybankData);
+    } = useContext(PublicPiggybankDataContext);
     async function handleDelete() {
         if (!awaitingDeleteConfirmation) {
             return setAwaitingDeleteConfirmation(true);

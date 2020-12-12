@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
@@ -11,13 +11,13 @@ import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
-import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggybankDataContext';
+import PublicPiggybankDataProvider, { PublicPiggybankDataType } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
 import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 
 type Props = {
-    initialPiggybankDbData: PublicPiggybankData
+    initialPiggybankDbData: PublicPiggybankDataType
 }
 
 const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
@@ -29,12 +29,13 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
             .doc(swrPiggybankName)
             .get();
         if (piggybankRef.exists) {
-            return piggybankRef.data() as PublicPiggybankData;
+            return piggybankRef.data() as PublicPiggybankDataType;
         }
         throw new Error('Piggybank does not exist');
     };
-    const { data: swrPiggybankDbData, error } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
+    const [swrPiggybankDbData, setSwrPiggybankDbData] = useState<PublicPiggybankDataType>(null);
     const piggybankDbData = swrPiggybankDbData ?? initialPiggybankDbData;
+    console.log('piggybankDbData', piggybankDbData);
     const theme = useTheme();
     const { user } = useUser();
     const {
@@ -44,6 +45,12 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         verb,
         owner_uid,
     } = piggybankDbData;
+    const { data } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
+    useEffect(() => {
+        if (data) {
+            setSwrPiggybankDbData(data);
+        }
+    }, [data]);
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);

@@ -2,9 +2,9 @@ import { createContext, FunctionComponent } from 'react';
 
 import { PaymentMethodsDbObj } from './EditPiggybankModal/EditPiggybankModal';
 
-export const PublicPiggybankData = createContext(null);
+export const PublicPiggybankDataContext = createContext(null);
 
-export type PublicPiggybankData = {
+export type PublicPiggybankDataType = {
     name: string
     website: string
     accentColor: string
@@ -15,10 +15,7 @@ export type PublicPiggybankData = {
 }
 
 type PublicPiggybankDataContext = {
-    piggybankDbData: PublicPiggybankData
-    mutatePiggybankDbData: any // Trying to get this to work...
-        // import { responseInterface } from 'swr';
-        // type Mutate = Extract<responseInterface<Data, Error>, "mutate">
+    piggybankDbData: PublicPiggybankDataType
 }
 
 type Props = {
@@ -26,9 +23,9 @@ type Props = {
 }
 
 const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ data, children }) => (
-    <PublicPiggybankData.Provider value={data}>
+    <PublicPiggybankDataContext.Provider value={data}>
         {children}
-    </PublicPiggybankData.Provider>
+    </PublicPiggybankDataContext.Provider>
 );
 
 export default PublicPiggybankDataProvider;

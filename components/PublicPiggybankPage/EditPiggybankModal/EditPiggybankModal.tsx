@@ -21,7 +21,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
 import { mutate } from 'swr';
-import { PublicPiggybankData } from '../PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
@@ -60,7 +60,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName } } = useRouter();
     const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
-    const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const { avatar_storage_id: currentAvatarStorageId } = piggybankDbData;
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
     const initialAccentColor = piggybankDbData.accentColor ?? 'orange';
@@ -99,14 +99,15 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
-                owner_uid: piggybankDbData.owner_uid,
+                owner_uid: user.id,
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
-                mutate(['publicPiggybankData', initialPiggybankId], () => {
+                await mutate(['publicPiggybankData', initialPiggybankId], () => {
                     db.collection('piggybanks').doc(initialPiggybankId).set(formData);
                     return formData;
                 });
+                fetch(`/${initialPiggybankId}`); // trigger static regeneration
             } else {
                 await db.collection('piggybanks').doc(initialPiggybankId).delete();
                 await axios.post(
@@ -127,8 +128,8 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             onClose();
         } catch (error) {
             setIsSubmitting(false);
-            // TODO: set error
-            throw new Error(error);
+            // TODO: handle errors
+            throw error;
         }
     };
     const handleAccentColorChange = (e) => {
