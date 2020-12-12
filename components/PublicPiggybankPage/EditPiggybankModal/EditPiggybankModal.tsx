@@ -103,10 +103,8 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
-                await mutate(['publicPiggybankData', initialPiggybankId], () => {
-                    db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
-                    return dataToSubmit;
-                });
+                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                mutate(['publicPiggybankData', initialPiggybankId], dataToSubmit);
             } else {
                 await axios.post(
                     '/api/createPiggybank',
@@ -121,7 +119,11 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                         },
                     },
                 );
-                await db.collection('piggybanks').doc(initialPiggybankId).delete();
+                try {
+                    await db.collection('piggybanks').doc(initialPiggybankId).delete();
+                } catch (err) {
+                    console.log('error deleting old Coindrop page');
+                }
                 routerPush(`/${formData.piggybankId}`);
             }
             fetch(`/${initialPiggybankId}`, { headers: { isToForceStaticRegeneration: "true" }});
