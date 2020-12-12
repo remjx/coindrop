@@ -86,7 +86,7 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
       isUserUnderPiggybankLimit(uid),
       isNameValid(newPiggybankName),
     ]);
-    const newPiggybankData: PublicPiggybankData = {
+    const newPiggybankData: PublicPiggybankDataType = {
       ...piggybankData,
       owner_uid: uid,
       avatar_storage_id: newAvatarStorageId,
