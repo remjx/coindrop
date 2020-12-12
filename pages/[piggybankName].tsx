@@ -1,6 +1,7 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggybankPage';
 import { db } from '../utils/auth/firebaseAdmin';
+import { PublicPiggybankDataType } from '../components/PublicPiggybankPage/PublicPiggybankDataContext';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { piggybankName: piggybankNameParamCaseInsensitive } = context.params;
@@ -40,4 +41,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export default PublicPiggybankPage;
+type Props = {
+  initialPiggybankDbData: PublicPiggybankDataType
+}
+
+const Page: NextPage<Props> = ({ initialPiggybankDbData }) => (
+    <PublicPiggybankDataProvider
+      initialPiggybankDbData={initialPiggybankDbData}
+    >
+      <PublicPiggybankPage />
+    </PublicPiggybankDataProvider>
+  )
+export default Page;

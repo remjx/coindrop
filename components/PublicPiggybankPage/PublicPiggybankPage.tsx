@@ -1,41 +1,23 @@
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
 import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
-import PublicPiggybankDataProvider, { PublicPiggybankDataType } from './PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
-import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
+import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
 
-type Props = {
-    initialPiggybankDbData: PublicPiggybankDataType
-}
-
-const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
-    const { initialPiggybankDbData } = props;
+const PublicPiggybankPage: FunctionComponent = () => {
     const { query: { piggybankName } } = useRouter();
-    const fetchPublicPiggybankData = async ([, swrPiggybankName]) => {
-        const piggybankRef = await db
-            .collection('piggybanks')
-            .doc(swrPiggybankName)
-            .get();
-        if (piggybankRef.exists) {
-            return piggybankRef.data() as PublicPiggybankDataType;
-        }
-        throw new Error('Piggybank does not exist');
-    };
-    const [swrPiggybankDbData, setSwrPiggybankDbData] = useState<PublicPiggybankDataType>(null);
-    const piggybankDbData = swrPiggybankDbData ?? initialPiggybankDbData;
-    console.log('piggybankDbData', piggybankDbData);
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const theme = useTheme();
     const { user } = useUser();
     const {
@@ -45,15 +27,9 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         verb,
         owner_uid,
     } = piggybankDbData;
-    const { data } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
-    useEffect(() => {
-        if (data) {
-            setSwrPiggybankDbData(data);
-        }
-    }, [data]);
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
-    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
-    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
+    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
+    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
     const WrapGroup: FunctionComponent = ({ children }) => (
         <Wrap
             justify="center"
@@ -90,11 +66,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
             title={`${name ?? piggybankName}'s Coindrop (coindrop.to/${piggybankName})`}
             description={`Send money to ${name} with no fees`}
         />
-        <PublicPiggybankDataProvider
-            data={{
-                piggybankDbData,
-            }}
-        >
             <Box
                 maxW="1280px"
                 mx="auto"
@@ -102,6 +73,8 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                 {user?.id
                 && user.id === owner_uid
                 && (
+                    <>
+                    <DataRefetcher />
                     <ManagePiggybankBar
                         editButtonOptions={
                             initialSetupComplete
@@ -117,6 +90,7 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                         }
                         initialSetupComplete={initialSetupComplete}
                     />
+                    </>
                 )}
                 <Flex mt={2} mr={6} justify="flex-end">
                     <ToggleColorModeButton />
@@ -179,7 +153,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                     </Heading>
                 )}
             </Box>
-        </PublicPiggybankDataProvider>
         </>
     );
 };

@@ -1,5 +1,4 @@
-import { createContext, FunctionComponent } from 'react';
-
+import { createContext, FunctionComponent, useState } from 'react';
 import { PaymentMethodsDbObj } from './EditPiggybankModal/EditPiggybankModal';
 
 export const PublicPiggybankDataContext = createContext(null);
@@ -14,18 +13,22 @@ export type PublicPiggybankDataType = {
     avatar_storage_id: string
 }
 
-type PublicPiggybankDataContext = {
-    piggybankDbData: PublicPiggybankDataType
-}
-
 type Props = {
-    data: PublicPiggybankDataContext
+    initialPiggybankDbData: PublicPiggybankDataType
 }
 
-const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ data, children }) => (
-    <PublicPiggybankDataContext.Provider value={data}>
-        {children}
-    </PublicPiggybankDataContext.Provider>
-);
+const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ initialPiggybankDbData, children }) => {
+    const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankDataType>(initialPiggybankDbData);
+    return (
+        <PublicPiggybankDataContext.Provider
+            value={{
+                piggybankDbData,
+                setPiggybankDbData,
+            }}
+        >
+            {children}
+        </PublicPiggybankDataContext.Provider>
+    );
+};
 
 export default PublicPiggybankDataProvider;
