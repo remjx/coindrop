@@ -7,7 +7,7 @@ import { db } from '../../../utils/client/db';
 const DataRefetcher: FC = () => {
     const { setPiggybankDbData } = useContext(PublicPiggybankDataContext);
     const { query: { piggybankName } } = useRouter();
-    const fetchPublicPiggybankData = async ([, swrPiggybankName]) => {
+    const fetchPublicPiggybankData = async (_, swrPiggybankName) => {
         const piggybankRef = await db
             .collection('piggybanks')
             .doc(swrPiggybankName)
@@ -17,7 +17,7 @@ const DataRefetcher: FC = () => {
         }
         throw new Error('Piggybank does not exist');
     };
-    const { data } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
+    const { data, error } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
     useEffect(() => {
         if (data) {
             setPiggybankDbData(data);

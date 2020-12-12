@@ -104,8 +104,8 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             };
             if (isUrlUnchanged) {
                 await mutate(['publicPiggybankData', initialPiggybankId], () => {
-                    db.collection('piggybanks').doc(initialPiggybankId).set(formData);
-                    return formData;
+                    db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                    return dataToSubmit;
                 });
                 fetch(`/${initialPiggybankId}`); // trigger static regeneration
             } else {

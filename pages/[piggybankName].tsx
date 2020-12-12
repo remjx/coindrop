@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import PublicPiggybankPage from '../components/PublicPiggybankPage/PublicPiggybankPage';
 import { db } from '../utils/auth/firebaseAdmin';
-import { PublicPiggybankDataType } from '../components/PublicPiggybankPage/PublicPiggybankDataContext';
+import { PublicPiggybankDataType, PublicPiggybankDataProvider } from '../components/PublicPiggybankPage/PublicPiggybankDataContext';
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { piggybankName: piggybankNameParamCaseInsensitive } = context.params;
@@ -46,10 +46,11 @@ type Props = {
 }
 
 const Page: NextPage<Props> = ({ initialPiggybankDbData }) => (
-    <PublicPiggybankDataProvider
-      initialPiggybankDbData={initialPiggybankDbData}
-    >
-      <PublicPiggybankPage />
-    </PublicPiggybankDataProvider>
-  )
+  <PublicPiggybankDataProvider
+    initialPiggybankDbData={initialPiggybankDbData}
+  >
+    <PublicPiggybankPage />
+  </PublicPiggybankDataProvider>
+);
+
 export default Page;
