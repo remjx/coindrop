@@ -107,9 +107,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                     db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
                     return dataToSubmit;
                 });
-                fetch(`/${initialPiggybankId}`); // trigger static regeneration
             } else {
-                await db.collection('piggybanks').doc(initialPiggybankId).delete();
                 await axios.post(
                     '/api/createPiggybank',
                     {
@@ -123,8 +121,10 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                         },
                     },
                 );
+                await db.collection('piggybanks').doc(initialPiggybankId).delete();
                 routerPush(`/${formData.piggybankId}`);
             }
+            fetch(`/${initialPiggybankId}`, { headers: { isToForceStaticRegeneration: "true" }});
             onClose();
         } catch (error) {
             setIsSubmitting(false);

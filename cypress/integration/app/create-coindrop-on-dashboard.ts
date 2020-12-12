@@ -17,6 +17,8 @@ describe('Create Coindrop on Dashboard', () => {
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
         cy.wait('@getUserOwnedPiggybanks');
+        cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
+            .should('not.exist');
         cy.get('#create-new-coindrop-button')
             .click();
         cy.get('#create-coindrop-input')
