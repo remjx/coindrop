@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
+import { Container, Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -74,93 +74,101 @@ const PublicPiggybankPage: FunctionComponent = () => {
             title={`${name ?? piggybankName}'s Coindrop (coindrop.to/${piggybankName})`}
             description={`Send money to ${name} with no fees`}
         />
-            <Box
-                maxW="1280px"
-                mx="auto"
+        <Container
+            maxW="lg"
+            mx="auto"
+            position="relative"
+        >
+            {user?.id
+            && user.id === owner_uid
+            && (
+                <>
+                <DataRefetcher />
+                <ManagePiggybankBar
+                    editButtonOptions={
+                        initialSetupComplete
+                        ? ({
+                            text: 'Configure',
+                            color: undefined,
+                            icon: <SettingsIcon />,
+                        }) : ({
+                            text: 'Set up',
+                            color: 'green',
+                            icon: <SettingsIcon />,
+                        })
+                    }
+                    initialSetupComplete={initialSetupComplete}
+                />
+                </>
+            )}
+            <Flex
+                mt={2}
+                mr={6}
+                justify="flex-end"
+                position="absolute"
+                right="1rem"
+                zIndex="2"
             >
-                {user?.id
-                && user.id === owner_uid
-                && (
-                    <>
-                    <DataRefetcher />
-                    <ManagePiggybankBar
-                        editButtonOptions={
-                            initialSetupComplete
-                            ? ({
-                                text: 'Configure',
-                                color: undefined,
-                                icon: <SettingsIcon />,
-                            }) : ({
-                                text: 'Set up',
-                                color: 'green',
-                                icon: <SettingsIcon />,
-                            })
-                        }
-                        initialSetupComplete={initialSetupComplete}
-                    />
-                    </>
-                )}
-                <Flex mt={2} mr={6} justify="flex-end">
-                    <ToggleColorModeButton />
-                </Flex>
-                {initialSetupComplete ? (
+                <ToggleColorModeButton />
+            </Flex>
+            {initialSetupComplete ? (
+                <Box
+                    mb={6}
+                >
                     <Box
-                        mb={6}
+                        padding="10px"
+                        my={2}
+                        mx={3}
                     >
-                        <Box
-                            padding="10px"
-                            my={2}
-                            mx={3}
-                        >
-                            <Center>
-                                <Avatar />
-                            </Center>
-                            <Heading textAlign="center">
-                                Choose a payment method to
-                                {` ${verb} `}
-                                {website ? (
-                                    <Link href={website} target="_blank" rel="noreferrer">
-                                        <Heading
-                                            as="span"
-                                            color={accentColorInitial}
-                                            textDecoration="underline"
-                                            css={css`
-                                                &:hover {
-                                                    color: ${accentColorHover};
-                                                }
-                                            `}
-                                        >
-                                                {name}
-                                        </Heading>
-                                    </Link>
-                                ) : (
+                        <Center>
+                            <Avatar />
+                        </Center>
+                        <Heading textAlign="center">
+                            Choose a payment method to
+                            {` ${verb} `}
+                            {website ? (
+                                <Link href={website} target="_blank" rel="noreferrer">
                                     <Heading
                                         as="span"
                                         color={accentColorInitial}
+                                        textDecoration="underline"
+                                        css={css`
+                                            &:hover {
+                                                color: ${accentColorHover};
+                                            }
+                                        `}
                                     >
                                             {name}
                                     </Heading>
-                                )}
-                                :
-                            </Heading>
-                        </Box>
-                        <PaymentMethodButtonsFromEntries
-                            entries={preferredAddresses}
-                        />
-                        <PaymentMethodButtonsFromEntries
-                            entries={otherAddresses}
-                        />
-                        <PoweredByCoindropLink
-                            accentColor={accentColor}
-                        />
+                                </Link>
+                            ) : (
+                                <Heading
+                                    as="span"
+                                    color={accentColorInitial}
+                                >
+                                        {name}
+                                </Heading>
+                            )}
+                            :
+                        </Heading>
                     </Box>
-                ) : (
-                    <Heading mt={4} textAlign="center">
-                        {piggybankExists ? 'This Coindrop has not been set up yet.' : 'This Coindrop does not exist'}
-                        {/* TODO: Include action buttons to log in or landing page */}
-                    </Heading>
-                )}
-            </Box>
+                    <PaymentMethodButtonsFromEntries
+                        entries={preferredAddresses}
+                    />
+                    <PaymentMethodButtonsFromEntries
+                        entries={otherAddresses}
+                    />
+                    <PoweredByCoindropLink
+                        accentColor={accentColor}
+                    />
+                </Box>
+            ) : (
+                <Heading mt={4} textAlign="center">
+                    {piggybankExists ? 'This Coindrop has not been set up yet.' : 'This Coindrop does not exist'}
+                    {/* TODO: Include action buttons to log in or landing page */}
+                </Heading>
+            )}
+        </Container>
         </>
     );
 };

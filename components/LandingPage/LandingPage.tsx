@@ -70,11 +70,9 @@ const LandingPage: FunctionComponent = () => {
                     as="h1"
                 >
                     The easiest way to accept donations and tips.
-                    <br />
-                    Zero fees.
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    List your payment methods. Let the sender pay you directly.
+                    List your payment methods and let the sender pay you directly. <b>100% free. Zero fees.</b>
                 </Text>
                 <Box
                     mt={2}
