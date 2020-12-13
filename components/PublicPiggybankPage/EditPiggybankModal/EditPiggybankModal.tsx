@@ -16,6 +16,7 @@ import {
     Input,
     Select,
     useTheme,
+    useColorMode,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -57,7 +58,9 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { colors } = useTheme();
     const { user } = useUser();
-    const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
+    const { colorMode } = useColorMode();
+    const accentColorLevel = colorMode === 'light' ? '500' : '300';
+    const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name][accentColorLevel]]));
     const { push: routerPush, query: { piggybankName } } = useRouter();
     const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
