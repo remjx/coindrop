@@ -22,8 +22,8 @@ export const Avatar: FunctionComponent = () => {
                 src={publicAvatarUrl}
                 alt="avatar"
                 className={styles.image}
-                width={250}
-                height={250}
+                width={200}
+                height={200}
             />
         </div>
     );
