@@ -32,6 +32,7 @@ import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
 import { AdditionalValidation } from './AdditionalValidationContext';
+import { getAccentColorLevelInitial } from '../PublicPiggybankPage';
 
 export type PaymentMethodsDbObj = {
     [key: string]: {
@@ -59,8 +60,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     const { colors } = useTheme();
     const { user } = useUser();
     const { colorMode } = useColorMode();
-    const accentColorLevel = colorMode === 'light' ? '500' : '300';
-    const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name][accentColorLevel]]));
+    const accentColorLevel = getAccentColorLevelInitial(colorMode);
     const { push: routerPush, query: { piggybankName } } = useRouter();
     const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
@@ -175,11 +175,11 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                 Theme
                             </FormLabel>
                             <Flex wrap="wrap" justify="center">
-                                {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
+                                {themeColorOptions.map(colorName => (
                                     <Box
                                         key={colorName}
                                         as="button"
-                                        bg={hexCode}
+                                        bg={colors[colorName][accentColorLevel]}
                                         w="36px"
                                         h="36px"
                                         borderRadius="50%"
