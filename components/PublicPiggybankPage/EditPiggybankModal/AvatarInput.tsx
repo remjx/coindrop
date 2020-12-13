@@ -10,7 +10,7 @@ import { useUser } from '../../../utils/auth/useUser';
 import { storage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 import { Avatar } from '../avatar/Avatar';
-import { PublicPiggybankData } from '../PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
@@ -31,7 +31,7 @@ function getImageDimensions(file: File): Promise<{ width: number, height: number
 
 const AvatarInput: FunctionComponent = () => {
     const inputRef = useRef<FileInputRef>(null);
-    const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankData);
+    const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankDataContext);
     const currentAvatarStorageId = piggybankDbData.avatar_storage_id;
     const { query: { piggybankName: piggybankNameQuery } } = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];

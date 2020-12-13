@@ -44,10 +44,10 @@ const StatusIcon: FunctionComponent<StatusIconProps> = ({
     }
     if (isValid || value === currentPiggybankId) {
         return (
-            <CheckIcon color="green.500" />
+            <CheckIcon id="piggybank-id-ok" color="green.500" />
         );
     }
-    return <NotAllowedIcon color="red.500" />;
+    return <NotAllowedIcon id="piggybank-id-not-allowed" color="red.500" />;
 };
 
 type Props = {

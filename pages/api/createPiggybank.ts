@@ -6,7 +6,7 @@ import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';
 import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
-import { PublicPiggybankData } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
+import { PublicPiggybankDataType } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
 
 const storage = new Storage({
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -66,7 +66,7 @@ async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId
 type ReqBody = {
   oldPiggybankName?: string
   newPiggybankName: string
-  piggybankData?: PublicPiggybankData
+  piggybankData?: PublicPiggybankDataType
 }
 
 const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -86,7 +86,7 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
       isUserUnderPiggybankLimit(uid),
       isNameValid(newPiggybankName),
     ]);
-    const newPiggybankData: PublicPiggybankData = {
+    const newPiggybankData: PublicPiggybankDataType = {
       ...piggybankData,
       owner_uid: uid,
       avatar_storage_id: newAvatarStorageId,

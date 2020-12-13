@@ -20,7 +20,8 @@ import {
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
-import { PublicPiggybankData } from '../PublicPiggybankDataContext';
+import { mutate } from 'swr';
+import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';
 import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
@@ -59,7 +60,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
     const { push: routerPush, query: { piggybankName } } = useRouter();
     const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
-    const { piggybankDbData, refreshPiggybankDbData } = useContext(PublicPiggybankData);
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const { avatar_storage_id: currentAvatarStorageId } = piggybankDbData;
     const initialPaymentMethodsDataFieldArray = convertPaymentMethodsDataToFieldArray(piggybankDbData.paymentMethods);
     const initialAccentColor = piggybankDbData.accentColor ?? 'orange';
@@ -98,13 +99,13 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
-                owner_uid: piggybankDbData.owner_uid,
+                owner_uid: user.id,
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
                 await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                mutate(['publicPiggybankData', initialPiggybankId], dataToSubmit);
             } else {
-                await db.collection('piggybanks').doc(initialPiggybankId).delete();
                 await axios.post(
                     '/api/createPiggybank',
                     {
@@ -118,14 +119,19 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                         },
                     },
                 );
+                try {
+                    await db.collection('piggybanks').doc(initialPiggybankId).delete();
+                } catch (err) {
+                    console.log('error deleting old Coindrop page');
+                }
                 routerPush(`/${formData.piggybankId}`);
             }
-            await refreshPiggybankDbData(formData.piggybankId);
+            fetch(`/${initialPiggybankId}`, { headers: { isToForceStaticRegeneration: "true" }});
             onClose();
         } catch (error) {
             setIsSubmitting(false);
-            // TODO: set error
-            throw new Error(error);
+            // TODO: handle errors
+            throw error;
         }
     };
     const handleAccentColorChange = (e) => {
@@ -270,6 +276,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                 Cancel
                             </Button>
                             <Button
+                                id="save-configuration-btn"
                                 colorScheme="green"
                                 mx={1}
                                 type="submit"

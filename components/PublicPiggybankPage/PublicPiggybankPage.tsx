@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
 /** @jsx jsx */
@@ -10,36 +10,14 @@ import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
-import PublicPiggybankDataProvider, { PublicPiggybankData } from './PublicPiggybankDataContext';
+import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
-import { db } from '../../utils/client/db';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
+import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
 
-type Props = {
-    initialPiggybankDbData: PublicPiggybankData
-}
-
-const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
-    // TODO: useSwr to refresh piggybankDbData after initial load
-    // TODO: Split out Edit modal into new page?
-    // TODO: alphabetize list of payment methods
-    const { initialPiggybankDbData } = props;
-    const { query: { piggybankName }} = useRouter();
-    const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankData>(initialPiggybankDbData);
-    async function refreshPiggybankDbData(piggybankId: string): Promise<void> {
-        try {
-            const piggybankRef = await db
-                .collection('piggybanks')
-                .doc(piggybankId)
-                .get();
-            if (piggybankRef.exists) {
-                const data = piggybankRef.data() as PublicPiggybankData;
-                setPiggybankDbData(data);
-            }
-        } catch (error) {
-            throw new Error(error);
-        }
-    }
+const PublicPiggybankPage: FunctionComponent = () => {
+    const { query: { piggybankName } } = useRouter();
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const theme = useTheme();
     const { user } = useUser();
     const {
@@ -50,8 +28,8 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         owner_uid,
     } = piggybankDbData;
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
-    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => paymentMethodData.isPreferred);
-    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]) => !paymentMethodData.isPreferred);
+    const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
+    const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
     const WrapGroup: FunctionComponent = ({ children }) => (
         <Wrap
             justify="center"
@@ -67,13 +45,13 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
         <WrapGroup>
             {entries
             .sort(sortArrayByEntriesKeyAlphabetical)
-            .map(([paymentMethodId, data]) => (
+            .map(([paymentMethodId, paymentMethodData]) => (
                 <WrapItem key={paymentMethodId}>
                     <PaymentMethodButton
                         key={paymentMethodId}
                         paymentMethod={paymentMethodId}
-                        paymentMethodValue={data.address}
-                        isPreferred={data.isPreferred}
+                        paymentMethodValue={paymentMethodData.address}
+                        isPreferred={paymentMethodData.isPreferred}
                         accentColor={accentColor}
                     />
                 </WrapItem>
@@ -88,13 +66,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
             title={`${name ?? piggybankName}'s Coindrop (coindrop.to/${piggybankName})`}
             description={`Send money to ${name} with no fees`}
         />
-        <PublicPiggybankDataProvider
-            data={{
-                piggybankDbData,
-                setPiggybankDbData,
-                refreshPiggybankDbData,
-            }}
-        >
             <Box
                 maxW="1280px"
                 mx="auto"
@@ -102,6 +73,8 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                 {user?.id
                 && user.id === owner_uid
                 && (
+                    <>
+                    <DataRefetcher />
                     <ManagePiggybankBar
                         editButtonOptions={
                             initialSetupComplete
@@ -117,6 +90,7 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                         }
                         initialSetupComplete={initialSetupComplete}
                     />
+                    </>
                 )}
                 <Flex mt={2} mr={6} justify="flex-end">
                     <ToggleColorModeButton />
@@ -179,7 +153,6 @@ const PublicPiggybankPage: FunctionComponent<Props> = (props) => {
                     </Heading>
                 )}
             </Box>
-        </PublicPiggybankDataProvider>
         </>
     );
 };

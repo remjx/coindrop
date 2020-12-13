@@ -1,9 +1,9 @@
-import { createContext, FunctionComponent, Dispatch, SetStateAction } from 'react';
+import { createContext, FunctionComponent, useState, Dispatch, SetStateAction } from 'react';
 import { PaymentMethodsDbObj } from './EditPiggybankModal/EditPiggybankModal';
 
-export const PublicPiggybankData = createContext(null);
+export const PublicPiggybankDataContext = createContext(null);
 
-export type PublicPiggybankData = {
+export type PublicPiggybankDataType = {
     name: string
     website: string
     accentColor: string
@@ -13,20 +13,26 @@ export type PublicPiggybankData = {
     avatar_storage_id: string
 }
 
-type PublicPiggybankDataContext = {
-    piggybankDbData: PublicPiggybankData
-    setPiggybankDbData: Dispatch<SetStateAction<PublicPiggybankData>>
-    refreshPiggybankDbData: (piggybankId: string) => Promise<void>
-}
-
 type Props = {
-    data: PublicPiggybankDataContext
+    initialPiggybankDbData: PublicPiggybankDataType
 }
 
-const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ data, children }) => (
-    <PublicPiggybankData.Provider value={data}>
-        {children}
-    </PublicPiggybankData.Provider>
-);
+type PublicPiggybankDataContextValue = {
+    piggybankDbData: PublicPiggybankDataType
+    setPiggybankDbData: Dispatch<SetStateAction<PublicPiggybankDataType>>
+}
 
-export default PublicPiggybankDataProvider;
+export const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ initialPiggybankDbData, children }) => {
+    const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankDataType>(initialPiggybankDbData);
+    const value: PublicPiggybankDataContextValue = {
+        piggybankDbData,
+        setPiggybankDbData,
+    };
+    return (
+        <PublicPiggybankDataContext.Provider
+            value={value}
+        >
+            {children}
+        </PublicPiggybankDataContext.Provider>
+    );
+};
