@@ -200,7 +200,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                             <CheckIcon color="#FFF" />
                                         )}
                                     </Box>
-                                    )
+                                    );
                                 })}
                             </Flex>
                         </FormControl>
