@@ -1,7 +1,8 @@
 import { FunctionComponent } from 'react';
 import NextLink from 'next/link';
-import { Box, Button, Link as ChakraLink, Flex, Text, useTheme, useColorModeValue } from '@chakra-ui/react';
+import { Box, Button, Link as ChakraLink, Flex, Text, useTheme, useColorModeValue, useColorMode } from '@chakra-ui/react';
 import { GithubIcon } from '../Icons/CustomIcons';
+import { getAccentColorLevelInitial } from './PublicPiggybankPage';
 
 type Props = {
     accentColor: string
@@ -9,7 +10,9 @@ type Props = {
 
 const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange' }) => {
     const { colors } = useTheme();
-    const borderColor = useColorModeValue("gray.300", "gray.600");
+    const { colorMode } = useColorMode();
+    const accentColorLevel = getAccentColorLevelInitial(colorMode);
+    const accentColorValue = colors[accentColor][accentColorLevel];
     const bgHover = useColorModeValue("gray.50", "gray.600");
     return (
         <Box
@@ -39,7 +42,7 @@ const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange
                                     as="span"
                                     fontWeight="500"
                                     style={{
-                                        color: colors[accentColor]['500'],
+                                        color: accentColorValue,
                                     }}
                                 >
                                     {' Coindrop'}

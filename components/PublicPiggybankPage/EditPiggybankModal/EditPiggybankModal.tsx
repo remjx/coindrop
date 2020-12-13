@@ -16,6 +16,7 @@ import {
     Input,
     Select,
     useTheme,
+    useColorMode,
 } from "@chakra-ui/react";
 import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
@@ -31,6 +32,7 @@ import { db } from '../../../utils/client/db';
 import { useUser } from '../../../utils/auth/useUser';
 import AvatarInput from './AvatarInput';
 import { AdditionalValidation } from './AdditionalValidationContext';
+import { getAccentColorLevelInitial, getAccentColorLevelHover } from '../PublicPiggybankPage';
 
 export type PaymentMethodsDbObj = {
     [key: string]: {
@@ -57,7 +59,9 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { colors } = useTheme();
     const { user } = useUser();
-    const themeColorOptionsWithHexValues = themeColorOptions.map(name => ([name, colors[name]['500']]));
+    const { colorMode } = useColorMode();
+    const accentColorLevelInitial = getAccentColorLevelInitial(colorMode);
+    const accentColorLevelHover = getAccentColorLevelHover(colorMode);
     const { push: routerPush, query: { piggybankName } } = useRouter();
     const initialPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
@@ -172,11 +176,18 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                 Theme
                             </FormLabel>
                             <Flex wrap="wrap" justify="center">
-                                {themeColorOptionsWithHexValues.map(([colorName, hexCode]) => (
+                                {themeColorOptions.map(colorName => {
+                                    const isColorSelected = watchedAccentColor === colorName;
+                                    const accentColorInitial = colors[colorName][accentColorLevelInitial];
+                                    const accentColorHover = colors[colorName][accentColorLevelHover];
+                                    return (
                                     <Box
                                         key={colorName}
                                         as="button"
-                                        bg={hexCode}
+                                        bg={isColorSelected ? accentColorHover : accentColorInitial}
+                                        _hover={{
+                                            bg: accentColorHover,
+                                        }}
                                         w="36px"
                                         h="36px"
                                         borderRadius="50%"
@@ -185,11 +196,12 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                         onClick={handleAccentColorChange}
                                         data-colorname={colorName}
                                     >
-                                        {watchedAccentColor === colorName && (
+                                        {isColorSelected && (
                                             <CheckIcon color="#FFF" />
                                         )}
                                     </Box>
-                                ))}
+                                    );
+                                })}
                             </Flex>
                         </FormControl>
                         <FormControl

@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem } from '@chakra-ui/react';
+import { Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -15,11 +15,17 @@ import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './ut
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
 
+export const getAccentColorLevelInitial = (colorMode: ColorMode): string => (colorMode === 'light' ? '500' : '300');
+export const getAccentColorLevelHover = (colorMode: ColorMode): string => (colorMode === 'light' ? '600' : '400');
+
 const PublicPiggybankPage: FunctionComponent = () => {
     const { query: { piggybankName } } = useRouter();
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const theme = useTheme();
     const { user } = useUser();
+    const { colorMode } = useColorMode();
+    const accentColorLevelInitial = getAccentColorLevelInitial(colorMode);
+    const accentColorLevelHover = getAccentColorLevelHover(colorMode);
     const {
         name,
         website,
@@ -27,6 +33,8 @@ const PublicPiggybankPage: FunctionComponent = () => {
         verb,
         owner_uid,
     } = piggybankDbData;
+    const accentColorInitial = theme.colors[accentColor][accentColorLevelInitial];
+    const accentColorHover = theme.colors[accentColor][accentColorLevelHover];
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
@@ -114,11 +122,11 @@ const PublicPiggybankPage: FunctionComponent = () => {
                                     <Link href={website} target="_blank" rel="noreferrer">
                                         <Heading
                                             as="span"
-                                            color={theme.colors[accentColor]['500']}
+                                            color={accentColorInitial}
                                             textDecoration="underline"
                                             css={css`
                                                 &:hover {
-                                                    color: ${theme.colors[accentColor]['600']};
+                                                    color: ${accentColorHover};
                                                 }
                                             `}
                                         >
@@ -128,7 +136,7 @@ const PublicPiggybankPage: FunctionComponent = () => {
                                 ) : (
                                     <Heading
                                         as="span"
-                                        color={theme.colors[accentColor]['500']}
+                                        color={accentColorInitial}
                                     >
                                             {name}
                                     </Heading>
