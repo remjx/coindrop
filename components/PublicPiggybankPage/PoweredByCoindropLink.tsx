@@ -13,7 +13,6 @@ const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange
     const { colorMode } = useColorMode();
     const accentColorLevel = getAccentColorLevelInitial(colorMode);
     const accentColorValue = colors[accentColor][accentColorLevel];
-    const borderColor = useColorModeValue("gray.300", "gray.600");
     const bgHover = useColorModeValue("gray.50", "gray.600");
     return (
         <Box
