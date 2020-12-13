@@ -24,10 +24,10 @@ const UseCasesListItem: FunctionComponent = ({ children }) => (
 const UseCasesList: FunctionComponent = () => (
     <List spacing={2}>
         <UseCasesListItem>
-            ✔️ Accept donations from anywhere with your link
+            ✔️ Accept donations from anywhere with your Coindrop link
         </UseCasesListItem>
         <UseCasesListItem>
-            ✔️ Accept tips from smartphone cameras with your QR Code
+            ✔️ Accept tips from smartphone cameras with your Coindrop QR Code
             <QRCodeIcon ml={2} />
         </UseCasesListItem>
         <UseCasesListItem>

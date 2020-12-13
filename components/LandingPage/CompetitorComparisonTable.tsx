@@ -10,7 +10,7 @@ type Competitor = {
     paymentMethods: string,
     isOpenSource: 'Yes' | 'No',
     fees: string,
-    membershipFeatures: string,
+    subscriberFeatures: string,
     icon: JSX.Element,
 }
 const data: Competitor[] = [
@@ -21,7 +21,7 @@ const data: Competitor[] = [
         paymentMethods: 'Any',
         isOpenSource: 'Yes',
         fees: 'None',
-        membershipFeatures: 'No',
+        subscriberFeatures: 'No',
         icon: <PiggyLogoIcon />,
     },
     {
@@ -31,7 +31,7 @@ const data: Competitor[] = [
         paymentMethods: 'PayPal, Credit Card',
         isOpenSource: 'No',
         fees: '3%',
-        membershipFeatures: '$9/mo',
+        subscriberFeatures: '$9/mo',
         icon: <KofiIcon ml={1} />,
     },
     {
@@ -41,7 +41,7 @@ const data: Competitor[] = [
         paymentMethods: 'Credit Card',
         isOpenSource: 'No',
         fees: '5%',
-        membershipFeatures: 'Yes',
+        subscriberFeatures: 'Yes',
         icon: <BuyMeACoffeeIcon ml={1} />,
     },
     {
@@ -51,7 +51,7 @@ const data: Competitor[] = [
         paymentMethods: 'Credit Card',
         isOpenSource: 'No',
         fees: '5-12%',
-        membershipFeatures: 'Yes',
+        subscriberFeatures: 'Yes',
         icon: <PatreonIcon ml={1} />,
     },
 ];
@@ -138,9 +138,9 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                             ))}
                         </tr>
                         <tr>
-                            <td>Memberships</td>
+                            <td>Subscribers</td>
                             {data.map(obj => (
-                                <StyledTd value={obj.membershipFeatures} key={obj.id} />
+                                <StyledTd value={obj.subscriberFeatures} key={obj.id} />
                             ))}
                         </tr>
                     </tbody>
@@ -193,9 +193,9 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                                 <StyledTd value={obj.isOpenSource} />
                             </tr>
                             <tr>
-                                <td>Memberships</td>
-                                <StyledTd value={coindropData.membershipFeatures} />
-                                <StyledTd value={obj.membershipFeatures} />
+                                <td>Subscribers</td>
+                                <StyledTd value={coindropData.subscriberFeatures} />
+                                <StyledTd value={obj.subscriberFeatures} />
                             </tr>
                         </tbody>
                     </table>

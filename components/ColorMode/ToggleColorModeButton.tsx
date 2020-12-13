@@ -5,7 +5,10 @@ import { FunctionComponent } from 'react';
 export const ToggleColorModeButton: FunctionComponent = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
-        <Button onClick={toggleColorMode}>
+        <Button
+            onClick={toggleColorMode}
+            variant="ghost"
+        >
             {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
         </Button>
     );

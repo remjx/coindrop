@@ -160,7 +160,10 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 <form id="configure-coindrop-form" onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
                         <AvatarInput />
-                        <FormControl isRequired>
+                        <FormControl
+                            isRequired
+                            mt={formControlTopMargin}
+                        >
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
                                 register={register}
