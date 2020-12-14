@@ -1,3 +1,5 @@
+// testing the test
+
 describe('Create Coindrop on Dashboard', () => {
     before(() => {
       cy.logout();
