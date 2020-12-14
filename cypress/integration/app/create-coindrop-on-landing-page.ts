@@ -10,9 +10,6 @@ describe('Create Coindrop on landing page', () => {
         method: 'POST',
         url: '/api/createPiggybank',
       }).as('createPiggybank');
-      cy.intercept({
-        url: /^https:\/\/firestore.googleapis.com\/.*/,
-      }).as('getUserOwnedPiggybanks');
       cy.callFirestore("delete", `piggybanks/${testCoindropName_lr9rzm}`);
       cy.visit('/');
       cy.get("#create-coindrop-input")
@@ -21,10 +18,8 @@ describe('Create Coindrop on landing page', () => {
       cy.login();
       cy.url().should('eq', `${Cypress.config().baseUrl}/dashboard`);
       cy.wait("@createPiggybank");
-      cy.wait("@getUserOwnedPiggybanks");
-      cy.reload(); // This is a workaround for not being able to clearly identify the proper XHR requests to intercept
-      cy.get('#user-owned-coindrops')
-          .contains(`coindrop.to/${testCoindropName_lr9rzm}`);
+      cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_lr9rzm}`);
+      cy.contains('This Coindrop has not been set up yet.');
     });
 });
 

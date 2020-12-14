@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { mutate } from 'swr';
+import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { User } from '../auth/mapUserData';
 
@@ -23,6 +24,7 @@ function useCreatePiggybank(
 ): UseCreatePiggybank {
     const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
     const [error, setError] = useState('');
+    const { push } = useRouter();
     async function triggerCreation() {
         setIsTriggered(false);
         setSubmitStatus('submitting');
@@ -37,7 +39,7 @@ function useCreatePiggybank(
             await axios.post('/api/createPiggybank', data, { headers });
             setCandidatePiggybankPath('');
             setSubmitStatus('success');
-            mutate(user.id);
+            push(`/${candidatePiggybankPath}`);
         } catch (err) {
             setSubmitStatus('error');
             setError(err.statusText);
