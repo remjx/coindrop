@@ -12,11 +12,19 @@ describe('Create Coindrop on Dashboard', () => {
             url: '/api/createPiggybank',
         }).as('createPiggybank');
         cy.intercept({
-          url: /^https:\/\/firestore.googleapis.com\/.*/,
-        }).as('getUserOwnedPiggybanks');
+            method: 'GET',
+            url: /^https:\/\/firestore.googleapis.com\/.*/,
+        }).as('getUserOwnedPiggybanksGET');
+        cy.intercept({
+            method: 'POST',
+            url: /^https:\/\/firestore.googleapis.com\/.*/,
+        }).as('getUserOwnedPiggybanksPOST');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
-        cy.wait('@getUserOwnedPiggybanks');
+        /* --- Not sure why Firebase makes 3 API calls for a single .get(): --- */
+        cy.wait('@getUserOwnedPiggybanksPOST');
+        cy.wait('@getUserOwnedPiggybanksGET');
+        cy.wait('@getUserOwnedPiggybanksPOST');
         cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
             .should('not.exist');
         cy.get('#create-new-coindrop-button')
