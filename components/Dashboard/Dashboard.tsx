@@ -10,11 +10,12 @@ import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 const Dashboard: FunctionComponent = () => {
     const router = useRouter();
     const { user } = useUser();
-    useDidMountEffect(() => {
-        if (!user) {
-            router.push('/');
-        }
-    }, [user]);
+    // just testing a theory as to why create-coindrop-on-dashboard test is failing.... this needs to be reenabled:
+    // useDidMountEffect(() => {
+    //     if (!user) {
+    //         router.push('/');
+    //     }
+    // }, [user]);
     return (
         <>
             <NextSeo
