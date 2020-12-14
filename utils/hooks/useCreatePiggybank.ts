@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import { useState, useEffect, SetStateAction, Dispatch } from 'react';
-import { mutate } from 'swr';
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { User } from '../auth/mapUserData';

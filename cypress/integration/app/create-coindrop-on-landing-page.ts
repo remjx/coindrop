@@ -15,11 +15,16 @@ describe('Create Coindrop on landing page', () => {
       cy.get("#create-coindrop-input")
         .type(testCoindropName_lr9rzm);
       cy.get("#create-coindrop-form").submit();
+      cy.getCookie('pendingLoginCreatePiggybankPath')
+        .should('have.property', 'value', testCoindropName_lr9rzm);
       cy.login();
-      cy.url().should('eq', `${Cypress.config().baseUrl}/dashboard`);
+      cy.contains('Creating Coindrop');
+      cy.url().should('eq', `${Cypress.config().baseUrl}/create`);
       cy.wait("@createPiggybank");
-      cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_lr9rzm}`);
       cy.contains('This Coindrop has not been set up yet.');
+      cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_lr9rzm}`);
+      cy.getCookie('pendingLoginCreatePiggybankPath')
+        .should('not.exist');
     });
 });
 
