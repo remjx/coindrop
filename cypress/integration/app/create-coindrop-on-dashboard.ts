@@ -18,7 +18,7 @@ describe('Create Coindrop on Dashboard', () => {
         cy.visit('/dashboard');
         cy.contains('Loading...');
         cy.wait('@getUserOwnedPiggybanks');
-        cy.get('#create-new-coindrop-button')
+        cy.get('#create-new-coindrop-button', { timeout: 8000 })
             .click();
         cy.get('#create-coindrop-input')
             .type(testCoindropName_dbk8fi);
