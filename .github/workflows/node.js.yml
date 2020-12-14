@@ -19,34 +19,34 @@ on:
     branches: [ master ]
 
 jobs:
-  # build:
-  #   runs-on: ubuntu-latest
-  #   if: "!contains(github.event.head_commit.message, '[skip ci]')"
-  #   strategy:
-  #     matrix:
-  #       node-version: [12.x]
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v1
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #   - name: Cache node modules
-  #     uses: actions/cache@v2
-  #     env:
-  #       cache-name: cache-node-modules
-  #     with:
-  #       path: ~/.cache/yarn
-  #       key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-  #       restore-keys: |
-  #         ${{ runner.os }}-build-${{ env.cache-name }}-
-  #         ${{ runner.os }}-build-
-  #         ${{ runner.os }}-
-  #   - run: yarn install
-  #   - run: yarn run lint
-  #   - run: yarn run lint:tsc
-  #   - run: yarn run lint:tsc:cypress
-  #   - run: yarn run test
+  build:
+    runs-on: ubuntu-latest
+    # if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Cache node modules
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-node-modules
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+    - run: yarn install
+    - run: yarn run lint
+    - run: yarn run lint:tsc
+    - run: yarn run lint:tsc:cypress
+    - run: yarn run test
   cypress-run:
     runs-on: ubuntu-16.04
     # if: "!contains(github.event.head_commit.message, '[skip ci]')"
