@@ -26,9 +26,8 @@ describe('Create Coindrop on Dashboard', () => {
         cy.get('#create-coindrop-form')
             .submit();
         cy.wait('@createPiggybank');
-        cy.contains(`coindrop.to/${testCoindropName_dbk8fi}`);
-        cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
-            .should('have.attr', 'href', `/${testCoindropName_dbk8fi}`);
+        cy.contains('This Coindrop has not been set up yet.');
+        cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_dbk8fi}`);
     });
 });
 
