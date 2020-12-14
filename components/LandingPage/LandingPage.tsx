@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
+import cookies from 'js-cookie';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -29,9 +30,14 @@ const LandingPage: FunctionComponent = () => {
     const theme = useTheme();
     const router = useRouter();
     const { user } = useUser();
-    useEffect(() => { // does this unnecessarily cause LandingPage to render before router.push()?
+    useEffect(() => {
         if (user) {
-            router.push('/dashboard');
+            const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
+            if (pendingLoginCreatePiggybankPath) {
+                router.push('/create');
+            } else {
+                router.push('/dashboard');
+            }
         }
     }, [user]);
     useEffect(() => {

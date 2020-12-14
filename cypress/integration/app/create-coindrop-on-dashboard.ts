@@ -12,23 +12,21 @@ describe('Create Coindrop on Dashboard', () => {
             url: '/api/createPiggybank',
         }).as('createPiggybank');
         cy.intercept({
-          url: /^https:\/\/firestore.googleapis.com\/.*/,
+            url: /^https:\/\/firestore.googleapis.com\/.*/,
         }).as('getUserOwnedPiggybanks');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
+        cy.contains('Loading...');
         cy.wait('@getUserOwnedPiggybanks');
-        cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
-            .should('not.exist');
-        cy.get('#create-new-coindrop-button')
+        cy.get('#create-new-coindrop-button', { timeout: 15000 })
             .click();
         cy.get('#create-coindrop-input')
             .type(testCoindropName_dbk8fi);
         cy.get('#create-coindrop-form')
             .submit();
         cy.wait('@createPiggybank');
-        cy.contains(`coindrop.to/${testCoindropName_dbk8fi}`);
-        cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
-            .should('have.attr', 'href', `/${testCoindropName_dbk8fi}`);
+        cy.contains('This Coindrop has not been set up yet.');
+        cy.url().should('eq', `${Cypress.config().baseUrl}/${testCoindropName_dbk8fi}`);
     });
 });
 
