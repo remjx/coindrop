@@ -1,0 +1,70 @@
+---
+author: Mark Jackson
+datePublished: 2020-12-14
+title: Embed a donate button on your website
+description: Coindrop offers an embed button to accept donations on your website. 100% free, zero fees.
+coverImage: piggy-512-code.png
+coverImageDescr: Coindrop logo with HTML Code icon
+---
+
+Want to add a button to your website for users to donate? You've found the right place!
+
+Coindrop is a **100% free, zero-fee, and open-source** way to accept donations.
+
+With Coindrop, you simply list all the payment methods you accept (PayPal, CashApp, Bitcoin, etc.) and donors pay you directly. No middleman involved.
+
+By the end of this ~5 minute tutorial, you'll be up and running with a button like this on your website:
+
+<Center>
+    <a href="https://coindrop.to/mark" target="_blank">
+        <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px" }} alt="Coindrop.to me" />
+    </a>
+</Center>
+
+## What you'll need
+
+1. A website that supports Markdown or HTML syntax
+2. A Coindrop page (create one <b><a href="/" target="_blank">here</a></b>. It takes ~2 minutes)
+
+## Step 1) Copy your embed code
+
+On your Coindrop page, click "Share":
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/coindrop-share-button.png" height="656" width="995" alt="Coindrop share button" />
+    </ImageBorder>
+</Center>
+
+In the Share pop-up, click "Copy HTML Code":
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/coindrop-share-modal.png" height="449" width="570" alt="Copy HTML Code for Embed button" />
+    </ImageBorder>
+</Center>
+
+The code will look like this:
+
+```
+<a href="https://coindrop.to/mark" target="_blank">
+    <img
+        src="https://coindrop.to/embed-button.png"
+        style="border-radius: 10px; height: 57px !important;width: 229px !important;"
+        alt="Coindrop.to me"
+    />
+</a>
+```
+
+## Step 2) Adjust the code if needed
+
+If you're using React/JSX you'll need to change the style attribute to a style object, like this:
+```
+style={{
+    borderRadius: "10px",
+    height: "57px",
+    width: "229px"
+}}
+```
+
+## Step 3) 

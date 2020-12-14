@@ -1,5 +1,21 @@
 import Image from 'next/image';
-import { Center, Heading, Text, Link, UnorderedList, ListItem, OrderedList } from '@chakra-ui/react';
+import { Code, Center, Heading, Text, Link, UnorderedList, ListItem, OrderedList } from '@chakra-ui/react';
+import { FC } from 'react';
+
+const ImageBorder: FC = ({ children }) => (
+    <div style={{border: "1px solid #656468"}}>
+        {children}
+    </div>
+);
+
+const CodeBlock: FC = ({ children }) => (
+    <Code
+        display="block"
+        overflow="scroll"
+    >
+        {children}
+    </Code>
+);
 
 export const components = {
     h2: ({ children }) => <Heading as="h2" my="1.5rem" size="xl">{children}</Heading>,
@@ -12,4 +28,6 @@ export const components = {
     ol: ({ children }) => <OrderedList mb="1.5rem">{children}</OrderedList>,
     li: ({ children }) => <ListItem fontSize="lg">{children}</ListItem>,
     Image,
+    ImageBorder,
+    code: CodeBlock,
 };
