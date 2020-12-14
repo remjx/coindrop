@@ -21,9 +21,8 @@ describe('Create Coindrop on Dashboard', () => {
         }).as('getUserOwnedPiggybanksPOST');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
-        /* --- Not sure why Firebase makes 3 API calls for a single .get(): --- */
+        /* --- Not sure why Firebase makes multiple API calls for a single .get(): --- */
         cy.wait('@getUserOwnedPiggybanksPOST');
-        cy.wait('@getUserOwnedPiggybanksGET');
         cy.wait('@getUserOwnedPiggybanksPOST');
         cy.get(`a#link-to-coindrop-${testCoindropName_dbk8fi}`)
             .should('not.exist');
