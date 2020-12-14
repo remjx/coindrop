@@ -1,4 +1,4 @@
-import { useState, FunctionComponent } from 'react';
+import { useState, FunctionComponent, createRef, useEffect } from 'react';
 import { Box, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue, UnorderedList } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
@@ -20,6 +20,12 @@ type Props = {
 export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
+    const inputRef = createRef<HTMLInputElement>();
+    useEffect(() => {
+        if (router.pathname === '/dashboard') {
+            inputRef.current.focus();
+        }
+    }, []);
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
@@ -66,6 +72,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
                             }}
                             value={candidatePiggybankPath}
                             isInvalid={isCandidatePiggybankPathInvalid || !!error}
+                            ref={inputRef}
                         />
                     </InputGroup>
                 </BoxMargin>
