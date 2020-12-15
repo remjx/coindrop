@@ -1,32 +1,38 @@
 ---
 author: Mark Jackson
-datePublished: 2020-12-14
-title: Embed a donate button on your website
-description: Coindrop offers an embed button to accept donations on your website. 100% free, zero fees.
+datePublished: 2020-12-15
+title: How to embed a donate button on any webpage
+description: Works on any site that supports HTML code blocks or Markdown.
 coverImage: piggy-512-code.png
 coverImageDescr: Coindrop logo with HTML Code icon
 ---
 
-Want to add a button to your website for users to donate? You've found the right place!
-
-Coindrop is a **100% free, zero-fee, and open-source** way to accept donations.
-
-With Coindrop, you simply list all the payment methods you accept (PayPal, CashApp, Bitcoin, etc.) and donors pay you directly. No middleman involved.
-
-By the end of this ~5 minute tutorial, you'll be up and running with a button like this on your website:
-
-<Center>
+In a few minutes, you'll be up and running with a button like this on your website:
+<Center mb="2rem">
     <a href="https://coindrop.to/mark" target="_blank">
         <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px" }} alt="Coindrop.to me" />
     </a>
 </Center>
 
-## What you'll need
+If you're unfamiliar, Coindrop is a **100% free, zero-fee, open-source** way to accept donations. Simply list all payment methods you accept (e.g. PayPal, CashApp, Bitcoin, etc.) and Coindrop provides a simple interface for donors to pay you directly. No middleman involved.
 
-1. A website that supports Markdown or HTML syntax
-2. A Coindrop page (create one <b><a href="/" target="_blank">here</a></b>. It takes ~2 minutes)
+## On what sites can I embed the button?
 
-## Step 1) Copy your embed code
+Any website that supports [HTML]() code blocks or [Markdown](https://www.markdownguide.org/).
+
+This includes:
+- Website builders like SquareSpace and Wix
+- Blog platforms Wordpress and Ghost
+- Github README pages
+- and many more
+
+## Step 1) Create a Coindrop page
+
+<p><u><a href="/" target="_blank">Click here</a></u> to get started. It only takes ~2 minutes to get it up and running.</p>
+
+If you already have a Coindrop, <u><a href="/auth=1" target="_blank">Log in</a></u> and open the one you want to create a button for.
+
+## Step 2) Copy embed code
 
 On your Coindrop page, click "Share":
 
@@ -36,7 +42,7 @@ On your Coindrop page, click "Share":
     </ImageBorder>
 </Center>
 
-In the Share pop-up, click "Copy HTML Code":
+Then click "Copy HTML Code":
 
 <Center>
     <ImageBorder>
@@ -44,21 +50,32 @@ In the Share pop-up, click "Copy HTML Code":
     </ImageBorder>
 </Center>
 
-The code will look like this:
+## Step 3) Paste the code on your website
+
+How to do this will vary based on the website platform you're using. Look for an option to "Add custom HTML", "Add Markdown", or something similar. Paste the code there.
+
+### Wordpress Example
+
+In Wordpress 5.5, click the "Add Block" button and search for "Custom HTML".
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/wordpress-add-custom-html.png" height="547" width="816" alt="Add code block in Wordpress" />
+    </ImageBorder>
+</Center>
+
+### JSX Compatibility
+
+If you're using [JSX](https://reactjs.org/docs/introducing-jsx.html), you just need to convert the style attribute of the embed code to an object:
+
+<div>Before:</div>
 
 ```
-<a href="https://coindrop.to/mark" target="_blank">
-    <img
-        src="https://coindrop.to/embed-button.png"
-        style="border-radius: 10px; height: 57px !important;width: 229px !important;"
-        alt="Coindrop.to me"
-    />
-</a>
+style="border-radius: 10px; height: 57px; width: 229px;"
 ```
 
-## Step 2) Adjust the code if needed
+<div>After:</div>
 
-If you're using React/JSX you'll need to change the style attribute to a style object, like this:
 ```
 style={{
     borderRadius: "10px",
@@ -67,4 +84,6 @@ style={{
 }}
 ```
 
-## Step 3) 
+## Need help?
+
+<p><u><a href="mailto:coindrop.to@gmail.com" target="_blank">Contact us</a></u> with any comments, questions, or feedback.</p>

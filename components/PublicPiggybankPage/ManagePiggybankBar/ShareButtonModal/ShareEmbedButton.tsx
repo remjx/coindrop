@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ShareEmbedButton: FunctionComponent<Props> = ({ fullPublicUrl }) => {
-    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" style="border-radius: 10px; height: 57px !important;width: 229px !important;" alt="Coindrop.to me" /></a>`;
+    const imageButtonHtml = `<a href="${fullPublicUrl}" target="_blank"><img src="${fullBaseUrl}embed-button.png" style="border-radius: 10px; height: 57px !important;width: 229px !important;" alt="Coindrop.to me"></img></a>`;
     const { onCopy: onCopyImage, hasCopied: hasCopiedImage } = useClipboard(imageButtonHtml);
     const [isDisplayed, setIsDisplayed] = useState(false);
     return (
