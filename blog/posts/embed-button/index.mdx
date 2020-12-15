@@ -1,0 +1,89 @@
+---
+author: Mark Jackson
+datePublished: 2020-12-15
+title: How to embed a donate button on any webpage
+description: Works on any site that supports HTML code blocks or Markdown.
+coverImage: piggy-512-code.png
+coverImageDescr: Coindrop logo with HTML Code icon
+---
+
+In a few minutes, you'll be up and running with a button like this on your website:
+<Center mb="2rem">
+    <a href="https://coindrop.to/mark" target="_blank">
+        <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px" }} alt="Coindrop.to me" />
+    </a>
+</Center>
+
+If you're unfamiliar, Coindrop is a **100% free, zero-fee, open-source** way to accept donations. Simply list all payment methods you accept (e.g. PayPal, CashApp, Bitcoin, etc.) and Coindrop provides a simple interface for donors to pay you directly. No middleman involved.
+
+## On what sites can I embed the button?
+
+Any website that supports [HTML](https://www.w3schools.com/html/html_intro.asp) code blocks or [Markdown](https://www.markdownguide.org/).
+
+This includes:
+- Website builders like SquareSpace and Wix
+- Blog platforms Wordpress and Ghost
+- Github README pages
+- and many more
+
+## Step 1) Create a Coindrop page
+
+<p><u><a href="/" target="_blank">Click here</a></u> to get started. It only takes ~2 minutes to get it up and running.</p>
+
+If you already have a Coindrop, <u><a href="/auth=1" target="_blank">Log in</a></u> and open the one you want to create a button for.
+
+## Step 2) Copy embed code
+
+On your Coindrop page, click "Share":
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/coindrop-share-button.png" height="656" width="995" alt="Coindrop share button" />
+    </ImageBorder>
+</Center>
+
+Then click "Copy HTML Code":
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/coindrop-share-modal.png" height="449" width="570" alt="Copy HTML Code for Embed button" />
+    </ImageBorder>
+</Center>
+
+## Step 3) Paste the code on your website
+
+How to do this will vary based on the website platform you're using. Look for an option to "Add custom HTML", "Add Markdown", or something similar. Paste the code there.
+
+### Wordpress Example
+
+In Wordpress 5.5, click the "Add Block" button and search for "Custom HTML".
+
+<Center>
+    <ImageBorder>
+        <Image src="/blog-content/embed-button/wordpress-add-custom-html.png" height="547" width="816" alt="Add code block in Wordpress" />
+    </ImageBorder>
+</Center>
+
+### JSX Compatibility
+
+If you're using [JSX](https://reactjs.org/docs/introducing-jsx.html), you just need to convert the style attribute of the embed code to an object:
+
+<div>Before:</div>
+
+```
+style="border-radius: 10px; height: 57px; width: 229px;"
+```
+
+<div>After:</div>
+
+```
+style={{
+    borderRadius: "10px",
+    height: "57px",
+    width: "229px"
+}}
+```
+
+## Still can't get your button to work?
+
+<p><u><a href="mailto:coindrop.to@gmail.com" target="_blank">Contact us</a></u> and we'll help you ASAP.</p>

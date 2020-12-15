@@ -31,6 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         'description',
         'coverImage',
         'coverImageDescr',
+        'datePublished',
         'slug',
     ]);
     const pageTotal = Math.ceil(posts.length / postsPerPage);
