@@ -2,6 +2,7 @@
 // TODO: add officialWebsite to the object properties
 
 import { createIcon, ComponentWithAs, IconProps } from "@chakra-ui/react";
+import { BuyMeACoffeeIcon, PatreonIcon, KofiIcon } from '../components/Icons/CustomIcons';
 
 export type Category = 'app' | 'digital-asset'
 
@@ -65,6 +66,27 @@ export const paymentMethods: PaymentMethod[] = [
                   </g>,
             viewBox: "0 0 48 48",
         }),
+        displayOnLandingPage: true,
+    },
+    {
+        id: "patreon",
+        displayName: "Patreon",
+        category: 'app',
+        icon: PatreonIcon,
+        displayOnLandingPage: true,
+    },
+    {
+        id: "buymeacoffee",
+        displayName: "Buy Me A Coffee",
+        category: 'app',
+        icon: BuyMeACoffeeIcon,
+        displayOnLandingPage: true,
+    },
+    {
+        id: "kofi",
+        displayName: "Ko-fi",
+        category: 'app',
+        icon: KofiIcon,
         displayOnLandingPage: true,
     },
     {
