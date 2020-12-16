@@ -72,6 +72,14 @@ const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl })
                     <QRCode
                         value={fullPublicUrl}
                         size={225}
+                        imageSettings={{
+                            src: "/logo/piggy-64.png",
+                            x: null,
+                            y: null,
+                            height: 64,
+                            width: 64,
+                            excavate: true,
+                        }}
                     />
                 </Box>
             </Flex>
