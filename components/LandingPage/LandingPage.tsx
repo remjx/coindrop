@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text, Link, BoxProps, HeadingProps } from '@chakra-ui/react';
 import cookies from 'js-cookie';
+import QRCode from 'qrcode.react';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -10,7 +11,7 @@ import Footer from '../Footer/Footer';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
 import { Category } from '../../src/paymentMethods';
-import { GithubIcon, ClickIcon, QRCodeIcon } from '../Icons/CustomIcons';
+import { GithubIcon, ClickIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 
 const HeaderFooterContainer: FC = ({ children }) => (
@@ -41,7 +42,7 @@ type ContentContainerHeadingProps = {
 }
 const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, children }) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <Heading as="h2" size="xl" textAlign="center" {...headingProps} mb={3}>
+    <Heading as="h2" size="xl" textAlign="center" {...headingProps} mb={8}>
         {children}
     </Heading>
 );
@@ -53,7 +54,6 @@ type PaymentMethodContainerProps = {
 
 const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymentMethodCategory }) => (
     <Flex
-        mt={4}
         flex={[null, "1 0 100%", "1 0 50%", "1 0 33.33%"]}
         direction="column"
     >
@@ -66,15 +66,18 @@ const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymen
     </Flex>
 );
 
-const ShareOption: FC<{title: string}> = ({ title, children }) => (
+const ShareOption: FC<{title: string, description: string}> = ({ title, description, children }) => (
     <Flex
         direction="column"
-        flex={[null, "1 0 100%", "1 0 50%", "1 0 33.33%"]}
+        flex={[null, "1 0 50%", "1 0 50%", "1 0 33.33%"]}
     >
-        <Heading textAlign="center" as="h3" size="xl">
+        <Heading textAlign="center" as="h3" size="lg">
             {title}
         </Heading>
-        <Flex justify="center" align="center" direction="column" h="250px">
+        <Text textAlign="center">
+            {description}
+        </Text>
+        <Flex mt={4} justify="center" align="center" direction="column" h="150px">
             {children}
         </Flex>
     </Flex>
@@ -134,7 +137,7 @@ const LandingPage: FunctionComponent = () => {
                     as="h1"
                     size="2xl"
                 >
-                    The best way to accept donations and tips.
+                    The best way to accept donations.
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={4}>
                     List your payment methods. Let the sender pay you directly. <b>100% free. Zero fees.</b>
@@ -163,7 +166,6 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer
                 boxProps={{
-                    bg: theme.colors.gray['900'],
                     py: 6,
                     borderRadius: '16px',
                     position: 'relative',
@@ -195,32 +197,40 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading>
-                    Simple sharing options
+                    Share anywhere
                 </ContentContainerHeading>
                 <Flex
                     direction={["column", "row"]}
                     wrap="wrap"
                 >
-                    <ShareOption title="Link">
+                    <ShareOption title="Link" description="coindrop.to/your-name">
                         <>
-                        <ClickIcon boxSize="100px" />
-                        <Text>coindrop.to/your-name</Text>
+                        <ClickIcon boxSize="85px" />
                         </>
                     </ShareOption>
-                    <ShareOption title="Button">
+                    <ShareOption title="Button" description="Embed on your website">
                         <>
                         <Box w="228px" h="57px">
                             <Link href="https://coindrop.to/satoshi-nakamoto" isExternal>
                                 <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px"}} alt="Coindrop.to me" />
                             </Link>
                         </Box>
-                        <Text>Embed on your website</Text>
                         </>
                     </ShareOption>
-                    <ShareOption title="QR Code">
+                    <ShareOption title="QR Code" description="Donors can scan with a smartphone">
                         <>
-                        <QRCodeIcon boxSize="100px" />
-                        <Text>Embed on your website</Text>
+                        <QRCode
+                            value="https://coindrop.to/satoshi-nakamoto"
+                            size={150}
+                            imageSettings={{
+                                src: "/logo/piggy-64.png",
+                                x: null,
+                                y: null,
+                                height: 64,
+                                width: 64,
+                                excavate: true,
+                            }}
+                        />
                         </>
                     </ShareOption>
                 </Flex>
