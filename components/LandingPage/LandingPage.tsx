@@ -1,7 +1,7 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
+import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text, Link } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
@@ -9,9 +9,12 @@ import { useUser } from '../../utils/auth/useUser';
 import UseCasesList from './UseCasesList';
 import GithubLink from './GithubLink';
 import Footer from '../Footer/Footer';
-import CompetitorComparisonTable from './CompetitorComparisonTable';
+// import CompetitorComparisonTable from './CompetitorComparisonTable';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
+import { Category } from '../../src/paymentMethods';
+import { GithubIcon } from '../Icons/CustomIcons';
+import { githubUrl } from '../../src/settings';
 
 const ContentContainer: FunctionComponent = ({ children }) => (
     <Box
@@ -19,6 +22,32 @@ const ContentContainer: FunctionComponent = ({ children }) => (
     >
         {children}
     </Box>
+);
+
+const ContentContainerHeading: FC = ({ children }) => (
+    <Heading mt={5} as="h2" size="lg" textAlign="center">
+        {children}
+    </Heading>
+);
+
+type PaymentMethodContainerProps = {
+    title: string
+    paymentMethodCategory: Category
+}
+
+const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymentMethodCategory }) => (
+    <Flex
+        mt={4}
+        flex="1 0 50%"
+        direction="column"
+    >
+        <Heading as="h3" size="md" textAlign="center">
+            {title}
+        </Heading>
+        <Flex wrap="wrap" justify="center" mt={3}>
+            <PaymentMethodTags category={paymentMethodCategory} />
+        </Flex>
+    </Flex>
 );
 
 const LandingPage: FunctionComponent = () => {
@@ -78,7 +107,7 @@ const LandingPage: FunctionComponent = () => {
                     The easiest way to accept donations and tips.
                 </Heading>
                 <Text textAlign="center" mt={2}>
-                    List your payment methods and let the sender pay you directly. <b>100% free. Zero fees.</b>
+                    List your payment methods. Let the sender pay you directly. <b>100% free. Zero fees.</b>
                 </Text>
                 <Box
                     mt={2}
@@ -90,46 +119,58 @@ const LandingPage: FunctionComponent = () => {
                 </Box>
             </Box>
             <ContentContainer>
+                <ContentContainerHeading>
+                    Simple sharing options
+                </ContentContainerHeading>
+                <Text>
+                    Copy &amp; Paste your URL anywhere, like this:
+                    <Link isExternal href="https://coindrop.to/satoshi-nakamoto">coindrop.to/satoshi-nakamoto</Link>
+                </Text>
+                <Text>
+                    Embed a button on your website:
+                </Text>
+                <Box w="228px" h="57px">
+                    <Link href="https://coindrop.to/satoshi-nakamoto" isExternal>
+                        <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px"}} alt="Coindrop.to me" />
+                    </Link>
+                </Box>
+            </ContentContainer>
+            <ContentContainer>
+                <ContentContainerHeading>
+                    Supports virtually any payment method
+                </ContentContainerHeading>
                 <Flex
-                    justify="center"
-                    mt={2}
+                    direction={['column', 'row']}
+                    wrap="wrap"
                 >
-                    <UseCasesList />
+                    <PaymentMethodContainer title="Digital wallets" paymentMethodCategory="digital-wallet" />
+                    <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
+                    <PaymentMethodContainer title="Creator platforms" paymentMethodCategory="creator-platform" />
                 </Flex>
             </ContentContainer>
             <ContentContainer>
-                <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually all payment methods
-                </Heading>
-                <Flex direction={['column', 'row']}>
-                    <Box
-                        mt={4}
+                <ContentContainerHeading>
+                    Open-Source
+                </ContentContainerHeading>
+                <Flex align="center" justify="center">
+                    <GithubIcon boxSize="96px" mr={4} />
+                    <Text
+                        textAlign="center"
                     >
-                        <Heading as="h3" size="md" textAlign="center">
-                            Apps
-                        </Heading>
-                        <Flex wrap="wrap" justify="center" mt={3}>
-                            <PaymentMethodTags category="app" />
-                        </Flex>
-                    </Box>
-                    <Box
-                        mt={4}
-                    >
-                        <Heading as="h3" size="md" textAlign="center">
-                            Digital assets
-                        </Heading>
-                        <Flex wrap="wrap" justify="center" mt={3}>
-                            <PaymentMethodTags category="digital-asset" />
-                        </Flex>
-                    </Box>
+                        {'All code for this website is publicly available on '}
+                        <Link isExternal href={githubUrl}>
+                            Github
+                        </Link>
+                        .
+                    </Text>
                 </Flex>
             </ContentContainer>
-            <ContentContainer>
+            {/* <ContentContainer>
                 <Heading mt={5} as="h2" size="lg" textAlign="center">
                     Coindrop vs. the alternatives
                 </Heading>
                 <CompetitorComparisonTable />
-            </ContentContainer>
+            </ContentContainer> */}
             <Footer />
         </Container>
         </>
