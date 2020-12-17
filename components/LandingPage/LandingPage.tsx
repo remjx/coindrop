@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text, Link, BoxProps, HeadingProps } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Box, Flex, useTheme, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import QRCode from 'qrcode.react';
 import AuthModal from '../Auth/AuthModal';
@@ -11,6 +11,7 @@ import Footer from '../Footer/Footer';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
 import { Category } from '../../src/paymentMethods';
+import { PiggyLogo } from '../Logo/Logo';
 import { GithubIcon, ClickIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 
@@ -42,7 +43,7 @@ type ContentContainerHeadingProps = {
 }
 const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, children }) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <Heading as="h2" size="xl" textAlign="center" {...headingProps} mb={8}>
+    <Heading as="h2" size="xl" textAlign="center" {...headingProps} mb={2}>
         {children}
     </Heading>
 );
@@ -56,6 +57,7 @@ const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymen
     <Flex
         flex={[null, "1 0 100%", "1 0 50%", "1 0 33.33%"]}
         direction="column"
+        mt={6}
     >
         <Heading as="h3" size="md" textAlign="center">
             {title}
@@ -128,10 +130,11 @@ const LandingPage: FunctionComponent = () => {
             mb={6}
         >
             <Box
-                padding="10px"
-                my={6}
-                py={6}
+                my="3rem"
             >
+                <Center>
+                    <PiggyLogo boxSize="150px" />
+                </Center>
                 <Heading
                     textAlign="center"
                     as="h1"
@@ -200,7 +203,7 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading>
-                    Share anywhere
+                    Use it anywhere
                 </ContentContainerHeading>
                 <Flex
                     direction={["column", "row"]}

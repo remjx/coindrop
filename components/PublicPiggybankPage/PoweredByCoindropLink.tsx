@@ -1,18 +1,9 @@
 import { FunctionComponent } from 'react';
 import NextLink from 'next/link';
-import { Box, Button, Link as ChakraLink, Flex, Text, useTheme, useColorModeValue, useColorMode } from '@chakra-ui/react';
-import { GithubIcon } from '../Icons/CustomIcons';
-import { getAccentColorLevelInitial } from './PublicPiggybankPage';
+import { Box, Button, Link as ChakraLink, Flex, Text, useColorModeValue } from '@chakra-ui/react';
+import { PiggyLogo } from '../Logo/Logo';
 
-type Props = {
-    accentColor: string
-}
-
-const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange' }) => {
-    const { colors } = useTheme();
-    const { colorMode } = useColorMode();
-    const accentColorLevel = getAccentColorLevelInitial(colorMode);
-    const accentColorValue = colors[accentColor][accentColorLevel];
+const PoweredByCoindropLink: FunctionComponent = () => {
     const bgHover = useColorModeValue("gray.50", "gray.600");
     return (
         <Box
@@ -22,7 +13,7 @@ const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange
             <NextLink href="/" passHref>
                 <ChakraLink style={{textDecoration: "none"}}>
                     <Button
-                        variant="outline"
+                        variant="ghost"
                         _hover={{
                             bg: bgHover,
                         }}
@@ -31,22 +22,9 @@ const PoweredByCoindropLink: FunctionComponent<Props> = ({ accentColor = 'orange
                             align="center"
                             justify="center"
                         >
-                            <GithubIcon mr={1} />
-                            <Text
-                                textAlign="center"
-                                fontFamily="Changa, system-ui, sans-serif"
-                                fontWeight="300"
-                            >
-                                Powered by
-                                <Text
-                                    as="span"
-                                    fontWeight="500"
-                                    style={{
-                                        color: accentColorValue,
-                                    }}
-                                >
-                                    {' Coindrop'}
-                                </Text>
+                            <PiggyLogo mr={1} boxSize="2rem" />
+                            <Text>
+                                Powered by Coindrop
                             </Text>
                         </Flex>
 
