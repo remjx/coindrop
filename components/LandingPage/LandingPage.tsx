@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, FC } from 'react';
+import { FunctionComponent, useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
@@ -14,6 +14,27 @@ import { Category } from '../../src/paymentMethods';
 import { PiggyLogo } from '../Logo/Logo';
 import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
+
+const QRCodeExample: FC = () => {
+    const [environment, setEnvironment] = useState<'browser' | 'server'>('browser');
+    useEffect(() => {
+        setEnvironment('browser');
+    }, []);
+    return (
+        <QRCode
+            value="https://coindrop.to/satoshi-nakamoto"
+            size={150}
+            imageSettings={environment === 'browser' ? {
+                src: "/logo/piggy-64.png",
+                x: null,
+                y: null,
+                height: 64,
+                width: 64,
+                excavate: true,
+            } : undefined}
+        />
+    );
+};
 
 const HeaderFooterContainer: FC = ({ children }) => (
     <Container
@@ -243,20 +264,7 @@ const LandingPage: FunctionComponent = () => {
                         description="For smartphones"
                         bg='#FFDE55'
                     >
-                        <>
-                        <QRCode
-                            value="https://coindrop.to/satoshi-nakamoto"
-                            size={150}
-                            imageSettings={{
-                                src: "/logo/piggy-64.png",
-                                x: null,
-                                y: null,
-                                height: 64,
-                                width: 64,
-                                excavate: true,
-                            }}
-                        />
-                        </>
+                        <QRCodeExample />
                     </ShareOption>
                 </Flex>
             </ContentContainer>
