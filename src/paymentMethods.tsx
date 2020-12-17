@@ -4,7 +4,7 @@
 import { createIcon, ComponentWithAs, IconProps } from "@chakra-ui/react";
 import { BuyMeACoffeeIcon, PatreonIcon, KofiIcon } from '../components/Icons/CustomIcons';
 
-export type Category = 'digital-wallet' | 'digital-asset' | 'creator-platform'
+export type Category = 'digital-wallet' | 'digital-asset' | 'subscription-platform'
 
 export type PaymentMethod = {
     id: string
@@ -71,22 +71,43 @@ export const paymentMethods: PaymentMethod[] = [
     {
         id: "patreon",
         displayName: "Patreon",
-        category: 'creator-platform',
+        category: 'subscription-platform',
         icon: PatreonIcon,
         displayOnLandingPage: true,
     },
     {
         id: "buymeacoffee",
         displayName: "Buy Me A Coffee",
-        category: 'creator-platform',
+        category: 'subscription-platform',
         icon: BuyMeACoffeeIcon,
         displayOnLandingPage: true,
     },
     {
         id: "kofi",
         displayName: "Ko-fi",
-        category: 'creator-platform',
+        category: 'subscription-platform',
         icon: KofiIcon,
+        displayOnLandingPage: true,
+    },
+    {
+        id: "onlyfans",
+        displayName: "OnlyFans",
+        category: "subscription-platform",
+        icon: createIcon({
+            displayName: "OnlyFansIcon",
+            path: (
+                <g>
+                    <clipPath clipPathUnits="userSpaceOnUse" id="a">
+                        <path d="M0 160h160V0H0z" />
+                    </clipPath>
+                    <g clipPath="url(#a)" transform="matrix(1.33333 0 0 -1.33333 0 213.333)" fill="currentColor">
+                        <path d="M79.792 8.364C40.219 8.459 8.216 40.617 8.312 80.19c.096 39.573 32.253 71.576 71.827 71.48 39.492-.095 71.461-32.126 71.48-71.618-.057-39.617-32.21-71.692-71.827-71.654zm0 151.636C35.609 159.885-.114 123.975 0 79.792.115 35.61 36.025-.115 80.208 0 124.329.115 160.028 35.93 160 80.05c-.086 44.22-35.988 80.006-80.208 79.949" fillRule="evenodd" />
+                        <path fill="#00AAE8" d="M99.706 85.004H61.247v6.736a16.052 16.052 0 004.865 11.481 16.663 16.663 0 0011.672 4.831h5.367a16.642 16.642 0 0011.671-4.831 16.118 16.118 0 004.866-11.481zm-15.74-29.333v-7.706a3.342 3.342 0 00-1.542-2.839H80.97a1.68 1.68 0 00-.52 0h-.346a1.959 1.959 0 00-.433 0h-.658a3.46 3.46 0 00-1.593 2.891v7.654a9.177 9.177 0 003.463 17.732h.19a9.18 9.18 0 009.32-9.035 9.18 9.18 0 00-5.856-8.697zm29.091 29.541v6.528a29.01 29.01 0 01-8.797 20.779 29.97 29.97 0 01-21.109 8.658h-5.367a29.973 29.973 0 01-21.092-8.658 28.915 28.915 0 01-8.778-20.779v-6.528l-3.706-6.684V68.9a32.274 32.274 0 019.766-23.082 33.54 33.54 0 0123.532-9.593h5.974a33.468 33.468 0 0123.463 9.593 32.227 32.227 0 019.784 23.082v9.628z" />
+                    </g>
+                </g>
+            ),
+            viewBox: "0 0 213.33 213.33",
+        }),
         displayOnLandingPage: true,
     },
     {

@@ -151,7 +151,10 @@ const LandingPage: FunctionComponent = () => {
                     />
                 </Box>
             </Box>
-            <ContentContainer>
+            <Box
+                maxW="80%"
+                mx="auto"
+            >
                 <ContentContainerHeading>
                     Supports virtually all payment methods
                 </ContentContainerHeading>
@@ -161,9 +164,9 @@ const LandingPage: FunctionComponent = () => {
                 >
                     <PaymentMethodContainer title="Digital wallets" paymentMethodCategory="digital-wallet" />
                     <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
-                    <PaymentMethodContainer title="Creator platforms" paymentMethodCategory="creator-platform" />
+                    <PaymentMethodContainer title="Subscription platforms" paymentMethodCategory="subscription-platform" />
                 </Flex>
-            </ContentContainer>
+            </Box>
             <ContentContainer
                 boxProps={{
                     py: 6,
