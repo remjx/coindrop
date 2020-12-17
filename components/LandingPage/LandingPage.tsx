@@ -179,7 +179,7 @@ const LandingPage: FunctionComponent = () => {
                     The best way to accept donations.
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={4}>
-                    List your payment methods. Let the sender choose how to support you. <b>100% free. Zero fees.</b>
+                    List your preferred payment methods. Let the sender choose how to support you. <b>100% free. Zero fees.</b>
                 </Text>
                 <Box
                     mt={2}
