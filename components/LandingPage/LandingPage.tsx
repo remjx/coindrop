@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Center, Box, Flex, useTheme, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import QRCode from 'qrcode.react';
 import AuthModal from '../Auth/AuthModal';
@@ -12,7 +12,7 @@ import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
 import { Category } from '../../src/paymentMethods';
 import { PiggyLogo } from '../Logo/Logo';
-import { GithubIcon, ClickIcon } from '../Icons/CustomIcons';
+import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 
 const HeaderFooterContainer: FC = ({ children }) => (
@@ -48,8 +48,8 @@ const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProp
         size="xl"
         textAlign="center"
         mb={2}
-        // fontFamily="Calistoga; Segoe-UI; sans-serif"
-        // fontWeight="500"
+        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+        fontWeight="600"
         {...headingProps}
     >
         {children}
@@ -76,22 +76,48 @@ const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymen
     </Flex>
 );
 
-const ShareOption: FC<{title: string, description: string}> = ({ title, description, children }) => (
-    <Flex
-        direction="column"
-        flex={[null, "1 0 50%", "1 0 50%", "1 0 33.33%"]}
-    >
-        <Heading textAlign="center" as="h3" size="lg">
-            {title}
-        </Heading>
-        <Text textAlign="center">
-            {description}
-        </Text>
-        <Flex mt={4} justify="center" align="center" direction="column" h="150px">
-            {children}
+const ShareOption: FC<{title: string, description: string, bg: string}> = ({ bg, description, title, children }) => {
+    const { colorMode } = useColorMode();
+    return (
+        <Flex
+            direction="column"
+            flex={["0 1 auto", "1 0 50%", "1 0 50%", "1 0 33.33%"]}
+            align="center"
+        >
+            <Heading
+                textAlign="center"
+                as="h3"
+                size="md"
+                mt={[3, null]}
+            >
+                {title}
+            </Heading>
+            <Text
+                textAlign="center"
+                fontSize="lg"
+                mb={4}
+            >
+                {description}
+            </Text>
+            <Flex
+                bg={bg}
+                borderRadius="50%"
+                borderColor={colorMode === 'light' ? 'gray.800' : 'gray.600'}
+                borderWidth="8px"
+                borderStyle="solid"
+                mx={[0, 4]}
+                w="275px"
+                h="275px"
+                justify="center"
+                direction="column"
+            >
+                <Flex justify="center" align="center" direction="column" h="150px">
+                    {children}
+                </Flex>
+            </Flex>
         </Flex>
-    </Flex>
-);
+    );
+};
 
 const LandingPage: FunctionComponent = () => {
     const {
@@ -99,7 +125,7 @@ const LandingPage: FunctionComponent = () => {
         onOpen: onAuthOpen,
         onClose: onAuthClose,
     } = useDisclosure();
-    const theme = useTheme();
+    const { colorMode } = useColorMode();
     const router = useRouter();
     const { user } = useUser();
     useEffect(() => {
@@ -147,11 +173,13 @@ const LandingPage: FunctionComponent = () => {
                     textAlign="center"
                     as="h1"
                     size="2xl"
+                    fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+                    fontWeight="600"
                 >
                     The best way to accept donations.
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={4}>
-                    List your payment methods. Let the sender pay you directly. <b>100% free. Zero fees.</b>
+                    List your payment methods. Let the sender choose how to support you. <b>100% free. Zero fees.</b>
                 </Text>
                 <Box
                     mt={2}
@@ -167,7 +195,7 @@ const LandingPage: FunctionComponent = () => {
                 mx="auto"
             >
                 <ContentContainerHeading>
-                    Supports virtually all payment methods
+                    Supports virtually all payment platforms
                 </ContentContainerHeading>
                 <Flex
                     direction={['column', 'row']}
@@ -178,51 +206,30 @@ const LandingPage: FunctionComponent = () => {
                     <PaymentMethodContainer title="Subscription platforms" paymentMethodCategory="subscription-platform" />
                 </Flex>
             </Box>
-            <ContentContainer
-                boxProps={{
-                    py: 6,
-                    borderRadius: '16px',
-                    position: 'relative',
-                }}
-            >
-                <Flex align="center" justify="center">
-                    <GithubIcon opacity={0.5} boxSize="96px" mr={4} left={0} top={0} />
-                    <Box>
-                        <ContentContainerHeading
-                            headingProps={{
-                                color: theme.colors.gray['50'],
-                            }}
-                        >
-                            Open-Source
-                        </ContentContainerHeading>
-                        <Text
-                            textAlign="center"
-                            color={theme.colors.gray['50']}
-                        >
-                            {'The source code for this website is publicly available on '}
-                            <Link isExternal href={githubUrl}>
-                                <u>
-                                    Github
-                                </u>
-                            </Link>
-                        </Text>
-                    </Box>
-                </Flex>
-            </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading>
-                    Use it anywhere
+                    Link to your Coindrop from anywhere
                 </ContentContainerHeading>
                 <Flex
                     direction={["column", "row"]}
                     wrap="wrap"
                 >
-                    <ShareOption title="Link" description="coindrop.to/your-name">
-                        <>
-                        <ClickIcon boxSize="85px" />
-                        </>
+                    <ShareOption
+                        title="URL"
+                        description="For... literally anywhere"
+                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
+                    >
+                        <b>
+                            <Link>
+                                <Text fontSize="lg">coindrop.to/your-name</Text>
+                            </Link>
+                        </b>
                     </ShareOption>
-                    <ShareOption title="Button" description="Embed on your website">
+                    <ShareOption
+                        title="Button"
+                        description="For your website"
+                        bg='green.400'
+                    >
                         <>
                         <Box w="228px" h="57px">
                             <Link href="https://coindrop.to/satoshi-nakamoto" isExternal>
@@ -231,7 +238,11 @@ const LandingPage: FunctionComponent = () => {
                         </Box>
                         </>
                     </ShareOption>
-                    <ShareOption title="QR Code" description="Donors can scan with a smartphone">
+                    <ShareOption
+                        title="QR Code"
+                        description="For smartphones"
+                        bg='#FFDE55'
+                    >
                         <>
                         <QRCode
                             value="https://coindrop.to/satoshi-nakamoto"
@@ -248,6 +259,47 @@ const LandingPage: FunctionComponent = () => {
                         </>
                     </ShareOption>
                 </Flex>
+            </ContentContainer>
+            <ContentContainer
+                boxProps={{
+                    py: 6,
+                    borderRadius: '16px',
+                    position: 'relative',
+                }}
+            >
+                <ContentContainerHeading>
+                    Open-Source
+                </ContentContainerHeading>
+                <Flex align="center" justify="center">
+                    <GithubIcon
+                        opacity={0.9}
+                        boxSize="72px"
+                        mr={4}
+                    />
+                    <Text
+                        textAlign="center"
+                        fontSize="lg"
+                    >
+                        {'The source code for Coindrop is publicly available on '}
+                        <Link isExternal href={githubUrl}>
+                            <u>
+                                Github
+                            </u>
+                        </Link>
+                    </Text>
+                </Flex>
+            </ContentContainer>
+            <ContentContainer>
+                <ContentContainerHeading>
+                    Let&apos;s get started 🚀
+                </ContentContainerHeading>
+                <Text textAlign="center" fontSize="lg">
+                    Coindrops are 100% free and only take ~2 minutes to set up.
+                </Text>
+                <CreatePiggybankInput
+                    createButtonColorScheme="orange"
+                    onCancel={null}
+                />
             </ContentContainer>
         </Container>
         <HeaderFooterContainer>
