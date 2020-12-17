@@ -43,7 +43,15 @@ type ContentContainerHeadingProps = {
 }
 const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, children }) => (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <Heading as="h2" size="xl" textAlign="center" {...headingProps} mb={2}>
+    <Heading
+        as="h2"
+        size="xl"
+        textAlign="center"
+        mb={2}
+        // fontFamily="Calistoga; Segoe-UI; sans-serif"
+        // fontWeight="500"
+        {...headingProps}
+    >
         {children}
     </Heading>
 );
