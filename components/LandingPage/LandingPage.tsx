@@ -16,7 +16,7 @@ import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 
 const QRCodeExample: FC = () => {
-    const [environment, setEnvironment] = useState<'browser' | 'server'>('browser');
+    const [environment, setEnvironment] = useState<'browser' | 'server'>('server');
     useEffect(() => {
         setEnvironment('browser');
     }, []);
