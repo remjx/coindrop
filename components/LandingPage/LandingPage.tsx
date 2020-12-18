@@ -50,7 +50,7 @@ type ContentContainerProps = {
 
 const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => (
     <Container
-        my={12}
+        my={24}
         maxW="xl"
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...boxProps}
@@ -170,7 +170,7 @@ const LandingPage: FunctionComponent = () => {
         <>
         <NextSeo
             title="Accept donations and tips anywhere. 100% Free, Zero Fees. | Coindrop"
-            description="Supports virtually any payment method or cryptocurrency. Let the sender choose how to pay you."
+            description="Supports virtually any payment method or cryptocurrency. Let your supporters choose how to pay you."
         />
         <AuthModal
             isOpen={isAuthOpen}
@@ -184,11 +184,12 @@ const LandingPage: FunctionComponent = () => {
             px={4}
             mb={6}
         >
-            <Box
+            <Container
                 my="3rem"
+                maxW="xl"
             >
                 <Center>
-                    <PiggyLogo boxSize="150px" />
+                    <PiggyLogo mb={2} boxSize="150px" />
                 </Center>
                 <Heading
                     textAlign="center"
@@ -197,10 +198,13 @@ const LandingPage: FunctionComponent = () => {
                     fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
                     fontWeight="600"
                 >
-                    The best way to accept donations.
+                    The landing page your supporters are asking for
                 </Heading>
-                <Text fontSize="lg" textAlign="center" mt={4}>
-                    List your payment methods. Let the sender choose how to support you. <b>100% free. Zero fees.</b>
+                <Text fontSize="lg" textAlign="center" mt={3}>
+                    List your payment apps. Let your supporters choose how to pay you.
+                </Text>
+                <Text fontSize="lg" textAlign="center" mt={2}>
+                    <b>100% free. Zero fees.</b>
                 </Text>
                 <Box
                     mt={2}
@@ -210,13 +214,15 @@ const LandingPage: FunctionComponent = () => {
                         onCancel={null}
                     />
                 </Box>
-            </Box>
-            <Box
-                maxW="80%"
-                mx="auto"
+            </Container>
+            <ContentContainer
+                boxProps={{
+                    maxW: "80%",
+                    mx: "auto",
+                }}
             >
                 <ContentContainerHeading>
-                    Supports virtually all payment platforms
+                    Supports virtually all payment options
                 </ContentContainerHeading>
                 <Flex
                     direction={['column', 'row']}
@@ -226,7 +232,7 @@ const LandingPage: FunctionComponent = () => {
                     <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
                     <PaymentMethodContainer title="Subscription platforms" paymentMethodCategory="subscription-platform" />
                 </Flex>
-            </Box>
+            </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading>
                     Link to your Coindrop from anywhere
@@ -236,20 +242,9 @@ const LandingPage: FunctionComponent = () => {
                     wrap="wrap"
                 >
                     <ShareOption
-                        title="URL"
-                        description="For... literally anywhere"
-                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
-                    >
-                        <b>
-                            <Link>
-                                <Text fontSize="lg">coindrop.to/your-name</Text>
-                            </Link>
-                        </b>
-                    </ShareOption>
-                    <ShareOption
                         title="Button"
                         description="For your website"
-                        bg='green.400'
+                        bg={colorMode === 'light' ? 'green.400' : 'green.300'}
                     >
                         <>
                         <Box w="228px" h="57px">
@@ -262,15 +257,28 @@ const LandingPage: FunctionComponent = () => {
                     <ShareOption
                         title="QR Code"
                         description="For smartphones"
-                        bg='#FFDE55'
+                        bg='#BBCBCB'
                     >
                         <QRCodeExample />
+                    </ShareOption>
+                    <ShareOption
+                        title="URL"
+                        description="For... literally anywhere"
+                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
+                    >
+                        <b>
+                            <Text
+                                fontSize="lg"
+                                color={colorMode === 'light' ? 'gray.800' : 'white'}
+                            >
+                                coindrop.to/your-name
+                            </Text>
+                        </b>
                     </ShareOption>
                 </Flex>
             </ContentContainer>
             <ContentContainer
                 boxProps={{
-                    py: 6,
                     borderRadius: '16px',
                     position: 'relative',
                 }}
