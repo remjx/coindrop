@@ -14,6 +14,7 @@ import { Category } from '../../src/paymentMethods';
 import { PiggyLogo } from '../Logo/Logo';
 import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
+import styles from './LandingPage.module.css';
 
 const QRCodeExample: FC = () => {
     const [environment, setEnvironment] = useState<'browser' | 'server'>('server');
@@ -61,9 +62,9 @@ const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => 
 
 type ContentContainerHeadingProps = {
     headingProps?: HeadingProps
+    withThroughline?: boolean
 }
-const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, children }) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
+const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, withThroughline = false, children }) => (
     <Heading
         as="h2"
         size="xl"
@@ -71,9 +72,14 @@ const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProp
         mb={2}
         fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
         fontWeight="600"
+        maxW={['100%', '90%', '85%', '80%']}
+        mx="auto"
         {...headingProps}
+        className={withThroughline ? styles.throughline : undefined}
     >
-        {children}
+        <span>
+            {children}
+        </span>
     </Heading>
 );
 
@@ -198,35 +204,37 @@ const LandingPage: FunctionComponent = () => {
                     fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
                     fontWeight="600"
                 >
-                    The landing page your supporters are asking for
+                    The best way to get paid
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={3}>
-                    List your payment apps. Let your supporters choose how to donate or subscribe.
+                    List your payment apps. Let the sender choose how to pay you.
                 </Text>
                 <Text fontSize="lg" textAlign="center" mt={2}>
                     <b>100% free. Zero fees.</b>
                 </Text>
+            </Container>
+            <ContentContainer>
+                <ContentContainerHeading withThroughline>
+                    ➀ Create your custom URL
+                </ContentContainerHeading>
                 <Box
-                    mt={2}
+                    mt={8}
                 >
                     <CreatePiggybankInput
                         createButtonColorScheme="orange"
                         onCancel={null}
                     />
                 </Box>
-            </Container>
-            <ContentContainer
-                boxProps={{
-                    maxW: "80%",
-                    mx: "auto",
-                }}
-            >
-                <ContentContainerHeading>
-                    Supports virtually all payment options
+            </ContentContainer>
+            <ContentContainer>
+                <ContentContainerHeading withThroughline>
+                    ➁ Add your payment methods
                 </ContentContainerHeading>
                 <Flex
                     direction={['column', 'row']}
                     wrap="wrap"
+                    maxW="80%"
+                    mx="auto"
                 >
                     <PaymentMethodContainer title="Digital wallets" paymentMethodCategory="digital-wallet" />
                     <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
@@ -234,8 +242,8 @@ const LandingPage: FunctionComponent = () => {
                 </Flex>
             </ContentContainer>
             <ContentContainer>
-                <ContentContainerHeading>
-                    Link to your Coindrop from anywhere
+                <ContentContainerHeading withThroughline>
+                    ➂ Share &amp; Get Paid
                 </ContentContainerHeading>
                 <Flex
                     direction={["column", "row"]}
