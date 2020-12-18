@@ -223,6 +223,7 @@ const LandingPage: FunctionComponent = () => {
                     <CreatePiggybankInput
                         createButtonColorScheme="orange"
                         onCancel={null}
+                        instanceId="top"
                     />
                 </Box>
             </ContentContainer>
@@ -312,7 +313,7 @@ const LandingPage: FunctionComponent = () => {
             </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading>
-                    Let&apos;s get started 🚀
+                    Get started 🚀
                 </ContentContainerHeading>
                 <Text textAlign="center" fontSize="lg">
                     Coindrops are 100% free and only take ~2 minutes to set up.
@@ -321,6 +322,7 @@ const LandingPage: FunctionComponent = () => {
                     <CreatePiggybankInput
                         createButtonColorScheme="orange"
                         onCancel={null}
+                        instanceId="bottom"
                     />
                 </Box>
             </ContentContainer>

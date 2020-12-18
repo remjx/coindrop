@@ -15,9 +15,10 @@ const BoxMargin: FunctionComponent = ({ children }) => (
 type Props = {
     onCancel: () => void | null
     createButtonColorScheme: "orange" | "green"
+    instanceId: string
 }
 
-export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, createButtonColorScheme }) => {
+export const CreatePiggybankInput: FunctionComponent<Props> = ({ instanceId, onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const inputRef = createRef<HTMLInputElement>();
@@ -46,9 +47,9 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ onCancel, creat
         event.preventDefault();
         handleCreateUrl();
     }
-    const inputName = "create-coindrop-input";
+    const inputName = `create-coindrop-input-${instanceId}`;
     return (
-        <form id="create-coindrop-form" onSubmit={onSubmit}>
+        <form id={`create-coindrop-form-${instanceId}`} onSubmit={onSubmit}>
             <Flex
                 align="center"
                 justify="center"
