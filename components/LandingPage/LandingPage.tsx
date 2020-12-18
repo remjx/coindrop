@@ -271,7 +271,7 @@ const LandingPage: FunctionComponent = () => {
                     </ShareOption>
                     <ShareOption
                         title="URL"
-                        description="For... literally anywhere"
+                        description="For literally anywhere"
                         bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
                     >
                         <b>
