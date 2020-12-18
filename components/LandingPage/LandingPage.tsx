@@ -294,21 +294,18 @@ const LandingPage: FunctionComponent = () => {
                 <ContentContainerHeading>
                     Open-Source
                 </ContentContainerHeading>
-                <Flex align="center" justify="center">
+                <Flex align="center" justify="center" mt={4}>
                     <GithubIcon
                         opacity={0.9}
                         boxSize="72px"
                         mr={4}
                     />
                     <Text
-                        textAlign="center"
                         fontSize="lg"
                     >
                         {'The source code for Coindrop is publicly available on '}
                         <Link isExternal href={githubUrl}>
-                            <u>
-                                Github
-                            </u>
+                            Github
                         </Link>
                     </Text>
                 </Flex>
@@ -320,10 +317,12 @@ const LandingPage: FunctionComponent = () => {
                 <Text textAlign="center" fontSize="lg">
                     Coindrops are 100% free and only take ~2 minutes to set up.
                 </Text>
-                <CreatePiggybankInput
-                    createButtonColorScheme="orange"
-                    onCancel={null}
-                />
+                <Box mt={2}>
+                    <CreatePiggybankInput
+                        createButtonColorScheme="orange"
+                        onCancel={null}
+                    />
+                </Box>
             </ContentContainer>
         </Container>
         <HeaderFooterContainer>
