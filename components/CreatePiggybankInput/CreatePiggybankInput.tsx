@@ -16,9 +16,10 @@ type Props = {
     onCancel: () => void | null
     createButtonColorScheme: "orange" | "green"
     instanceId: string
+    buttonText: string
 }
 
-export const CreatePiggybankInput: FunctionComponent<Props> = ({ instanceId, onCancel, createButtonColorScheme }) => {
+export const CreatePiggybankInput: FunctionComponent<Props> = ({ buttonText, instanceId, onCancel, createButtonColorScheme }) => {
     const { user } = useUser();
     const router = useRouter();
     const inputRef = createRef<HTMLInputElement>();
@@ -87,7 +88,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ instanceId, onC
                         onClick={onSubmit}
                         type="submit"
                     >
-                        Create
+                        {buttonText}
                     </Button>
                 </BoxMargin>
                 {onCancel && (

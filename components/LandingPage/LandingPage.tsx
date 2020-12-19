@@ -14,7 +14,7 @@ import { Navbar } from '../Navbar/Navbar';
 import { Category } from '../../src/paymentMethods';
 import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
-import styles from './LandingPage.module.css';
+import styles from './LandingPage.module.scss';
 
 const QRCodeExample: FC = () => {
     const [environment, setEnvironment] = useState<'browser' | 'server'>('server');
@@ -202,14 +202,12 @@ const LandingPage: FunctionComponent = () => {
                     fontWeight="600"
                 >
                     {'The '}
-                    {/* <span
-                        style={{
-                            background: `linear-gradient(180deg, ${colorMode === 'light' ? 'white' : '#515053'}  85%, #F6AD55 85%)`,
-                        }}
+                    <span
+                        className={styles.underline}
                     >
                         easy
-                    </span> */}
-                    easy
+                    </span>
+                    {/* easy */}
                     {' way to get paid'}
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={3}>
@@ -229,7 +227,7 @@ const LandingPage: FunctionComponent = () => {
             </Container>
             <ContentContainer>
                 <ContentContainerHeading withThroughline>
-                    ➀ Create your custom URL
+                    ➀ Pick a custom URL
                 </ContentContainerHeading>
                 <Box
                     mt={8}
@@ -238,6 +236,7 @@ const LandingPage: FunctionComponent = () => {
                         createButtonColorScheme="orange"
                         onCancel={null}
                         instanceId="top"
+                        buttonText="Check availability"
                     />
                 </Box>
             </ContentContainer>
@@ -337,6 +336,7 @@ const LandingPage: FunctionComponent = () => {
                         createButtonColorScheme="orange"
                         onCancel={null}
                         instanceId="bottom"
+                        buttonText="Create"
                     />
                 </Box>
             </ContentContainer>

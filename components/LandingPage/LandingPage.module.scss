@@ -1,0 +1,106 @@
+/* headline throughlines */
+.throughline{
+    overflow: hidden;
+    text-align: center;
+}
+.throughline > span{
+   position: relative;
+   display: inline-block;
+}
+.throughline > span:before, .throughline > span:after{
+   content: '';
+   position: absolute;
+   top: 50%;
+   border-bottom: 2px solid;
+   width: 100vw;
+   margin: 0 20px;
+}
+.throughline > span:before{
+   right: 100%;
+}
+.throughline > span:after{
+   left: 100%;
+}
+
+/* svg underline */
+
+// from https://gist.github.com/jaames/8e44617c001a3fcfb38f01514305cae4
+// Bare-minimum url-safe string encoder
+@function urlencode($str) {
+   $tokens: (
+     '<': '%3C',
+     '>': '%3E',
+     '#': '%23',
+     '"': '\'',
+     '&': '%26'
+   );
+   $result: '';
+   // loop through the string, replacing characters as necessary
+   @for $i from 1 through str-length($str) {
+     $char: str-slice($str, $i, $i);
+     @if map-has-key($tokens, $char) {
+       $char: map-get($tokens, $char);
+     }
+     $result: $result + $char;
+   }
+   @return $result;
+ }
+ 
+ // Inline svg url shorthand
+ @function inline-svg($str) {
+   @return url(urlencode('data:image/svg+xml;charset=utf8,' + $str));
+ }
+
+
+/***** The important stuff *****/
+/* based on https://codepen.io/theoguinet/pen/YzPrmwV */
+.underline{
+   position:relative;
+}
+
+$underlineSvg: '\
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"\
+  width="200px" height="16.608px" viewBox="0 0 200 16.608" enable-background="new 0 0 200 16.608" xml:space="preserve">\
+ <style>\
+ .svg-path {\
+ stroke-dasharray: 1000;\
+ stroke-dashoffset: 1000;\
+ animation: dash 1.2s 1s ease-in-out forwards;\
+ }\
+ @keyframes dash {\
+ to {\
+ stroke-dashoffset: 0;\
+ }\
+ }\
+ </style>\
+ <path class="svg-path" fill="none" stroke="#F6AD55" stroke-width="7" stroke-linecap="round" stroke-miterlimit="10" d="M5.3,11.307\
+    c0,0,160.071-11.682,190.106-3.544"/>\
+ </svg>\
+';
+
+.underline:before {
+   content: "";
+   position:relative;
+   width:100%;
+   height: 2em;
+   left: 0;
+   width: 100%;
+   z-index:-10;
+   background-image: inline-svg($underlineSvg);
+   background-repeat: no-repeat;	
+   background-size: 100% 100%;
+     transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+ }
+ .underline:after {
+   content: "";
+   position:absolute;
+   width:100%;
+   height: 2em;
+   left: 0;
+   width: 100%;
+   z-index:-10;
+   background-image: inline-svg($underlineSvg);
+   background-repeat: no-repeat;	
+   background-size: 100% 100%;
+     transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+ }
