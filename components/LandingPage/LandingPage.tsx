@@ -1,25 +1,150 @@
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Box, Flex, useTheme, Heading, Text } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
 import cookies from 'js-cookie';
+import QRCode from 'qrcode.react';
+import Image from 'next/image';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
-import UseCasesList from './UseCasesList';
-import GithubLink from './GithubLink';
 import Footer from '../Footer/Footer';
-import CompetitorComparisonTable from './CompetitorComparisonTable';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
+import { Category } from '../../src/paymentMethods';
+import { GithubIcon } from '../Icons/CustomIcons';
+import { githubUrl } from '../../src/settings';
+import styles from './LandingPage.module.scss';
 
-const ContentContainer: FunctionComponent = ({ children }) => (
-    <Box
-        my={12}
+const QRCodeExample: FC = () => {
+    const [environment, setEnvironment] = useState<'browser' | 'server'>('server');
+    useEffect(() => {
+        setEnvironment('browser');
+    }, []);
+    return (
+        <QRCode
+            value="https://coindrop.to/satoshi-nakamoto"
+            size={150}
+            imageSettings={environment === 'browser' ? {
+                src: "/logo/piggy-64.png",
+                x: null,
+                y: null,
+                height: 64,
+                width: 64,
+                excavate: true,
+            } : undefined}
+        />
+    );
+};
+
+const HeaderFooterContainer: FC = ({ children }) => (
+    <Container
+        maxW="xl"
     >
         {children}
-    </Box>
+    </Container>
 );
+
+type ContentContainerProps = {
+    boxProps?: BoxProps
+}
+
+const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => (
+    <Container
+        my={24}
+        maxW="xl"
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        {...boxProps}
+    >
+        {children}
+    </Container>
+);
+
+type ContentContainerHeadingProps = {
+    headingProps?: HeadingProps
+    withThroughline?: boolean
+}
+const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, withThroughline = false, children }) => (
+    <Heading
+        as="h2"
+        size="xl"
+        textAlign="center"
+        mb={2}
+        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+        fontWeight="600"
+        maxW={['100%', '90%', '85%', '80%']}
+        mx="auto"
+        {...headingProps}
+        className={withThroughline ? styles.throughline : undefined}
+    >
+        <span>
+            {children}
+        </span>
+    </Heading>
+);
+
+type PaymentMethodContainerProps = {
+    title: string
+    paymentMethodCategory: Category
+}
+
+const PaymentMethodContainer: FC<PaymentMethodContainerProps> = ({ title, paymentMethodCategory }) => (
+    <Flex
+        flex={[null, "1 0 100%", "1 0 50%", "1 0 33.33%"]}
+        direction="column"
+        mt={6}
+    >
+        <Heading as="h3" size="md" textAlign="center">
+            {title}
+        </Heading>
+        <Flex wrap="wrap" justify="center" mt={3}>
+            <PaymentMethodTags category={paymentMethodCategory} />
+        </Flex>
+    </Flex>
+);
+
+const ShareOption: FC<{title: string, description: string, bg: string}> = ({ bg, description, title, children }) => {
+    const { colorMode } = useColorMode();
+    return (
+        <Flex
+            direction="column"
+            flex={["0 1 auto", "1 0 50%", "1 0 50%", "1 0 33.33%"]}
+            align="center"
+        >
+            <Heading
+                textAlign="center"
+                as="h3"
+                size="md"
+                mt={[3, null]}
+            >
+                {title}
+            </Heading>
+            <Text
+                textAlign="center"
+                fontSize="lg"
+                mb={4}
+            >
+                {description}
+            </Text>
+            <Flex
+                bg={bg}
+                borderRadius="50%"
+                borderColor={colorMode === 'light' ? 'gray.800' : 'gray.600'}
+                borderWidth="8px"
+                borderStyle="solid"
+                mx={[0, 4]}
+                w="275px"
+                h="275px"
+                justify="center"
+                direction="column"
+            >
+                <Flex justify="center" align="center" direction="column" h="150px">
+                    {children}
+                </Flex>
+            </Flex>
+        </Flex>
+    );
+};
 
 const LandingPage: FunctionComponent = () => {
     const {
@@ -27,7 +152,7 @@ const LandingPage: FunctionComponent = () => {
         onOpen: onAuthOpen,
         onClose: onAuthClose,
     } = useDisclosure();
-    const theme = useTheme();
+    const { colorMode } = useColorMode();
     const router = useRouter();
     const { user } = useUser();
     useEffect(() => {
@@ -50,88 +175,175 @@ const LandingPage: FunctionComponent = () => {
     return (
         <>
         <NextSeo
-            title="Accept donations and tips anywhere. 100% Free, Zero Fees. | Coindrop"
-            description="Supports virtually any payment method or cryptocurrency. Let the sender choose how to pay you."
+            title="Coindrop - Accept payments and donations 100% Free with Zero Fees"
+            description="Create your page. Let the sender choose how to pay you. Supports all payment apps and cryptocurrencies."
         />
         <AuthModal
             isOpen={isAuthOpen}
         />
-        <GithubLink />
+        <HeaderFooterContainer>
+            <Navbar />
+        </HeaderFooterContainer>
         <Container
-            maxW="lg"
+            maxW="100%"
             mx="auto"
             px={4}
             mb={6}
         >
-            <Navbar />
-            <Box
-                border="1px solid"
-                padding="10px"
-                boxShadow={`5px 10px 5px 0 ${theme.colors.gray['200']}`}
-                my={6}
-                py={6}
+            <Container
+                my="3rem"
+                maxW="xl"
             >
                 <Heading
                     textAlign="center"
                     as="h1"
+                    size="2xl"
+                    fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+                    fontWeight="600"
                 >
-                    The easiest way to accept donations and tips.
+                    {'The '}
+                    <span
+                        className={styles.underline}
+                    >
+                        easy
+                    </span>
+                    {/* easy */}
+                    {' way to get paid'}
                 </Heading>
-                <Text textAlign="center" mt={2}>
-                    List your payment methods and let the sender pay you directly. <b>100% free. Zero fees.</b>
+                <Text fontSize="lg" textAlign="center" mt={3}>
+                    List your payment apps. Let the sender choose how to pay you.
                 </Text>
+                <Text fontSize="lg" textAlign="center" mt={2}>
+                    <b>100% free. Zero fees.</b>
+                </Text>
+                <Center mt={8}>
+                    <Image
+                        src={`/landing-page/smartphone-mockup-${colorMode}.png`}
+                        alt="Smartphone mockup"
+                        height="909"
+                        width="458"
+                    />
+                </Center>
+            </Container>
+            <ContentContainer>
+                <ContentContainerHeading withThroughline>
+                    ➀ Pick a custom URL
+                </ContentContainerHeading>
                 <Box
-                    mt={2}
+                    mt={8}
                 >
                     <CreatePiggybankInput
                         createButtonColorScheme="orange"
                         onCancel={null}
+                        instanceId="top"
+                        buttonText="Check availability"
                     />
                 </Box>
-            </Box>
+            </ContentContainer>
             <ContentContainer>
+                <ContentContainerHeading withThroughline>
+                    ➁ Add your payment methods
+                </ContentContainerHeading>
                 <Flex
-                    justify="center"
-                    mt={2}
+                    direction={['column', 'row']}
+                    wrap="wrap"
+                    maxW="80%"
+                    mx="auto"
                 >
-                    <UseCasesList />
+                    <PaymentMethodContainer title="Digital wallets" paymentMethodCategory="digital-wallet" />
+                    <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
+                    <PaymentMethodContainer title="Subscription platforms" paymentMethodCategory="subscription-platform" />
                 </Flex>
             </ContentContainer>
             <ContentContainer>
-                <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Supports virtually all payment methods
-                </Heading>
-                <Flex direction={['column', 'row']}>
-                    <Box
-                        mt={4}
+                <ContentContainerHeading withThroughline>
+                    ➂ Share &amp; Get Paid
+                </ContentContainerHeading>
+                <Flex
+                    direction={["column", "row"]}
+                    wrap="wrap"
+                >
+                    <ShareOption
+                        title="Button"
+                        description="For your website"
+                        bg={colorMode === 'light' ? 'green.400' : 'green.300'}
                     >
-                        <Heading as="h3" size="md" textAlign="center">
-                            Apps
-                        </Heading>
-                        <Flex wrap="wrap" justify="center" mt={3}>
-                            <PaymentMethodTags category="app" />
-                        </Flex>
-                    </Box>
-                    <Box
-                        mt={4}
+                        <>
+                        <Box w="228px" h="57px">
+                            <Link href="https://coindrop.to/satoshi-nakamoto" isExternal>
+                                <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px"}} alt="Coindrop.to me" />
+                            </Link>
+                        </Box>
+                        </>
+                    </ShareOption>
+                    <ShareOption
+                        title="QR Code"
+                        description="For smartphones"
+                        bg='#BBCBCB'
                     >
-                        <Heading as="h3" size="md" textAlign="center">
-                            Digital assets
-                        </Heading>
-                        <Flex wrap="wrap" justify="center" mt={3}>
-                            <PaymentMethodTags category="digital-asset" />
-                        </Flex>
-                    </Box>
+                        <QRCodeExample />
+                    </ShareOption>
+                    <ShareOption
+                        title="URL"
+                        description="For literally anywhere"
+                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
+                    >
+                        <b>
+                            <Text
+                                fontSize="lg"
+                                color={colorMode === 'light' ? 'gray.800' : 'white'}
+                            >
+                                coindrop.to/your-name
+                            </Text>
+                        </b>
+                    </ShareOption>
+                </Flex>
+            </ContentContainer>
+            <ContentContainer
+                boxProps={{
+                    borderRadius: '16px',
+                    position: 'relative',
+                }}
+            >
+                <ContentContainerHeading>
+                    Open-Source
+                </ContentContainerHeading>
+                <Flex align="center" justify="center" mt={4}>
+                    <GithubIcon
+                        opacity={0.9}
+                        boxSize="72px"
+                        mr={4}
+                    />
+                    <Text
+                        fontSize="lg"
+                    >
+                        {'The source code for Coindrop is publicly available on '}
+                        <Link isExternal href={githubUrl}>
+                            Github
+                        </Link>
+                    </Text>
                 </Flex>
             </ContentContainer>
             <ContentContainer>
-                <Heading mt={5} as="h2" size="lg" textAlign="center">
-                    Coindrop vs. the alternatives
-                </Heading>
-                <CompetitorComparisonTable />
+                <ContentContainerHeading>
+                    Get started 🚀
+                </ContentContainerHeading>
+                <Text textAlign="center" fontSize="lg">
+                    Coindrops are 100% free and only take ~2 minutes to set up.
+                </Text>
+                <Box mt={2}>
+                    <CreatePiggybankInput
+                        createButtonColorScheme="orange"
+                        onCancel={null}
+                        instanceId="bottom"
+                        buttonText="Create"
+                    />
+                </Box>
             </ContentContainer>
-            <Footer />
         </Container>
+        <HeaderFooterContainer>
+            <Footer />
+        </HeaderFooterContainer>
         </>
     );
 };

@@ -20,9 +20,9 @@ describe('Create Coindrop on Dashboard', () => {
         cy.wait('@getUserOwnedPiggybanks');
         cy.get('#create-new-coindrop-button', { timeout: 15000 })
             .click();
-        cy.get('#create-coindrop-input')
+        cy.get('#create-coindrop-input-')
             .type(testCoindropName_dbk8fi);
-        cy.get('#create-coindrop-form')
+        cy.get('#create-coindrop-form-')
             .submit();
         cy.wait('@createPiggybank');
         cy.contains('This Coindrop has not been set up yet.');

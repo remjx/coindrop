@@ -50,10 +50,10 @@ const accordionText: AccordionText[] = [
         body: (
             <Box>
                 <Text mb="1rem">
-                    To cover costs and fund development of this site, we may display relevant, unobtrusive advertisements, offers, and affiliate links.
+                    To cover costs and fund development of this site, we may display relevant advertisements, offers, and affiliate links.
                 </Text>
                 <Text>
-                    Keep in mind all code to this website is open-source so if we implement obtrusive monetization tactics, you can always fork the project on Github :)
+                    Keep in mind the code to this website is open-source so if we ever implemented obtrusive monetization tactics, you could always fork the project on Github :)
                 </Text>
             </Box>
         ),

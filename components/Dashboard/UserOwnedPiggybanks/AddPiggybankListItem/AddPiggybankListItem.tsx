@@ -39,6 +39,8 @@ const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks })
                 <CreatePiggybankInput
                     onCancel={() => setShowInput(false)}
                     createButtonColorScheme="green"
+                    instanceId=""
+                    buttonText="Create"
                 />
             </Flex>
         );
