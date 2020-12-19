@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, FunctionComponent } from 'react';
+import { useState, useEffect, useContext, FC } from 'react';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
     Accordion,
@@ -18,15 +18,12 @@ import {
     useTheme,
 } from "@chakra-ui/react";
 import { useWatch, Control } from "react-hook-form";
-import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
+import paymentMethods, { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
+import { Category } from '../../../src/paymentMethods';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
-
-const OptionsGroup: FC = () => {
-    
-}
 
 export type PaymentMethod = {
     address: string
@@ -44,12 +41,13 @@ type Props = {
     fieldArrayName: string,
 };
 
-const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
+const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const paymentMethodsDataWatch: PaymentMethod[] = useWatch({
         control,
         name: fieldArrayName,
     });
+    console.log('paymentMethodsDataWatch', paymentMethodsDataWatch)
     const [openAccordionItemIndex, setOpenAccordionItemIndex] = useState(-1);
     useEffect(() => {
         if (
@@ -61,6 +59,29 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
+    const OptionsGroup: FC<{category: Category}> = ({ category }) => {
+        const optgroupLabels: Record<Category, string> = {
+            app: 'Apps',
+            "digital-asset": "Digital Assets",
+        };
+        const options = () => paymentMethods
+            .filter(paymentMethod => paymentMethod.category === category)
+            .sort((a, b) => (a.id < b.id ? -1 : 1))
+            .map(({ id, displayName }) => (
+                <option
+                    key={id}
+                    value={id}
+                    style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
+                >
+                    {displayName}
+                </option>
+            ));
+        return (
+            <optgroup label={optgroupLabels[category]}>
+                {options}
+            </optgroup>
+        );
+    };
     return (
         <>
         {fields.length < 1
@@ -133,8 +154,8 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        <OptionsGroup category="app" />
-                                        <OptionsGroup category="digital-asset" />
+                                        {/* <OptionsGroup category="app" />
+                                        <OptionsGroup category="digital-asset" /> */}
                                     </Select>
                                 </Box>
                                 <Box
