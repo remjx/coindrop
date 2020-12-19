@@ -59,26 +59,25 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
-    const OptionsGroup: FC<{category: Category}> = ({ category }) => {
+    const optionsGroup = (category: Category) => {
         const optgroupLabels: Record<Category, string> = {
             app: 'Apps',
             "digital-asset": "Digital Assets",
         };
-        const options = () => paymentMethods
-            .filter(paymentMethod => paymentMethod.category === category)
-            .sort((a, b) => (a.id < b.id ? -1 : 1))
-            .map(({ id, displayName }) => (
-                <option
-                    key={id}
-                    value={id}
-                    style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
-                >
-                    {displayName}
-                </option>
-            ));
         return (
             <optgroup label={optgroupLabels[category]}>
-                {options}
+                {paymentMethods
+                .filter(paymentMethod => paymentMethod.category === category)
+                .sort((a, b) => (a.id < b.id ? -1 : 1))
+                .map(({ id, displayName }) => (
+                    <option
+                        key={id}
+                        value={id}
+                        style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
+                    >
+                        {displayName}
+                    </option>
+                ))}
             </optgroup>
         );
     };
@@ -156,7 +155,26 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         <option hidden disabled value="default-blank">Select...</option>
                                         {/* <OptionsGroup category="app" />
                                         <OptionsGroup category="digital-asset" /> */}
+                                        {optionsGroup('app')}
+                                        {optionsGroup('digital-asset')}
+                                        {/* {paymentMethods
+                                            .filter(paymentMethod => ['app', 'digital-asset'].includes(paymentMethod.category))
+                                            .sort((a, b) => (a.id < b.id ? -1 : 1))
+                                            .map(({ id, displayName }) => (
+                                                <option
+                                                    key={id}
+                                                    value={id}
+                                                    style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
+                                                >
+                                                    {displayName}
+                                                </option>
+                                            ))
+                                        } */}
                                     </Select>
+                                    <select>
+                                        {optionsGroup('app')}
+                                        {optionsGroup('digital-asset')}
+                                    </select>
                                 </Box>
                                 <Box
                                     mx={3}
