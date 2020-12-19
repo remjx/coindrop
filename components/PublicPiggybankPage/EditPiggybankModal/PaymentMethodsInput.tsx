@@ -12,16 +12,17 @@ import {
     FormControl,
     FormLabel,
     Input,
+    Link,
     Checkbox,
     Select,
     Text,
     useTheme,
 } from "@chakra-ui/react";
 import { useWatch, Control } from "react-hook-form";
-import paymentMethods, { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
+import paymentMethods, { paymentMethodNames, paymentMethodIcons, Category } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
-import { Category } from '../../../src/paymentMethods';
+import { githubAddPaymentMethodRequest } from '../../../src/settings';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -187,9 +188,16 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                     </FormControl>
                                 </Box>
                                 <Flex
-                                    justify="flex-end"
-                                    mt={1}
+                                    justify="space-between"
+                                    mt={3}
+                                    wrap="wrap"
+                                    align="center"
                                 >
+                                    <Text fontSize="xs" ml={1}>
+                                        <Link href={githubAddPaymentMethodRequest} isExternal>
+                                            Payment method not listed?
+                                        </Link>
+                                    </Text>
                                     <Button
                                         onClick={() => {
                                             remove(index);

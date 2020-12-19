@@ -13,3 +13,4 @@ export const githubReadmeHelpUrl = "https://github.com/remjx/coindrop#contributi
 export const githubPrivacyPolicyUrl = "https://github.com/remjx/coindrop/blob/master/PRIVACY_POLICY.md";
 export const githubTermsOfServiceUrl = "https://github.com/remjx/coindrop/blob/master/TERMS_OF_SERVICE.md";
 export const githubOpenSourceLicenseUrl = "https://github.com/remjx/coindrop/blob/master/LICENSE";
+export const githubAddPaymentMethodRequest = "https://github.com/remjx/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title=";
