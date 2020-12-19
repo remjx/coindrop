@@ -1,13 +1,14 @@
-import { Button, useColorMode } from '@chakra-ui/react';
+import { Button, useColorMode, ButtonProps } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 
-export const ToggleColorModeButton: FunctionComponent = () => {
+export const ToggleColorModeButton: FC<ButtonProps> = (buttonProps) => {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
             onClick={toggleColorMode}
-            variant="ghost"
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...buttonProps}
         >
             {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
         </Button>

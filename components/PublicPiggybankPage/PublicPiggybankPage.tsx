@@ -109,7 +109,7 @@ const PublicPiggybankPage: FunctionComponent = () => {
                 right="1rem"
                 zIndex="2"
             >
-                <ToggleColorModeButton />
+                <ToggleColorModeButton variant="ghost" />
             </Flex>
             {initialSetupComplete ? (
                 <Box
@@ -158,9 +158,7 @@ const PublicPiggybankPage: FunctionComponent = () => {
                     <PaymentMethodButtonsFromEntries
                         entries={otherAddresses}
                     />
-                    <PoweredByCoindropLink
-                        accentColor={accentColor}
-                    />
+                    <PoweredByCoindropLink />
                 </Box>
             ) : (
                 <Heading mt={4} textAlign="center">

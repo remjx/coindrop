@@ -12,9 +12,9 @@ describe('Create Coindrop on landing page', () => {
       }).as('createPiggybank');
       cy.callFirestore("delete", `piggybanks/${testCoindropName_lr9rzm}`);
       cy.visit('/');
-      cy.get("#create-coindrop-input")
+      cy.get("#create-coindrop-input-top")
         .type(testCoindropName_lr9rzm);
-      cy.get("#create-coindrop-form").submit();
+      cy.get("#create-coindrop-form-top").submit();
       cy.getCookie('pendingLoginCreatePiggybankPath')
         .should('have.property', 'value', testCoindropName_lr9rzm);
       cy.login();
