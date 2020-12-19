@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { useTheme, Box, Flex, useColorModeValue } from '@chakra-ui/react';
-import { PiggyLogoIcon, KofiIcon, BuyMeACoffeeIcon, PatreonIcon } from "../Icons/CustomIcons";
+import { PiggyLogoIcon, KofiIcon, BuyMeACoffeeIcon, PatreonIcon } from "../../Icons/CustomIcons";
 import styles from './CompetitorComparisonTable.module.scss';
 
 type Competitor = {
