@@ -24,6 +24,10 @@ import { AdditionalValidation } from './AdditionalValidationContext';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
+const OptionsGroup: FC = () => {
+    
+}
+
 export type PaymentMethod = {
     address: string
     id: string
@@ -129,21 +133,8 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        {Object.entries(paymentMethodNames)
-                                            .sort((a, b) => {
-                                                const [aId] = a;
-                                                const [bId] = b;
-                                                return aId < bId ? -1 : 1;
-                                            })
-                                            .map(([paymentMethodId, paymentMethodDisplayName]) => (
-                                                <option
-                                                    key={paymentMethodId}
-                                                    value={paymentMethodId}
-                                                    style={{display: paymentMethodsDataWatch.map(paymentMethods => paymentMethods.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
-                                                >
-                                                    {paymentMethodDisplayName}
-                                                </option>
-                                            ))}
+                                        <OptionsGroup category="app" />
+                                        <OptionsGroup category="digital-asset" />
                                     </Select>
                                 </Box>
                                 <Box
