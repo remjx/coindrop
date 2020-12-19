@@ -4,6 +4,7 @@ import { NextSeo } from 'next-seo';
 import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import QRCode from 'qrcode.react';
+import Image from 'next/image';
 import AuthModal from '../Auth/AuthModal';
 import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
@@ -11,7 +12,6 @@ import Footer from '../Footer/Footer';
 import { PaymentMethodTags } from './PaymentMethodTags';
 import { Navbar } from '../Navbar/Navbar';
 import { Category } from '../../src/paymentMethods';
-import { PiggyLogo } from '../Logo/Logo';
 import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 import styles from './LandingPage.module.css';
@@ -194,9 +194,6 @@ const LandingPage: FunctionComponent = () => {
                 my="3rem"
                 maxW="xl"
             >
-                <Center>
-                    <PiggyLogo mb={2} boxSize="150px" />
-                </Center>
                 <Heading
                     textAlign="center"
                     as="h1"
@@ -204,7 +201,16 @@ const LandingPage: FunctionComponent = () => {
                     fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
                     fontWeight="600"
                 >
-                    The best way to get paid
+                    {'The '}
+                    {/* <span
+                        style={{
+                            background: `linear-gradient(180deg, ${colorMode === 'light' ? 'white' : '#515053'}  85%, #F6AD55 85%)`,
+                        }}
+                    >
+                        easy
+                    </span> */}
+                    easy
+                    {' way to get paid'}
                 </Heading>
                 <Text fontSize="lg" textAlign="center" mt={3}>
                     List your payment apps. Let the sender choose how to pay you.
@@ -212,6 +218,14 @@ const LandingPage: FunctionComponent = () => {
                 <Text fontSize="lg" textAlign="center" mt={2}>
                     <b>100% free. Zero fees.</b>
                 </Text>
+                <Center mt={8}>
+                    <Image
+                        src={`/landing-page/smartphone-mockup-${colorMode}.png`}
+                        alt="Smartphone mockup"
+                        height="909"
+                        width="458"
+                    />
+                </Center>
             </Container>
             <ContentContainer>
                 <ContentContainerHeading withThroughline>
