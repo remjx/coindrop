@@ -194,7 +194,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                     align="center"
                                 >
                                     <Text fontSize="xs" ml={1}>
-                                        <Link href={githubAddPaymentMethodRequest} isExternal>
+                                        <Link href="/blog/payment-method-request" isExternal>
                                             Payment method not listed?
                                         </Link>
                                     </Text>
