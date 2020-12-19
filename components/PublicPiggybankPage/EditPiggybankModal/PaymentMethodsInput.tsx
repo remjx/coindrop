@@ -61,8 +61,9 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
     const optionsGroup = (category: Category) => {
         const optgroupLabels: Record<Category, string> = {
-            app: 'Apps',
+            "digital-wallet": 'Digital Wallets',
             "digital-asset": "Digital Assets",
+            "subscription-platform": "Subscription Platforms",
         };
         return (
             <optgroup label={optgroupLabels[category]}>
@@ -153,28 +154,10 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        {/* <OptionsGroup category="app" />
-                                        <OptionsGroup category="digital-asset" /> */}
-                                        {optionsGroup('app')}
+                                        {optionsGroup('digital-wallet')}
                                         {optionsGroup('digital-asset')}
-                                        {/* {paymentMethods
-                                            .filter(paymentMethod => ['app', 'digital-asset'].includes(paymentMethod.category))
-                                            .sort((a, b) => (a.id < b.id ? -1 : 1))
-                                            .map(({ id, displayName }) => (
-                                                <option
-                                                    key={id}
-                                                    value={id}
-                                                    style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
-                                                >
-                                                    {displayName}
-                                                </option>
-                                            ))
-                                        } */}
+                                        {optionsGroup('subscription-platform')}
                                     </Select>
-                                    <select>
-                                        {optionsGroup('app')}
-                                        {optionsGroup('digital-asset')}
-                                    </select>
                                 </Box>
                                 <Box
                                     mx={3}
