@@ -175,8 +175,8 @@ const LandingPage: FunctionComponent = () => {
     return (
         <>
         <NextSeo
-            title="Accept donations and tips anywhere. 100% Free, Zero Fees | Coindrop"
-            description="Supports virtually any payment method or cryptocurrency. Let your supporters choose how to pay you."
+            title="Coindrop - Accept payments and donations 100% Free with Zero Fees"
+            description="Create your page. Let the sender choose how to pay you. Supports all payment apps and cryptocurrencies."
         />
         <AuthModal
             isOpen={isAuthOpen}
