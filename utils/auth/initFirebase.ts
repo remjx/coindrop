@@ -17,11 +17,12 @@ const config = {
 export default function initFirebase(): void {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
-    // if (
-    //   process.env.NODE_ENV !== 'development'
-    //   && process.env.NODE_ENV !== 'qa'
-    //   && typeof window !== 'undefined') {
-    //   firebase.analytics();
-    // }
+    if (
+      process.env.NODE_ENV !== 'development'
+      && typeof window !== 'undefined'
+      && !window.Cypress
+    ) {
+      firebase.analytics();
+    }
   }
 }

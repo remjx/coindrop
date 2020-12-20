@@ -10,3 +10,7 @@ declare namespace NodeJS
         NODE_ENV: "development" | "production" | "test" | "qa";
     }
 }
+
+interface Window {
+    Cypress: any
+}
