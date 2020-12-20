@@ -48,7 +48,6 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
         control,
         name: fieldArrayName,
     });
-    console.log('paymentMethodsDataWatch', paymentMethodsDataWatch)
     const [openAccordionItemIndex, setOpenAccordionItemIndex] = useState(-1);
     useEffect(() => {
         if (
