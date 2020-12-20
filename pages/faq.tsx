@@ -17,7 +17,7 @@ import {
     ListItem,
 } from "@chakra-ui/react";
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
-import { coindropEmail, githubUrl, markJacksonWebsite } from '../src/settings';
+import { coindropEmail, githubUrl, markJacksonWebsite, githubAddPaymentMethodRequest } from '../src/settings';
 
 type AccordionText = {
     title: string
@@ -64,7 +64,7 @@ const accordionText: AccordionText[] = [
             <Text>
                 {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
                 <Link
-                    href="https://github.com/remjx/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title="
+                    href={githubAddPaymentMethodRequest}
                     isExternal
                 >
                     <u>here</u>

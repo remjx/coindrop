@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, FunctionComponent } from 'react';
+import { useState, useEffect, useContext, FC } from 'react';
 import { AddIcon, MinusIcon, StarIcon, QuestionOutlineIcon } from "@chakra-ui/icons";
 import {
     Accordion,
@@ -12,15 +12,17 @@ import {
     FormControl,
     FormLabel,
     Input,
+    Link,
     Checkbox,
     Select,
     Text,
     useTheme,
 } from "@chakra-ui/react";
 import { useWatch, Control } from "react-hook-form";
-import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
+import paymentMethods, { paymentMethodNames, paymentMethodIcons, Category } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
+import { githubAddPaymentMethodRequest } from '../../../src/settings';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -40,7 +42,7 @@ type Props = {
     fieldArrayName: string,
 };
 
-const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
+const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
     const paymentMethodsDataWatch: PaymentMethod[] = useWatch({
         control,
@@ -57,6 +59,29 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
+    const optionsGroup = (category: Category) => {
+        const optgroupLabels: Record<Category, string> = {
+            "digital-wallet": 'Digital Wallets',
+            "digital-asset": "Digital Assets",
+            "subscription-platform": "Subscription Platforms",
+        };
+        return (
+            <optgroup label={optgroupLabels[category]}>
+                {paymentMethods
+                .filter(paymentMethod => paymentMethod.category === category)
+                .sort((a, b) => (a.id < b.id ? -1 : 1))
+                .map(({ id, displayName }) => (
+                    <option
+                        key={id}
+                        value={id}
+                        style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
+                    >
+                        {displayName}
+                    </option>
+                ))}
+            </optgroup>
+        );
+    };
     return (
         <>
         {fields.length < 1
@@ -129,21 +154,9 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        {Object.entries(paymentMethodNames)
-                                            .sort((a, b) => {
-                                                const [aId] = a;
-                                                const [bId] = b;
-                                                return aId < bId ? -1 : 1;
-                                            })
-                                            .map(([paymentMethodId, paymentMethodDisplayName]) => (
-                                                <option
-                                                    key={paymentMethodId}
-                                                    value={paymentMethodId}
-                                                    style={{display: paymentMethodsDataWatch.map(paymentMethods => paymentMethods.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
-                                                >
-                                                    {paymentMethodDisplayName}
-                                                </option>
-                                            ))}
+                                        {optionsGroup('digital-wallet')}
+                                        {optionsGroup('digital-asset')}
+                                        {optionsGroup('subscription-platform')}
                                     </Select>
                                 </Box>
                                 <Box
@@ -174,9 +187,16 @@ const PaymentMethodsInput: FunctionComponent<Props> = ({ fieldArrayName, fields,
                                     </FormControl>
                                 </Box>
                                 <Flex
-                                    justify="flex-end"
-                                    mt={1}
+                                    justify="space-between"
+                                    mt={3}
+                                    wrap="wrap"
+                                    align="center"
                                 >
+                                    <Text fontSize="xs" ml={1}>
+                                        <Link href="/blog/payment-method-request" isExternal>
+                                            Payment method not listed?
+                                        </Link>
+                                    </Text>
                                     <Button
                                         onClick={() => {
                                             remove(index);

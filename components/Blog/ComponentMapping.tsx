@@ -31,4 +31,5 @@ export const components = {
     ImageBorder,
     code: Code,
     CodeBlock,
+    a: ({ children, href }) => <u><Link href={href} isExternal>{children}</Link></u>,
 };
