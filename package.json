@@ -21,7 +21,7 @@
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.0",
+    "@chakra-ui/icons": "^1.0.2",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
