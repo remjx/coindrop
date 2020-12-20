@@ -1,7 +1,7 @@
 import { FunctionComponent, useContext } from 'react';
 import QRCode from 'qrcode.react';
 import { CheckIcon, CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import isUrl from 'validator/lib/isUrl';
+import isUrl from 'validator/lib/isURL';
 import { Flex, useClipboard, Link, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
 import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { paymentMethodIcons } from '../../src/paymentMethods';
