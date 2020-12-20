@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import { CheckIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Text, Image, useClipboard } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Image, useClipboard } from '@chakra-ui/react';
 import { SourceCodeIcon } from "../../../Icons/CustomIcons";
 import styles from './HtmlEmbedButton.module.scss';
 

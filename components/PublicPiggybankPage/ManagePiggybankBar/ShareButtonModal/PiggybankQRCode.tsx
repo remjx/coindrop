@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import QRCode from 'qrcode.react';
-import { Flex, Box, Heading, Text, Button, Center } from '@chakra-ui/react';
+import { Heading, Button, Center } from '@chakra-ui/react';
 import { PrintIcon } from '../../../Icons/CustomIcons';
 
 type Props = {
