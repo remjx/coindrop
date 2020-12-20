@@ -44,7 +44,8 @@ const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
                     <Heading
                         textAlign="center"
                         fontSize="1.75rem"
-                        fontWeight={700}
+                        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+                        fontWeight="600"
                     >
                         My Coindrops
                     </Heading>

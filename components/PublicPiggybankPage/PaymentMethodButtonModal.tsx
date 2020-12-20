@@ -1,7 +1,8 @@
 import { FunctionComponent, useContext } from 'react';
 import QRCode from 'qrcode.react';
-import { CheckIcon, CopyIcon } from "@chakra-ui/icons";
-import { Flex, Box, useClipboard, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
+import { CheckIcon, CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import isUrl from 'validator/lib/isURL';
+import { Flex, useClipboard, Link, Text, Button, Modal, ModalOverlay, ModalHeader, ModalCloseButton, ModalContent, ModalBody } from '@chakra-ui/react';
 import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { paymentMethodIcons } from '../../src/paymentMethods';
 
@@ -18,6 +19,12 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const { name } = piggybankDbData;
     const Icon = paymentMethodIcons[paymentMethod];
+    const addressIsUrl = isUrl(paymentMethodValue, {
+        require_protocol: true,
+        require_valid_protocol: true,
+        protocols: ['http', 'https'],
+        allow_protocol_relative_urls: false,
+    });
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -50,17 +57,30 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
                             {paymentMethodValue}
                         </Text>
                     </Flex>
-                    <Box
+                    <Flex
                         my={2}
-                        textAlign="center"
+                        align="center"
+                        justify="center"
                     >
-                        <Button
-                            leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
-                            onClick={onCopy}
-                        >
-                            {hasCopied ? "Copied" : "Copy"}
-                        </Button>
-                    </Box>
+                        {addressIsUrl ? (
+                            <Link href={paymentMethodValue} isExternal>
+                                <Button
+                                    leftIcon={<ExternalLinkIcon />}
+                                    href={paymentMethodValue}
+                                    mr={2}
+                                >
+                                    Open
+                                </Button>
+                            </Link>
+                        ) : (
+                            <Button
+                                leftIcon={hasCopied ? <CheckIcon /> : <CopyIcon />}
+                                onClick={onCopy}
+                            >
+                                {hasCopied ? "Copied" : "Copy"}
+                            </Button>
+                        )}
+                    </Flex>
                     <Text mb={2} textAlign="center">or scan QR Code:</Text>
                     <Flex justify="center">
                         <QRCode
