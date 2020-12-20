@@ -5,7 +5,7 @@
       "es5",
       "dom",
       "dom.iterable",
-      "esnext"
+      "esnext",
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -18,7 +18,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["node", "jest"]
   },
   "include": [
     "next-env.d.ts",

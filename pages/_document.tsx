@@ -1,10 +1,11 @@
 // Favicons generated with generated with https://realfavicongenerator.net/
 
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ColorModeScript } from '@chakra-ui/react';
+import { GA_TRACKING_ID } from '../utils/analytics/gtag';
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
@@ -24,6 +25,24 @@ class MyDocument extends Document {
             <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
             <meta name="msapplication-TileColor" content="#ffffff" />
             <meta name="theme-color" content="#ffffff" />
+            {/* Global Site Tag (gtag.js) - Google Analytics */}
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            />
+            <script
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}', {
+                  page_path: window.location.pathname,
+                });
+                `,
+              }}
+            />
         </Head>
         <body>
           <ColorModeScript initialColorMode="light" />
