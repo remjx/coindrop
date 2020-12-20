@@ -6,8 +6,6 @@ describe('Landing page', () => {
   const testID_jwylti = "jwylti";
   const testCoindropName_jwylti = `test-coindrop-tid-${testID_jwylti}`;
   it('Displays auth modal when user clicks Log In / Sign up button', () => {
-    console.log('NODE_ENV', process.env.NODE_ENV)
-    cy.pause();
     cy.callFirestore("delete", `piggybanks/${testCoindropName_jwylti}`);
     cy.visit('/');
     cy.get('#log-in-button').click();
