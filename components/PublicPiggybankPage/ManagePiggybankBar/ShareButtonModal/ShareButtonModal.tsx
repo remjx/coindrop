@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import {
     Button,
-    Flex,
     Box,
+    Center,
     useDisclosure,
     Modal,
     ModalOverlay,
@@ -10,12 +10,11 @@ import {
     ModalBody,
     ModalCloseButton,
     ModalFooter,
-    Text,
     Heading,
 } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 import { ShareIcon } from '../../../Icons/CustomIcons';
-import CopyLinkShareButton from '../../../Buttons/CopyLinkShareButton';
+import CopyLinkShareButton from './CopyLinkShareButton';
 import PiggybankQRCode from './PiggybankQRCode';
 import ShareEmbedButton from './ShareEmbedButton';
 
@@ -39,30 +38,30 @@ const ShareButtonModal: FunctionComponent<Props> = ({ buttonColor }) => {
         >
             Share
         </Button>
-        <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
                 <ModalCloseButton />
                 <Heading
                     mt={4}
+                    as="h2"
+                    size="md"
+                    mx={12}
+                    textAlign="center"
                 >
-                    <Flex align="center" justify="center">
-                        <ShareIcon mr={2} />
-                        Share
-                    </Flex>
+                    {publicUrl}
                 </Heading>
                 <ModalBody>
-                    <Flex mb={4} wrap="wrap">
+                    <Box mb={4}>
                         <Box>
                             <Heading as="h2" size="lg">
                                 Link
                             </Heading>
-                            <Text>{publicUrl}</Text>
                         </Box>
-                        <Flex align="center" flexGrow={1} justify="center" mt={2}>
-                            <CopyLinkShareButton textToCopy={publicUrl} buttonColorScheme="green" />
-                        </Flex>
-                    </Flex>
+                        <Center mt={2}>
+                            <CopyLinkShareButton textToCopy={publicUrl} />
+                        </Center>
+                    </Box>
                     <ShareEmbedButton
                         fullPublicUrl={fullPublicUrl}
                     />
