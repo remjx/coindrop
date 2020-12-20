@@ -17,7 +17,7 @@ const config = {
 export default function initFirebase(): void {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
-    if (process.env.NODE_ENV !== 'development') {
+    if (process.env.NODE_ENV !== 'development' && typeof window !== 'undefined') {
       firebase.analytics();
     }
   }
