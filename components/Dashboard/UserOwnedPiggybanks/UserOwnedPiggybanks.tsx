@@ -1,10 +1,38 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import useSWR from 'swr';
-import { Box, Heading, Text, Spinner, Stack } from '@chakra-ui/react';
+import { Box, Heading, Text, Spinner, Stack, Skeleton } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
+
+const PageTitle: FC = () => (
+    <Heading
+        textAlign="center"
+        fontSize="1.75rem"
+        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
+        fontWeight="600"
+        mt={4}
+    >
+        My Coindrops
+    </Heading>
+);
+
+function SkeletonArray(n: number): number[] {
+    const a = Array(n);
+    const b = 0;
+    while (b < n) {
+        a[b + 1] = b;
+    }
+    return a;
+}
+
+const LoadingSkeleton: FC = () => (
+    <Skeleton
+        borderRadius="10px"
+        height="50px"
+    />
+);
 
 type PiggybankDocumentID = string
 
@@ -27,28 +55,21 @@ type Props = {
     uid: string
 }
 
-const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
+const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         return <Text>Error getting data, please try refreshing the page.</Text>;
     }
-    if (data) {
+    if (false) {
         const numActivePiggybanks = data.length;
         return (
             <>
-            <Stack spacing={4} my={4} id="user-owned-coindrops">
+            <Stack spacing={4} mb={4} id="user-owned-coindrops">
                 {
                 numActivePiggybanks > 0
                 ? (
                     <>
-                    <Heading
-                        textAlign="center"
-                        fontSize="1.75rem"
-                        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
-                        fontWeight="600"
-                    >
-                        My Coindrops
-                    </Heading>
+                    <PageTitle />
                     {data.map(piggybankDocumentID => (
                         <PiggybankListItem
                             key={piggybankDocumentID}
@@ -75,13 +96,18 @@ const UserOwnedPiggybanks: FunctionComponent<Props> = ({ uid }) => {
         );
     }
     return (
+        <>
+        <PageTitle />
         <Box
             textAlign="center"
             mt={6}
         >
-            <Text mb={2}>Loading...</Text>
-            <Spinner size="lg" />
+            {/* <Spinner data-cy="coindrops-loading-spinner" size="lg" /> */}
+            <Stack>
+                {SkeletonArray(5).map(v => <LoadingSkeleton key={v} />)}
+            </Stack>
         </Box>
+        </>
     );
 };
 
