@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import useSWR from 'swr';
-import { Box, Heading, Text, Spinner, Stack, Skeleton } from '@chakra-ui/react';
+import { Box, Heading, Text, Stack, Skeleton } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
@@ -19,10 +19,11 @@ const PageTitle: FC = () => (
 );
 
 function SkeletonArray(n: number): number[] {
-    const a = Array(n);
-    const b = 0;
+    const a = new Array(n);
+    let b = 0;
     while (b < n) {
-        a[b + 1] = b;
+        // eslint-disable-next-line no-plusplus
+        a[b++] = b;
     }
     return a;
 }
@@ -30,7 +31,7 @@ function SkeletonArray(n: number): number[] {
 const LoadingSkeleton: FC = () => (
     <Skeleton
         borderRadius="10px"
-        height="50px"
+        height="85px"
     />
 );
 
@@ -60,7 +61,7 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     if (error) {
         return <Text>Error getting data, please try refreshing the page.</Text>;
     }
-    if (false) {
+    if (data) {
         const numActivePiggybanks = data.length;
         return (
             <>
@@ -102,7 +103,6 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
             textAlign="center"
             mt={6}
         >
-            {/* <Spinner data-cy="coindrops-loading-spinner" size="lg" /> */}
             <Stack>
                 {SkeletonArray(5).map(v => <LoadingSkeleton key={v} />)}
             </Stack>
