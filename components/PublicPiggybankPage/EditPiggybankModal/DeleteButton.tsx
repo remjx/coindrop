@@ -2,9 +2,9 @@ import { FunctionComponent, useEffect, useState, useContext } from 'react';
 import { Button } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
-import { db } from '../../../../utils/client/db';
-import { PublicPiggybankDataContext } from '../../../PublicPiggybankPage/PublicPiggybankDataContext';
-import { deleteImage } from '../../../../src/db/mutations/delete-image';
+import { db } from '../../../utils/client/db';
+import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
+import { deleteImage } from '../../../src/db/mutations/delete-image';
 
 type Props = {
     piggybankName: string
@@ -34,6 +34,7 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
                 }),
                 db.collection('piggybanks').doc(piggybankName).delete(),
             ]);
+            fetch(`/${piggybankName}`, { headers: { isToForceStaticRegeneration: "true" }});
             push('/dashboard');
         } catch (err) {
             setAwaitingDeleteConfirmation(false);
@@ -51,6 +52,7 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
     });
     return (
         <Button
+            id="delete-coindrop-button"
             leftIcon={<DeleteIcon />}
             colorScheme={awaitingDeleteConfirmation ? "red" : undefined}
             onClick={handleDelete}
