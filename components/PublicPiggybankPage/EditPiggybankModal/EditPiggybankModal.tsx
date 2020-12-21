@@ -25,7 +25,7 @@ import { mutate } from 'swr';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';
-import DeleteButton from '../../Dashboard/UserOwnedPiggybanks/PiggybankListItem/DeleteButton';
+import DeleteButton from './DeleteButton';
 import EditUrlInput from './EditUrlInput';
 import { convertPaymentMethodsFieldArrayToDbMap, sortByIsPreferredThenAlphabetical } from './util';
 import { db } from '../../../utils/client/db';
