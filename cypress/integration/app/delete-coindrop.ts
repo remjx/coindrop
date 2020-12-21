@@ -8,9 +8,8 @@ describe('Delete Coindrop', () => {
     const testCoindropName = `cy-${testID_hljkx3}`;
     it('Delete Coindrop', () => {
         cy.intercept({
-            method: 'POST',
-            url: '/api/createPiggybank',
-        }).as('createPiggybank');
+            url: /^https:\/\/firestore.googleapis.com\/.*/,
+        }).as('getUserOwnedPiggybanks');
         cy.callFirestore("delete", `piggybanks/${testCoindropName}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName}`, {
             owner_uid: Cypress.env("TEST_UID"),
