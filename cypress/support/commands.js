@@ -5,6 +5,7 @@ import "firebase/auth";
 import "firebase/database";
 import "firebase/firestore";
 import { attachCustomCommands } from "cypress-firebase";
+import 'cypress-file-upload';
 
 export const config = {
   apiKey: Cypress.env("NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY"),
