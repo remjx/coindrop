@@ -2,10 +2,16 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
       "noEmit": true,
-      "types": ["node", "cypress"]
+      "types": [
+        "node",
+        "cypress",
+        "cypress-file-upload"
+      ]
     },
     "include": [
       "../node_modules/cypress",
+      "../node_modules/cypress-file-upload",
       "./**/*.ts"
-    ]
+    ],
+    "exclude": []
 }

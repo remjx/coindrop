@@ -6,6 +6,7 @@ import { default as NextImage } from 'next/image';
 import { DeleteIcon, WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from 'uuid';
+import { mutate } from 'swr';
 import { useUser } from '../../../utils/auth/useUser';
 import { storage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
@@ -31,7 +32,7 @@ function getImageDimensions(file: File): Promise<{ width: number, height: number
 
 const AvatarInput: FunctionComponent = () => {
     const inputRef = useRef<FileInputRef>(null);
-    const { piggybankDbData, setPiggybankDbData } = useContext(PublicPiggybankDataContext);
+    const { piggybankDbData } = useContext(PublicPiggybankDataContext);
     const currentAvatarStorageId = piggybankDbData.avatar_storage_id;
     const { query: { piggybankName: piggybankNameQuery } } = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
@@ -52,7 +53,7 @@ const AvatarInput: FunctionComponent = () => {
           piggybankName,
         }),
       ]);
-      setPiggybankDbData({ ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
+      mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
     };
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
@@ -100,7 +101,16 @@ const AvatarInput: FunctionComponent = () => {
             {
               currentAvatarStorageId
               ? <Avatar />
-              : <NextImage id="avatar-img" width={200} height={200} src="/avatar-placeholder.png" alt="avatar placeholder" />
+              : (
+                <NextImage
+                  id="avatar-img"
+                  width={200}
+                  height={200}
+                  src="/avatar-placeholder.png"
+                  alt="avatar placeholder"
+                  data-cy="avatar-placeholder"
+                />
+              )
             }
           </Box>
           <Center>
@@ -123,6 +133,7 @@ const AvatarInput: FunctionComponent = () => {
                     colorScheme="red"
                     size="sm"
                     leftIcon={<DeleteIcon />}
+                    data-cy="remove-image-btn"
                   >
                     Remove image
                   </Button>

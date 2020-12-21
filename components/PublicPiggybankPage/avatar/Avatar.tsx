@@ -17,7 +17,10 @@ export const Avatar: FunctionComponent = () => {
     });
     if (!avatar_storage_id) return null;
     return (
-        <div className={styles.imageWrapper}>
+        <div
+            className={styles.imageWrapper}
+            data-cy="coindrop-avatar"
+        >
             <Image
                 src={publicAvatarUrl}
                 alt="avatar"

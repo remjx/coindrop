@@ -7,10 +7,6 @@ describe('Delete Coindrop', () => {
     const testID_hljkx3 = "hljkx3";
     const testCoindropName = `cy-${testID_hljkx3}`;
     it('Delete Coindrop', () => {
-        cy.intercept({
-            method: 'POST',
-            url: '/api/createPiggybank',
-        }).as('createPiggybank');
         cy.callFirestore("delete", `piggybanks/${testCoindropName}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName}`, {
             owner_uid: Cypress.env("TEST_UID"),
