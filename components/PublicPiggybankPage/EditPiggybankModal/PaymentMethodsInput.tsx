@@ -59,6 +59,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
+    // optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853
     const optionsGroup = (category: Category) => {
         const optgroupLabels: Record<Category, string> = {
             "digital-wallet": 'Digital Wallets',
@@ -154,9 +155,22 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        {optionsGroup('digital-wallet')}
-                                        {optionsGroup('digital-asset')}
-                                        {optionsGroup('subscription-platform')}
+                                        {/* optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853 */}
+                                        {Object.entries(paymentMethodNames)
+                                            .sort((a, b) => {
+                                                const [aId] = a;
+                                                const [bId] = b;
+                                                return aId < bId ? -1 : 1;
+                                            })
+                                            .map(([paymentMethodId, paymentMethodDisplayName]) => (
+                                                <option
+                                                    key={paymentMethodId}
+                                                    value={paymentMethodId}
+                                                    style={{display: paymentMethodsDataWatch.map(paymentMethod => paymentMethod.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
+                                                >
+                                                    {paymentMethodDisplayName}
+                                                </option>
+                                            ))}
                                     </Select>
                                 </Box>
                                 <Box
