@@ -16,7 +16,7 @@ describe('Create Coindrop on Dashboard', () => {
         }).as('getUserOwnedPiggybanks');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_dbk8fi}`);
         cy.visit('/dashboard');
-        cy.contains('Loading...');
+        cy.get('[data-cy="coindrops-loading-skeleton"]');
         cy.wait('@getUserOwnedPiggybanks');
         cy.get('#create-new-coindrop-button', { timeout: 15000 })
             .click();
