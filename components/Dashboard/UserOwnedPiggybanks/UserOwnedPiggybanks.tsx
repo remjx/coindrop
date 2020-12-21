@@ -103,7 +103,7 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
             textAlign="center"
             mt={6}
         >
-            <Stack>
+            <Stack id="coindrops-loading-skeleton">
                 {SkeletonArray(5).map(v => <LoadingSkeleton key={v} />)}
             </Stack>
         </Box>
