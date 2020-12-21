@@ -25,6 +25,7 @@ export const FileInput = forwardRef<FileInputRef, Props>((props, ref) => {
                 accept={accept}
                 onChange={onChange}
                 ref={ref}
+                data-cy="file-input"
             />
             <label
                 className={styles.label}
