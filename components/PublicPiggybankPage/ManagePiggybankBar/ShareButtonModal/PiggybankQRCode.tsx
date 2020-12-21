@@ -10,21 +10,25 @@ type Props = {
 
 const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl }) => {
     const onPrint = () => {
-        const canvas = document.getElementById('qrcode') as HTMLCanvasElement;
+        const canvas = document.getElementById('coindrop-qr-code') as HTMLCanvasElement;
         const imgCanvas = canvas.toDataURL();
         const myWindow = window.open();
         myWindow.document.write(`<div><div>${publicUrl}</div><br /><img src="${imgCanvas}" /></div>`);
-        myWindow.document.close();
         myWindow.focus();
         myWindow.print();
     };
     return (
         <>
-            <Heading as="h2" size="lg" mt={4}>
+            <Heading
+                as="h2"
+                size="lg"
+                mt={4}
+            >
                 QR Code
             </Heading>
             <Center mt={4}>
                 <QRCode
+                    id="coindrop-qr-code"
                     value={fullPublicUrl}
                     size={225}
                     imageSettings={{
