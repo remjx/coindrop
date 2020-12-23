@@ -35,7 +35,7 @@
     "axios": "^0.20.0",
     "dayjs": "^1.9.7",
     "firebase": "7.19.1",
-    "firebase-admin": "^9.4.1",
+    "firebase-admin": "^9.4.2",
     "framer-motion": "^2.9.4",
     "gray-matter": "^4.0.2",
     "js-cookie": "^2.2.1",
