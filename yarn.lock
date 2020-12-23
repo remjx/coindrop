@@ -10841,10 +10841,10 @@ shellwords@^0.1.1:
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
-short-unique-id@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/short-unique-id/-/short-unique-id-3.2.0.tgz#e7bc1c01908495a61b8613201a018c9a3db4a0e7"
-  integrity sha512-CAO0U4AOJs/3R8tFz+pt8WIscxQte0VZ6DXD0E413p/ujpa/KNdRGwVSmTiGNWOBvSiThVcG0wm8zaWHAZcCsA==
+short-unique-id@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/short-unique-id/-/short-unique-id-3.2.3.tgz#c35c8230d4ece9c27a14c41d2ca24730344c6e01"
+  integrity sha512-DaUTmZe2PP34AQ2DmBOjo0W41Br/74EbKmEosfipbMJdJf2MCdzgJBOXn+PRe/ERFnr9uRKnUa6Kb5X+VC3bCQ==
 
 side-channel@^1.0.2:
   version "1.0.3"
