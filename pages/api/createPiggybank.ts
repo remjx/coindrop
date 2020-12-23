@@ -1,7 +1,3 @@
-
-import { join } from 'path';
-import { readFileSync } from 'fs';
-import getConfig from 'next/config'
 import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -11,9 +7,8 @@ import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';
 import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
 import { PublicPiggybankDataType } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
-
-const { serverRuntimeConfig } = getConfig();
-const rootPageSlugs = JSON.parse(readFileSync(join(serverRuntimeConfig.PROJECT_ROOT, './public/path-slugs.json)'), 'utf-8'));
+// eslint-disable-next-line import/no-unresolved
+import rootPageSlugs from '../page-slugs.json';
 
 const storage = new Storage({
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,

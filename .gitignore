@@ -43,4 +43,3 @@ serviceAccount.json
 # files generated during yarn build
 public/embed-button.js
 public/blog-content/**
-public/page-slugs.json

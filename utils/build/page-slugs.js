@@ -8,4 +8,6 @@ const rootPageNames = readdirSync(join(process.cwd(), 'pages'))
     .replace('.ts', '')
     .replace('.js', ''));
 
-writeFileSync(join(process.cwd(), './public/page-slugs.json'), JSON.stringify(rootPageNames));
+const dir = './pages/page-slugs.json';
+writeFileSync(join(process.cwd(), dir), JSON.stringify(rootPageNames));
+console.log(`Page slugs written to ${dir}`);

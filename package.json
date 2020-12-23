@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "license": "GPL-3.0-only",
   "scripts": {
-    "dev:local": "yarn run expose:blog:content && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/next dev",
-    "dev:vercel": "yarn run expose:blog:content && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/vercel dev",
+    "dev:local": "yarn run expose:blog:content && yarn run expose:page:slugs && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/next dev",
+    "dev:vercel": "yarn run expose:blog:content && yarn run expose:page:slugs && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/vercel dev",
     "expose:blog:content": "node ./src/lib/blog/generate-static-files.js",
     "expose:page:slugs": "node ./utils/build/page-slugs.js",
     "generate:static:files": "node ./src/embed-button/generate.js && yarn run expose:blog:content && yarn run expose:page:slugs",
