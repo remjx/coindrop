@@ -39,7 +39,7 @@
     "gray-matter": "^4.0.2",
     "js-cookie": "^2.2.1",
     "minify": "^6.0.0",
-    "next": "^10.0.3",
+    "next": "^10.0.4",
     "next-connect": "^0.9.0",
     "next-mdx-remote": "^1.0.1",
     "next-seo": "^4.11.0",
