@@ -7,7 +7,6 @@ import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';
 import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
 import { PublicPiggybankDataType } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
-// eslint-disable-next-line import/no-unresolved
 import rootPageSlugs from '../page-slugs.json';
 
 const storage = new Storage({

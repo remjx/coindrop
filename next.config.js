@@ -8,7 +8,4 @@ module.exports = withBundleAnalyzer({
     images: {
         domains: ['storage.googleapis.com'],
     },
-    serverRuntimeConfig: {
-        PROJECT_ROOT: __dirname,
-    },
 });
