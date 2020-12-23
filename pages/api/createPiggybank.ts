@@ -1,9 +1,10 @@
-import { readdirSync } from 'fs';
+
 import { join } from 'path';
+import { readFileSync } from 'fs';
+import getConfig from 'next/config'
 import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
 import { NextApiRequest, NextApiResponse } from 'next';
-import getConfig from 'next/config'
 import { v4 as uuidV4 } from 'uuid';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
@@ -12,13 +13,7 @@ import { piggybankImageStoragePath } from '../../utils/storage/image-paths';
 import { PublicPiggybankDataType } from '../../components/PublicPiggybankPage/PublicPiggybankDataContext';
 
 const { serverRuntimeConfig } = getConfig();
-
-const rootPageNames = readdirSync(join(serverRuntimeConfig.PROJECT_ROOT, './pages'))
-  .map(readdirResult => readdirResult
-    .replace('.tsx', '')
-    .replace('.jsx', '')
-    .replace('.ts', '')
-    .replace('.js', ''));
+const rootPageSlugs = JSON.parse(readFileSync(join(serverRuntimeConfig.PROJECT_ROOT, './public/path-slugs.json)'), 'utf-8'));
 
 const storage = new Storage({
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -30,7 +25,7 @@ const storage = new Storage({
 
 const piggybankExistsErrorMessage = 'A piggybank with this name already exists.';
 async function isPiggybankNameNonexistant(piggybankName: string) {
-  if (rootPageNames.includes(piggybankName)) {
+  if (rootPageSlugs.includes(piggybankName)) {
     throw new Error(piggybankExistsErrorMessage);
   }
   const piggybank = await db()
