@@ -13,7 +13,7 @@ import { PublicPiggybankDataType } from '../../components/PublicPiggybankPage/Pu
 
 const { serverRuntimeConfig } = getConfig();
 
-const rootPageNames = readdirSync(join(serverRuntimeConfig, './pages'))
+const rootPageNames = readdirSync(join(serverRuntimeConfig.PROJECT_ROOT, './pages'))
   .map(readdirResult => readdirResult
     .replace('.tsx', '')
     .replace('.jsx', '')
