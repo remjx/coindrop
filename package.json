@@ -32,7 +32,7 @@
     "@types/jest": "^26.0.16",
     "@types/mocha": "^8.2.0",
     "axios": "^0.20.0",
-    "dayjs": "^1.9.6",
+    "dayjs": "^1.9.7",
     "firebase": "7.19.1",
     "firebase-admin": "^9.4.1",
     "framer-motion": "^2.9.4",
