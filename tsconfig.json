@@ -23,7 +23,7 @@
     "global.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx", "utils/build/page-slugs.js"
+    "**/*.tsx",
   ],
   "exclude": [
     "node_modules",
