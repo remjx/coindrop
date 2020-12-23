@@ -29,7 +29,7 @@
     "@google-cloud/storage": "^5.7.0",
     "@next/bundle-analyzer": "^9.5.3",
     "@types/chai": "^4.2.14",
-    "@types/jest": "^26.0.16",
+    "@types/jest": "^26.0.19",
     "@types/mocha": "^8.2.0",
     "axios": "^0.20.0",
     "dayjs": "^1.9.7",
