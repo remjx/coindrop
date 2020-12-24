@@ -42,7 +42,7 @@
     "minify": "^6.0.0",
     "next": "^10.0.4",
     "next-connect": "^0.9.0",
-    "next-mdx-remote": "^1.0.1",
+    "next-mdx-remote": "^2.0.0",
     "next-seo": "^4.11.0",
     "qrcode.react": "^1.0.0",
     "react": "^16.13.1",
