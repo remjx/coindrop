@@ -15,6 +15,7 @@ import {
     useColorModeValue,
     UnorderedList,
     ListItem,
+    useTheme,
 } from "@chakra-ui/react";
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
 import { coindropEmail, githubUrl, markJacksonWebsite, githubAddPaymentMethodRequest } from '../src/settings';
@@ -127,6 +128,7 @@ const accordionText: AccordionText[] = [
 ];
 
 const FAQ: FunctionComponent = () => {
+    const theme = useTheme();
     const panelBgColor = useColorModeValue("gray.50", undefined);
     return (
         <Box>
@@ -138,7 +140,7 @@ const FAQ: FunctionComponent = () => {
                     Frequently Asked Questions
                 </Text>
             </Box>
-            <Container maxW="lg">
+            <Container maxW={theme.breakpoints.lg}>
                 <Accordion defaultIndex={-1} allowToggle>
                     {accordionText.map(({title, body}) => (
                         <AccordionItem key={title}>
