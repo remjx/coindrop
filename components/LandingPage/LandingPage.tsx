@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode, useTheme } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import QRCode from 'qrcode.react';
 import Image from 'next/image';
@@ -37,28 +37,34 @@ const QRCodeExample: FC = () => {
     );
 };
 
-const HeaderFooterContainer: FC = ({ children }) => (
-    <Container
-        maxW="xl"
-    >
-        {children}
-    </Container>
-);
+const HeaderFooterContainer: FC = ({ children }) => {
+    const theme = useTheme();
+    return (
+        <Container
+            maxW={theme.breakpoints.xl}
+        >
+            {children}
+        </Container>
+    );
+};
 
 type ContentContainerProps = {
     boxProps?: BoxProps
 }
 
-const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => (
+const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => {
+    const theme = useTheme();
+    return (
     <Container
         my={24}
-        maxW="xl"
+        maxW={theme.breakpoints.xl}
         // eslint-disable-next-line react/jsx-props-no-spreading
         {...boxProps}
     >
         {children}
     </Container>
-);
+    );
+};
 
 type ContentContainerHeadingProps = {
     headingProps?: HeadingProps
@@ -192,7 +198,7 @@ const LandingPage: FunctionComponent = () => {
         >
             <Container
                 my="3rem"
-                maxW="xl"
+                maxW="98em" // there is no theme.breakpoints.2xl
             >
                 <Heading
                     textAlign="center"

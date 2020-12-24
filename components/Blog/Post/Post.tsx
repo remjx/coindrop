@@ -1,6 +1,6 @@
 import { NextSeo, ArticleJsonLd } from 'next-seo';
 import { FunctionComponent } from 'react';
-import { Container, Link, Text, Heading, Avatar, Flex } from '@chakra-ui/react';
+import { Container, Link, Text, Heading, Avatar, Flex, useTheme } from '@chakra-ui/react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { PostTypePostHydrate } from '../../../src/lib/blog/types';
@@ -20,6 +20,7 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
         content,
     }) => {
     const { avatar: authorAvatar, handle: authorHandle, url: authorUrl } = authors[author];
+    const theme = useTheme();
     return (
         <>
             <NextSeo
@@ -83,7 +84,7 @@ export const Post: FunctionComponent<PostTypePostHydrate> = ({
                 <hr />
                 <Container
                     mt={8}
-                    maxW="md"
+                    maxW={theme.breakpoints.md}
                 >
                     {content}
                     {dateModified && (

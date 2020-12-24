@@ -75,7 +75,7 @@ const PublicPiggybankPage: FunctionComponent = () => {
             description={`Send money to ${name} with no fees`}
         />
         <Container
-            maxW="lg"
+            maxW={theme.breakpoints.lg}
             mx="auto"
             position="relative"
         >
