@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { FunctionComponent, useState } from 'react';
+import { useEffect, FunctionComponent, useState } from 'react';
 import NextLink from 'next/link';
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps } from '@chakra-ui/react';
@@ -33,6 +33,11 @@ type Props = {
 const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initialSetupComplete }) => {
     const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
     const [isDashboardLoading, setIsDashboardLoading] = useState(false);
+    useEffect(() => {
+        if (!initialSetupComplete) {
+            onEditOpen();
+        }
+    }, []);
     return (
         <Box>
             {isEditOpen && ( // this conditional is needed to force remount of form so latest values are used
