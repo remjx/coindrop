@@ -2,24 +2,12 @@ import { FunctionComponent, useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { NotAllowedIcon, CheckIcon } from "@chakra-ui/icons";
 import { InputGroup, InputLeftAddon, Spinner, Box, Input, InputRightElement } from '@chakra-ui/react';
-import { db } from '../../../utils/client/db';
 import useDebounce from '../../../utils/hooks/useDebounce';
 import { AdditionalValidation } from './AdditionalValidationContext';
-
-async function isUrlAvailable(path: string) {
-    try {
-        const piggybankRef = await db
-            .collection('piggybanks')
-            .doc(path)
-            .get();
-        if (piggybankRef.exists) {
-            return false;
-        }
-        return true;
-    } catch (err) {
-        throw new Error('Error checking if url is available.');
-    }
-}
+import { isCoindropUrlAvailable } from '../../../src/db/queries/coindrops/isCoindropUrlAvailable';
+import { piggybankPathRegex } from '../../../src/settings';
+import { CoindropRequirements } from '../../CoindropRequirements/CoindropRequirements';
+import { CreateCoindropError } from '../../CreatePiggybankInput/CreateCoindropError';
 
 type StatusIconProps = {
     value: string
@@ -60,16 +48,26 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
     const currentPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
+    const [error, setError] = useState<'Invalid input' | 'Id taken'>();
     const debouncedValue = useDebounce(value, 1500);
     const { setIsPiggybankIdAvailable } = useContext(AdditionalValidation);
     useEffect(
         () => {
             if (debouncedValue && debouncedValue !== currentPiggybankId) {
                 setIsValidating(true);
-                isUrlAvailable(debouncedValue).then(result => {
-                    setIsValidating(false);
-                    setIsValid(result);
-                });
+                const isInvalid = !debouncedValue.match(piggybankPathRegex);
+                if (isInvalid) {
+                    setIsValid(false);
+                    setError('Invalid input');
+                } else {
+                    isCoindropUrlAvailable(debouncedValue).then(isAvailable => {
+                        setIsValid(isAvailable);
+                        if (!isAvailable) {
+                            setError('Id taken');
+                        }
+                    });
+                }
+                setIsValidating(false);
             }
         },
         [debouncedValue],
@@ -83,6 +81,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         }
     }, [isValidating, isValid, isUrlUnchanged]);
     return (
+        <>
         <InputGroup>
             <InputLeftAddon>
                 coindrop.to/
@@ -105,6 +104,15 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
                 />
             </InputRightElement>
         </InputGroup>
+        {error === 'Invalid input' && (
+            <CoindropRequirements />
+        )}
+        {error === 'Id taken' && (
+            <CreateCoindropError
+                error="This name is already taken"
+            />
+        )}
+        </>
     );
 };
 
