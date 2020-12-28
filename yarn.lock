@@ -8486,10 +8486,10 @@ next-connect@^0.9.0:
   dependencies:
     trouter "^3.1.0"
 
-next-mdx-remote@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/next-mdx-remote/-/next-mdx-remote-2.0.0.tgz#74237c8d23b2d48e3933626cdc69c1d743f67971"
-  integrity sha512-inIJWnmG+fek3vRaDGwar0K/wE7h8pL+HdKqDcjEImwACTZH7lo/PNRD/ukgYLQd1LDTgEnSWP+AlUkujdBUig==
+next-mdx-remote@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/next-mdx-remote/-/next-mdx-remote-2.0.1.tgz#ef344d2f4833a1b4a77efa224dde760a5566a4cc"
+  integrity sha512-UdSAsjxN0gcIf1IjvStmRjubNZq7tEVjiQmr2T1o04GS2ZtNuzhML5HQptQ4qcpenYG/y6SAMITRZiSRUnFuYA==
   dependencies:
     "@babel/core" "^7.12.10"
     "@babel/preset-env" "^7.12.11"
