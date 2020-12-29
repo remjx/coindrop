@@ -4622,10 +4622,10 @@ cypress-file-upload@^4.1.1:
   dependencies:
     mime "^2.4.4"
 
-cypress-firebase@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/cypress-firebase/-/cypress-firebase-1.5.0.tgz#3328bdc08b2d6e807e1c2c359d5baf2377aa5f77"
-  integrity sha512-bwiOEykSeRSrOvLHwkjOKJFYeycRv+DJzc5WpJa2H+DZwQW7jUHdziIvvFoWB5F/dR4NLTu51Vs3zcaRfedNXg==
+cypress-firebase@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/cypress-firebase/-/cypress-firebase-1.6.0.tgz#c585f5365f9e5e1fb39d194a5e4039a02326c66c"
+  integrity sha512-VFBr8/xKM4tHtmiFMp/iUnE/fiBcOK+l4jVrqh4j/hxFCFARAOJE7CoQfSXRvBLHWPoGtzVMcC4IHNQhob0gKQ==
 
 cypress@6.2.0:
   version "6.2.0"

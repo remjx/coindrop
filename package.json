@@ -69,7 +69,7 @@
     "cross-env": "^7.0.3",
     "cypress": "6.2.0",
     "cypress-file-upload": "^4.1.1",
-    "cypress-firebase": "^1.5.0",
+    "cypress-firebase": "^1.6.0",
     "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-cypress": "^2.11.2",
