@@ -48,40 +48,48 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
     const currentPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
-    const [error, setError] = useState<'Invalid input' | 'Id taken'>();
+    const [error, setError] = useState<'Invalid input' | 'Id taken' | 'Network error'>();
     const debouncedValue = useDebounce(value, 1500);
     const { setIsPiggybankIdAvailable } = useContext(AdditionalValidation);
-    useEffect(
-        () => {
-            if (debouncedValue && debouncedValue !== currentPiggybankId) {
-                setIsValidating(true);
-                const isInvalid = !debouncedValue.match(piggybankPathRegex);
-                if (isInvalid) {
-                    setIsValid(false);
-                    setError('Invalid input');
-                } else {
-                    isCoindropUrlAvailable(debouncedValue).then(isAvailable => {
-                        setIsValid(isAvailable);
-                        if (!isAvailable) {
-                            setError('Id taken');
-                        } else {
-                            setError(null);
-                        }
-                    });
-                }
-                setIsValidating(false);
-            }
-        },
-        [debouncedValue],
-    );
     const isUrlUnchanged = value === currentPiggybankId;
-    useEffect(() => {
-        if ((isValid && !isValidating) || isUrlUnchanged) {
+    const isInvalid = !debouncedValue.match(piggybankPathRegex);
+    const validateIsAvailable = async () => {
+        if (isUrlUnchanged) {
+            setIsValid(true);
             setIsPiggybankIdAvailable(true);
-        } else {
-            setIsPiggybankIdAvailable(false);
+            setError(null);
+            setIsValidating(false);
+            return;
         }
-    }, [isValidating, isValid, isUrlUnchanged]);
+        if (isInvalid) {
+            setIsValid(false);
+            setIsPiggybankIdAvailable(false);
+            setError('Invalid input');
+            setIsValidating(false);
+            return;
+        }
+        try {
+            const isAvailable = await isCoindropUrlAvailable(debouncedValue);
+            setIsValid(isAvailable && !isInvalid);
+            setIsPiggybankIdAvailable(isAvailable && !isInvalid);
+            if (!isAvailable) {
+                setError('Id taken');
+            }
+        } catch (err) {
+            setIsValid(false);
+            setIsPiggybankIdAvailable(false);
+            setError('Network error');
+        } finally {
+            setIsValidating(false);
+        }
+    };
+    useEffect(() => {
+        validateIsAvailable();
+    }, [debouncedValue]);
+    useEffect(() => {
+        setIsValidating(true);
+        setError(null);
+    }, [value]);
     return (
         <>
         <InputGroup>
@@ -112,6 +120,11 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         {error === 'Id taken' && (
             <CreateCoindropError
                 error="This URL is already taken"
+            />
+        )}
+        {error === 'Network error' && (
+            <CreateCoindropError
+                error="Error checking availability, please try again"
             />
         )}
         </>
