@@ -64,6 +64,8 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
                         setIsValid(isAvailable);
                         if (!isAvailable) {
                             setError('Id taken');
+                        } else {
+                            setError(null);
                         }
                     });
                 }
@@ -109,7 +111,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         )}
         {error === 'Id taken' && (
             <CreateCoindropError
-                error="This name is already taken"
+                error="This URL is already taken"
             />
         )}
         </>
