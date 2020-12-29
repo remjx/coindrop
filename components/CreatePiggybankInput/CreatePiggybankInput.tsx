@@ -1,10 +1,12 @@
 import { useState, FunctionComponent, createRef, useEffect } from 'react';
-import { Box, ListItem, Flex, Input, InputGroup, InputLeftAddon, Button, Text, useColorModeValue, UnorderedList } from "@chakra-ui/react";
+import { Box, Flex, Input, InputGroup, InputLeftAddon, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
 import { useUser } from '../../utils/auth/useUser';
 import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { piggybankPathRegex } from '../../src/settings';
+import { CoindropRequirements } from '../CoindropRequirements/CoindropRequirements';
+import { CreateCoindropError } from './CreateCoindropError';
 
 const BoxMargin: FunctionComponent = ({ children }) => (
     <Box mt={2}>
@@ -32,7 +34,6 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ buttonText, ins
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
     const [isCreateTriggered, setIsCreateTriggered] = useState(false);
     const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
-    const errorTextColor = useColorModeValue("red.500", "red.300");
     async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
@@ -103,24 +104,12 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ buttonText, ins
                 )}
             </Flex>
             {error && (
-                <Text mt={2} textAlign="center" color={errorTextColor}>
-                    {error}
-                </Text>
+                <CreateCoindropError
+                    error={error}
+                />
             )}
             {isCandidatePiggybankPathInvalid && (
-                <Box mt={2}>
-                    <Text
-                        textAlign="center"
-                    >
-                        Requirements:
-                        <UnorderedList listStylePosition="inside">
-                            <ListItem>Starts with a letter</ListItem>
-                            <ListItem>Only includes letters, numbers, dashes (-), and underscores (_)</ListItem>
-                            <ListItem>Ends with a letter or number</ListItem>
-                            <ListItem>Has a maximum length of 32 characters</ListItem>
-                        </UnorderedList>
-                    </Text>
-                </Box>
+                <CoindropRequirements />
             )}
         </form>
     );
