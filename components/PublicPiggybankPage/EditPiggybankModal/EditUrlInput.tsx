@@ -119,7 +119,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         )}
         {error === 'Id taken' && (
             <CreateCoindropError
-                error="This URL is already taken"
+                error="URL is taken, try another!"
             />
         )}
         {error === 'Network error' && (
