@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
-import { Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { AiOutlineShopping } from 'react-icons/ai'
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
@@ -17,6 +18,16 @@ const UserMenu = () => {
                 <HamburgerMenuIcon />
             </MenuButton>
             <MenuList>
+                <NextLink href="/shop">
+                    <MenuItem>
+                        <Flex
+                            align="center"
+                        >
+                            <Icon mr={2} as={AiOutlineShopping} />
+                            Shop
+                        </Flex>
+                    </MenuItem>
+                </NextLink>
                 <MenuItem
                     onClick={toggleColorMode}
                 >

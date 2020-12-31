@@ -33,6 +33,11 @@ const Footer: FunctionComponent = () => {
                     />
                     <Divider />
                     <InternalLink
+                        href="/shop"
+                        text="Shop"
+                    />
+                    <Divider />
+                    <InternalLink
                         href="/blog/page/1"
                         text="Blog"
                     />
