@@ -21,17 +21,24 @@ function ecwidBuyNowTip2500() {
     return {__html: '<div class="ecsp ecsp-SingleProduct-v2 ecsp-Product ec-Product-276366536" itemtype="http://schema.org/Product" data-single-product-id="276366536"><div class="ecsp-title" itemprop="name" style="display:none;" content="2500 Tip Cards"></div><div customprop="addtobag"></div></div><script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?44137065&data_platform=singleproduct_v2" charset="utf-8"></script><script type="text/javascript">xProduct()</script>'};
 }
 
+function ecwidBuyNowTip5000() {
+    return {__html: '<div class="ecsp ecsp-SingleProduct-v2 ecsp-Product ec-Product-276426349" itemtype="http://schema.org/Product" data-single-product-id="276426349"><div class="ecsp-title" itemprop="name" style="display:none;" content="5000 Tip Cards"></div><div customprop="addtobag"></div></div><script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?44137065&data_platform=singleproduct_v2" charset="utf-8"></script><script type="text/javascript">xProduct()</script>'};
+}
+
 const FAQ: FunctionComponent = () => {
     return (
         <Box mt={4}>
             <div id="my-store-44137065" />
-            {/* <div dangerouslySetInnerHTML={ecwidStoreScript()} /> */}
+            <div dangerouslySetInnerHTML={ecwidStoreScript()} />
             <Text>500 Tip Cards</Text>
             <div dangerouslySetInnerHTML={ecwidBuyNowTip500()} />
             <Text>1000 Tip Cards</Text>
             <div dangerouslySetInnerHTML={ecwidBuyNowTip1000()} />
             <Text>2500 Tip Cards</Text>
             <div dangerouslySetInnerHTML={ecwidBuyNowTip2500()} />
+            <Text>5000 Tip Cards</Text>
+            <div dangerouslySetInnerHTML={ecwidBuyNowTip5000()} />
+            {/*   */}
         </Box>
     );
 };
