@@ -1,5 +1,5 @@
 const bundleAnalyzer = require('@next/bundle-analyzer');
-const withImages = require('next-images')
+const withImages = require('next-images');
 
 const withBundleAnalyzer = bundleAnalyzer({
     enabled: process.env.ANALYZE === 'true',
