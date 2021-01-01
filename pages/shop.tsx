@@ -109,17 +109,18 @@ const Shop: FC = () => {
                     direction={["column", "row"]}
                     align={["center", "start"]}
                 >
-                    <Box>
+                    <Flex
+                        flex="1 0 auto"
+                    >
                         <Image src="/shop/tip-card.png" height="300" width="300" />
-                    </Box>
+                    </Flex>
                     <Box ml={4}>
                         <Heading mb={3}>Tip Cards</Heading>
                         <Text>
                             Accept donations and tips in the real world.
-                            Are you a restaurant? Include tip cards in your to-go boxes.
-                            Are you a street performer? Leave a stack of tip cards next to your tip jar.
-                            Are you a 
-                            Cards measure 3 inches x 3 inches.
+                            <br />
+                            <br />
+                            Cards measure 3 inches x 3 inches. Text and design can be customized.
                         </Text>
                         <Flex mt={2} direction="row" wrap="wrap" align="center">
                             <Text>Quantity:</Text>

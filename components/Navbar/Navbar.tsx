@@ -3,7 +3,7 @@ import { Link, Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColo
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
-import { AiOutlineShopping } from 'react-icons/ai'
+import { AiOutlineShopping } from 'react-icons/ai';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';

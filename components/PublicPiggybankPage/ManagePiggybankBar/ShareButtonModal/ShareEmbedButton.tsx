@@ -36,7 +36,7 @@ const ShareEmbedButton: FunctionComponent<Props> = ({ fullPublicUrl }) => {
                             mb={1}
                             onClick={onCopyImage}
                         >
-                            {hasCopiedImage ? 'Copied' : 'Copy Button Code'}
+                            {hasCopiedImage ? 'Copied' : 'Copy Embed Code'}
                         </Button>
                     </Box>
                 </>
