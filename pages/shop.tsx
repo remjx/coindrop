@@ -7,38 +7,12 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
 
-const loadButton = (callback) => {
-    console.log('loadButton1');
-    const existingScript = document.getElementById('currentScript');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.src = 'https://app.ecwid.com/script.js?44137065&data_platform=singleproduct_v2';
-      script.id = 'currentScript';
-      script.type = "text/javascript";
-    //   script['data-cfasync'] = "false";
-      document.body.appendChild(script);
-      script.onload = () => {
-        if (callback) callback();
-      };
-    }
-    if (existingScript && callback) callback();
-};
-
-const loadButton2 = (callback) => {
-    console.log('loadButton2');
-    const existingScript = document.getElementById('buttonScript2');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.text = 'xProduct();';
-      script.id = 'buttonScript2';
-      script.type = "text/javascript";
-      document.body.appendChild(script);
-      script.onload = () => {
-        if (callback) callback();
-      };
-    }
-    if (existingScript && callback) callback();
-};
+// script execution issue references...
+    // https://github.com/vercel/next.js/issues/4477
+    // https://www.npmjs.com/package/react-load-script
+    // https://medium.com/better-programming/loading-third-party-scripts-dynamically-in-reactjs-458c41a7013d
+    // https://usehooks.com/useScript/
+    // add/remove script on page changes https://nextjs.org/docs/api-reference/next/router
 
 class ProductData {
     buyButtonCode: () => ({ __html: string })
@@ -110,22 +84,15 @@ const TipCardBuyButtons: FC<{ selectedId: string}> = ({ selectedId }) => (
 );
 
 const Shop: FC = () => {
-    const [isScriptLoaded, setIsScriptLoaded] = useState(false);
     const [selectedTipCard, setSelectedTipCard] = useState("tip500");
-    useEffect(() => {
-        loadButton(loadButton2(() => setIsScriptLoaded(true)));
-    });
     const router = useRouter();
     useEffect(() => {
-        const handleRouteChange = () => {
-            document.getElementById('buttonScript').remove();
-            document.getElementById('buttonScript2').remove();
-        };
-        router.events.on('routeChangeStart', handleRouteChange);
-        return () => {
-            router.events.off('routeChangeStart', handleRouteChange);
-        };
-    }, []);
+        console.log('router.query', router.query);
+        if (!router.query.r) {
+            router.push({ pathname: '/shop', query: { r: 1 }});
+            router.reload();
+        }
+    }, [router]);
     return (
         <Box>
             <Heading
@@ -169,9 +136,7 @@ const Shop: FC = () => {
                                 {` (${products[selectedTipCard].pricePer} per card)`}
                             </Text>
                         </Flex>
-                        {/* <TipCardBuyButtons selectedId={selectedTipCard} /> */}
-                        {!isScriptLoaded && <Spinner />}
-                        <div id="ecwid-container" dangerouslySetInnerHTML={ecwidContainerTest()} />
+                        <TipCardBuyButtons selectedId={selectedTipCard} />
                     </Box>
                 </Flex>
             </Box>
