@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react';
 import QRCode from 'qrcode.react';
 import { Heading, Button, Center } from '@chakra-ui/react';
 import { PrintIcon } from '../../../Icons/CustomIcons';
+import piggy64Png from '../../../../public/logo/piggy-64.png';
 
 type Props = {
     publicUrl: string
@@ -32,7 +33,7 @@ const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl })
                     value={fullPublicUrl}
                     size={225}
                     imageSettings={{
-                        src: "/logo/piggy-64.png",
+                        src: piggy64Png,
                         x: null,
                         y: null,
                         height: 64,

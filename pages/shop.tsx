@@ -1,9 +1,8 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
-import { FC, useState, useEffect } from 'react';
-import { Box, Select, Heading, Text, Flex, Spinner, useColorModeValue } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { FC, useState } from 'react';
+import { Box, Select, Heading, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
 
@@ -29,10 +28,6 @@ class ProductData {
         this.price = price;
         this.pricePer = `${((price / quantity) * 100).toPrecision(2)}¢`;
     }
-}
-
-function ecwidContainerTest() {
-    return {__html: '<div class="ecsp ecsp-SingleProduct-v2 ecsp-Product ec-Product-276239705" itemtype="http://schema.org/Product" data-single-product-id="276239705"><div class="ecsp-title" itemprop="name" style="display:none;" content="500 Tip Cards"></div><div customprop="addtobag"></div></div>'};
 }
 
 const products: Record<string, ProductData> = {

@@ -15,27 +15,22 @@ import { Category } from '../../src/paymentMethods';
 import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 import styles from './LandingPage.module.scss';
+import piggy64Png from '../../public/logo/piggy-64.png';
 
-const QRCodeExample: FC = () => {
-    const [environment, setEnvironment] = useState<'browser' | 'server'>('server');
-    useEffect(() => {
-        setEnvironment('browser');
-    }, []);
-    return (
-        <QRCode
-            value="https://coindrop.to/satoshi-nakamoto"
-            size={150}
-            imageSettings={environment === 'browser' ? {
-                src: "/logo/piggy-64.png",
-                x: null,
-                y: null,
-                height: 64,
-                width: 64,
-                excavate: true,
-            } : undefined}
-        />
-    );
-};
+const QRCodeExample: FC = () => (
+    <QRCode
+        value="https://coindrop.to/satoshi-nakamoto"
+        size={150}
+        imageSettings={{
+            src: piggy64Png,
+            x: null,
+            y: null,
+            height: 64,
+            width: 64,
+            excavate: true,
+        }}
+    />
+);
 
 const HeaderFooterContainer: FC = ({ children }) => {
     const theme = useTheme();
