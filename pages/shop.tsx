@@ -1,10 +1,44 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
-import { FC, useState } from 'react';
-import { Box, Select, Heading, Text, Flex } from '@chakra-ui/react';
+import { FC, useState, useEffect } from 'react';
+import { Box, Select, Heading, Text, Flex, Spinner } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
+
+const loadButton = (callback) => {
+    console.log('loadButton1');
+    const existingScript = document.getElementById('currentScript');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://app.ecwid.com/script.js?44137065&data_platform=singleproduct_v2';
+      script.id = 'currentScript';
+      script.type = "text/javascript";
+    //   script['data-cfasync'] = "false";
+      document.body.appendChild(script);
+      script.onload = () => {
+        if (callback) callback();
+      };
+    }
+    if (existingScript && callback) callback();
+};
+
+const loadButton2 = (callback) => {
+    console.log('loadButton2');
+    const existingScript = document.getElementById('buttonScript2');
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.text = 'xProduct();';
+      script.id = 'buttonScript2';
+      script.type = "text/javascript";
+      document.body.appendChild(script);
+      script.onload = () => {
+        if (callback) callback();
+      };
+    }
+    if (existingScript && callback) callback();
+};
 
 class ProductData {
     buyButtonCode: () => ({ __html: string })
@@ -21,6 +55,10 @@ class ProductData {
         this.price = price;
         this.pricePer = `${((price / quantity) * 100).toPrecision(2)}¢`;
     }
+}
+
+function ecwidContainerTest() {
+    return {__html: '<div class="ecsp ecsp-SingleProduct-v2 ecsp-Product ec-Product-276239705" itemtype="http://schema.org/Product" data-single-product-id="276239705"><div class="ecsp-title" itemprop="name" style="display:none;" content="500 Tip Cards"></div><div customprop="addtobag"></div></div>'};
 }
 
 const products: Record<string, ProductData> = {
@@ -72,7 +110,22 @@ const TipCardBuyButtons: FC<{ selectedId: string}> = ({ selectedId }) => (
 );
 
 const Shop: FC = () => {
+    const [isScriptLoaded, setIsScriptLoaded] = useState(false);
     const [selectedTipCard, setSelectedTipCard] = useState("tip500");
+    useEffect(() => {
+        loadButton(loadButton2(() => setIsScriptLoaded(true)));
+    });
+    const router = useRouter();
+    useEffect(() => {
+        const handleRouteChange = () => {
+            document.getElementById('buttonScript').remove();
+            document.getElementById('buttonScript2').remove();
+        };
+        router.events.on('routeChangeStart', handleRouteChange);
+        return () => {
+            router.events.off('routeChangeStart', handleRouteChange);
+        };
+    }, []);
     return (
         <Box>
             <Heading
@@ -116,7 +169,9 @@ const Shop: FC = () => {
                                 {` (${products[selectedTipCard].pricePer} per card)`}
                             </Text>
                         </Flex>
-                        <TipCardBuyButtons selectedId={selectedTipCard} />
+                        {/* <TipCardBuyButtons selectedId={selectedTipCard} /> */}
+                        {!isScriptLoaded && <Spinner />}
+                        <div id="ecwid-container" dangerouslySetInnerHTML={ecwidContainerTest()} />
                     </Box>
                 </Flex>
             </Box>
