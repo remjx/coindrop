@@ -104,9 +104,7 @@ const Shop: FC = () => {
                     direction={["column", "row"]}
                     align={["center", "start"]}
                 >
-                    <Flex
-                        flex="1 0 auto"
-                    >
+                    <Flex>
                         <Image src="/shop/tip-card.png" height="300" width="300" />
                     </Flex>
                     <Box ml={4}>
