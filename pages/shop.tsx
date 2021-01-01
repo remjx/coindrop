@@ -3,6 +3,7 @@
 // eslint-disable-next-line no-unused-vars
 import { FC, useState } from 'react';
 import { Box, Select, Heading, Text, Flex, useColorModeValue } from '@chakra-ui/react';
+import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
 
@@ -91,6 +92,10 @@ const Shop: FC = () => {
     const green = useColorModeValue("green.500", "green.300");
     return (
         <Box>
+            <NextSeo
+                title="Tip Donation Payment Cards | Zero Fees | Coindrop Shop"
+                description="Buy physical cards that can be used for tipping. Cards link to your Coindrop page where you can receive payments, donations, and tips with zero fees."
+            />
             <Heading
                 as="h1"
                 size="2xl"
@@ -114,6 +119,8 @@ const Shop: FC = () => {
                             <br />
                             <br />
                             Cards measure 3 inches x 3 inches. Text and design can be customized.
+                            <br />
+                            <br />
                         </Text>
                         <Flex mt={2} direction="row" wrap="wrap" align="center">
                             <Text>Quantity:</Text>
