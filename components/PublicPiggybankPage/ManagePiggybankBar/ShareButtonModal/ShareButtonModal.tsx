@@ -17,6 +17,7 @@ import { ShareIcon } from '../../../Icons/CustomIcons';
 import CopyLinkShareButton from './CopyLinkShareButton';
 import PiggybankQRCode from './PiggybankQRCode';
 import ShareEmbedButton from './ShareEmbedButton';
+import TipCards from './TipCards';
 
 type Props = {
     buttonColor: string
@@ -69,6 +70,7 @@ const ShareButtonModal: FunctionComponent<Props> = ({ buttonColor }) => {
                         fullPublicUrl={fullPublicUrl}
                         publicUrl={publicUrl}
                     />
+                    <TipCards />
                 </ModalBody>
                 <ModalFooter />
             </ModalContent>

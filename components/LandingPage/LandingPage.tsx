@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState, FC } from 'react';
+import { FunctionComponent, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode, useTheme } from '@chakra-ui/react';
