@@ -32,9 +32,11 @@ const Footer: FunctionComponent = () => {
                         text="Home"
                     />
                     <Divider />
-                    <InternalLink
+                    {/* This is an external link as a hack to force Ecwid scripts to run on page changes */}
+                    <ExternalLink
                         href="/shop"
                         text="Shop"
+                        openInNewTab={false}
                     />
                     <Divider />
                     <InternalLink

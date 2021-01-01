@@ -2,7 +2,7 @@
 /* eslint-disable react/no-danger */
 // eslint-disable-next-line no-unused-vars
 import { FC, useState, useEffect } from 'react';
-import { Box, Select, Heading, Text, Flex, Spinner } from '@chakra-ui/react';
+import { Box, Select, Heading, Text, Flex, Spinner, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
@@ -71,6 +71,13 @@ const products: Record<string, ProductData> = {
         price: 159,
         quantity: 10000,
     }),
+    tip25000: new ProductData({
+        buyButtonCode: function ecwidBuyNowTip10000() {
+            return {__html: '<div class="ecsp ecsp-SingleProduct-v2 ecsp-Product ec-Product-276520576" itemtype="http://schema.org/Product" data-single-product-id="276520576"><div class="ecsp-title" itemprop="name" style="display:none;" content="25,000 Tip Cards"></div><div customprop="addtobag"></div></div><script data-cfasync="false" type="text/javascript" src="https://app.ecwid.com/script.js?44137065&data_platform=singleproduct_v2" charset="utf-8"></script><script type="text/javascript">xProduct()</script>'};
+        },
+        price: 349,
+        quantity: 25000,
+    }),
 };
 
 const TipCardBuyButtons: FC<{ selectedId: string}> = ({ selectedId }) => (
@@ -80,19 +87,13 @@ const TipCardBuyButtons: FC<{ selectedId: string}> = ({ selectedId }) => (
     <Box display={selectedId === 'tip2500' ? 'initial' : 'none'} dangerouslySetInnerHTML={products.tip2500.buyButtonCode()} />
     <Box display={selectedId === 'tip5000' ? 'initial' : 'none'} dangerouslySetInnerHTML={products.tip5000.buyButtonCode()} />
     <Box display={selectedId === 'tip10000' ? 'initial' : 'none'} dangerouslySetInnerHTML={products.tip10000.buyButtonCode()} />
+    <Box display={selectedId === 'tip25000' ? 'initial' : 'none'} dangerouslySetInnerHTML={products.tip25000.buyButtonCode()} />
     </>
 );
 
 const Shop: FC = () => {
     const [selectedTipCard, setSelectedTipCard] = useState("tip500");
-    const router = useRouter();
-    useEffect(() => {
-        console.log('router.query', router.query);
-        if (!router.query.r) {
-            router.push({ pathname: '/shop', query: { r: 1 }});
-            router.reload();
-        }
-    }, [router]);
+    const green = useColorModeValue("green.500", "green.300");
     return (
         <Box>
             <Heading
@@ -113,23 +114,33 @@ const Shop: FC = () => {
                     </Box>
                     <Box ml={4}>
                         <Heading mb={3}>Tip Cards</Heading>
-                        <Flex direction="row" wrap="wrap" align="center">
+                        <Text>
+                            Accept donations and tips in the real world.
+                            Are you a restaurant? Include tip cards in your to-go boxes.
+                            Are you a street performer? Leave a stack of tip cards next to your tip jar.
+                            Are you a 
+                            Cards measure 3 inches x 3 inches.
+                        </Text>
+                        <Flex mt={2} direction="row" wrap="wrap" align="center">
                             <Text>Quantity:</Text>
-                            <Select
-                                value={selectedTipCard}
-                                onChange={(event) => {
-                                    setSelectedTipCard(event.target.value);
-                                }}
-                            >
-                                <option value="tip500">500</option>
-                                <option value="tip1000">1000</option>
-                                <option value="tip2500">2500</option>
-                                <option value="tip5000">5000</option>
-                                <option value="tip10000">10000</option>
-                            </Select>
+                            <Box ml={2}>
+                                <Select
+                                    value={selectedTipCard}
+                                    onChange={(event) => {
+                                        setSelectedTipCard(event.target.value);
+                                    }}
+                                >
+                                    <option value="tip500">500</option>
+                                    <option value="tip1000">1,000</option>
+                                    <option value="tip2500">2,500</option>
+                                    <option value="tip5000">5,000</option>
+                                    <option value="tip10000">10,000</option>
+                                    <option value="tip25000">25,000</option>
+                                </Select>
+                            </Box>
                         </Flex>
-                        <Flex direction="row" wrap="wrap" align="center" justify="center">
-                            <Text fontSize="3xl" fontWeight="bold">
+                        <Flex mt={3} direction="row" wrap="wrap" align="center">
+                            <Text fontSize="3xl" fontWeight="bold" color={green}>
                                 ${products[selectedTipCard].price}
                             </Text>
                             <Text fontSize="sm" ml={2}>

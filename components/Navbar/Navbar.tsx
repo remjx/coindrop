@@ -1,5 +1,5 @@
 import { FunctionComponent } from 'react';
-import { Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
+import { Link, Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
@@ -18,7 +18,9 @@ const UserMenu = () => {
                 <HamburgerMenuIcon />
             </MenuButton>
             <MenuList>
-                <NextLink href="/shop">
+                {/* This is an external link to ensure Ecwid scripts run on page changes */}
+                {/* Should figure out a way to trigger the scripts manually within /shop */}
+                <Link href="/shop" style={{textDecoration: "none"}}>
                     <MenuItem>
                         <Flex
                             align="center"
@@ -27,7 +29,7 @@ const UserMenu = () => {
                             Shop
                         </Flex>
                     </MenuItem>
-                </NextLink>
+                </Link>
                 <MenuItem
                     onClick={toggleColorMode}
                 >
