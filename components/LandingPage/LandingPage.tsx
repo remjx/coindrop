@@ -16,7 +16,7 @@ import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 import styles from './LandingPage.module.scss';
 import piggy64Png from '../../public/logo/piggy-64.png';
-import tipCardPng from '../../public/shop/tip-card.png'
+import tipCardPng from '../../public/shop/tip-card.png';
 
 const QRCodeExample: FC = () => (
     <QRCode
