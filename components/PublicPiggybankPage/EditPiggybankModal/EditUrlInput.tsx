@@ -90,6 +90,9 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         setIsValidating(true);
         setError(null);
     }, [value]);
+    useEffect(() => {
+        setIsValidating(false);
+    }, []);
     return (
         <>
         <InputGroup>
