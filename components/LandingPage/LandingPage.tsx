@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode, useTheme } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Box, Flex, Heading, Text, Link, BoxProps, HeadingProps, useColorMode, useColorModeValue, useTheme } from '@chakra-ui/react';
 import cookies from 'js-cookie';
 import QRCode from 'qrcode.react';
 import Image from 'next/image';
@@ -16,6 +16,7 @@ import { GithubIcon } from '../Icons/CustomIcons';
 import { githubUrl } from '../../src/settings';
 import styles from './LandingPage.module.scss';
 import piggy64Png from '../../public/logo/piggy-64.png';
+import tipCardPng from '../../public/shop/tip-card.png'
 
 const QRCodeExample: FC = () => (
     <QRCode
@@ -154,6 +155,7 @@ const LandingPage: FunctionComponent = () => {
         onClose: onAuthClose,
     } = useDisclosure();
     const { colorMode } = useColorMode();
+    const yellow = useColorModeValue("yellow.400", "yellow.300");
     const router = useRouter();
     const { user } = useUser();
     useEffect(() => {
@@ -265,6 +267,20 @@ const LandingPage: FunctionComponent = () => {
                     wrap="wrap"
                 >
                     <ShareOption
+                        title="Custom URL"
+                        description="For literally anywhere"
+                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
+                    >
+                        <b>
+                            <Text
+                                fontSize="lg"
+                                color={colorMode === 'light' ? 'gray.800' : 'white'}
+                            >
+                                coindrop.to/your-name
+                            </Text>
+                        </b>
+                    </ShareOption>
+                    <ShareOption
                         title="Button"
                         description="For your website"
                         bg={colorMode === 'light' ? 'green.400' : 'green.300'}
@@ -280,23 +296,16 @@ const LandingPage: FunctionComponent = () => {
                     <ShareOption
                         title="QR Code"
                         description="For smartphones"
-                        bg='#BBCBCB'
+                        bg={yellow}
                     >
                         <QRCodeExample />
                     </ShareOption>
                     <ShareOption
-                        title="URL"
-                        description="For literally anywhere"
-                        bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
+                        title="Customized Tip Cards"
+                        description="For the real world"
+                        bg='#BBCBCB'
                     >
-                        <b>
-                            <Text
-                                fontSize="lg"
-                                color={colorMode === 'light' ? 'gray.800' : 'white'}
-                            >
-                                coindrop.to/your-name
-                            </Text>
-                        </b>
+                        <Image src={tipCardPng} height="150px" width="150px" />
                     </ShareOption>
                 </Flex>
             </ContentContainer>
