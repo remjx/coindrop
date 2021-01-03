@@ -113,7 +113,11 @@ const Shop: FC = () => {
                         <Image src="/shop/tip-card.png" height="300" width="300" />
                     </Flex>
                     <Box ml={4}>
-                        <Heading mb={3}>Tip Cards</Heading>
+                        <Heading
+                            my={4}
+                        >
+                            Tip Cards
+                        </Heading>
                         <Text>
                             Accept donations and tips in the real world.
                             <br />
