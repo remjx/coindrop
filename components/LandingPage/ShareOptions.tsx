@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import Image from 'next/image';
-import { Flex, Button, Text, Box, Link, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Center, Flex, Button, Text, Box, Link, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { QRCodeExample } from './QRCodeExample';
 import { ShareOption } from './ShareOption';
 import tipCardPng from '../../public/shop/tip-card.png';
+import tipCardRestaurantPng from '../../public/landing-page/tip-card-generic-restaurant.png';
 
 export const ShareOptionsDefault: FC = () => {
     const { colorMode } = useColorMode();
@@ -59,17 +60,21 @@ export const ShareOptionsDefault: FC = () => {
 };
 
 export const ShareOptionsForRestaurants: FC = () => (
-    <Box>
-        <Image src={tipCardPng} height="350px" width="350px" />
-        <Text>
-            Starting at $19 for 500 cards
-        </Text>
-        <a
-            href="/shop"
-        >
-            <Button>
-                Order Now
-            </Button>
-        </a>
-    </Box>
+    <Center>
+        <Box mt={6}>
+            <Image src={tipCardRestaurantPng} height="350px" width="350px" />
+            <Text mt={2} mb={3} textAlign="center">
+                Starting at $19 for 500 cards
+            </Text>
+            <Center>
+                <a
+                    href="/shop"
+                >
+                    <Button>
+                        Order Now
+                    </Button>
+                </a>
+            </Center>
+        </Box>
+    </Center>
 );

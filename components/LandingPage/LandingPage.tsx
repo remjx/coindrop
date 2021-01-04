@@ -24,12 +24,14 @@ type Props = {
     headingTextTertiary: string
     smartphoneMockupImagePublicPath: string
     showSubscriptionPlatforms: boolean
-    shareOptions: FC
+    ShareOptions: FC
     shareOptionsHeading: string
     advertiseOpenSource: boolean
     getStartedText: string
     smartphoneMockupImageWidth: number
     smartphoneMockupImageHeight: number
+    createCoindropInputPlaceholder: string
+    logoSubtitle: string
 }
 
 const LandingPage: FC<Props> = ({
@@ -40,12 +42,14 @@ const LandingPage: FC<Props> = ({
     headingTextTertiary,
     smartphoneMockupImagePublicPath,
     showSubscriptionPlatforms,
-    shareOptions,
+    ShareOptions,
     shareOptionsHeading,
     advertiseOpenSource,
     getStartedText,
     smartphoneMockupImageWidth,
     smartphoneMockupImageHeight,
+    createCoindropInputPlaceholder,
+    logoSubtitle,
 }) => {
     const {
         isOpen: isAuthOpen,
@@ -77,7 +81,9 @@ const LandingPage: FC<Props> = ({
             isOpen={isAuthOpen}
         />
         <HeaderFooterContainer>
-            <Navbar />
+            <Navbar
+                logoSubtitle={logoSubtitle}
+            />
         </HeaderFooterContainer>
         <Container
             maxW="100%"
@@ -121,6 +127,7 @@ const LandingPage: FC<Props> = ({
                         onCancel={null}
                         instanceId="top"
                         buttonText="Check availability"
+                        placeholder={createCoindropInputPlaceholder}
                     />
                 </Box>
             </ContentContainer>
@@ -145,7 +152,7 @@ const LandingPage: FC<Props> = ({
                 <ContentContainerHeading withThroughline>
                     ➂ {shareOptionsHeading}
                 </ContentContainerHeading>
-                {shareOptions}
+                <ShareOptions />
             </ContentContainer>
             {advertiseOpenSource && (
                 <ContentContainer
@@ -187,6 +194,7 @@ const LandingPage: FC<Props> = ({
                         onCancel={null}
                         instanceId="bottom"
                         buttonText="Create"
+                        placeholder={createCoindropInputPlaceholder}
                     />
                 </Box>
             </ContentContainer>

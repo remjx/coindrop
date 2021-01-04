@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FC } from 'react';
 import { Link, Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -63,7 +63,7 @@ const Options = () => {
     return <UserMenu />;
 };
 
-const DashboardButton: FunctionComponent = () => {
+const DashboardButton: FC = () => {
     const { user } = useUser();
     const { pathname } = useRouter();
     if (
@@ -84,7 +84,7 @@ const DashboardButton: FunctionComponent = () => {
     );
 };
 
-const LogInSignUpButton: FunctionComponent = () => {
+const LogInSignUpButton: FC = () => {
     const { user } = useUser();
     const { pathname } = useRouter();
     if (
@@ -104,10 +104,14 @@ const LogInSignUpButton: FunctionComponent = () => {
     );
 };
 
-export const Navbar: FunctionComponent = () => {
+type Props = {
+    logoSubtitle?: string
+}
+export const Navbar: FC<Props> = ({ logoSubtitle }) => {
     const childFlexMx = ["auto", null, "initial"];
     return (
         <Flex
+            mt={2}
             id="navbar"
             align="center"
             justify="space-between"
@@ -116,7 +120,9 @@ export const Navbar: FunctionComponent = () => {
             <Flex mx={childFlexMx}>
                 <NextLink href="/">
                     <Button variant="link">
-                        <Logo />
+                        <Logo
+                            subtitle={logoSubtitle}
+                        />
                     </Button>
                 </NextLink>
             </Flex>

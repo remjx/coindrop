@@ -21,11 +21,13 @@ const LandingPageForRestaurants: NextPage = () => {
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}-for-restaurants.png`}
                 showSubscriptionPlatforms={false}
                 shareOptionsHeading="Include tip cards in your to-go boxes"
-                shareOptions={ShareOptionsForRestaurants}
+                ShareOptions={ShareOptionsForRestaurants}
                 advertiseOpenSource={false}
                 getStartedText="Coindrop is 100% free to sign up and use."
                 smartphoneMockupImageWidth={800}
                 smartphoneMockupImageHeight={606}
+                createCoindropInputPlaceholder="restaurant-name"
+                logoSubtitle="for restaurants"
             />
         </>
     );

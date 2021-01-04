@@ -20,12 +20,13 @@ const Home: NextPage = () => {
                 headingTextTertiary="100% free. Zero fees."
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}.png`}
                 showSubscriptionPlatforms
-                shareOptions={ShareOptionsDefault}
+                ShareOptions={ShareOptionsDefault}
                 shareOptionsHeading="Share &amp; Get Paid"
                 advertiseOpenSource
                 getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
                 smartphoneMockupImageWidth={458}
                 smartphoneMockupImageHeight={909}
+                createCoindropInputPlaceholder="your-name"
             />
         </>
     );
