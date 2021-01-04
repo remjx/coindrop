@@ -24,6 +24,8 @@ const Home: NextPage = () => {
                 shareOptionsHeading="Share &amp; Get Paid"
                 advertiseOpenSource
                 getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
+                smartphoneMockupImageWidth={458}
+                smartphoneMockupImageHeight={909}
             />
         </>
     );

@@ -28,6 +28,8 @@ type Props = {
     shareOptionsHeading: string
     advertiseOpenSource: boolean
     getStartedText: string
+    smartphoneMockupImageWidth: number
+    smartphoneMockupImageHeight: number
 }
 
 const LandingPage: FC<Props> = ({
@@ -42,6 +44,8 @@ const LandingPage: FC<Props> = ({
     shareOptionsHeading,
     advertiseOpenSource,
     getStartedText,
+    smartphoneMockupImageWidth,
+    smartphoneMockupImageHeight,
 }) => {
     const {
         isOpen: isAuthOpen,
@@ -100,8 +104,8 @@ const LandingPage: FC<Props> = ({
                     <Image
                         src={smartphoneMockupImagePublicPath}
                         alt="Smartphone mockup"
-                        height="909"
-                        width="458"
+                        height={smartphoneMockupImageHeight}
+                        width={smartphoneMockupImageWidth}
                     />
                 </Center>
             </Container>
