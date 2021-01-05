@@ -8,6 +8,7 @@ import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import { useUser } from '../../utils/auth/useUser';
+import styles from './Navbar.module.scss';
 
 const UserMenu = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -118,12 +119,14 @@ export const Navbar: FC<Props> = ({ logoSubtitle }) => {
             wrap="wrap"
         >
             <Flex mx={childFlexMx}>
-                <NextLink href="/">
-                    <Button variant="link">
-                        <Logo
-                            subtitle={logoSubtitle}
-                        />
-                    </Button>
+                <NextLink href="/" passHref>
+                    <a>
+                        <button type="button" className={styles.noUnderline}>
+                            <Logo
+                                subtitle={logoSubtitle}
+                            />
+                        </button>
+                    </a>
                 </NextLink>
             </Flex>
             <Flex align="center" mx={childFlexMx}>

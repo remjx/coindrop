@@ -63,6 +63,9 @@ export const ShareOptionsForRestaurants: FC = () => (
     <Center>
         <Box mt={6}>
             <Image src={tipCardRestaurantPng} height="350px" width="350px" />
+            <Text mt={2} mb={2} textAlign="center">
+                Text and design can be customized
+            </Text>
             <Text mt={2} mb={3} textAlign="center">
                 Starting at $19 for 500 cards
             </Text>

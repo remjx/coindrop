@@ -20,10 +20,10 @@ const LandingPageForRestaurants: NextPage = () => {
                 headingTextTertiary="Web app is free to use. Tip Cards start at $19 for 500."
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}-for-restaurants.png`}
                 showSubscriptionPlatforms={false}
-                shareOptionsHeading="Include tip cards in your to-go boxes"
+                shareOptionsHeading="Include tip cards with orders &amp; get tipped"
                 ShareOptions={ShareOptionsForRestaurants}
                 advertiseOpenSource={false}
-                getStartedText="Coindrop is 100% free to sign up and use."
+                getStartedText="Coindrop is 100% free and open-source."
                 smartphoneMockupImageWidth={800}
                 smartphoneMockupImageHeight={606}
                 createCoindropInputPlaceholder="restaurant-name"

@@ -27,6 +27,7 @@ const Home: NextPage = () => {
                 smartphoneMockupImageWidth={458}
                 smartphoneMockupImageHeight={909}
                 createCoindropInputPlaceholder="your-name"
+                logoSubtitle={null}
             />
         </>
     );

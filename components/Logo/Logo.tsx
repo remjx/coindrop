@@ -27,7 +27,7 @@ const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
             fontWeight={500}
             color={fontColor}
             ml={2}
-            lineHeight="2.5rem"
+            lineHeight={["1.5rem", "2.5rem"]}
         >
             {text}
         </Text>
@@ -36,6 +36,7 @@ const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
         <Flex
             ml={1}
             mr={2}
+            mb={[2, 0]}
             align="center"
         >
             <PiggyLogo boxSize={["48px", "64px"]} />

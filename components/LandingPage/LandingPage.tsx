@@ -31,7 +31,7 @@ type Props = {
     smartphoneMockupImageWidth: number
     smartphoneMockupImageHeight: number
     createCoindropInputPlaceholder: string
-    logoSubtitle: string
+    logoSubtitle: string | null
 }
 
 const LandingPage: FC<Props> = ({
