@@ -19,9 +19,16 @@ type Props = {
     createButtonColorScheme: "orange" | "green"
     instanceId: string
     buttonText: string
+    placeholder: string
 }
 
-export const CreatePiggybankInput: FunctionComponent<Props> = ({ buttonText, instanceId, onCancel, createButtonColorScheme }) => {
+export const CreatePiggybankInput: FunctionComponent<Props> = ({
+    buttonText,
+    instanceId,
+    onCancel,
+    createButtonColorScheme,
+    placeholder,
+}) => {
     const { user } = useUser();
     const router = useRouter();
     const inputRef = createRef<HTMLInputElement>();
@@ -67,7 +74,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({ buttonText, ins
                             id={inputName}
                             maxLength={32}
                             roundedLeft="0"
-                            placeholder="your-name"
+                            placeholder={placeholder}
                             onChange={(e) => {
                                 setError(null);
                                 setCandidatePiggybankPath(e.target.value);

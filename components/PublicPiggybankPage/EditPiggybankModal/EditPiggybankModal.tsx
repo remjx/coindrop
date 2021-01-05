@@ -239,6 +239,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                                 <option value="pay">Pay</option>
                                 <option value="donate to">Donate to</option>
                                 <option value="support">Support</option>
+                                <option value="tip">Tip</option>
                             </Select>
                         </FormControl>
                         <FormControl

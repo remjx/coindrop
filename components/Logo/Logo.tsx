@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Flex, Text, useTheme, useColorModeValue, IconProps, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, Text, useTheme, useColorModeValue, IconProps, useColorMode } from '@chakra-ui/react';
 import { PiggyLogoIcon, PiggyLogoIconDarkMode } from "../Icons/CustomIcons";
 
 export const PiggyLogo: FC<IconProps> = (iconProps) => {
@@ -14,9 +14,10 @@ export const PiggyLogo: FC<IconProps> = (iconProps) => {
 
 type Props = {
     text?: string
+    subtitle?: string
 }
 
-const Logo: FC<Props> = ({ text = 'coindrop' }) => {
+const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
     const theme = useTheme();
     const fontColor = useColorModeValue(theme.colors.gray['600'], theme.colors.gray['50']);
     const LogoText = () => (
@@ -26,6 +27,7 @@ const Logo: FC<Props> = ({ text = 'coindrop' }) => {
             fontWeight={500}
             color={fontColor}
             ml={2}
+            lineHeight={["1.5rem", "2.5rem"]}
         >
             {text}
         </Text>
@@ -34,10 +36,18 @@ const Logo: FC<Props> = ({ text = 'coindrop' }) => {
         <Flex
             ml={1}
             mr={2}
+            mb={[2, 0]}
             align="center"
         >
             <PiggyLogo boxSize={["48px", "64px"]} />
-            <LogoText />
+            <Box>
+                <LogoText />
+                {subtitle && (
+                    <Text>
+                        {subtitle}
+                    </Text>
+                )}
+            </Box>
         </Flex>
     );
 };

@@ -126,33 +126,37 @@ const Shop: FC = () => {
                             <br />
                             <br />
                         </Text>
-                        <Flex mt={2} direction="row" wrap="wrap" align="center">
-                            <Text>Quantity:</Text>
-                            <Box ml={2}>
-                                <Select
-                                    value={selectedTipCard}
-                                    onChange={(event) => {
-                                        setSelectedTipCard(event.target.value);
-                                    }}
-                                >
-                                    <option value="tip500">500</option>
-                                    <option value="tip1000">1,000</option>
-                                    <option value="tip2500">2,500</option>
-                                    <option value="tip5000">5,000</option>
-                                    <option value="tip10000">10,000</option>
-                                    <option value="tip25000">25,000</option>
-                                </Select>
+                        <Flex wrap="wrap" justify="space-around">
+                            <Flex mt={2} direction="row" wrap="wrap" align="center">
+                                <Text>Quantity:</Text>
+                                <Box ml={2}>
+                                    <Select
+                                        value={selectedTipCard}
+                                        onChange={(event) => {
+                                            setSelectedTipCard(event.target.value);
+                                        }}
+                                    >
+                                        <option value="tip500">500</option>
+                                        <option value="tip1000">1,000</option>
+                                        <option value="tip2500">2,500</option>
+                                        <option value="tip5000">5,000</option>
+                                        <option value="tip10000">10,000</option>
+                                        <option value="tip25000">25,000</option>
+                                    </Select>
+                                </Box>
+                            </Flex>
+                            <Box>
+                                <Flex mt={3} direction="row" wrap="wrap" align="center">
+                                    <Text fontSize="3xl" fontWeight="bold" color={green}>
+                                        ${products[selectedTipCard].price}
+                                    </Text>
+                                    <Text fontSize="sm" ml={2}>
+                                        {` (${products[selectedTipCard].pricePer} per card)`}
+                                    </Text>
+                                </Flex>
+                                <TipCardBuyButtons selectedId={selectedTipCard} />
                             </Box>
                         </Flex>
-                        <Flex mt={3} direction="row" wrap="wrap" align="center">
-                            <Text fontSize="3xl" fontWeight="bold" color={green}>
-                                ${products[selectedTipCard].price}
-                            </Text>
-                            <Text fontSize="sm" ml={2}>
-                                {` (${products[selectedTipCard].pricePer} per card)`}
-                            </Text>
-                        </Flex>
-                        <TipCardBuyButtons selectedId={selectedTipCard} />
                     </Box>
                 </Flex>
             </Box>

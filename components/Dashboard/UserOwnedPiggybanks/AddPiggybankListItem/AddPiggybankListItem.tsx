@@ -41,6 +41,7 @@ const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks })
                     createButtonColorScheme="green"
                     instanceId=""
                     buttonText="Create"
+                    placeholder="your-name"
                 />
             </Flex>
         );
