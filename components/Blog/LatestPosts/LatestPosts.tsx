@@ -35,7 +35,7 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLast
                     <Image src={coverImageUrl} width={200} height={200} alt={coverImageDescr} />
                 </Link>
             </Flex>
-            <Box my={3} mx={4}>
+            <Box mb={3} mx={4}>
                 <Link>
                     <Heading as="h2">{title}</Heading>
                 </Link>
