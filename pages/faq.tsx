@@ -165,7 +165,7 @@ const FAQ: FunctionComponent = () => {
             <Text textAlign="center" mt={4} fontSize="sm">
                 {"Do you have a question that's not answered here? Send it to "}
                 <Link href={`mailto:${coindropEmail}`} isExternal>
-                    coindrop.to@gmail.com
+                    {coindropEmail}
                 </Link>
             </Text>
         </Box>
