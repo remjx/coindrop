@@ -4,11 +4,15 @@ import theme from '../../components/theme';
 
 const brandColor = theme.colors.logoPrimary;
 
+type Options = {
+  email: string
+  username: string
+}
+
 export const sendClaimBrandVerificationConfirmation = (options) => {
   const {
     email,
     username,
-    manufacturer,
   } = options;
 
   const fromEmail = 'admin@headphonescout.com';

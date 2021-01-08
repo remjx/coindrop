@@ -32,6 +32,7 @@
     "@types/chai": "^4.2.14",
     "@types/jest": "^26.0.19",
     "@types/mocha": "^8.2.0",
+    "aws-sdk": "^2.823.0",
     "axios": "^0.21.1",
     "dayjs": "^1.10.1",
     "firebase": "7.19.1",

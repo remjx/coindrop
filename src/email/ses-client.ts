@@ -1,9 +1,7 @@
-const AWS = require('aws-sdk');
-const { serializeError } = require('serialize-error');
-const { logger } = require('../../logger');
+import AWS from 'aws-sdk';
 
-const accessKeyId = process.env.AWS_IAM_USER_HEADPHONESCOUT_ADMIN_ACCESS_KEY_ID;
-const secretAccessKey = process.env.AWS_IAM_USER_HEADPHONESCOUT_ADMIN_ACCESS_KEY;
+const accessKeyId = process.env.AWS_IAM_ADMIN_ACCESS_KEY_ID;
+const secretAccessKey = process.env.AWS_IAM_ADMIN_ACCESS_KEY;
 
 AWS.config.update({
     accessKeyId,
@@ -13,7 +11,17 @@ AWS.config.update({
 
 const ses = new AWS.SES({ apiVersion: '2010-12-01' });
 
-export const sesSend = (msg: any) => {
+type Msg = {
+    to: string
+    from: {
+        name: string
+        email: string
+    }
+    html: string
+    subject: string
+}
+
+export const sesSend = (msg: Msg): void => {
     try {
         const { to, from, html, subject } = msg;
         const fromAddr = `${from.name} <${from.email}>`;
@@ -42,26 +50,12 @@ export const sesSend = (msg: any) => {
             Source: fromAddr,
         };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ses.sendEmail(params, (err: any, data: any): void => {
+        ses.sendEmail(params, (err, data): void => {
             if (err) {
-                logger.log({
-                    level: 'error',
-                    message: 'Error sending email ses.sendEmail()',
-                    meta: {
-                        error: serializeError(err),
-                        msg,
-                    },
-                });
+                console.log('err in ses.sendEmail', err);
             }
         });
     } catch (err) {
-        logger.log({
-            level: 'error',
-            message: 'Error sending email sesSend()',
-            meta: {
-                error: serializeError(err),
-                msg,
-            },
-        });
+        console.log('error in ses-client', err);
     }
 };
