@@ -9,34 +9,38 @@ AWS.config.update({
     region: 'us-east-1',
 });
 
-const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+const ses = new AWS.SESV2({ apiVersion: '2019-09-27' });
 
 type Msg = {
     to: string
-    html: string
     subject: string
+    html: string
+    text: string
 }
 
 export const sesSend = (msg: Msg): void => {
     try {
-        const { to, html, subject } = msg;
+        const { to, subject, html, text } = msg;
         const params = {
+            Content: {
+                Simple: {
+                    Body: {
+                        Html: {
+                            Data: html,
+                        },
+                        Text: {
+                            Data: text,
+                        },
+                    },
+                    Subject: {
+                        Data: subject,
+                    },
+                },
+            },
             Destination: {
                 ToAddresses: [to],
             },
-            Message: {
-                Body: {
-                    Html: {
-                        Charset: 'UTF-8',
-                        Data: html,
-                    },
-                },
-                Subject: {
-                    Charset: 'UTF-8',
-                    Data: subject,
-                },
-            },
-            Source: 'Coindrop <contact@coindrop.to>',
+            FromEmailAddress: 'Coindrop <contact@coindrop.to>',
         };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         ses.sendEmail(params, (err, data): void => {
