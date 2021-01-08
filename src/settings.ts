@@ -1,3 +1,5 @@
+export const baseUrl = process.env.NODE_ENV === 'production' ? 'https://coindrop.to' : 'http://localhost:3000';
+
 export const piggybankPathRegex = /^[a-z][\w-]{1,30}[a-z0-9]$/i;
 export const maxPiggybanksPerUser = 10;
 
