@@ -16,6 +16,7 @@ const Dashboard: FunctionComponent = () => {
         if (!user) {
             router.push('/');
         }
+        // TODO: Move this to Cloud Firestore Functions since they have built-in "onUserCreate" trigger
         if (user) {
             const userData = firebase.auth().currentUser;
             const creationTime = dayjs(userData.metadata.creationTime); // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime

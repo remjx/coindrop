@@ -1,3 +1,5 @@
+// TODO: Move this to Cloud Firestore Functions since they have built-in "onUserCreate" trigger
+
 import nc from 'next-connect';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { FC } from 'react';
