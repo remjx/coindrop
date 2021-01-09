@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link, Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColorMode } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { SunIcon, MoonIcon } from "@chakra-ui/icons";
+import { SunIcon, MoonIcon, SettingsIcon } from "@chakra-ui/icons";
 import { AiOutlineShopping } from 'react-icons/ai';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
@@ -19,9 +19,19 @@ const UserMenu = () => {
                 <HamburgerMenuIcon />
             </MenuButton>
             <MenuList>
+                <NextLink href="/account">
+                    <MenuItem>
+                        <Flex
+                            align="center"
+                        >
+                            <SettingsIcon mr={2} />
+                            My Account
+                        </Flex>
+                    </MenuItem>
+                </NextLink>
                 {/* This is an external link to ensure Ecwid scripts run on page changes */}
                 {/* Should figure out a way to trigger the scripts manually within /shop */}
-                <Link href="/shop" style={{textDecoration: "none"}}>
+                {/* <Link href="/shop" style={{textDecoration: "none"}}>
                     <MenuItem>
                         <Flex
                             align="center"
@@ -30,7 +40,7 @@ const UserMenu = () => {
                             Shop
                         </Flex>
                     </MenuItem>
-                </Link>
+                </Link> */}
                 <MenuItem
                     onClick={toggleColorMode}
                 >

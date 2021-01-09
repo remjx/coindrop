@@ -1,6 +1,3 @@
-// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
 import { FC } from 'react';
 import { baseUrl } from '../../../src/settings';
 
@@ -21,9 +18,9 @@ const SocialLink: FC<Props> = ({
         target="_blank"
         rel="noreferrer"
         href={href}
-        css={css`
-            margin-right: 2px;
-        `}
+        style={{
+            marginRight: "2px",
+        }}
     >
         <img
             title={title}

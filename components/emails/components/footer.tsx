@@ -1,37 +1,25 @@
-// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
-import styled from '@emotion/styled';
 import { FC } from 'react';
 import { baseUrl } from '../../../src/settings';
 import SocialLink from './social-link';
 
-const A = styled.a`
-  color: black;
-`;
-
-type Props = {
-    reason: string
-}
-
-const Footer: FC<Props> = ({
-    reason,
-}) => (
+const Footer: FC = () => (
     <div
         id="footer"
-        css={css`
-            font-size: 12px;
-            text-align: center;
-        `}
+        style={{
+            fontSize: "12px",
+            textAlign: "center",
+            marginTop: "40px",
+        }}
     >
+        <hr />
         <div
             id="social-links"
-            css={css`
-                display: flex;
-                flex-direction: row;
-                margin: auto;
-                justify-content: center;
-            `}
+            style={{
+                display: "flex",
+                flexDirection: "row",
+                margin: "auto",
+                justifyContent: "center",
+            }}
         >
             <SocialLink
                 href="https://www.facebook.com/Coindrop.to/"
@@ -59,28 +47,30 @@ const Footer: FC<Props> = ({
             />
         </div>
         <div
-            id="reason"
+            id="reply"
         >
-            {reason}
+            You can reply to this e-mail with any questions or feedback
         </div>
         <div
             id="unsubscribe-options"
-            css={css`
-                margin-top: 4px;
-            `}
+            style={{
+                marginTop: "4px",
+            }}
         >
             <span>
-                <A
+                <a
+                    style={{color: "black"}}
                     href={`${baseUrl}`} // TODO: MAKE THIS FUNCTIONAL
                 >
-                    Preferences
-                </A>
+                    My Account
+                </a>
                 {' | '}
-                <A
+                <a
+                    style={{color: "black"}}
                     href={`${baseUrl}`} // TODO: MAKE THIS FUNCTIONAL
                 >
                     Unsubscribe
-                </A>
+                </a>
             </span>
         </div>
     </div>

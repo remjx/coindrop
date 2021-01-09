@@ -9,7 +9,7 @@ const Logo: FC = () => (
     >
         <img
             src={`${baseUrl}/images/logo-light.png`}
-            alt="logo"
+            alt=""
             width="269"
             height="73"
         />

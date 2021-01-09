@@ -5,18 +5,9 @@ import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
+import PageTitle from '../../Title/Title';
 
-const PageTitle: FC = () => (
-    <Heading
-        textAlign="center"
-        fontSize="1.75rem"
-        fontFamily="'Fira Sans'; Segoe-UI; sans-serif"
-        fontWeight="600"
-        mt={4}
-    >
-        My Coindrops
-    </Heading>
-);
+const Title = () => <PageTitle title="My Coindrops" />;
 
 function SkeletonArray(n: number): number[] {
     const a = new Array(n);
@@ -70,7 +61,7 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                 numActivePiggybanks > 0
                 ? (
                     <>
-                    <PageTitle />
+                    <Title title="My Coindrops" />
                     {data.map(piggybankDocumentID => (
                         <PiggybankListItem
                             key={piggybankDocumentID}
@@ -98,7 +89,7 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     }
     return (
         <>
-        <PageTitle />
+        <Title />
         <Box
             textAlign="center"
             mt={6}

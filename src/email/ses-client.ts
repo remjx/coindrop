@@ -15,21 +15,17 @@ type Msg = {
     to: string
     subject: string
     html: string
-    text: string
 }
 
 export const sesSend = (msg: Msg): void => {
     try {
-        const { to, subject, html, text } = msg;
+        const { to, subject, html } = msg;
         const params = {
             Content: {
                 Simple: {
                     Body: {
                         Html: {
                             Data: html,
-                        },
-                        Text: {
-                            Data: text,
                         },
                     },
                     Subject: {
