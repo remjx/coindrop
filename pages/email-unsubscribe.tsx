@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Text, Link } from '@chakra-ui/react';
 import { GetServerSideProps } from 'next';
+import NextLink from 'next/link';
 import Cryptr from 'cryptr';
 import { db } from '../utils/auth/firebaseAdmin';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
@@ -12,15 +13,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const { query: { token }} = context;
         const [userEmail, emailListId]: [string, EmailListIds] = cryptr.decrypt(token).split(" ");
-        console.log('userEmail', userEmail);
-        console.log('emailListId', emailListId);
         const ref = db()
             .collection('email-lists')
             .doc(emailListId)
             .collection('user-emails')
             .doc(userEmail);
-        const updateStatus = await ref.delete();
-        console.log('update status', updateStatus);
+        await ref.delete();
         return {
             props: {
                 isUnsubscribeSuccessful: true,
@@ -46,23 +44,26 @@ type Props = {
 
 const EmailUnsubscribe: FC<Props> = ({ isUnsubscribeSuccessful, emailListId, userEmail }) => {
     const message = isUnsubscribeSuccessful && userEmail && emailListId
-        ? `${userEmail} been unsubscribed from ${emailListId} e-mails`
-        : `Error unsubscribing. Try clicking the link in your e-mail again. Please contact support if you continue to encounter this error.`;
-    const user = useUser();
-    // if user is logged in, link to /account-settings
-    // else, display log in button
+        ? (
+            <Text>
+                ✔️ {userEmail} been unsubscribed from {emailListId} e-mails
+            </Text>
+        ) : (
+            <Text>
+                Error unsubscribing. Try clicking the link in your e-mail again. Please contact support if you continue to encounter this error.
+            </Text>
+        );
     return (
         <Box textAlign="center" my={12}>
-            <Heading>
-                Unsubscribe
-            </Heading>
-            <Text>
-                {message}
-            </Text>
-            <Text>
-                <Link>
-                    E-mail settings
-                </Link>
+            {message}
+            <Text mt={2}>
+                <NextLink href="/user-settings" passHref>
+                    <Link>
+                        <u>
+                            View all e-mail settings
+                        </u>
+                    </Link>
+                </NextLink>
             </Text>
         </Box>
     );

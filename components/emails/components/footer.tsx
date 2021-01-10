@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Cryptr from 'cryptr';
 import { baseUrl } from '../../../src/settings';
 import SocialLink from './social-link';
+import { coindropBusinessAddress } from '../../../src/settings';
 
 const cryptr = new Cryptr(process.env.EMAIL_TOKENS_CRYPTR_SECRET);
 
@@ -11,10 +12,13 @@ type Props = {
 }
 
 const Footer: FC<Props> = ({ userEmail, emailListId }) => {
-    const unsubscribeTokenUnencrypted = `${userEmail} ${emailListId}`;
-    const unsubscribeTokenEncrypted = cryptr.encrypt(unsubscribeTokenUnencrypted);
-    const unsubscribePath = `/email-unsubscribe?token=${unsubscribeTokenEncrypted}`;
-    const unsubscribeUrl = `${baseUrl}${unsubscribePath}`;
+    let unsubscribeUrl;
+    if (userEmail && emailListId) {
+        const unsubscribeTokenUnencrypted = `${userEmail} ${emailListId}`;
+        const unsubscribeTokenEncrypted = cryptr.encrypt(unsubscribeTokenUnencrypted);
+        const unsubscribePath = `/email-unsubscribe?token=${unsubscribeTokenEncrypted}`;
+        unsubscribeUrl = `${baseUrl}${unsubscribePath}`;
+    }
     return (
         <div
             id="footer"
@@ -28,6 +32,7 @@ const Footer: FC<Props> = ({ userEmail, emailListId }) => {
             <div
                 id="social-links"
                 style={{
+                    paddingTop: "8px",
                     display: "flex",
                     flexDirection: "row",
                     margin: "auto",
@@ -65,26 +70,46 @@ const Footer: FC<Props> = ({ userEmail, emailListId }) => {
                 You can reply to this e-mail with any questions or feedback
             </div>
             <div
+                id="address"
+                style={{
+                    marginTop: "4px",
+                }}
+            >
+                Coindrop, {coindropBusinessAddress}
+            </div>
+            <div
                 id="unsubscribe-options"
                 style={{
                     marginTop: "4px",
                 }}
             >
-                <span>
-                    <a
-                        style={{color: "black"}}
-                        href={baseUrl} // TODO: MAKE THIS FUNCTIONAL
-                    >
-                        My Account
-                    </a>
-                    {' | '}
-                    <a
-                        style={{color: "black"}}
-                        href={unsubscribeUrl}
-                    >
-                        Unsubscribe
-                    </a>
-                </span>
+                {unsubscribeUrl ? (
+                    <span>
+                        <a
+                            style={{color: "black"}}
+                            href={`${baseUrl}/dashboard`}
+                        >
+                            My Account
+                        </a>
+                        {' | '}
+                        <a
+                            style={{color: "black"}}
+                            href={unsubscribeUrl}
+                        >
+                            Unsubscribe
+                        </a>
+                    </span>
+                ) : (
+                    <span>
+                        {'This is a one-time e-mail | '}
+                        <a
+                            style={{color: "black"}}
+                            href={`${baseUrl}/user-settings`}
+                        >
+                            Account Settings
+                        </a>
+                    </span>
+                )}
             </div>
         </div>
     );

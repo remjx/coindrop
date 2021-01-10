@@ -17,13 +17,14 @@ const Dashboard: FunctionComponent = () => {
             router.push('/');
         }
         // TODO: Move this to Cloud Firestore Functions since they have built-in "onUserCreate" trigger
-        // if (user) {
-        //     const userData = firebase.auth().currentUser;
-        //     const creationTime = dayjs(userData.metadata.creationTime); // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime
-        //     if (creationTime.diff(new Date(), 'second') <= 30) {
-        //         sendWelcomeEmail();
-        //     }
-        // }
+        if (user) {
+            const userData = firebase.auth().currentUser;
+            const creationTime = dayjs(userData.metadata.creationTime); // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime
+            if (creationTime.diff(new Date(), 'second') <= 30) {
+                sendWelcomeEmail();
+                addUserToDefaultEmailLists();
+            }
+        }
     }, [user]);
 
     return (
