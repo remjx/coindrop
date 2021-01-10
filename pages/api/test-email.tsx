@@ -11,6 +11,8 @@ const testHtml: NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
             title: "Hello test",
             previewText: "Preview text...",
             Body,
+            emailListId: "test-list",
+            userEmail: 'mark@test.com',
         });
         // sesSend({
         //     to: 'markjackson02@gmail.com',

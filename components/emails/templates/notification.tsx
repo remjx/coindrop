@@ -9,6 +9,8 @@ type Data = {
     title: string
     previewText: string
     Body: FC
+    emailListId: string
+    userEmail: string
 }
 
 type Props = Omit<Data, "Body">;
@@ -17,6 +19,8 @@ const NotificationEmailContent: FC<Props> = ({
     title,
     previewText,
     children,
+    userEmail,
+    emailListId,
 }) => {
     return (
         <BaseEmailTemplate
@@ -26,16 +30,21 @@ const NotificationEmailContent: FC<Props> = ({
                 {title}
             </Title>
             {children}
-            <Footer />
+            <Footer
+                emailListId={emailListId}
+                userEmail={userEmail}
+            />
         </BaseEmailTemplate>
     );
 };
 
-export function generateStaticHTML({ title, previewText, Body }: Data): string {
+export function generateStaticHTML({ title, previewText, Body, userEmail, emailListId }: Data): string {
     const html = ReactDOMServer.renderToStaticMarkup(
         <NotificationEmailContent
             title={title}
             previewText={previewText}
+            userEmail={userEmail}
+            emailListId={emailListId}
         >
             <Body />
         </NotificationEmailContent>,

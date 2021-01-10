@@ -2,10 +2,11 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { db } from '../../../utils/auth/firebaseAdmin';
+import { EmailListIds } from '../../../src/email/types';
 
 const getEmailListSubscribers = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        const { listId }: { listId: string } = req.body;
+        const { listId }: { listId: EmailListIds } = req.body;
         const ref = db()
             .collection('email-lists')
             .doc(listId)
