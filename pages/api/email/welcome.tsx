@@ -16,10 +16,10 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
         const Body: FC = () => (
             <>
             <Paragraph>
-                Coindrop&apos;s mission is to be the best way to receive tips and donations anywhere.
+                Coindrop&apos;s mission is to make it easy to receive tips and donations anywhere.
             </Paragraph>
             <Paragraph>
-                As you begin to use Coindrop, I&apos;d love to hear from you. What do you like about it? What could be improved?
+                As you begin to use Coindrop, I&apos;d love to hear your feedback. What could be improved? You can reply directly to this e-mail.
             </Paragraph>
             <Paragraph>
                 Coindrop is 100% open-source on <a href={githubUrl} style={{color: "gray"}}>Github</a> so any contributions are open and welcome.
@@ -28,7 +28,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
                 Thank you and enjoy your zero-fee tips!
             </Paragraph>
             <Paragraph>
-                - Mark Jackson, lead developer of Coindrop
+                - Mark Jackson, Founder of Coindrop
             </Paragraph>
             </>
         );
