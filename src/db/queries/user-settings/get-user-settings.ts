@@ -1,17 +1,11 @@
 import { db } from '../../../../utils/client/db';
 
-type UserSettings = {
-    created_at: string
-    last_updated_at: string
-    last_login_at: string
-    email_lists: string[]
-}
-
-export async function getUserSettings(userId: string): Promise<UserSettings> {
-    const user: any = await db
+// TODO: how to import the types from Firestore so this can return the correct Promise type?
+export async function getUserData(userId: string): Promise<any> {
+    const userRef = db
         .collection('users')
         .doc(userId)
-        .get();
-    console.log('user data', user);
-    return user;
+    const user = await userRef.get();
+    const userData = user.data();
+    return userData;
 }

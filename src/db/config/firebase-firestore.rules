@@ -7,5 +7,8 @@ service cloud.firestore {
       // allow update: if request.auth != null && request.auth.uid == resource.data.owner_uid && request.auth.id == request.resource.data.owner_uid;
         // // This isn't working which allows users to update their owner_uid to be someone else
     }
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
   }
 }

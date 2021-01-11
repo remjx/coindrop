@@ -5,7 +5,7 @@ import NextLink from 'next/link';
 import Cryptr from 'cryptr';
 import { db } from '../utils/auth/firebaseAdmin';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
-import { EmailListIds } from '../src/email/types';
+import { EmailListIds } from '../src/db/schema/user';
 
 const cryptr = new Cryptr(process.env.EMAIL_TOKENS_CRYPTR_SECRET);
 
@@ -13,12 +13,24 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const { query: { token }} = context;
         const [userEmail, emailListId]: [string, EmailListIds] = cryptr.decrypt(token).split(" ");
-        const ref = db()
-            .collection('email-lists')
-            .doc(emailListId)
-            .collection('user-emails')
-            .doc(userEmail);
-        await ref.delete();
+        const ref = await db()
+            .collection('users')
+            .where('email', '==', userEmail);
+        const usersQuerySnapshot = await ref.get();
+        if (usersQuerySnapshot.empty) {
+            throw new Error('No matching user e-mail');
+        }
+        if (usersQuerySnapshot.size > 1) {
+            throw new Error('More than one e-mail matched');
+        }
+        let userDoc;
+        usersQuerySnapshot.forEach(userDocTemp => {
+            userDoc = userDocTemp;
+        });
+        const emailListsCurrent = userDoc.data().email_lists;
+        const emailListsNew = Array.from(emailListsCurrent);
+        emailListsNew.splice(emailListsNew.indexOf(emailListId), 1);
+        await userDoc.ref.update({ email_lists: emailListsNew }, { merge: true });
         return {
             props: {
                 isUnsubscribeSuccessful: true,
