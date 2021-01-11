@@ -4,7 +4,7 @@ import { db } from '../../../../utils/client/db';
 export async function getUserData(userId: string): Promise<any> {
     const userRef = db
         .collection('users')
-        .doc(userId)
+        .doc(userId);
     const user = await userRef.get();
     const userData = user.data();
     return userData;
