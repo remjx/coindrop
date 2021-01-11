@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import {
     Box,
+    Flex,
     Button,
     Heading,
     Text,
@@ -17,18 +18,22 @@ import { useUser } from '../../utils/auth/useUser';
 import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 import Title from '../Title/Title';
 import { getUserData } from '../../src/db/queries/user-settings/get-user-settings';
-import { UserData } from '../../src/db/schema/user';
+import { EmailListIds, UserData } from '../../src/db/schema/user';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
 
 const onSubmit = (formData) => {
-    const transformedData = formData;
-    updateUserData(transformedData);
+    console.log('formData', formData)
+    // const transformedData = formData;
+    // updateUserData(transformedData);
 };
 
-const allEmailLists: Record<EmailListId, string> = {
-    newsletter: "Coindrop Newsletter",
+const optionalEmailLists: Record<EmailListIds, string> = {
+    newsletter: "Main Newsletter",
     // analytics: "Coindrop Analytics",
 };
+const alwaysEnabledEmailLists = [
+    "Terms of Service Updates",
+];
 
 const UserSettings: FunctionComponent = () => {
     const { user } = useUser();
@@ -42,31 +47,52 @@ const UserSettings: FunctionComponent = () => {
     console.log('error', error); // use error to create a toast notification
     return (
         <Box>
-            <Title title="My Account" />
+            <Heading as="h1" textAlign="center" my={4}>
+                Account Settings
+            </Heading>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <FormControl id="email" isDisabled isReadOnly>
-                    <FormLabel>Email address</FormLabel>
-                    <Input type="email" name="email" defaultValue={email} ref={register} />
-                    {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-                </FormControl>
-                <Heading>
+                <Heading as="h2" size="md">
                     E-mail Preferences
                 </Heading>
-                {Object.entries(allEmailLists).map(([emailListId, emailListDisplayName]) => (
-                    <Checkbox
-                        name="email_lists"
-                        colorScheme="orange"
-                        value={emailListId}
-                        ref={register()}
-                    >
-                        {emailListDisplayName}
-                    </Checkbox>
+                <Box
+                    id="email-preferences-content"
+                    m={4}
+                >
+                    <FormControl id="email" isDisabled isReadOnly>
+                        <FormLabel>Email address</FormLabel>
+                        <Input type="email" name="email" defaultValue={email} ref={register} />
+                        {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
+                    </FormControl>
+                    <Flex>
+                        {Object.entries(optionalEmailLists).map(([emailListId, emailListDisplayName]: [EmailListIds, string]) => (
+                            <Checkbox
+                                mr={2}
+                                name="email_lists"
+                                colorScheme="orange"
+                                defaultChecked={email_lists?.includes(emailListId)}
+                                ref={register()}
+                            >
+                                {emailListDisplayName}
+                            </Checkbox>
 
-                ))}
-                {errors.exampleRequired && <span>This field is required</span>}
-                <Button colorScheme="green" type="submit">
-                    Save
-                </Button>
+                        ))}
+                        {alwaysEnabledEmailLists.map(listName => (
+                            <Checkbox
+                                mr={2}
+                                colorScheme="orange"
+                                defaultChecked
+                                isDisabled
+                            >
+                                {listName}
+                            </Checkbox>
+                        ))}
+                    </Flex>
+                </Box>
+                <Box>
+                    <Button colorScheme="green" type="submit">
+                        Save
+                    </Button>
+                </Box>
             </form>
         </Box>
     );
