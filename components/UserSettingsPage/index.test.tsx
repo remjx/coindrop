@@ -33,9 +33,9 @@ jest.mock('../../src/db/mutations/user/update-user', () => {
 beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
         user: {
-            id: "irrelevant-uid",
-            email: "irrelevant",
-            token: "irrelevant",
+            id: "some-uid",
+            email: "test@user.com",
+            token: "some-token",
         },
         logout: null,
     }));
@@ -53,6 +53,41 @@ test('Spinner is not displayed if getUserData passes', async () => {
     expect(screen.queryByTestId("no-user-data-spinner")).not.toBeInTheDocument();
 });
 
-test.skip('User data is populated on form on initial load', () => {
+test('User data is populated on form on initial load (populated)', () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: ["newsletter"] } }));
+    render(<UserSettingsPage />, {});
+    expect(screen.getByLabelText('Email address')).toHaveValue("test@user.com");
+    expect(screen.getByLabelText('Coindrop Newsletter')).toHaveAttribute("checked");
+});
 
-})
+test('User data is populated on form on initial load (empty)', () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
+    render(<UserSettingsPage />, {});
+    expect(screen.getByLabelText('Coindrop Newsletter')).not.toHaveAttribute("checked");
+});
+
+test('Save button is disabled until form is dirty', () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
+    render(<UserSettingsPage />, {});
+    let input = screen.getByLabelText('Coindrop Newsletter');
+    expect(input).not.toHaveAttribute("checked");
+    expect(screen.getByText('Save')).toHaveAttribute('disabled');
+    fireEvent.change(input, { target: { checked: true }});
+    input = screen.getByLabelText('Coindrop Newsletter');
+    expect(screen.getByText('Save')).not.toHaveAttribute('disabled');
+});
+
+test.only('Successful save', async () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
+    render(<UserSettingsPage />, {});
+    const checkbox = screen.getByLabelText('Coindrop Newsletter');
+    fireEvent.change(checkbox, { target: { checked: true }});
+    let saveButton = screen.getByText("Save");
+    fireEvent.click(saveButton);
+    // screen.getByText("Saving");
+    await waitFor(() => screen.getByText("Account updated"));
+    // screen.getByText("Saving");
+    // screen.getByText("Account updated.");
+    saveButton = await waitFor(() => screen.getByText("Save"));
+    expect(saveButton).toHaveAttribute('disabled');
+});

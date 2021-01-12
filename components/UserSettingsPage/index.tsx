@@ -44,14 +44,11 @@ export const UserSettingsPage: FunctionComponent = () => {
     const toast = useToast();
     const userId = user?.id;
     const [isSubmitting, setIsSubmitting] = useState(false);
-    console.log('getUserData', getUserData);
     const fetcher = () => getUserData(userId);
     const { data: userData, error, mutate } = useSWR(
         userId ? 'user-data' : null,
         fetcher,
     );
-    console.log('user', user);
-    console.log('userData', userData);
     const email = userData?.email;
     const email_lists = userData?.email_lists;
     const { register, handleSubmit, watch, errors, formState: { isDirty }, reset } = useForm();
@@ -70,16 +67,16 @@ export const UserSettingsPage: FunctionComponent = () => {
             mutate(userDataForDb);
             reset(userDataForDb);
             toast({
-                title: "Account updated.",
-                // description: "We've created your account for you.",
+                title: "Account updated",
                 status: "success",
                 duration: 6000,
                 isClosable: true,
             });
         } catch (err) {
+            console.error('ERR', err)
             toast({
-                title: "Error updating account.",
-                description: "Please try again or contact support.",
+                title: "Error updating account",
+                description: "Please try again or contact support",
                 status: "error",
                 duration: 9000,
                 isClosable: true,
@@ -123,6 +120,7 @@ export const UserSettingsPage: FunctionComponent = () => {
                                         colorScheme="orange"
                                         defaultChecked={email_lists?.includes(emailListId)}
                                         ref={register()}
+                                        data-testid={`email_list:${emailListId}`}
                                     >
                                         {emailListDisplayName}
                                     </Checkbox>
