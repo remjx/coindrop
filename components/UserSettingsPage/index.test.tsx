@@ -5,8 +5,8 @@ import useSWR from 'swr';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import { UserSettingsPage } from './index';
 import useUserModule from '../../utils/auth/useUser';
-import getUserDataModule from '../../src/db/queries/user/get-user-data';
-import updateUserDataModule from '../../src/db/mutations/user/update-user';
+import { getUserData } from '../../src/db/queries/user/get-user-data';
+import updateUserDataModule, { updateUserData } from '../../src/db/mutations/user/update-user';
 import { getDefaultUserData } from '../../src/db/schema/user';
 
 jest.mock('../../utils/auth/useUser');
@@ -21,14 +21,7 @@ jest.mock('../../src/db/queries/user/get-user-data', () => {
     });
 });
 
-const mockedUpdateUserData = jest.fn();
-jest.mock('../../src/db/mutations/user/update-user', () => {
-    return jest.fn().mockImplementation(() => {
-        return {
-            updateUserData: mockedUpdateUserData,
-        };
-    });
-});
+jest.mock('../../src/db/mutations/user/update-user');
 
 beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
@@ -79,6 +72,7 @@ test('Save button is disabled until form is dirty', () => {
 
 test.only('Successful save', async () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
+    (updateUserData as jest.Mock).mockImplementation(() => Promise.resolve());
     render(<UserSettingsPage />, {});
     const checkbox = screen.getByLabelText('Coindrop Newsletter');
     fireEvent.change(checkbox, { target: { checked: true }});
