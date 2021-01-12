@@ -45,11 +45,7 @@ export const UserSettingsPage: FunctionComponent = () => {
     const userId = user?.id;
     const [isSubmitting, setIsSubmitting] = useState(false);
     console.log('getUserData', getUserData);
-    const fetcher = () => {
-        console.log('getting user data');
-        // return getUserData(userId);
-        return async () => { console.log('getting user data2'); return Promise.resolve() }
-    };
+    const fetcher = () => getUserData(userId);
     const { data: userData, error, mutate } = useSWR(
         userId ? 'user-data' : null,
         fetcher,

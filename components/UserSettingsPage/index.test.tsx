@@ -1,10 +1,10 @@
 /* eslint-disable arrow-body-style */
 import '@testing-library/jest-dom/extend-expect';
 // import { mocked } from 'ts-jest/utils';
+import useSWR from 'swr';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import { UserSettingsPage } from './index';
 import useUserModule from '../../utils/auth/useUser';
-import useSWR from 'swr';
 import getUserDataModule from '../../src/db/queries/user/get-user-data';
 import updateUserDataModule from '../../src/db/mutations/user/update-user';
 import { getDefaultUserData } from '../../src/db/schema/user';
@@ -37,7 +37,7 @@ test('Spinner is displayed if getUserData fails', async () => {
         },
         logout: null,
     }));
-    (useSWR as jest.Mock).mockImplementation(() => ({ data: undefined }));
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: undefined, error: true }));
     render(<UserSettingsPage />, {});
     screen.getByTestId("no-user-data-spinner");
 });
@@ -51,7 +51,7 @@ test('Spinner is not displayed if getUserData passes', async () => {
         },
         logout: null,
     }));
-    (useSWR as jest.Mock).mockImplementation(() => ({ data: { someDataExists: true } }));
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { someDataExists: true, error: false } }));
     render(<UserSettingsPage />, {});
     expect(screen.queryByTestId("no-user-data-spinner")).not.toBeInTheDocument();
 });
