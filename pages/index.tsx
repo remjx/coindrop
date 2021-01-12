@@ -15,7 +15,7 @@ const Home: NextPage = () => {
             <LandingPage
                 headingTextPrimaryPreUnderline="The "
                 headingTextPrimaryUnderline="easy"
-                headingTextPrimaryPostUnderline=" way to get paid"
+                headingTextPrimaryPostUnderline=" way to accept payments"
                 headingTextSecondary="List your payment apps. Let the sender choose how to pay you."
                 headingTextTertiary="100% free. Zero fees."
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}.png`}
