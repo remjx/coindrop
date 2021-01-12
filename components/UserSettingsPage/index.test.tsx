@@ -11,6 +11,7 @@ import { getDefaultUserData } from '../../src/db/schema/user';
 
 jest.mock('../../utils/auth/useUser');
 jest.mock('swr');
+
 const mockedGetUserData = jest.fn();
 jest.mock('../../src/db/queries/user/get-user-data', () => {
     return jest.fn().mockImplementation(() => {
@@ -19,6 +20,7 @@ jest.mock('../../src/db/queries/user/get-user-data', () => {
         };
     });
 });
+
 const mockedUpdateUserData = jest.fn();
 jest.mock('../../src/db/mutations/user/update-user', () => {
     return jest.fn().mockImplementation(() => {
@@ -28,7 +30,7 @@ jest.mock('../../src/db/mutations/user/update-user', () => {
     });
 });
 
-test('Spinner is displayed if getUserData fails', async () => {
+beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
         user: {
             id: "irrelevant-uid",
@@ -37,21 +39,20 @@ test('Spinner is displayed if getUserData fails', async () => {
         },
         logout: null,
     }));
+});
+
+test('Spinner is displayed if getUserData fails', async () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: undefined, error: true }));
     render(<UserSettingsPage />, {});
     screen.getByTestId("no-user-data-spinner");
 });
 
 test('Spinner is not displayed if getUserData passes', async () => {
-    jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
-        user: {
-            id: "irrelevant-uid",
-            email: "irrelevant",
-            token: "irrelevant",
-        },
-        logout: null,
-    }));
     (useSWR as jest.Mock).mockImplementation(() => ({ data: { someDataExists: true, error: false } }));
     render(<UserSettingsPage />, {});
     expect(screen.queryByTestId("no-user-data-spinner")).not.toBeInTheDocument();
 });
+
+test.skip('User data is populated on form on initial load', () => {
+
+})
