@@ -43,7 +43,7 @@ const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
             <Box>
                 <LogoText />
                 {subtitle && (
-                    <Text>
+                    <Text textAlign="center">
                         {subtitle}
                     </Text>
                 )}

@@ -17,7 +17,7 @@ const LandingPageForRestaurants: NextPage = () => {
                 headingTextPrimaryUnderline="best"
                 headingTextPrimaryPostUnderline=" way to accept tips on carry-out &amp; delivery orders"
                 headingTextSecondary="Include tip cards in to-go and delivery boxes. Let customers tip you when their expectations are exceeded."
-                headingTextTertiary="Web app is free to use. Tip Cards start at $19 for 500."
+                headingTextTertiary="Web app is free to use. Tip Cards starting at $19 for 500."
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}-for-restaurants.png`}
                 showSubscriptionPlatforms={false}
                 shareOptionsHeading="Include tip cards with orders &amp; get tipped"
