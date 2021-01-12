@@ -6,7 +6,7 @@ import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testin
 import { UserSettingsPage } from './index';
 import useUserModule from '../../utils/auth/useUser';
 import { getUserData } from '../../src/db/queries/user/get-user-data';
-import updateUserDataModule, { updateUserData } from '../../src/db/mutations/user/update-user';
+import updateUserDataModule from '../../src/db/mutations/user/update-user';
 import { getDefaultUserData } from '../../src/db/schema/user';
 
 jest.mock('../../utils/auth/useUser');
@@ -21,7 +21,11 @@ jest.mock('../../src/db/queries/user/get-user-data', () => {
     });
 });
 
-jest.mock('../../src/db/mutations/user/update-user');
+jest.mock('../../src/db/mutations/user/update-user', () => {
+    return {
+        updateUserData: jest.fn(),
+    };
+});
 
 beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
@@ -70,18 +74,18 @@ test('Save button is disabled until form is dirty', () => {
     expect(screen.getByText('Save')).not.toHaveAttribute('disabled');
 });
 
-test.only('Successful save', async () => {
-    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
-    (updateUserData as jest.Mock).mockImplementation(() => Promise.resolve());
+test('Successful save', async () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({
+        data: { email: "test@user.com", email_lists: [] },
+        mutate: jest.fn(),
+    }));
+    // (updateUserDataModule.updateUserData as jest.Mock).mockImplementation(() => Promise.resolve());
     render(<UserSettingsPage />, {});
     const checkbox = screen.getByLabelText('Coindrop Newsletter');
     fireEvent.change(checkbox, { target: { checked: true }});
     let saveButton = screen.getByText("Save");
     fireEvent.click(saveButton);
-    // screen.getByText("Saving");
     await waitFor(() => screen.getByText("Account updated"));
-    // screen.getByText("Saving");
-    // screen.getByText("Account updated.");
     saveButton = await waitFor(() => screen.getByText("Save"));
     expect(saveButton).toHaveAttribute('disabled');
 });

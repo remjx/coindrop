@@ -25,6 +25,7 @@ const handleDelete = async (
     setIsSubmitting(true);
     try {
         await deleteUser(user);
+        setStatus('success');
         const redirectDelay = 5000;
         setTimeout(logout, redirectDelay);
     } catch (err) {

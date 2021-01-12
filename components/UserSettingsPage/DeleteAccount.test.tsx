@@ -40,4 +40,29 @@ test('Happy path account deletion', async () => {
   expect(screen.getByText('All your Coindrops will be deleted. This cannot be undone!')).toBeInTheDocument();
   fireEvent.click(screen.getByText('Delete Account'));
   expect(axiosSpy).toHaveBeenCalledWith('/api/user/delete', { headers: { token }});
+  screen.getByText("Deleting");
+  await waitFor(() => screen.getByText("✔️ Account deleted. Redirecting to homepage..."));
+});
+
+test('Error in API call', async () => {
+  const axiosSpy = jest.spyOn(axios, 'get').mockImplementation(() => Promise.reject());
+  const email = 'test@user.com';
+  const token = "some-auth-token";
+  jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
+    user: {
+      email,
+      token,
+      id: "irrelevant",
+    },
+    logout: null,
+  }));
+  render(<DeleteAccount />, {});
+  fireEvent.click(screen.getByText('Delete Account'));
+  await waitFor(() => screen.getByPlaceholderText(email));
+  const input = screen.getByPlaceholderText(email);
+  fireEvent.change(input, { target: { value: email }});
+  fireEvent.click(screen.getByText('Delete Account'));
+  expect(axiosSpy).toHaveBeenCalledWith('/api/user/delete', { headers: { token }});
+  screen.getByText("Deleting");
+  await waitFor(() => screen.getByText("⚠️ Error deleting account. Please try again and contact support if you continue to receive this error."));
 });
