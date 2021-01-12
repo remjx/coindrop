@@ -4,5 +4,5 @@ export type EmailListIds =
 
 export type UserData = {
     email_lists: EmailListIds[]
-    email: string
+    email?: string
 };

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks }) => {
-    const [showInput, setShowInput] = useState(false);
+    const [showInput, setShowInput] = useState(numActivePiggybanks === 0);
     if (numActivePiggybanks < maxPiggybanksPerUser) {
         if (!showInput) {
             return (

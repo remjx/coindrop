@@ -69,7 +69,7 @@ const EmailUnsubscribe: FC<Props> = ({ isUnsubscribeSuccessful, emailListId, use
         <Box textAlign="center" my={12}>
             {message}
             <Text mt={2}>
-                <NextLink href="/user-settings" passHref>
+                <NextLink href="/account" passHref>
                     <Link>
                         <u>
                             View all e-mail settings

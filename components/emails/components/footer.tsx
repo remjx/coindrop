@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import Cryptr from 'cryptr';
-import { baseUrl } from '../../../src/settings';
+import { baseUrl, coindropBusinessAddress } from '../../../src/settings';
 import SocialLink from './social-link';
-import { coindropBusinessAddress } from '../../../src/settings';
 
 const cryptr = new Cryptr(process.env.EMAIL_TOKENS_CRYPTR_SECRET);
 
@@ -104,7 +103,7 @@ const Footer: FC<Props> = ({ userEmail, emailListId }) => {
                         {'This is a one-time e-mail | '}
                         <a
                             style={{color: "black"}}
-                            href={`${baseUrl}/user-settings`}
+                            href={`${baseUrl}/account`}
                         >
                             Account Settings
                         </a>

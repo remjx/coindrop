@@ -1,10 +1,10 @@
-// This should be used to update the list of emails in EmailOctopus before sending any manual newsletters.
+// This is used to generate a list of emails that can be uploaded manually to EmailOctopus before sending any manual newsletters.
 
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { db } from '../../../utils/auth/firebaseAdmin';
 import { EmailListIds } from '../../../src/db/schema/user';
 
-const getEmailListSubscribers = async (req: NextApiRequest, res: NextApiResponse) => {
+const getEmailListSubscribers: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { listId }: { listId: EmailListIds } = req.body;
         const ref = db()

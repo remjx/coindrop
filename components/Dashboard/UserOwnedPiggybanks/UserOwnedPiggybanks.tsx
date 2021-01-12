@@ -54,14 +54,15 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     }
     if (data) {
         const numActivePiggybanks = data.length;
+        const userHasPiggybanks = numActivePiggybanks > 0;
         return (
             <>
             <Stack spacing={4} mb={4} id="user-owned-coindrops">
                 {
-                numActivePiggybanks > 0
+                userHasPiggybanks
                 ? (
                     <>
-                    <Title title="My Coindrops" />
+                    <Title />
                     {data.map(piggybankDocumentID => (
                         <PiggybankListItem
                             key={piggybankDocumentID}
@@ -70,11 +71,9 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                     ))}
                     </>
                 ) : (
-                    <Heading
-                        textAlign="center"
-                    >
-                        No Coindrops yet
-                    </Heading>
+                    <PageTitle
+                        title="Create your first Coindrop:"
+                    />
                 )
                 }
                 <AddPiggybankListItem

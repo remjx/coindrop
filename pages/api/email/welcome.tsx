@@ -19,13 +19,13 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
                 Coindrop&apos;s mission is to make it easy to receive tips and donations anywhere.
             </Paragraph>
             <Paragraph>
-                As you begin to use Coindrop, I&apos;d love to hear your feedback. What could be improved? You can reply directly to this e-mail.
+                As you begin to use Coindrop, I&apos;d love to hear your feedback. What could be improved? You can reply directly to any of our e-mail.
             </Paragraph>
             <Paragraph>
                 Coindrop is 100% open-source on <a href={githubUrl} style={{color: "gray"}}>Github</a> so any contributions are open and welcome.
             </Paragraph>
             <Paragraph>
-                Thank you and enjoy your zero-fee tips!
+                Thank you and enjoy zero-fee tipping!
             </Paragraph>
             <Paragraph>
                 - Mark Jackson, Founder of Coindrop
@@ -39,11 +39,11 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
             userEmail: userEmailAddress,
             emailListId: null,
         });
-        // sesSend({
-        //     to: userEmailAddress,
-        //     subject: 'Welcome to Coindrop',
-        //     html,
-        // });
+        sesSend({
+            to: userEmailAddress,
+            subject: 'Welcome to Coindrop',
+            html,
+        });
         res.status(200).send(html);
     } catch (err) {
         console.log(err);
@@ -52,7 +52,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
 };
 
 const handler = nc()
-//   .use(requireFirebaseToken)
+  .use(requireFirebaseToken)
   .get(sendWelcomeEmail);
 
 export default handler;

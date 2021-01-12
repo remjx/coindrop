@@ -1,4 +1,3 @@
-
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { FC } from 'react';
 import { sesSend } from '../../../src/email/ses-client';
