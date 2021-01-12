@@ -43,7 +43,7 @@ const DeleteAccount: FC = () => {
     const [confirmingInput, setConfirmingInput] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     if (!id || !email) {
-        return <Spinner />;
+        return <Spinner data-testid="no-user-spinner" />;
     }
     if (status === 'initial') {
         return (

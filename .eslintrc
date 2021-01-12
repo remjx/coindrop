@@ -110,7 +110,8 @@
                 "**/*.test.js",
                 "**/*.spec.js",
                 "**/*.test.jsx",
-                "**/*.spec.jsx"
+                "**/*.test.tsx",
+                "**/react-testing-library-config.tsx"
             ]}
         ],
         "import/no-unresolved": "error",

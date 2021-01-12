@@ -6,7 +6,6 @@ import {
     Flex,
     Button,
     Heading,
-    Text,
     Input,
     FormControl,
     FormLabel,
@@ -19,14 +18,12 @@ import { useForm } from "react-hook-form";
 import { useUser } from '../../utils/auth/useUser';
 import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 import { getUserData } from '../../src/db/queries/user/get-user-data';
-import { EmailListIds, UserData } from '../../src/db/schema/user';
+import { EmailListIds } from '../../src/db/schema/user';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
 import DeleteAccount from './DeleteAccount';
 
-
 const optionalEmailLists: Record<EmailListIds, string> = {
     newsletter: "Coindrop Newsletter",
-    // analytics: "Coindrop Analytics",
 };
 const alwaysEnabledEmailLists = [
     "Privacy Policy Updates",
@@ -42,21 +39,26 @@ const SectionHeading: FunctionComponent = ({ children }) => (
     </Box>
 );
 
-const UserSettings: FunctionComponent = () => {
+export const UserSettingsPage: FunctionComponent = () => {
     const { user } = useUser();
     const toast = useToast();
     const userId = user?.id;
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { data, error, mutate } = useSWR(
+    console.log('getUserData', getUserData);
+    const fetcher = () => {
+        console.log('getting user data');
+        // return getUserData(userId);
+        return async () => { console.log('getting user data2'); return Promise.resolve() }
+    };
+    const { data: userData, error, mutate } = useSWR(
         userId ? 'user-data' : null,
-        () => getUserData(userId),
+        fetcher,
     );
-    const userData: UserData = data;
+    console.log('user', user);
+    console.log('userData', userData);
     const email = userData?.email;
     const email_lists = userData?.email_lists;
     const { register, handleSubmit, watch, errors, formState: { isDirty }, reset } = useForm();
-    console.log('isDirty', isDirty);
-    console.log('fetched data', userData);
     const onSubmit = async (rawFormData) => {
         setIsSubmitting(true);
         const userDataForDb = {
@@ -67,7 +69,6 @@ const UserSettings: FunctionComponent = () => {
                 userDataForDb.email_lists.push(emailListId);
             }
         });
-        console.log('userDataForDb', userDataForDb);
         try {
             await updateUserData({ data: userDataForDb, userId });
             mutate(userDataForDb);
@@ -99,7 +100,7 @@ const UserSettings: FunctionComponent = () => {
             </Heading>
             {!userData ? (
                 <Center>
-                    <Spinner />
+                    <Spinner data-testid="no-user-data-spinner" />
                 </Center>
             ) : (
                 <>
@@ -165,4 +166,4 @@ const UserSettings: FunctionComponent = () => {
     );
 };
 
-export default withDefaultLayout(UserSettings);
+export default withDefaultLayout(UserSettingsPage);

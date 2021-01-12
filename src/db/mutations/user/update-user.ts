@@ -9,3 +9,5 @@ export const updateUserData = ({ data, userId }: { data: UserData, userId: strin
         .doc(userId);
     return userRef.update(data);
 };
+
+export default { updateUserData };
