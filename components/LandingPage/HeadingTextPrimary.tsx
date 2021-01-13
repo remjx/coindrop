@@ -9,9 +9,9 @@ interface Props {
 }
 
 export const HeadingTextPrimary: FC<Props> = ({
-    textPreUnderline = "The ",
-    textUnderline = "easy",
-    textPostUnderline = " way to get paid",
+    textPreUnderline,
+    textUnderline,
+    textPostUnderline,
 }) => (
     <Heading
         textAlign="center"
