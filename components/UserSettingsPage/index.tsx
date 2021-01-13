@@ -73,7 +73,7 @@ export const UserSettingsPage: FunctionComponent = () => {
                 isClosable: true,
             });
         } catch (err) {
-            console.error('ERR', err)
+            console.error('ERR', err);
             toast({
                 title: "Error updating account",
                 description: "Please try again or contact support",
