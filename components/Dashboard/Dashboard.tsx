@@ -29,6 +29,7 @@ const Dashboard: FunctionComponent = () => {
             const userData = firebase.auth().currentUser;
             const creationTime = dayjs(userData.metadata.creationTime); // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime
             if (creationTime.diff(new Date(), 'second') <= 30) {
+                console.log('sending welcome e-mail and initializing user data');
                 sendWelcomeEmail(user);
                 initializeUserData(user);
             }

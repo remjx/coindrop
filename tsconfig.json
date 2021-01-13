@@ -18,16 +18,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "paths": {
-      "rtl-utils": ["./src/tests/react-testing-library-config.tsx"] 
-    }
+    "jsx": "preserve"
   },
   "include": [
     "global.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
+    "**/*.tsx"
   ],
   "exclude": [
     "node_modules",

@@ -1,6 +1,5 @@
 export type EmailListIds =
-    'newsletter' // Main newsletter
-    // | 'analytics'; // Analytics for the user's Coindrops
+    'newsletter'; // Main newsletter
 
 export type UserData = {
     email_lists: EmailListIds[]
