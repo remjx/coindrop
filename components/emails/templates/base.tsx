@@ -40,7 +40,7 @@ const BaseEmailTemplate: FC<Props> = ({ children, previewText }) => {
                     id="content-container"
                     style={{
                         maxWidth: "600px",
-                        margin: "auto",
+                        margin: "20px auto auto auto",
                         padding: "20px",
                         backgroundColor: "white",
                     }}
