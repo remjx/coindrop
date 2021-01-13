@@ -4,13 +4,14 @@ import admin, { initialize } from '../../../../utils/auth/firebaseAdmin';
 initialize();
 
 const listAllUsers = (nextPageToken) => {
+    const db = admin.firestore();
     admin
       .auth()
       .listUsers(1000, nextPageToken)
       .then((listUsersResult) => {
         listUsersResult.users.forEach((userRecord) => {
+          console.log('uid', userRecord.uid);
             console.log('userRecord:', userRecord);
-          console.log('userRecord.toJSON():', userRecord.toJSON());
         });
         if (listUsersResult.pageToken) {
           listAllUsers(listUsersResult.pageToken);
@@ -23,7 +24,7 @@ const listAllUsers = (nextPageToken) => {
 
   const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      listAllUsers(null);
+      listAllUsers(undefined);
       res.status(200).end();
     } catch (err) {
       console.log(err);

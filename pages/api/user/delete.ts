@@ -16,13 +16,15 @@ const deleteAllUserCoindrops = async (userId: string): Promise<FirebaseFirestore
 
 const deleteUser: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        let { uid } = req.headers;
-        uid = Array.isArray(uid) ? uid[0] : uid;
-        await Promise.all([
-            db().collection('users').doc(uid).delete(),
-            admin.auth().deleteUser(uid),
-            deleteAllUserCoindrops(uid),
-        ]);
+        const uid = Array.isArray(req.headers.uid) ? req.headers.uid[0] : req.headers.uid;
+        await db().runTransaction(async (t) => {
+            const querySnapshot = await t.get(db().collection('piggybanks').where('owner_uid', '==', uid));
+            querySnapshot.forEach((doc) => {
+                t.delete(doc.ref);
+            });
+            t.delete(db().collection('users').doc(uid));
+        });
+        await admin.auth().deleteUser(uid);
         return res.status(200).end();
     } catch (err) {
         console.log(err);
