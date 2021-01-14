@@ -14,7 +14,10 @@
         "cypress"
     ],
     "parser": "@typescript-eslint/parser",
-    "ignorePatterns": "/public/embed-button.js",
+    "ignorePatterns": [
+        "/public/embed-button.js",
+        "/src/firebase-functions/**"
+    ],
     "overrides": [
         {
             "files": ["*.ts", "*.tsx"],
