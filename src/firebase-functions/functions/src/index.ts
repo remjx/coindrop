@@ -9,5 +9,4 @@ import * as functions from "firebase-functions";
 // });
 
 export const initializeUser = functions.auth.user().onCreate((user) => {
-    // 
 });
