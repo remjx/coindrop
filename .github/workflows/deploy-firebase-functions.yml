@@ -3,12 +3,8 @@ name: Deploy Firebase Functions
 on:
   push:
     branches: [
-      master,
-      email-notifications-cloud-functions # TEMPORARY
+      master
     ]
-defaults:
-  run:
-    working-directory: ./src/firebase-functions
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,10 +12,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install npm packages
       run: |
-        cd functions
+        cd src/firebase-functions/functions
         npm install
-    - name:  Deploy to Firebase (Production)
-      # if: ${{ github.ref == 'refs/heads/master' }}
+    - name:  Deploy to Firebase
       uses: w9jds/firebase-action@master
       with:
           args: deploy --only functions -P coindropto

@@ -15,7 +15,6 @@ const config = {
 };
 
 export default function initFirebase(): void {
-  console.log('firebase.apps.length', firebase.apps.length)
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
     if (
