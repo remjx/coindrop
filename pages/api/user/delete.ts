@@ -5,15 +5,6 @@ import requireFirebaseToken from '../../../server/middleware/requireFirebaseToke
 import { db } from '../../../utils/auth/firebaseAdmin';
 import { EmailListIds } from '../../../src/db/schema/user';
 
-const deleteAllUserCoindrops = async (userId: string): Promise<FirebaseFirestore.WriteResult[]> => {
-    const querySnapshot = await db().collection('piggybanks').where('owner_uid', '==', userId).get();
-    const batch = db().batch();
-    querySnapshot.forEach((doc) => {
-        batch.delete(doc.ref);
-    });
-    return batch.commit();
-};
-
 const deleteUser: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const uid = Array.isArray(req.headers.uid) ? req.headers.uid[0] : req.headers.uid;
@@ -28,7 +19,7 @@ const deleteUser: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
         return res.status(200).end();
     } catch (err) {
         console.log(err);
-        return res.status(400).end();
+        return res.status(500).end();
     }
 };
 

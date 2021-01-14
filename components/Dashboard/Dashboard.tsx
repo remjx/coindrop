@@ -27,11 +27,16 @@ const Dashboard: FunctionComponent = () => {
         // TODO: Move this to Cloud Firestore Functions since they have built-in "onUserCreate" trigger
         if (user) {
             const userData = firebase.auth().currentUser;
-            const creationTime = dayjs(userData.metadata.creationTime); // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime
-            if (creationTime.diff(new Date(), 'second') <= 30) {
-                console.log('sending welcome e-mail and initializing user data');
-                sendWelcomeEmail(user);
-                initializeUserData(user);
+            const creationTime = userData?.metadata?.creationTime;
+            if (creationTime) {
+                // https://firebase.google.com/docs/reference/js/firebase.auth.UserMetadata#optional-creationtime
+                console.log('account created', dayjs(creationTime).diff(new Date(), 'second'), 'seconds ago');
+                const diffSeconds = dayjs(creationTime).diff(new Date(), 'second');
+                if (diffSeconds <= 0 && diffSeconds > -30) {
+                    console.log('sending welcome e-mail and initializing user data');
+                    // sendWelcomeEmail(user);
+                    initializeUserData(user);
+                }
             }
         }
     }, [user]);

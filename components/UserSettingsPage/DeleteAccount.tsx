@@ -43,6 +43,10 @@ const DeleteAccount: FC = () => {
     const [status, setStatus] = useState<Status>('initial');
     const [confirmingInput, setConfirmingInput] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const onSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        handleDelete(logout, setIsSubmitting, user, setStatus);
+    };
     if (!id || !email) {
         return <Spinner data-testid="no-user-spinner" />;
     }
@@ -61,7 +65,9 @@ const DeleteAccount: FC = () => {
     }
     if (status === 'user-confirmation') {
         return (
-            <Box>
+            <form
+                onSubmit={onSubmit}
+            >
                 <Text mb={1}>
                     Type your e-mail address to confirm account deletion:
                 </Text>
@@ -78,8 +84,8 @@ const DeleteAccount: FC = () => {
                 )}
                 <Box align="center">
                     <Button
+                        type="submit"
                         colorScheme="red"
-                        onClick={() => handleDelete(logout, setIsSubmitting, user, setStatus)}
                         leftIcon={isSubmitting ? <Spinner size="sm" /> : undefined}
                         isDisabled={confirmingInput !== email || isSubmitting}
                         mt={2}
@@ -87,7 +93,7 @@ const DeleteAccount: FC = () => {
                         {isSubmitting ? 'Deleting' : 'Delete Account'}
                     </Button>
                 </Box>
-            </Box>
+            </form>
         );
     }
     if (status === 'success') {
