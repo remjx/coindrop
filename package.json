@@ -27,7 +27,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@google-cloud/firestore": "^4.2.0",
-    "@google-cloud/storage": "^5.7.1",
+    "@google-cloud/storage": "^5.7.2",
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
     "@types/jest": "^26.0.20",
