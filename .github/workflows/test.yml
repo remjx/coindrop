@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Lint, Unit Test, E2E Test
 
 env:
   NEXT_PUBLIC_FIREBASE_DATABASE_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_DATABASE_URL }}

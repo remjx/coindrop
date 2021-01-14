@@ -10,6 +10,7 @@ const listAllUsers = (nextPageToken) => {
       .listUsers(1000, nextPageToken)
       .then((listUsersResult) => {
         listUsersResult.users.forEach((userRecord) => {
+          // TODO: batch write updates to users to set initial settings
           console.log('uid', userRecord.uid);
             console.log('userRecord:', userRecord);
         });
