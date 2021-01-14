@@ -6,7 +6,7 @@
       "es5",
       "dom",
       "dom.iterable",
-      "esnext",
+      "esnext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,9 +25,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/firebase-functions/initialize-user.js"  ],
+  ],
   "exclude": [
     "node_modules",
-    "cypress"
+    "cypress",
+    "src/firebase-functions"
   ]
 }
