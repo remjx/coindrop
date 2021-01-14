@@ -1,0 +1,25 @@
+[debug] [2021-01-14T13:53:38.990Z] ----------------------------------------------------------------------
+[debug] [2021-01-14T13:53:38.992Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\markj\AppData\Local\Yarn\Data\global\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2021-01-14T13:53:38.992Z] CLI Version:   9.2.0
+[debug] [2021-01-14T13:53:38.992Z] Platform:      win32
+[debug] [2021-01-14T13:53:38.993Z] Node Version:  v12.20.0
+[debug] [2021-01-14T13:53:38.994Z] Time:          Thu Jan 14 2021 08:53:38 GMT-0500 (Eastern Standard Time)
+[debug] [2021-01-14T13:53:38.994Z] ----------------------------------------------------------------------
+[debug] [2021-01-14T13:53:38.994Z] 
+[debug] [2021-01-14T13:53:39.010Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-01-14T13:53:39.011Z] > authorizing via signed-in user
+[debug] [2021-01-14T13:53:39.011Z] [iam] checking project coindropto-dev for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2021-01-14T13:53:39.014Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/coindropto-dev:testIamPermissions  
+ {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2021-01-14T13:53:39.335Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 14 Jan 2021 13:53:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=88","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-14T13:53:39.336Z] >>> HTTP REQUEST POST https://iam.googleapis.com/v1/projects/coindropto-dev/serviceAccounts/coindropto-dev@appspot.gserviceaccount.com:testIamPermissions  
+ {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2021-01-14T13:53:39.865Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Thu, 14 Jan 2021 13:53:39 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2021-01-14T13:53:39.967Z] TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string. Received undefined
+    at validateString (internal/validators.js:120:11)
+    at Object.join (path.js:375:7)
+    at Object.checkFunctionsSDKVersion [as fn] (C:\Users\markj\AppData\Local\Yarn\Data\global\node_modules\firebase-tools\lib\checkFirebaseSDKVersion.js:34:28)
+    at C:\Users\markj\AppData\Local\Yarn\Data\global\node_modules\firebase-tools\lib\command.js:161:30
+    at processTicksAndRejections (internal/process/task_queues.js:97:5)
+[error] 
+[error] Error: An unexpected error has occurred.
