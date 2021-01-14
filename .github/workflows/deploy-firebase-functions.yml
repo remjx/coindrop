@@ -20,13 +20,13 @@ jobs:
       if: ${{ github.ref != 'refs/heads/master' }}
       uses: w9jds/firebase-action@master
       with:
-          args: deploy --only functions -P coindropto-dev
+          args: cd src/firebase-functions && deploy --only functions -P coindropto-dev
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     - name:  Deploy to Firebase (Production)
       if: ${{ github.ref == 'refs/heads/master' }}
       uses: w9jds/firebase-action@master
       with:
-          args: deploy --only functions -P coindropto
+          args: cd src/firebase-functions && deploy --only functions -P coindropto
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
