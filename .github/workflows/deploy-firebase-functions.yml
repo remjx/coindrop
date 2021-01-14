@@ -18,16 +18,9 @@ jobs:
       run: |
         cd functions
         npm install
-    # - name:  Deploy to Firebase (Development)
-    #   if: ${{ github.ref != 'refs/heads/master' }}
-    #   uses: w9jds/firebase-action@master
-    #   with:
-    #       args: deploy --only functions -P coindropto-dev
-    #   env:
-    #       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
     - name: list directory
-      run: ls
     - name:  Deploy to Firebase (Production)
+      run: ls
       # if: ${{ github.ref == 'refs/heads/master' }}
       uses: w9jds/firebase-action@master
       with:
