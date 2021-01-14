@@ -39,7 +39,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
             userEmail: userEmailAddress,
             emailListId: null,
         });
-        sesSend({
+        await sesSend({
             to: userEmailAddress,
             subject: 'Welcome to Coindrop',
             html,

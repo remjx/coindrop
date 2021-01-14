@@ -73,7 +73,7 @@ const DeleteAccount: FC = () => {
                 </Text>
                 <Input
                     placeholder={email}
-                    onChange={(event) => setConfirmingInput(event.target.value)}
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => setConfirmingInput(event.target.value)}
                     value={confirmingInput}
                     type="text"
                 />

@@ -17,34 +17,26 @@ type Msg = {
     html: string
 }
 
-export const sesSend = (msg: Msg): void => {
-    try {
-        const { to, subject, html } = msg;
-        const params = {
-            Content: {
-                Simple: {
-                    Body: {
-                        Html: {
-                            Data: html,
-                        },
-                    },
-                    Subject: {
-                        Data: subject,
+export const sesSend = (msg: Msg): Promise<any> => {
+    const { to, subject, html } = msg;
+    const params = {
+        Content: {
+            Simple: {
+                Body: {
+                    Html: {
+                        Data: html,
                     },
                 },
+                Subject: {
+                    Data: subject,
+                },
             },
-            Destination: {
-                ToAddresses: [to],
-            },
-            FromEmailAddress: 'Coindrop <contact@coindrop.to>',
-        };
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ses.sendEmail(params, (err, data): void => {
-            if (err) {
-                console.log('err in ses.sendEmail', err);
-            }
-        });
-    } catch (err) {
-        console.log('error in ses-client', err);
-    }
+        },
+        Destination: {
+            ToAddresses: [to],
+        },
+        FromEmailAddress: 'Coindrop <contact@coindrop.to>',
+    };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return ses.sendEmail(params).promise();
 };
