@@ -14,11 +14,19 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install npm packages
       run: |
-        cd functions
+        cd src/firebase-functions/functions
         npm install
-    - name:  Deploy to Firebase
+    - name:  Deploy to Firebase (Development)
+      if: ${{ github.ref != 'refs/heads/master' }}
       uses: w9jds/firebase-action@master
       with:
-          args: deploy --only functions
+          args: deploy --only functions -P coindropto-dev
+      env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+    - name:  Deploy to Firebase (Production)
+      if: ${{ github.ref == 'refs/heads/master' }}
+      uses: w9jds/firebase-action@master
+      with:
+          args: deploy --only functions -P coindropto
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
