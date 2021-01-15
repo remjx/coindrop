@@ -1,2 +1,2 @@
-export {initializeUser} from "./initializeUser";
-export {triggerWelcomeEmail} from "./triggerWelcomeEmail";
+export { initializeUser } from "./initializeUser";
+export { triggerWelcomeEmail } from "./triggerWelcomeEmail";
