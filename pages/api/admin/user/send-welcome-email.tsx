@@ -44,8 +44,8 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
       });
       return res.status(200).end();
     } catch (err) {
-        console.log(err);
-        return res.status(500).end();
+        console.error(err);
+        return res.status(500).send(err.stack); // TODO: don't send full stack normally, only for testing
     }
 };
 
