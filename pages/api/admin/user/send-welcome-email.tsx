@@ -9,6 +9,7 @@ import Paragraph from '../../../../components/emails/components/paragraph';
 import { githubUrl } from '../../../../src/settings';
 
 const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+    let progress = 0;
     try {
         const { email } = req.body;
         const Body: FC = () => (
@@ -30,6 +31,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
           </Paragraph>
           </>
       );
+      progress = 1;
       const html = generateStaticHTML({
           title: "Welcome!",
           previewText: "A few things to note as you get started",
@@ -37,15 +39,17 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
           userEmail: email,
           emailListId: null,
       });
+      progress = 2;
       await sesSend({
           to: email,
           subject: 'Welcome to Coindrop',
           html,
       });
+      progress = 3;
       return res.status(200).end();
     } catch (err) {
         console.error(err);
-        return res.status(500).send(err.stack); // TODO: don't send full stack normally, only for testing
+        return res.status(500).send(`Got as far as: POINT ${progress.toString()} STACK:${err.stack}`); // TODO: don't send full stack normally, only for testing
     }
 };
 
