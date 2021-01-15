@@ -20,7 +20,7 @@ export const triggerWelcomeEmail = functions.auth.user().onCreate(async (user) =
         },
         {
           headers: {
-            FIREBASE_FUNCTIONS_AUTH_TOKEN_ENCRYPTED
+            firebase_functions_auth_token_encrypted: FIREBASE_FUNCTIONS_AUTH_TOKEN_ENCRYPTED
           },
         },
     );
