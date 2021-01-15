@@ -42,6 +42,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
           subject: 'Welcome to Coindrop',
           html,
       });
+      return res.status(200).end();
     } catch (err) {
         console.log(err);
         return res.status(500).end();
