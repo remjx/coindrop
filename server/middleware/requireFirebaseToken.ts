@@ -11,7 +11,7 @@ const requireFirebaseToken = async (req: NextApiRequest, res: NextApiResponse, n
         req.headers.email = verifiedIdToken.email;
         return next();
     } catch (error) {
-        return res.status(401).send('You are unauthorized');
+        return res.status(401).end();
     }
 };
 

@@ -24,6 +24,8 @@
     "import"
   ],
   "rules": {
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "camelcase": "off",
+    "max-len": "off"
   }
 }

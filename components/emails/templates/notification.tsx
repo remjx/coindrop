@@ -9,7 +9,7 @@ type Data = {
     title: string
     previewText: string
     Body: FC
-    emailListId: string
+    emailListId: string | null
     userEmail: string
 }
 

@@ -1,10 +1,7 @@
 name: Deploy Firebase Functions
-
 on:
   push:
-    branches: [
-      master
-    ]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest

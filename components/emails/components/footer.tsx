@@ -7,7 +7,7 @@ const cryptr = new Cryptr(process.env.EMAIL_TOKENS_CRYPTR_SECRET);
 
 type Props = {
     userEmail: string
-    emailListId: string
+    emailListId: string | null
 }
 
 const Footer: FC<Props> = ({ userEmail, emailListId }) => {

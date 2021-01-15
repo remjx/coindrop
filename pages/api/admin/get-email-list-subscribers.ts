@@ -1,8 +1,9 @@
 // This is used to generate a list of emails that can be uploaded manually to EmailOctopus before sending any manual newsletters.
-
+import nc from 'next-connect';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { db } from '../../../utils/auth/firebaseAdmin';
 import { EmailListIds } from '../../../src/db/schema/user';
+import requireAdminPassword from '../../../server/middleware/requireAdminPassword';
 
 const getEmailListSubscribers: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -22,4 +23,8 @@ const getEmailListSubscribers: NextApiHandler = async (req: NextApiRequest, res:
     }
 };
 
-export default getEmailListSubscribers;
+const handler = nc()
+  .use(requireAdminPassword)
+  .post(getEmailListSubscribers);
+
+export default handler;
