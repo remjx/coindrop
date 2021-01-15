@@ -49,6 +49,10 @@ export const UserSettingsPage: FunctionComponent = () => {
         userId ? 'user-data' : null,
         fetcher,
     );
+    if (error) {
+        console.log('SWR error', error);
+    }
+    console.log('userData', userData);
     const email = userData?.email;
     const email_lists = userData?.email_lists;
     const { register, handleSubmit, watch, errors, formState: { isDirty }, reset } = useForm();

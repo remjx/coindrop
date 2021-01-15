@@ -1,3 +1,5 @@
+// Convenience API method for testing emails manually
+
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { FC } from 'react';
 import { sesSend } from '../../../src/email/ses-client';

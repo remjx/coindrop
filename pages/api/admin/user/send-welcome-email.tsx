@@ -2,11 +2,11 @@
 import nc from 'next-connect';
 import { FC } from 'react';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import requireFirebaseFunctionsToken from '../../../server/middleware/requireFirebaseFunctionsToken';
-import { sesSend } from '../../../src/email/ses-client';
-import { generateStaticHTML } from '../../../components/emails/templates/notification';
-import Paragraph from '../../../components/emails/components/paragraph';
-import { githubUrl } from '../../../src/settings';
+import requireFirebaseFunctionsToken from '../../../../server/middleware/requireFirebaseFunctionsToken';
+import { sesSend } from '../../../../src/email/ses-client';
+import { generateStaticHTML } from '../../../../components/emails/templates/notification';
+import Paragraph from '../../../../components/emails/components/paragraph';
+import { githubUrl } from '../../../../src/settings';
 
 const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
