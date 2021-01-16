@@ -29,6 +29,6 @@
   "exclude": [
     "node_modules",
     "cypress",
-    "src/firebase-functions"
+    "src/firebase"
   ]
 }

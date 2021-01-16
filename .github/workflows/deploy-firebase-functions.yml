@@ -9,7 +9,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install npm packages
       run: |
-        cd src/firebase-functions/functions
+        cd src/firebase/functions
         npm install
     - name:  Deploy to Firebase
       uses: w9jds/firebase-action@master
@@ -17,4 +17,4 @@ jobs:
           args: deploy --only functions -P coindropto
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: ./src/firebase-functions
+          PROJECT_PATH: ./src/firebase

@@ -16,7 +16,7 @@
     "parser": "@typescript-eslint/parser",
     "ignorePatterns": [
         "/public/embed-button.js",
-        "/src/firebase-functions/**"
+        "/src/firebase/**"
     ],
     "overrides": [
         {
