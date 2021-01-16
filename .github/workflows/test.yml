@@ -51,7 +51,7 @@ jobs:
     - name:  Test Firebase Rules
       uses: w9jds/firebase-action@master
       with:
-          args: emulators:exec --project coindropto-dev \"npx jest --env=node --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.ts --detectOpenHandles\"
+          args: emulators:exec --project coindropto-dev \"npx jest --env=node --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.ts --testPathIgnorePatterns=[]\"
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
   cypress-run:

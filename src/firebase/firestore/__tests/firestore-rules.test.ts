@@ -1,5 +1,8 @@
 // example: https://github.com/firebase/quickstart-testing/blob/master/unit-test-security-rules/test/firestore.spec.js
 
+// TODO: add coverage
+// this is an example? https://gist.github.com/katowulf/b5178664e7059928b4921fd85be922e5
+
 import * as firebase from '@firebase/rules-unit-testing';
 import 'firebase/firestore';
 import fs from 'fs';

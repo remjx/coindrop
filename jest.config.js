@@ -32,6 +32,7 @@ module.exports = {
       '/node_modules/',
       '/tests/',
       '/coverage/',
+      'src/firebase/firestore/__tests/firestore-rules.test.ts',
     ],
     transform: {
       '^.+\\.[jt]sx?$': 'babel-jest',
