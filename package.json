@@ -19,6 +19,7 @@
     "cy:gentestid": "node cypress/generate-test-id.js",
     "test:local": "jest --watch",
     "test": "jest",
+    "test:firestore:rules:entrypoint": "firebase emulators:exec --project coindropto-dev \"npx jest --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.js\"",
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
