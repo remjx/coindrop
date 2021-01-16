@@ -2,13 +2,15 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /piggybanks/{document=**} {
-      allow read; // This is not needed since all reads of other users are happening on server side during SSR?
-      allow update, delete: if request.auth != null && request.auth.uid == resource.data.owner_uid;
-      // allow update: if request.auth != null && request.auth.uid == resource.data.owner_uid && request.auth.id == request.resource.data.owner_uid;
-        // // This isn't working which allows users to update their owner_uid to be someone else
+      allow get;
+      allow delete: if request.auth != null
+        && request.auth.uid == resource.data.owner_uid;
+      allow update: if request.auth != null
+        && request.auth.uid == resource.data.owner_uid 
+        && request.auth.uid == request.resource.data.owner_uid;
     }
     match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow get, create, update: if request.auth != null && request.auth.uid == userId;
     }
   }
 }
