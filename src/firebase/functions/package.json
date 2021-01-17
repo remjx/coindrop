@@ -8,9 +8,10 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test:entrypoint": "npm run test:setup && npm run test:start",
-    "test:setup": "firebase use coindropto-dev && firebase functions:config:get > .runtimeconfig.json",
-    "test:start": "firebase emulators:exec \"npx jest\""
+    "test:local:entrypoint": "npm run test:setup && npm run test:start",
+    "test:local:setup": "npm run build && firebase use coindropto-dev && firebase functions:config:get > .runtimeconfig.json",
+    "test:local:start": "firebase emulators:exec \"npx jest\"",
+    "test:ci": ""
   },
   "engines": {
     "node": "12"
