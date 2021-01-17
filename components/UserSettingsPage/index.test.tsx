@@ -92,7 +92,7 @@ test('Clicking checkbox updates checked attribute', async () => {
     expect(screen.getByText('Coindrop Newsletter')).toHaveAttribute("data-checked");
 });
 
-test('Successful save', async () => {
+test('Successful save displays Account Updated toast notification and resets Save button state', async () => {
     render(<UserDataForm
         userData={{ email: "test@user.com", email_lists: [] }}
         mutate={jest.fn()}
@@ -105,4 +105,19 @@ test('Successful save', async () => {
     await waitFor(() => screen.getByText("Account updated"));
     await waitFor(() => screen.getByText("Save"));
     expect(screen.getByText("Save")).toHaveAttribute('disabled');
+});
+
+test('Unsuccessful save displays Error Updating Account toast notification', async () => {
+    (updateUserData as jest.Mock).mockImplementation(() => Promise.reject());
+    render(<UserDataForm
+        userData={{ email: "test@user.com", email_lists: [] }}
+        mutate={jest.fn()}
+        userId='test'
+    />, {});
+    const checkbox = screen.getByLabelText('Coindrop Newsletter');
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByText("Save"));
+    await waitFor(() => screen.getByText('Saving'));
+    await waitFor(() => screen.getByText("Error updating account"));
+    expect(screen.getByText("Save")).not.toHaveAttribute('disabled');
 });

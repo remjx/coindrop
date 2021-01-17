@@ -50,7 +50,7 @@ type Props = {
 const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
-        console.error(error)
+        console.error(error);
         return <Text>Error getting data, please try refreshing the page.</Text>;
     }
     if (data) {

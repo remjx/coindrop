@@ -68,7 +68,7 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
             }
         });
         try {
-            console.log('userData to submit', userDataForDb)
+            console.log('userData to submit', userDataForDb);
             await updateUserData({ data: userDataForDb, userId });
             mutate(userDataForDb);
             reset();
@@ -146,8 +146,8 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
                 </Box>
             </form>
         </Box>
-    )
-}
+    );
+};
 
 export const UserSettingsPage: FC = () => {
     const { user } = useUser();
