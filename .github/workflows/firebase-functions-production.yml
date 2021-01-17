@@ -1,4 +1,4 @@
-name: Deploy Firebase Functions
+name: Deploy Firebase Functions (Production)
 on:
   push:
     branches: [master]
@@ -11,7 +11,7 @@ jobs:
       run: |
         cd src/firebase/functions
         npm install
-    - name:  Deploy to Firebase
+    - name:  Test & Deploy
       uses: w9jds/firebase-action@master
       with:
           args: deploy --only functions -P coindropto

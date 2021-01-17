@@ -1,0 +1,27 @@
+name: Deploy Firebase Functions (Development)
+on:
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install npm packages
+      run: |
+        cd src/firebase/functions
+        npm install
+    - name:  Test
+      uses: w9jds/firebase-action@master
+      with:
+          args: emulators:exec \"npx jest\"
+      env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./src/firebase
+    - name:  Deploy
+      uses: w9jds/firebase-action@master
+      with:
+          args: deploy --only functions -P coindropto-dev
+      env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./src/firebase

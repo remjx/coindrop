@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const emailListsCurrent = userDoc.data().email_lists;
         const emailListsNew = Array.from(emailListsCurrent);
         emailListsNew.splice(emailListsNew.indexOf(emailListId), 1);
-        await userDoc.ref.update({ email_lists: emailListsNew }, { merge: true });
+        await userDoc.ref.update({ email_lists: emailListsNew });
         return {
             props: {
                 isUnsubscribeSuccessful: true,
