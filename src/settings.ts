@@ -1,8 +1,10 @@
+export const baseUrl = process.env.NODE_ENV === 'production' ? 'https://coindrop.to' : 'http://localhost:3000';
+
 export const piggybankPathRegex = /^[a-z][\w-]{1,30}[a-z0-9]$/i;
 export const maxPiggybanksPerUser = 10;
 
 // Links
-export const coindropEmail = "coindrop.to@gmail.com";
+export const coindropEmail = "contact@coindrop.to";
 export const markJacksonWebsite = "https://remjx.com";
 export const githubUrl = 'https://github.com/remjx/coindrop';
 export const markJacksonUrl = 'https://twitter.com/remjxd';
@@ -14,3 +16,6 @@ export const githubPrivacyPolicyUrl = "https://github.com/remjx/coindrop/blob/ma
 export const githubTermsOfServiceUrl = "https://github.com/remjx/coindrop/blob/master/TERMS_OF_SERVICE.md";
 export const githubOpenSourceLicenseUrl = "https://github.com/remjx/coindrop/blob/master/LICENSE";
 export const githubAddPaymentMethodRequest = "https://github.com/remjx/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title=";
+
+// Misc
+export const coindropBusinessAddress = "1016 Penny Ln SE, Marietta, GA 30067";

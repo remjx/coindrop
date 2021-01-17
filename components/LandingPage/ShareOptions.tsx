@@ -30,7 +30,7 @@ export const ShareOptionsDefault: FC = () => {
             </ShareOption>
             <ShareOption
                 title="Button"
-                description="For your website"
+                description="For websites"
                 bg={colorMode === 'light' ? 'green.400' : 'green.300'}
             >
                 <>

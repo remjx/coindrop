@@ -1,0 +1,9 @@
+# Compiled JavaScript files
+lib/
+
+# Node.js dependency directory
+node_modules/
+
+# Temporary files
+functions/.runtimeconfig.json
+**-debug.log

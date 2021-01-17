@@ -14,7 +14,10 @@
         "cypress"
     ],
     "parser": "@typescript-eslint/parser",
-    "ignorePatterns": "/public/embed-button.js",
+    "ignorePatterns": [
+        "/public/embed-button.js",
+        "/src/firebase/**"
+    ],
     "overrides": [
         {
             "files": ["*.ts", "*.tsx"],
@@ -110,7 +113,8 @@
                 "**/*.test.js",
                 "**/*.spec.js",
                 "**/*.test.jsx",
-                "**/*.spec.jsx"
+                "**/*.test.tsx",
+                "**/react-testing-library-config.tsx"
             ]}
         ],
         "import/no-unresolved": "error",

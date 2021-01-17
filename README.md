@@ -1,6 +1,6 @@
 # Coindrop 💰
 
-Create a simple webpage for accepting payments & donations. Open-source, zero-fee, and free forever.
+Your webpage for accepting payments & donations. Open-source, zero-fee, and free forever.
 
 Get started at [coindrop.to](https://coindrop.to).
 
@@ -43,7 +43,7 @@ As mentioned above, this software is licensed under the [GNU General Public Lice
 
 ## Maintainers 🛠️
 
-* [Mark Jackson](https://twitter.com/remjxd)
+* [Mark Jackson](https://remjx.com)
 
 ## Contributions 🙋‍♂️🙋‍♀️
 
@@ -51,4 +51,4 @@ Please use [Github Issues](https://github.com/remjx/coindrop/issues) to submit b
 
 ## Contact ✉️
 
-[@coindrop_to](https://twitter.com/coindrop_to) on Twitter (DMs are open)
+[contact@coindrop.to](mailto:contact@coindrop.to)

@@ -19,6 +19,7 @@
     "cy:gentestid": "node cypress/generate-test-id.js",
     "test:local": "jest --watch",
     "test": "jest",
+    "test:firestore:rules": "firebase emulators:exec --project coindropto-dev \"npx jest --env=node --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.ts --testPathIgnorePatterns=[]\"",
     "cleaninstall": "rm -rf ./node_modules && yarn"
   },
   "dependencies": {
@@ -31,8 +32,9 @@
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
     "@types/jest": "^26.0.20",
-    "@types/mocha": "^8.2.0",
+    "aws-sdk": "^2.828.0",
     "axios": "^0.21.1",
+    "cryptr": "^6.0.2",
     "dayjs": "^1.10.3",
     "firebase": "7.19.1",
     "firebase-admin": "^9.4.2",
@@ -56,11 +58,15 @@
     "sass": "^1.32.4",
     "swr": "^0.4.0",
     "uuid": "^8.3.0",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "zod": "^1.11.11"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.12.10",
+    "@firebase/rules-unit-testing": "^1.1.8",
+    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/react": "^11.2.3",
     "@types/js-cookie": "^2.2.6",
     "@types/uuid": "^8.3.0",
     "@types/validator": "^13.1.3",

@@ -1,5 +1,6 @@
-name: Node.js CI
+name: Test
 
+## I think all these can be moved into Cypress step
 env:
   NEXT_PUBLIC_FIREBASE_DATABASE_URL: ${{ secrets.NEXT_PUBLIC_FIREBASE_DATABASE_URL }}
   NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY }}
@@ -10,18 +11,16 @@ env:
   SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
   FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
   FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+  EMAIL_TOKENS_CRYPTR_SECRET: ${{ secrets.EMAIL_TOKENS_CRYPTR_SECRET }}
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
         node-version: [12.x]
@@ -47,9 +46,14 @@ jobs:
     - run: yarn run lint:tsc
     - run: yarn run lint:tsc:cypress
     - run: yarn run test
+    - name:  Test Firebase Rules
+      uses: w9jds/firebase-action@master
+      with:
+          args: emulators:exec --project coindropto-dev \"npx jest --env=node --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.ts --testPathIgnorePatterns=[]\"
+      env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
   cypress-run:
     runs-on: ubuntu-16.04
-    # if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -60,6 +64,7 @@ jobs:
           start: yarn start
           wait-on: http://localhost:3000
           record: false
+          ## Target a single test if it's failing:
           # spec: cypress/integration/app/create-coindrop-on-dashboard.ts
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

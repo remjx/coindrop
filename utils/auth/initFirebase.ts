@@ -19,6 +19,7 @@ export default function initFirebase(): void {
     firebase.initializeApp(config);
     if (
       process.env.NODE_ENV !== 'development'
+      && process.env.NODE_ENV !== 'test'
       && typeof window !== 'undefined'
       && !window.Cypress
     ) {

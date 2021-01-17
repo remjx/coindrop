@@ -15,6 +15,7 @@ const Dashboard: FunctionComponent = () => {
             router.push('/');
         }
     }, [user]);
+
     return (
         <>
             <NextSeo

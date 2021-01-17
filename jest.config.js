@@ -15,14 +15,14 @@ module.exports = {
       },
     },
     moduleNameMapper: {
-      '\\.(css|less)$': '<rootDir>/__mocks__/styleMock.js',
+      '\\.(scss|css|less)$': '<rootDir>/__mocks__/styleMock.js',
       '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/__mocks__/fileMock.js',
     },
     setupFiles: [
       '<rootDir>/src/tests/setup.js',
     ],
     setupFilesAfterEnv: [
-    //   '<rootDir>/tests/setupAfterEnv.js',
+      '<rootDir>/src/tests/setupAfterEnv.js',
     ],
     testMatch: [
       '**/?(*.)+(spec|test).[jt]s?(x)',
@@ -32,6 +32,7 @@ module.exports = {
       '/node_modules/',
       '/tests/',
       '/coverage/',
+      'src/firebase/firestore/__tests/firestore-rules.test.ts',
     ],
     transform: {
       '^.+\\.[jt]sx?$': 'babel-jest',

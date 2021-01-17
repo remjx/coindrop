@@ -13,19 +13,19 @@ const Home: NextPage = () => {
                 description="Create your page. Let the sender choose how to pay you. Supports all payment apps and cryptocurrencies."
             />
             <LandingPage
-                headingTextPrimaryPreUnderline="The "
-                headingTextPrimaryUnderline="easy"
-                headingTextPrimaryPostUnderline=" way to get paid"
+                headingTextPrimaryPreUnderline="Easily accept "
+                headingTextPrimaryUnderline="zero-fee"
+                headingTextPrimaryPostUnderline=" donations and tips"
                 headingTextSecondary="List your payment apps. Let the sender choose how to pay you."
                 headingTextTertiary="100% free. Zero fees."
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}.png`}
                 showSubscriptionPlatforms
                 ShareOptions={ShareOptionsDefault}
-                shareOptionsHeading="Share &amp; Get Paid"
+                shareOptionsHeading="Share anywhere &amp; get paid"
                 advertiseOpenSource
                 getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
-                smartphoneMockupImageWidth={458}
-                smartphoneMockupImageHeight={909}
+                smartphoneMockupImageWidth={305}
+                smartphoneMockupImageHeight={606}
                 createCoindropInputPlaceholder="your-name"
                 logoSubtitle={null}
             />
