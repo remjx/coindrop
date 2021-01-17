@@ -92,7 +92,7 @@ test('Clicking checkbox updates checked attribute', async () => {
     expect(screen.getByText('Coindrop Newsletter')).toHaveAttribute("data-checked");
 });
 
-test.only('Successful save', async () => {
+test('Successful save', async () => {
     render(<UserDataForm
         userData={{ email: "test@user.com", email_lists: [] }}
         mutate={jest.fn()}
