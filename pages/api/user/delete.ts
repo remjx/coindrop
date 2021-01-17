@@ -3,7 +3,6 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import * as admin from 'firebase-admin';
 import requireFirebaseToken from '../../../server/middleware/requireFirebaseToken';
 import { db } from '../../../utils/auth/firebaseAdmin';
-import { EmailListIds } from '../../../src/db/schema/user';
 
 const deleteUser: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
@@ -18,7 +17,6 @@ const deleteUser: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
         await admin.auth().deleteUser(uid);
         return res.status(200).end();
     } catch (err) {
-        console.log(err);
         return res.status(500).end();
     }
 };
