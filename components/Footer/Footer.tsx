@@ -56,7 +56,7 @@ const Footer: FunctionComponent = () => {
                     <Divider />
                     <ExternalLink
                         href={`mailto:${coindropEmail}`}
-                        text="Contact"
+                        text="Help"
                     />
                 </Flex>
                 <SocialLinks />

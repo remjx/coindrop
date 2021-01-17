@@ -6,8 +6,6 @@ import {
     Flex,
     Button,
     Heading,
-    Input,
-    FormControl,
     FormLabel,
     Checkbox,
     Spinner,
@@ -44,6 +42,12 @@ const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
     </Box>
 );
 
+const SectionContainer: FC = ({ children }) => (
+    <Box mx={4}>
+        {children}
+    </Box>
+);
+
 type UserDataFormProps = {
     userData: Record<string, any>
     mutate: any
@@ -54,10 +58,8 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
     const [isSubmitting, setIsSubmitting] = useState(false);
     const toast = useToast();
     const { register, handleSubmit, formState: { isDirty }, reset } = useForm();
-    const email = userData?.email;
     const email_lists = userData?.email_lists;
     const onSubmit = async (rawFormData) => {
-        console.log('rawFormData', rawFormData);
         setIsSubmitting(true);
         const userDataForDb = {
             email_lists: [],
@@ -68,7 +70,6 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
             }
         });
         try {
-            console.log('userData to submit', userDataForDb);
             await updateUserData({ data: userDataForDb, userId });
             mutate(userDataForDb);
             reset();
@@ -79,7 +80,6 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
                 isClosable: true,
             });
         } catch (err) {
-            console.error('ERR', err);
             toast({
                 title: "Error updating account",
                 description: "Please try again or contact support",
@@ -92,7 +92,7 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
         }
     };
     return (
-        <Box mx={4}>
+        <SectionContainer>
             <form onSubmit={handleSubmit(onSubmit)} data-testid="settings-form">
                 <SectionHeading size="md">
                     E-mail
@@ -101,10 +101,6 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
                     id="email-preferences-content"
                     m={4}
                 >
-                    <FormControl id="email" isDisabled isReadOnly>
-                        <FormLabel>Email address</FormLabel>
-                        <Input type="email" name="email" defaultValue={email} />
-                    </FormControl>
                     <FormLabel>Newsletters</FormLabel>
                     <Flex wrap="wrap">
                         {Object.entries(optionalEmailLists).map(([emailListId, emailListDisplayName]: [EmailListIds, string]) => {
@@ -145,7 +141,7 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
                     </Button>
                 </Box>
             </form>
-        </Box>
+        </SectionContainer>
     );
 };
 
@@ -157,6 +153,7 @@ export const UserSettingsPage: FC = () => {
         userId ? 'user-data' : null,
         fetcher,
     );
+    const email = user?.email;
     const Settings = () => {
         if (fetchError) {
             return (
@@ -180,11 +177,21 @@ export const UserSettingsPage: FC = () => {
             </Center>
         );
     };
+    if (!user) {
+        return <Spinner data-testid="no-user-spinner" />;
+    }
     return (
         <Box>
             <Heading as="h1" textAlign="center" my={4}>
                 My Account
             </Heading>
+            <SectionHeading size="lg">
+                Profile
+            </SectionHeading>
+            <SectionContainer>
+                <FormLabel>Email address</FormLabel>
+                <Text ml={2}>{email}</Text>
+            </SectionContainer>
             <SectionHeading size="lg">
                 Settings
             </SectionHeading>

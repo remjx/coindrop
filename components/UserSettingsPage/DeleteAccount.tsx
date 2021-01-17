@@ -81,7 +81,7 @@ const DeleteAccount: FC = () => {
                         All your Coindrops will be deleted. This cannot be undone!
                     </Text>
                 )}
-                <Box align="center">
+                <Box>
                     <Button
                         type="submit"
                         colorScheme="red"
