@@ -71,6 +71,10 @@ describe('Firestore rules', () => {
         await firebase.assertSucceeds(db.collection("piggybanks").doc("alice").set({ owner_uid: "alice" }));
         await firebase.assertFails(db.collection("piggybanks").doc("alice").set({ owner_uid: "bob" }));
     })
+    it('allows users to list their own piggybanks', async () => {
+        const db = getAuthedFirestore({ uid: "alice", email: "alice@example.com" });
+        await firebase.assertSucceeds(db.collection("piggybanks").where('owner_uid', '==', 'alice').get());
+    })
 })
 
 afterAll(async () => {

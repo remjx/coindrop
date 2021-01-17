@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { FunctionComponent, useState } from 'react';
+import { FC, useState } from 'react';
 import {
     Box,
     Center,
@@ -12,6 +12,7 @@ import {
     Checkbox,
     Spinner,
     useToast,
+    Text,
 } from "@chakra-ui/react";
 import useSWR from 'swr';
 import { useForm } from "react-hook-form";
@@ -30,46 +31,47 @@ const alwaysEnabledEmailLists = [
     "Terms of Service Updates",
 ];
 
-const SectionHeading: FunctionComponent = ({ children }) => (
+type SectionHeadingProps = {
+    size: "sm" | "md" | "lg"
+}
+
+const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
     <Box mt={6} mb={3}>
-        <Heading as="h2" size="md" mb={2}>
+        <Heading as="h2" mb={2} size={size}>
             {children}
         </Heading>
         <hr />
     </Box>
 );
 
-export const UserSettingsPage: FunctionComponent = () => {
-    const { user } = useUser();
-    const toast = useToast();
-    const userId = user?.id;
+type UserDataFormProps = {
+    userData: Record<string, any>
+    mutate: any
+    userId: string
+}
+
+export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const fetcher = () => getUserData(userId);
-    const { data: userData, error, mutate } = useSWR(
-        userId ? 'user-data' : null,
-        fetcher,
-    );
-    if (error) {
-        console.log('SWR error', error);
-    }
-    console.log('userData', userData);
+    const toast = useToast();
+    const { register, handleSubmit, formState: { isDirty }, reset } = useForm();
     const email = userData?.email;
     const email_lists = userData?.email_lists;
-    const { register, handleSubmit, watch, errors, formState: { isDirty }, reset } = useForm();
     const onSubmit = async (rawFormData) => {
+        console.log('rawFormData', rawFormData);
         setIsSubmitting(true);
         const userDataForDb = {
             email_lists: [],
         };
         Object.keys(optionalEmailLists).forEach(emailListId => {
-            if (rawFormData[`email_list:${emailListId}`]) {
+            if (rawFormData.email_lists[emailListId]) {
                 userDataForDb.email_lists.push(emailListId);
             }
         });
         try {
+            console.log('userData to submit', userDataForDb)
             await updateUserData({ data: userDataForDb, userId });
             mutate(userDataForDb);
-            reset(userDataForDb);
+            reset();
             toast({
                 title: "Account updated",
                 status: "success",
@@ -89,77 +91,108 @@ export const UserSettingsPage: FunctionComponent = () => {
             setIsSubmitting(false);
         }
     };
+    return (
+        <Box mx={4}>
+            <form onSubmit={handleSubmit(onSubmit)} data-testid="settings-form">
+                <SectionHeading size="md">
+                    E-mail
+                </SectionHeading>
+                <Box
+                    id="email-preferences-content"
+                    m={4}
+                >
+                    <FormControl id="email" isDisabled isReadOnly>
+                        <FormLabel>Email address</FormLabel>
+                        <Input type="email" name="email" defaultValue={email} />
+                    </FormControl>
+                    <FormLabel>Newsletters</FormLabel>
+                    <Flex wrap="wrap">
+                        {Object.entries(optionalEmailLists).map(([emailListId, emailListDisplayName]: [EmailListIds, string]) => {
+                            return (
+                                <Checkbox
+                                    key={emailListId}
+                                    mr={6}
+                                    name={`email_lists.${emailListId}`}
+                                    colorScheme="orange"
+                                    defaultChecked={email_lists?.includes(emailListId)}
+                                    ref={register()}
+                                >
+                                    {emailListDisplayName}
+                                </Checkbox>
+                            );
+                        })}
+                        {alwaysEnabledEmailLists.map(listName => (
+                            <Checkbox
+                                key={listName}
+                                mr={6}
+                                colorScheme="orange"
+                                defaultChecked
+                                isDisabled
+                            >
+                                {listName}
+                            </Checkbox>
+                        ))}
+                    </Flex>
+                </Box>
+                <Box>
+                    <Button
+                        colorScheme="green"
+                        type="submit"
+                        isDisabled={!isDirty || isSubmitting}
+                        leftIcon={isSubmitting ? <Spinner size="sm" /> : undefined}
+                    >
+                        {isSubmitting ? 'Saving' : 'Save'}
+                    </Button>
+                </Box>
+            </form>
+        </Box>
+    )
+}
 
+export const UserSettingsPage: FC = () => {
+    const { user } = useUser();
+    const userId = user?.id;
+    const fetcher = () => getUserData(userId);
+    const { data: userData, error: fetchError, mutate } = useSWR(
+        userId ? 'user-data' : null,
+        fetcher,
+    );
+    const Settings = () => {
+        if (fetchError) {
+            return (
+                <Text>
+                    ⚠️ Error fetching user data. Please refresh the page or contact support.
+                </Text>
+            );
+        }
+        if (userData) {
+            return (
+                <UserDataForm
+                    userData={userData}
+                    mutate={mutate}
+                    userId={userId}
+                />
+            );
+        }
+        return (
+            <Center>
+                <Spinner data-testid="no-user-data-spinner" />
+            </Center>
+        );
+    };
     return (
         <Box>
             <Heading as="h1" textAlign="center" my={4}>
-                Account Settings
+                My Account
             </Heading>
-            {!userData ? (
-                <Center>
-                    <Spinner data-testid="no-user-data-spinner" />
-                </Center>
-            ) : (
-                <>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <SectionHeading>
-                        E-mail
-                    </SectionHeading>
-                    <Box
-                        id="email-preferences-content"
-                        m={4}
-                    >
-                        <FormControl id="email" isDisabled isReadOnly>
-                            <FormLabel>Email address</FormLabel>
-                            <Input type="email" name="email" defaultValue={email} />
-                        </FormControl>
-                        <FormLabel>Newsletters</FormLabel>
-                        <Flex wrap="wrap">
-                            {Object.entries(optionalEmailLists).map(([emailListId, emailListDisplayName]: [EmailListIds, string]) => {
-                                return (
-                                    <Checkbox
-                                        key={emailListId}
-                                        mr={6}
-                                        name={`email_list:${emailListId}`}
-                                        colorScheme="orange"
-                                        defaultChecked={email_lists?.includes(emailListId)}
-                                        ref={register()}
-                                        data-testid={`email_list:${emailListId}`}
-                                    >
-                                        {emailListDisplayName}
-                                    </Checkbox>
-                                );
-                            })}
-                            {alwaysEnabledEmailLists.map(listName => (
-                                <Checkbox
-                                    key={listName}
-                                    mr={6}
-                                    colorScheme="orange"
-                                    defaultChecked
-                                    isDisabled
-                                >
-                                    {listName}
-                                </Checkbox>
-                            ))}
-                        </Flex>
-                    </Box>
-                    <Box align="center">
-                        <Button
-                            colorScheme="green"
-                            type="submit"
-                            isDisabled={!isDirty || isSubmitting}
-                            leftIcon={isSubmitting ? <Spinner size="sm" /> : undefined}
-                        >
-                            {isSubmitting ? 'Saving' : 'Save'}
-                        </Button>
-                    </Box>
-                </form>
-                <SectionHeading>
-                    Danger Zone
-                </SectionHeading>
-                <DeleteAccount />
-                </>
-            )}
+            <SectionHeading size="lg">
+                Settings
+            </SectionHeading>
+            <Settings />
+            <SectionHeading size="lg">
+                Danger Zone
+            </SectionHeading>
+            <DeleteAccount />
         </Box>
     );
 };

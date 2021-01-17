@@ -1,13 +1,10 @@
 /* eslint-disable arrow-body-style */
 import '@testing-library/jest-dom/extend-expect';
-// import { mocked } from 'ts-jest/utils';
 import useSWR from 'swr';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
-import { UserSettingsPage } from './index';
+import { UserSettingsPage, UserDataForm } from './index';
 import useUserModule from '../../utils/auth/useUser';
-import { getUserData } from '../../src/db/queries/user/get-user-data';
-import updateUserDataModule from '../../src/db/mutations/user/update-user';
-import { getDefaultUserData } from '../../src/db/schema/user';
+import { updateUserData } from '../../src/db/mutations/user/update-user';
 
 jest.mock('../../utils/auth/useUser');
 jest.mock('swr');
@@ -23,7 +20,7 @@ jest.mock('../../src/db/queries/user/get-user-data', () => {
 
 jest.mock('../../src/db/mutations/user/update-user', () => {
     return {
-        updateUserData: jest.fn(),
+        updateUserData: jest.fn(() => Promise.resolve()),
     };
 });
 
@@ -38,16 +35,28 @@ beforeEach(() => {
     }));
 });
 
-test('Spinner is displayed if getUserData fails', async () => {
+test('Error is displayed if getUserData fails', async () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: undefined, error: true }));
     render(<UserSettingsPage />, {});
-    screen.getByTestId("no-user-data-spinner");
+    screen.getByText("⚠️ Error fetching user data. Please refresh the page or contact support.");
+    expect(screen.queryByTestId("no-user-data-spinner")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("settings-form")).not.toBeInTheDocument();
 });
 
-test('Spinner is not displayed if getUserData passes', async () => {
-    (useSWR as jest.Mock).mockImplementation(() => ({ data: { someDataExists: true, error: false } }));
+test('Spinner is displayed while user data is being fetched', async () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: undefined, error: false }));
     render(<UserSettingsPage />, {});
+    screen.getByTestId("no-user-data-spinner");
+    expect(screen.queryByText("⚠️ Error fetching user data. Please refresh the page or contact support.")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("settings-form")).not.toBeInTheDocument();
+});
+
+test('Form is displayed if getUserData succeeds', async () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { someDataExists: true }, error: false }));
+    render(<UserSettingsPage />, {});
+    expect(screen.queryByText("⚠️ Error fetching user data. Please refresh the page or contact support.")).not.toBeInTheDocument();
     expect(screen.queryByTestId("no-user-data-spinner")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("settings-form")).toBeInTheDocument();
 });
 
 test('User data is populated on form on initial load (populated)', () => {
@@ -63,29 +72,37 @@ test('User data is populated on form on initial load (empty)', () => {
     expect(screen.getByLabelText('Coindrop Newsletter')).not.toHaveAttribute("checked");
 });
 
-test('Save button is disabled until form is dirty', () => {
+test('Save button is disabled until form is dirty', async () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
     render(<UserSettingsPage />, {});
-    let input = screen.getByLabelText('Coindrop Newsletter');
-    expect(input).not.toHaveAttribute("checked");
     expect(screen.getByText('Save')).toHaveAttribute('disabled');
-    fireEvent.change(input, { target: { checked: true }});
-    input = screen.getByLabelText('Coindrop Newsletter');
+    const input = screen.getByLabelText('Coindrop Newsletter');
+    fireEvent.click(input);
     expect(screen.getByText('Save')).not.toHaveAttribute('disabled');
 });
 
-test('Successful save', async () => {
-    (useSWR as jest.Mock).mockImplementation(() => ({
-        data: { email: "test@user.com", email_lists: [] },
-        mutate: jest.fn(),
-    }));
-    // (updateUserDataModule.updateUserData as jest.Mock).mockImplementation(() => Promise.resolve());
+test('Clicking checkbox updates checked attribute', async () => {
+    (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
     render(<UserSettingsPage />, {});
+    const input = screen.getByText('Coindrop Newsletter');
+    expect(input).not.toHaveAttribute("data-checked");
+    expect(screen.getByText('Save')).toHaveAttribute('disabled');
+    fireEvent.click(input);
+    expect(screen.getByText('Save')).not.toHaveAttribute('disabled');
+    expect(screen.getByText('Coindrop Newsletter')).toHaveAttribute("data-checked");
+});
+
+test.only('Successful save', async () => {
+    render(<UserDataForm
+        userData={{ email: "test@user.com", email_lists: [] }}
+        mutate={jest.fn()}
+        userId='test'
+    />, {});
     const checkbox = screen.getByLabelText('Coindrop Newsletter');
-    fireEvent.change(checkbox, { target: { checked: true }});
-    let saveButton = screen.getByText("Save");
-    fireEvent.click(saveButton);
+    fireEvent.click(checkbox);
+    fireEvent.click(screen.getByText("Save"));
+    await waitFor(() => screen.getByText('Saving'));
     await waitFor(() => screen.getByText("Account updated"));
-    saveButton = await waitFor(() => screen.getByText("Save"));
-    expect(saveButton).toHaveAttribute('disabled');
+    await waitFor(() => screen.getByText("Save"));
+    expect(screen.getByText("Save")).toHaveAttribute('disabled');
 });

@@ -29,7 +29,6 @@ const handleDelete = async (
         const redirectDelay = 5000;
         setTimeout(logout, redirectDelay);
     } catch (err) {
-        console.error('error in handleDelete', err);
         setStatus('error');
     } finally {
         setIsSubmitting(false);
