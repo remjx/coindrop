@@ -1,6 +1,4 @@
 name: Deploy Firebase Functions (Development)
-env:
-  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 on:
   pull_request:
     branches: [ master ]
@@ -17,14 +15,16 @@ jobs:
     - name:  Test
       uses: w9jds/firebase-action@master
       with:
-          args: emulators:exec --project coindropto-dev \"npx jest\"
+          args: emulators:exec \"npx jest\"
       env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
           PROJECT_PATH: ./src/firebase
+          PROJECT_ID: coindropto-dev
     - name:  Deploy
       uses: w9jds/firebase-action@master
       with:
-          args: deploy --only functions -P coindropto-dev
+          args: deploy --only functions
       env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
           PROJECT_PATH: ./src/firebase
+          PROJECT_ID: coindropto-dev
