@@ -62,14 +62,14 @@ test('Form is displayed if getUserData succeeds', async () => {
 test('User data is populated on form on initial load (populated)', () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: ["newsletter"] } }));
     render(<UserSettingsPage />, {});
-    expect(screen.getByLabelText('Email address')).toHaveValue("test@user.com");
-    expect(screen.getByLabelText('Coindrop Newsletter')).toHaveAttribute("checked");
+    screen.getByText('Email address');
+    expect(screen.getByText('Coindrop Newsletter')).toHaveAttribute("data-checked");
 });
 
 test('User data is populated on form on initial load (empty)', () => {
     (useSWR as jest.Mock).mockImplementation(() => ({ data: { email: "test@user.com", email_lists: [] } }));
     render(<UserSettingsPage />, {});
-    expect(screen.getByLabelText('Coindrop Newsletter')).not.toHaveAttribute("checked");
+    expect(screen.getByText('Coindrop Newsletter')).not.toHaveAttribute("data-checked");
 });
 
 test('Save button is disabled until form is dirty', async () => {
