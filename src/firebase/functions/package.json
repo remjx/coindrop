@@ -10,8 +10,7 @@
     "logs": "firebase functions:log",
     "test:local:entrypoint": "npm run test:setup && npm run test:start",
     "test:local:setup": "npm run build && firebase use coindropto-dev && firebase functions:config:get > .runtimeconfig.json",
-    "test:local:start": "firebase emulators:exec \"npx jest\"",
-    "test:ci": ""
+    "test:local:start": "firebase emulators:exec \"npx jest\""
   },
   "engines": {
     "node": "12"
