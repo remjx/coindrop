@@ -11,6 +11,7 @@ jobs:
       run: |
         cd src/firebase/functions
         npm install
+        npm run build
     - name:  Test
       uses: w9jds/firebase-action@master
       with:
