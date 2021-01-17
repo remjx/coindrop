@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { getDefaultUserData } from "../../../db/schema/user";
+import {getDefaultUserData} from "../../../db/schema/user";
 
 admin.initializeApp();
 const db = admin.firestore();
