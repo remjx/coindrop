@@ -1,4 +1,6 @@
 name: Deploy Firebase Functions (Development)
+env:
+  FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 on:
   pull_request:
     branches: [ master ]
@@ -15,7 +17,7 @@ jobs:
     - name:  Test
       uses: w9jds/firebase-action@master
       with:
-          args: emulators:exec \"npx jest\"
+          args: emulators:exec --project coindropto-dev \"npx jest\"
       env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_PATH: ./src/firebase
