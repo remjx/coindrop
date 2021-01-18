@@ -65,7 +65,7 @@
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.12.10",
     "@firebase/rules-unit-testing": "^1.1.8",
-    "@testing-library/jest-dom": "^5.11.8",
+    "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@types/js-cookie": "^2.2.6",
     "@types/uuid": "^8.3.0",
