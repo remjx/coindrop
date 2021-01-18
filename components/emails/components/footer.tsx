@@ -32,10 +32,8 @@ const Footer: FC<Props> = ({ userEmail, emailListId }) => {
                 id="social-links"
                 style={{
                     paddingTop: "8px",
-                    display: "flex",
-                    flexDirection: "row",
                     margin: "auto",
-                    justifyContent: "center",
+                    textAlign: "center",
                 }}
             >
                 <SocialLink

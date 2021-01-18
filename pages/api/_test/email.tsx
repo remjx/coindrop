@@ -2,7 +2,7 @@
 
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { FC } from 'react';
-import { sesSend } from '../../../src/email/ses-client';
+// import { sesSend } from '../../../src/email/ses-client';
 import { generateStaticHTML } from '../../../components/emails/templates/notification';
 
 const testHtml: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
