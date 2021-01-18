@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState, useEffect } from 'react';
 import { Flex, Button } from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 import { maxPiggybanksPerUser } from '../../../../src/settings';
@@ -10,6 +10,9 @@ type Props = {
 
 const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks }) => {
     const [showInput, setShowInput] = useState(numActivePiggybanks === 0);
+    useEffect(() => {
+        setShowInput(numActivePiggybanks === 0);
+    }, [numActivePiggybanks]);
     if (numActivePiggybanks < maxPiggybanksPerUser) {
         if (!showInput) {
             return (
