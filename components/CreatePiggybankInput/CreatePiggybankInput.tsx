@@ -90,8 +90,8 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                     <Button
                         ml={1}
                         colorScheme={createButtonColorScheme}
-                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting'}
-                        isLoading={submitStatus === 'submitting'}
+                        isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || submitStatus === 'success'}
+                        isLoading={submitStatus === 'submitting' || submitStatus === 'success'}
                         loadingText="Creating"
                         onClick={onSubmit}
                         type="submit"
