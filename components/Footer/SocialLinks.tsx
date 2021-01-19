@@ -1,13 +1,13 @@
 /* eslint-disable arrow-body-style */
 import { FunctionComponent } from 'react';
-import { FaTwitter, FaInstagram, FaGithub, FaFacebook } from 'react-icons/fa';
+import { FaTwitter, FaYoutube, FaGithub, FaFacebookF } from 'react-icons/fa';
 import { Flex, Link, Icon } from '@chakra-ui/react';
 import { IconType } from 'react-icons';
 import {
     githubUrl,
     twitterUrl,
-    instagramUrl,
     facebookUrl,
+    youtubeUrl,
 } from '../../src/settings';
 import styles from './SocialLinks.module.scss';
 
@@ -40,8 +40,8 @@ export const SocialLinks: FunctionComponent = () => {
             p={2}
         >
             <SocialLink icon={FaTwitter} href={twitterUrl} />
-            <SocialLink icon={FaInstagram} href={instagramUrl} />
-            <SocialLink icon={FaFacebook} href={facebookUrl} />
+            <SocialLink icon={FaYoutube} href={youtubeUrl} />
+            <SocialLink icon={FaFacebookF} href={facebookUrl} />
             <SocialLink icon={FaGithub} href={githubUrl} />
         </Flex>
     );
