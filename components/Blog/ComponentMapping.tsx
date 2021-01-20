@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Code, Center, Heading, Text, Link, UnorderedList, ListItem, OrderedList } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { FC } from 'react';
 
 const ImageBorder: FC = ({ children }) => (
@@ -32,4 +33,5 @@ export const components = {
     code: Code,
     CodeBlock,
     a: ({ children, href }) => <u><Link href={href} isExternal>{children}</Link></u>,
+    NextLink: ({ children, href }) => <u><NextLink href={href}>{children}</NextLink></u>,
 };
