@@ -4833,10 +4833,10 @@ cypress-firebase@^1.6.0:
   resolved "https://registry.yarnpkg.com/cypress-firebase/-/cypress-firebase-1.6.0.tgz#c585f5365f9e5e1fb39d194a5e4039a02326c66c"
   integrity sha512-VFBr8/xKM4tHtmiFMp/iUnE/fiBcOK+l4jVrqh4j/hxFCFARAOJE7CoQfSXRvBLHWPoGtzVMcC4IHNQhob0gKQ==
 
-cypress@6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.2.1.tgz#27d5fbcf008c698c390fdb0c03441804176d06c4"
-  integrity sha512-OYkSgzA4J4Q7eMjZvNf5qWpBLR4RXrkqjL3UZ1UzGGLAskO0nFTi/RomNTG6TKvL3Zp4tw4zFY1gp5MtmkCZrA==
+cypress@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/cypress/-/cypress-6.3.0.tgz#e27bba01d7e493265700e1e85333dca0b0127ede"
+  integrity sha512-Ec6TAFOxdSB2HPINNJ1f7z75pENXcfCaQkz+A9j0eGSvusFJ2NNErq650DexCbNJAnCQkPqXB4XPH9kXnSQnUA==
   dependencies:
     "@cypress/listr-verbose-renderer" "^0.4.1"
     "@cypress/request" "^2.88.5"
