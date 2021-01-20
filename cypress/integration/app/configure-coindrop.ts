@@ -32,7 +32,8 @@ describe('Configure Coindrop', () => {
             .type(name);
         cy.get('button#add-payment-method-button')
             .click();
-        cy.get(`#accordion-panel-accordion-item-default-blank`)
+        cy.pause();
+        cy.get('[data-cy=select-payment-method-container-default-blank]')
             .find('select')
             .select(paymentMethodValue);
         cy.get(`#address-input-${paymentMethodValue}`)

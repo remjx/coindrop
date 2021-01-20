@@ -101,7 +101,6 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                     return (
                         <AccordionItem
                             key={item.id}
-                            id={`accordion-item-${watchedData.paymentMethodId}`}
                         >
                             <AccordionButton
                                 onClick={() => {
@@ -146,6 +145,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                 />
                                 <Box
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "none" : "block"}
+                                    data-cy={`select-payment-method-container-${watchedData.paymentMethodId}`}
                                 >
                                     <Select
                                         name={`${fieldArrayName}[${index}].paymentMethodId`}
