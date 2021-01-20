@@ -37,28 +37,22 @@ const Footer: FC<Props> = ({ userEmail, emailListId }) => {
                 }}
             >
                 <SocialLink
-                    href="https://www.facebook.com/Coindrop.to/"
-                    title="Facebook"
-                    alt="FB"
-                    srcPath="/images/facebook-logo-black.png"
-                />
-                <SocialLink
                     href="https://twitter.com/coindrop_to"
                     title="Twitter"
                     alt="TWTR"
                     srcPath="/images/twitter-logo-black.png"
                 />
                 <SocialLink
-                    href="https://www.instagram.com/coindrop.to"
-                    title="Instagram"
-                    alt="IG"
-                    srcPath="/images/instagram-logo-black.png"
-                />
-                <SocialLink
                     href="https://www.youtube.com/channel/UCpkybbAV94VUkZOsxboJtmQ"
                     title="YouTube"
                     alt="YT"
                     srcPath="/images/youtube-logo-black.png"
+                />
+                <SocialLink
+                    href="https://www.facebook.com/Coindrop.to/"
+                    title="Facebook"
+                    alt="FB"
+                    srcPath="/images/facebook-logo-black.png"
                 />
             </div>
             <div
