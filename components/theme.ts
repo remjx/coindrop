@@ -25,8 +25,8 @@ const theme = extendTheme({
       200: "#FBD38D",
       300: "#F6AD55",
       400: "#ED8936",
-      500: "#FF9E1F", // button default
-      600: "#ED8936", // button hovered
+      500: "#FF9E1F", // Chakra button default
+      600: "#ED8936", // Chakra button hovered
       700: "#9C4221",
       800: "#7B341E",
       900: "#652B19",

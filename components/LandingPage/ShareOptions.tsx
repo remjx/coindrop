@@ -53,7 +53,7 @@ export const ShareOptionsDefault: FC = () => {
                 description="For the real world"
                 bg='#BBCBCB'
             >
-                <Image src={tipCardPng} height="150px" width="150px" />
+                <Image src={tipCardPng} alt="Tip Card example" height="150px" width="150px" />
             </ShareOption>
         </Flex>
     );

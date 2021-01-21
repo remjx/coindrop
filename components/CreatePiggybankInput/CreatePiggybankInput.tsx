@@ -70,6 +70,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                             coindrop.to/
                         </InputLeftAddon>
                         <Input
+                            aria-label="Enter custom URL path"
                             name={inputName}
                             id={inputName}
                             maxLength={32}

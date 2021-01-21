@@ -6,6 +6,7 @@ export const ToggleColorModeButton: FC<ButtonProps> = (buttonProps) => {
     const { colorMode, toggleColorMode } = useColorMode();
     return (
         <Button
+            aria-label="Toggle dark mode"
             onClick={toggleColorMode}
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...buttonProps}
