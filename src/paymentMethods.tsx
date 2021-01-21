@@ -164,6 +164,27 @@ export const paymentMethods: PaymentMethod[] = [
         }),
     },
     {
+        id: "lydia",
+        displayName: "Lydia",
+        category: 'digital-wallet',
+        icon: createIcon({
+            displayName: "LydiaIcon",
+            path: (
+                <g>
+                <defs>
+                    <linearGradient id="a" x1="150" x2="150" y2="300" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stopColor="#0180ff" />
+                        <stop offset="1" stopColor="#0069de" />
+                    </linearGradient>
+                </defs>
+                <circle cx="150" cy="150" r="150" fill="url(#a)" />
+                <path d="M226.41 213.22L163.87 69.7a9.89 9.89 0 00-9.07-6h-9.35a9.92 9.92 0 00-9.08 5.94L73.6 213.13a5.38 5.38 0 00-.44 2.13 5.26 5.26 0 005.25 5.25h14.81a7.62 7.62 0 007-4.71l49.93-120.09 50 120.16a7.6 7.6 0 007 4.71h14.44a5.2 5.2 0 002.1-.44 5.26 5.26 0 002.72-6.92z" fill="#fff" />
+                </g>
+            ),
+            viewBox: "0 0 300 300",
+        }),
+    },
+    {
         id: "moneyButton",
         displayName: "Money Button",
         category: 'digital-wallet',
