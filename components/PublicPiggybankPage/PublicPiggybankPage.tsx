@@ -77,7 +77,6 @@ const PublicPiggybankPage: FunctionComponent = () => {
         <Container
             maxW={theme.breakpoints.lg}
             mx="auto"
-            position="relative"
         >
             {user?.id
             && user.id === owner_uid
@@ -101,16 +100,6 @@ const PublicPiggybankPage: FunctionComponent = () => {
                 />
                 </>
             )}
-            <Flex
-                mt={2}
-                mr={6}
-                justify="flex-end"
-                position="absolute"
-                right="1rem"
-                zIndex="2"
-            >
-                <ToggleColorModeButton variant="ghost" />
-            </Flex>
             {initialSetupComplete ? (
                 <Box
                     mb={6}
