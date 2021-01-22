@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import useSWR from 'swr';
-import { Box, Heading, Text, Stack, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Stack, Skeleton } from '@chakra-ui/react';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
