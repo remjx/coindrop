@@ -441,10 +441,10 @@ export const paymentMethods: PaymentMethod[] = [
     },
     {
         id: "unifiedPaymentsInterface",
-        displayName: "UPI Unified Payments Interface",
+        displayName: "UPI",
         category: "digital-wallet",
         icon: createIcon({
-            displayName: "UPI (Unified Payments Interface)",
+            displayName: "UPI",
             path: (
                 <g>
                     <defs>
