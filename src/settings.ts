@@ -4,7 +4,7 @@ export const piggybankPathRegex = /^[a-z][\w-]{1,30}[a-z0-9]$/i;
 export const maxPiggybanksPerUser = 10;
 
 // Links
-export const coindropEmail = "contact@coindrop.to";
+export const coindropEmail = "coindrop.to@gmail.com";
 export const markJacksonWebsite = "https://remjx.com";
 export const githubUrl = 'https://github.com/remjx/coindrop';
 export const markJacksonUrl = 'https://twitter.com/remjxd';
