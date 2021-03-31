@@ -51,4 +51,4 @@ Please use [Github Issues](https://github.com/remjx/coindrop/issues) to submit b
 
 ## Contact ✉️
 
-[contact@coindrop.to](mailto:contact@coindrop.to)
+[coindrop.to@gmail.com](mailto:coindrop.to@gmail.com)
