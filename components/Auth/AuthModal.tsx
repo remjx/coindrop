@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader } from '@chakra-ui/react';
+import { Text, Modal, ModalOverlay, ModalContent, ModalCloseButton, ModalBody, ModalHeader, Link } from '@chakra-ui/react';
 import { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import FirebaseAuth from './FirebaseAuth';
@@ -22,6 +22,27 @@ const AuthModal: FunctionComponent<Props> = ({ isOpen }) => {
                 <ModalCloseButton />
                 <ModalBody>
                     <FirebaseAuth />
+                    <Text textAlign="center" fontSize="xs" mb={2}>
+                        {'If you\'re having trouble logging in, please try again with '}
+                        <Link
+                            href="https://www.google.com/chrome/"
+                            target="_blank"
+                            rel="noreferrer"
+                            textDecoration="underline"
+                        >
+                            Chrome
+                        </Link>
+                        {' or '}
+                        <Link
+                            href="https://www.mozilla.org/firefox"
+                            target="_blank"
+                            rel="noreferrer"
+                            textDecoration="underline"
+                        >
+                            Firefox
+                        </Link>
+                        .
+                    </Text>
                 </ModalBody>
             </ModalContent>
         </Modal>
