@@ -32,7 +32,7 @@
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
     "@types/jest": "^26.0.20",
-    "aws-sdk": "^2.828.0",
+    "aws-sdk": "^2.943.0",
     "axios": "^0.21.1",
     "cryptr": "^6.0.2",
     "dayjs": "^1.10.3",
