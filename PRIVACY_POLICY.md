@@ -21,6 +21,10 @@ Be aware that any page you create (e.g. https://coindrop.to/your-name) is public
 
 Coindrop may use "cookies" in your browser to store information about your preferences to improve your user experience.
 
+## Data Deletion
+
+You can delete your account and all stored data by navigating to Menu > My Account > Delete Account once you are logged in. All data will be deleted immediately.
+
 ## Changes To This Privacy Policy
 
 This Privacy Policy is effective immediately starting 2020-10-09 and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page.
