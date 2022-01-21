@@ -155,7 +155,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
         >
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Configure</ModalHeader>
+                <ModalHeader>Settings</ModalHeader>
                 <ModalCloseButton />
                 <form id="configure-coindrop-form" onSubmit={handleSubmit(onSubmit)}>
                     <ModalBody>
