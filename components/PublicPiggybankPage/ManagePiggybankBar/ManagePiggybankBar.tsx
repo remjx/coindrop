@@ -2,7 +2,7 @@
 import { FunctionComponent, useState } from 'react';
 import NextLink from 'next/link';
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps } from '@chakra-ui/react';
+import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps, UseDisclosureReturn } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
 import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalValidationContext';
@@ -27,11 +27,12 @@ type Props = {
         color: string
         icon: JSX.Element
     },
-    initialSetupComplete: boolean
+    initialSetupComplete: boolean,
+    configureModalDisclosure: UseDisclosureReturn
 }
 
-const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initialSetupComplete }) => {
-    const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = useDisclosure();
+const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initialSetupComplete, configureModalDisclosure }) => {
+    const { isOpen: isEditOpen, onOpen: onEditOpen, onClose: onEditClose } = configureModalDisclosure;
     const [isDashboardLoading, setIsDashboardLoading] = useState(false);
     return (
         <Box>
