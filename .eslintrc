@@ -34,11 +34,14 @@
             }
         },
         {
-            "files": ["*.test.js", "*.spec.js", "*.test.jsx", "*.spec.jsx"],
+            "files": ["*.test.*", "*.spec.*"],
             "extends": [
                 "plugin:jest/recommended"
             ],
-            "plugins": ["jest"]
+            "plugins": ["jest"],
+            "rules": {
+                "no-console": "off"
+            }
         },
         {
             "files": ["cypress/support/commands.js", "cypress/plugins/index.js"],

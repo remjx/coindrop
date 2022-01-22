@@ -14,7 +14,7 @@ test('Show Spinner until user data is loaded', async () => {
     logout: null,
   }));
   const { getByTestId } = render(<DeleteAccount />, {});
-  getByTestId("no-user-spinner");
+  expect(getByTestId("no-user-spinner")).toBeTruthy();
 });
 
 test('Happy path account deletion', async () => {
