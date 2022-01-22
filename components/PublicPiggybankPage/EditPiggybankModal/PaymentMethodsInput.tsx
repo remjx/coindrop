@@ -14,17 +14,16 @@ import {
     Input,
     Link,
     Checkbox,
-    Select,
     Text,
     useTheme,
 } from "@chakra-ui/react";
 import { useWatch, Control } from "react-hook-form";
-import paymentMethods, { paymentMethodNames, paymentMethodIcons, Category } from '../../../src/paymentMethods';
+import CreatableReactSelect from 'react-select/creatable';
+import { OptionProps } from 'react-select'
+import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
 import { githubAddPaymentMethodRequest } from '../../../src/settings';
-
-// TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
 export type PaymentMethod = {
     address: string
@@ -41,6 +40,16 @@ type Props = {
     append: (data: Record<string, unknown>) => void
     fieldArrayName: string,
 };
+
+const Option: FC<OptionProps<{label: string}>> = ({ innerProps, innerRef, data }) => {
+    return (
+      <div className="react-select-option" ref={innerRef} {...innerProps}>
+        <div>
+            {data.label ?? 'Unknown option'}
+        </div>
+      </div>
+    );
+  };
 
 const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, register, remove, append }) => {
     const { colors } = useTheme();
@@ -59,30 +68,6 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
-    // optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853
-        // const optionsGroup = (category: Category) => {
-        //     const optgroupLabels: Record<Category, string> = {
-        //         "digital-wallet": 'Digital Wallets',
-        //         "digital-asset": "Digital Assets",
-        //         "subscription-platform": "Subscription Platforms",
-        //     };
-        //     return (
-        //         <optgroup label={optgroupLabels[category]}>
-        //             {paymentMethods
-        //             .filter(paymentMethod => paymentMethod.category === category)
-        //             .sort((a, b) => (a.id < b.id ? -1 : 1))
-        //             .map(({ id, displayName }) => (
-        //                 <option
-        //                     key={id}
-        //                     value={id}
-        //                     style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
-        //                 >
-        //                     {displayName}
-        //                 </option>
-        //             ))}
-        //         </optgroup>
-        //     );
-        // };
     return (
         <>
         {fields.length < 1
@@ -147,31 +132,44 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "none" : "block"}
                                     data-cy={`select-payment-method-container-${watchedData.paymentMethodId}`}
                                 >
-                                    <Select
+                                    <CreatableReactSelect
                                         name={`${fieldArrayName}[${index}].paymentMethodId`}
                                         ref={register()}
-                                        defaultValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
-                                        isInvalid={containsInvalidAddress && isAddressTouched}
+                                        // defaultValue={}
+                                        defaultInputValue={paymentMethodNames[item.paymentMethodId] ? item.paymentMethodId : 'default-blank'}
+                                        aria-invalid={containsInvalidAddress && isAddressTouched}
                                         onChange={() => setIsAddressTouched(false)}
-                                    >
-                                        <option hidden disabled value="default-blank">Select...</option>
-                                        {/* optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853 */}
-                                        {Object.entries(paymentMethodNames)
+                                        onInputChange={() => undefined}
+                                        blurInputOnSelect
+                                        closeMenuOnScroll
+                                        isSearchable
+                                        placeholder="Select..."
+                                        defaultMenuIsOpen
+                                        // isValidNewOption={} // (inputValue:string, value:ReadonlyArray<...>, options:ReadonlyArray<...>, accessors:Accessors{...}) => boolean
+                                        // getNewOptionData={} // (inputValue:string, optionLabel:ReactNode One of<...>) => Option
+                                        // onCreateOption={} // (inputValue:string) => void
+                                        // components={{
+                                        //     Option,
+                                        // }}
+                                        options={Object.entries(paymentMethodNames)
                                             .sort((a, b) => {
                                                 const [aId] = a;
                                                 const [bId] = b;
                                                 return aId < bId ? -1 : 1;
                                             })
+                                            .filter(([paymentMethodId]) => !paymentMethodsDataWatch.map(paymentMethod => paymentMethod.paymentMethodId).includes(paymentMethodId))
                                             .map(([paymentMethodId, paymentMethodDisplayName]) => (
-                                                <option
-                                                    key={paymentMethodId}
-                                                    value={paymentMethodId}
-                                                    style={{display: paymentMethodsDataWatch.map(paymentMethod => paymentMethod.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
-                                                >
-                                                    {paymentMethodDisplayName}
-                                                </option>
+                                                {
+                                                    label: paymentMethodDisplayName,
+                                                    value: paymentMethodId,
+                                                }
                                             ))}
-                                    </Select>
+                                        formatOptionLabel={({ value, label }) => <div>{value} {label}</div>}
+                                        menuPortalTarget={document.body}
+                                        styles={{ menuPortal: base => ({ ...base, zIndex: 9999 }) }}
+                                        menuPlacement="top"
+                                        // inputValue={}
+                                    />
                                 </Box>
                                 <Box
                                     mx={3}
