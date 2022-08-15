@@ -50,13 +50,13 @@ const Footer: FunctionComponent = () => {
                         text="Blog"
                     />
                     <Divider />
-                    <ExternalLink
-                        href={githubTermsOfServiceUrl}
+                    <InternalLink
+                        href="/blog/terms-of-service"
                         text="Terms"
                     />
                     <Divider />
-                    <ExternalLink
-                        href={githubPrivacyPolicyUrl}
+                    <InternalLink
+                        href="/blog/privacy-policy"
                         text="Privacy"
                     />
                     <Divider />
