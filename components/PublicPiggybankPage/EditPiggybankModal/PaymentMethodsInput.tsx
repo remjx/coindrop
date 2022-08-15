@@ -23,7 +23,6 @@ import { OptionProps } from 'react-select'
 import { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
-import { githubAddPaymentMethodRequest } from '../../../src/settings';
 
 export type PaymentMethod = {
     address: string

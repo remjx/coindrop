@@ -13,7 +13,6 @@ export const youtubeUrl = "https://www.youtube.com/channel/UCpkybbAV94VUkZOsxboJ
 export const facebookUrl = "https://www.facebook.com/Coindrop.to/";
 export const githubReadmeHelpUrl = "https://github.com/remjx/coindrop#contributions-%EF%B8%8F%EF%B8%8F";
 export const githubOpenSourceLicenseUrl = "https://github.com/remjx/coindrop/blob/master/LICENSE";
-export const githubAddPaymentMethodRequest = "https://github.com/remjx/coindrop/issues/new?assignees=markjackson02&labels=enhancement&template=new_payment_method.md&title=";
 
 // Misc
 export const coindropBusinessAddress = "4624 Willowgrove Dr, Ellicott City, MD 21042";

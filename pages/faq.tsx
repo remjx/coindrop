@@ -18,7 +18,7 @@ import {
     useTheme,
 } from "@chakra-ui/react";
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
-import { coindropEmail, githubUrl, markJacksonWebsite, githubAddPaymentMethodRequest } from '../src/settings';
+import { coindropEmail, githubUrl, markJacksonWebsite } from '../src/settings';
 
 type AccordionText = {
     title: string
@@ -57,21 +57,6 @@ const accordionText: AccordionText[] = [
                     Keep in mind the code to this website is open-source so if we ever implemented obtrusive monetization tactics, you could always fork the project on Github :)
                 </Text>
             </Box>
-        ),
-    },
-    {
-        title: "What if one of my payment methods is not listed?",
-        body: (
-            <Text>
-                {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
-                <Link
-                    href={githubAddPaymentMethodRequest}
-                    isExternal
-                >
-                    <u>here</u>
-                </Link>
-                .
-            </Text>
         ),
     },
     {
