@@ -2,8 +2,6 @@
 import { FunctionComponent } from 'react';
 import { Flex, Box, Text } from '@chakra-ui/react';
 import {
-    githubTermsOfServiceUrl,
-    githubPrivacyPolicyUrl,
     coindropEmail,
 } from '../../src/settings';
 import { ExternalLink } from './ExternalLink';
@@ -50,13 +48,13 @@ const Footer: FunctionComponent = () => {
                         text="Blog"
                     />
                     <Divider />
-                    <ExternalLink
-                        href={githubTermsOfServiceUrl}
+                    <InternalLink
+                        href="/blog/terms-of-service"
                         text="Terms"
                     />
                     <Divider />
-                    <ExternalLink
-                        href={githubPrivacyPolicyUrl}
+                    <InternalLink
+                        href="/blog/privacy-policy"
                         text="Privacy"
                     />
                     <Divider />
