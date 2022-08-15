@@ -2,8 +2,6 @@
 import { FunctionComponent } from 'react';
 import { Flex, Box, Text } from '@chakra-ui/react';
 import {
-    githubTermsOfServiceUrl,
-    githubPrivacyPolicyUrl,
     coindropEmail,
 } from '../../src/settings';
 import { ExternalLink } from './ExternalLink';
