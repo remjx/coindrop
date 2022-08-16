@@ -9,10 +9,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     ? piggybankNameParamCaseInsensitive[0]
     : piggybankNameParamCaseInsensitive;
   const piggybankName = piggybankNameCaseInsensitive.toLowerCase();
-  const piggybankRef = db() // TODO: convert to firestore v9
-  .collection('piggybanks')
-  .doc(piggybankName);
-  const piggybank = await piggybankRef.get();
+  const piggybank = await db.collection('piggybanks').doc(piggybankName).get();
   let piggybankDbData = {};
   if (piggybank.exists) {
     piggybankDbData = piggybank.data();
@@ -30,9 +27,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const piggybankDocumentReferences = await db() // TODO: convert to firestore v9
-    .collection('piggybanks')
-    .listDocuments();
+  const piggybankDocumentReferences = await db.collection('piggybanks').listDocuments();
   const piggybankIds = piggybankDocumentReferences.map(ref => ref.id);
   const paths = piggybankIds.map(piggybankId => ({ params: { piggybankName: piggybankId } }));
   return {

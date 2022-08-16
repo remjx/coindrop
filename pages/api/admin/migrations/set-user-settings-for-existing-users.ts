@@ -1,15 +1,13 @@
 // Run this one time migration to generate user settings for existing users (going forward it will happen on create)
 import nc from 'next-connect';
-import { writeBatch } from 'firebase/firestore';
+// import { writeBatch } from 'firebase/firestore';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import { initialize, auth } from '../../../../utils/auth/firebaseAdmin';
-import { getDefaultUserData } from '../../../../src/db/schema/user';
+// import { initialize, auth } from '../../../../utils/auth/firebaseAdmin';
+// import { getDefaultUserData } from '../../../../src/db/schema/user';
 import requireAdminPassword from '../../../../server/middleware/requireAdminPassword';
 
-initialize();
-
 const initializeUserSettingsForExistingUsers = (nextPageToken: string | undefined = undefined) => {
-      throw new Error('unimplemented')
+      throw new Error('unimplemented');
       // auth()
       // .listUsers(500, nextPageToken)
       // .then(async (listUsersResult) => {

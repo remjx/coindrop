@@ -13,18 +13,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const { query: { token }} = context;
         const [userEmail, emailListId]: [string, EmailListIds] = cryptr.decrypt(token).split(" ");
-        const ref = await db() // TODO: convert to firestore v9
-            .collection('users')
-            .where('email', '==', userEmail);
-        const usersQuerySnapshot = await ref.get();
-        if (usersQuerySnapshot.empty) {
+        const users = await db.collection('users').where('email', '==', userEmail).get();
+        if (users.empty) {
             throw new Error('No matching user e-mail');
         }
-        if (usersQuerySnapshot.size > 1) {
+        if (users.size > 1) {
             throw new Error('More than one e-mail matched');
         }
         let userDoc;
-        usersQuerySnapshot.forEach(userDocTemp => {
+        users.forEach(userDocTemp => {
             userDoc = userDocTemp;
         });
         const emailListsCurrent = userDoc.data().email_lists;

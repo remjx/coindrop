@@ -15,7 +15,7 @@ const firebaseAdminApp = initializeApp({
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
 });
 
-const firebaseAdminAuth = getAuth(firebaseAdminApp);
+export const firebaseAdminAuth = getAuth(firebaseAdminApp);
 
 export const verifyIdToken = (token: string): Promise<DecodedIdToken> => {
   return firebaseAdminAuth
