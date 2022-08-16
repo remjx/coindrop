@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import firebase from 'firebase/app';
+import { firebaseAuth } from './initFirebase';
 import 'firebase/auth';
-import initFirebase from "./initFirebase";
 import {
   removeUserCookie,
   setUserCookie,
   getUserFromCookie,
 } from './userCookies';
 import { mapUserData, User } from './mapUserData';
-
-initFirebase();
 
 type UseUser = {
   user: User | null,
@@ -21,8 +18,7 @@ const useUser = (): UseUser => {
   const [user, setUser] = useState<User>(null);
   const router = useRouter();
 
-  const logout = async () => firebase
-      .auth()
+  const logout = async () => firebaseAuth
       .signOut()
       .then(() => {
         router.push('/');
@@ -36,7 +32,7 @@ const useUser = (): UseUser => {
     // Firebase updates the id token every hour, this
     // makes sure the react state and the cookie are
     // both kept up to date
-    const cancelAuthListener = firebase.auth().onIdTokenChanged((googleTokenObject) => {
+    const cancelAuthListener = firebaseAuth.onIdTokenChanged((googleTokenObject) => {
       if (googleTokenObject) {
         const userData = mapUserData(googleTokenObject);
         setUserCookie(userData);

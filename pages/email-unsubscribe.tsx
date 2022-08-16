@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const { query: { token }} = context;
         const [userEmail, emailListId]: [string, EmailListIds] = cryptr.decrypt(token).split(" ");
-        const ref = await db()
+        const ref = await db() // TODO: convert to firestore v9
             .collection('users')
             .where('email', '==', userEmail);
         const usersQuerySnapshot = await ref.get();

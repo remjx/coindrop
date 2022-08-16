@@ -6,6 +6,7 @@ import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import PageTitle from '../../Title/Title';
+import { collection, getDocs, where, query } from 'firebase/firestore';
 
 const Title = () => <PageTitle title="My Coindrops" />;
 
@@ -29,10 +30,9 @@ const LoadingSkeleton: FC = () => (
 type PiggybankDocumentID = string
 
 async function fetchUserOwnedPiggybanks(uid: string): Promise<PiggybankDocumentID[]> {
-    const piggybanks = await db
-        .collection('piggybanks')
-        .where('owner_uid', '==', uid)
-        .get();
+    const col = collection(db, 'piggybanks');
+    const q = query(col, where('owner_uid', '==', uid));
+    const piggybanks = await getDocs(q);
     if (piggybanks.empty) {
         return [];
     }

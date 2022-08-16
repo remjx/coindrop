@@ -1,4 +1,5 @@
-import { storage } from '../../../utils/client/storage';
+import { ref, deleteObject } from "firebase/storage";
+import { firebaseStorage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 
 type Parameters = {
@@ -9,13 +10,12 @@ type Parameters = {
 
 export async function deleteImage({ storageId, ownerUid, piggybankName }: Parameters): Promise<void> {
     if (storageId) {
-        const storageRef = storage.ref();
-        const avatarRef = storageRef.child(piggybankImageStoragePath({
+        const avatarRef = ref(firebaseStorage, piggybankImageStoragePath({
             ownerUid,
             piggybankName,
             imageAs: "avatar",
             imageStorageId: storageId,
         }));
-        await avatarRef.delete();
+        await deleteObject(avatarRef);
     }
 }

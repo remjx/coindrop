@@ -1,22 +1,19 @@
 import { useEffect, useState, FunctionComponent } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/app';
 import { Spinner } from "@chakra-ui/react";
-import 'firebase/auth';
-import initFirebase from '../../utils/auth/initFirebase';
+import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider } from 'firebase/auth';
 import { setUserCookie } from '../../utils/auth/userCookies';
 import { mapUserData } from '../../utils/auth/mapUserData';
-
-initFirebase();
+import { firebaseAuth } from '../../utils/auth/initFirebase';
 
 const firebaseAuthConfig = {
   signInFlow: 'redirect',
   signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    GoogleAuthProvider.PROVIDER_ID,
+    FacebookAuthProvider.PROVIDER_ID,
     {
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+      provider: EmailAuthProvider.PROVIDER_ID,
+      signInMethod: EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
     },
   ],
   credentialHelper: 'none',
@@ -46,7 +43,7 @@ const FirebaseAuth: FunctionComponent = () => {
       {renderAuth ? (
         <StyledFirebaseAuth
           uiConfig={firebaseAuthConfig}
-          firebaseAuth={firebase.auth()}
+          firebaseAuth={firebaseAuth}
         />
       ) : <Spinner />}
     </div>

@@ -22,6 +22,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
 import { mutate } from 'swr';
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';
@@ -107,7 +108,8 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
-                await db.collection('piggybanks').doc(initialPiggybankId).set(dataToSubmit);
+                const piggybanks = collection(db, 'piggybanks');
+                await setDoc(doc(piggybanks, initialPiggybankId), dataToSubmit);
                 mutate(['publicPiggybankData', initialPiggybankId], dataToSubmit);
             } else {
                 await axios.post(
@@ -124,9 +126,10 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                     },
                 );
                 try {
-                    await db.collection('piggybanks').doc(initialPiggybankId).delete();
+                    const piggybanks = collection(db, 'piggybanks');
+                    await deleteDoc(doc(piggybanks, initialPiggybankId));
                 } catch (err) {
-                    console.log('error deleting old Coindrop page');
+                    console.error('error deleting old Coindrop page');
                 }
                 routerPush(`/${formData.piggybankId}`);
             }

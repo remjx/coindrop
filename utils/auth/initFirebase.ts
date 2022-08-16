@@ -1,7 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/analytics';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -14,16 +12,15 @@ const config = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 };
 
-export default function initFirebase(): void {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-    if (
-      process.env.NODE_ENV !== 'development'
-      && process.env.NODE_ENV !== 'test'
-      && typeof window !== 'undefined'
-      && !window.Cypress
-    ) {
-      firebase.analytics();
-    }
-  }
-}
+export const firebaseApp = initializeApp(config);
+
+export const firebaseAuth = getAuth(firebaseApp);
+
+// if (
+//   process.env.NODE_ENV !== 'development'
+//   && process.env.NODE_ENV !== 'test'
+//   && typeof window !== 'undefined'
+//   && !window.Cypress
+// ) {
+//   analytics();
+// }

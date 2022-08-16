@@ -22,7 +22,7 @@ async function isPiggybankNameNonexistant(piggybankName: string) {
   if (rootPageSlugs.includes(piggybankName)) {
     throw new Error(piggybankExistsErrorMessage);
   }
-  const piggybank = await db()
+  const piggybank = await db() // TODO: convert to firestore v9
     .collection('piggybanks')
     .doc(piggybankName)
     .get();
@@ -34,7 +34,7 @@ async function isPiggybankNameNonexistant(piggybankName: string) {
 
 const userOverPiggybankLimitErrorMessage = 'Piggybank limit has been reached.';
 async function isUserUnderPiggybankLimit(uid: string): Promise<boolean | Error> {
-  const piggybanks = await db()
+  const piggybanks = await db() // TODO: convert to firestore v9
     .collection('piggybanks')
     .where('owner_uid', '==', uid)
     .get();
@@ -96,7 +96,7 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
       avatar_storage_id: newAvatarStorageId,
     };
     await Promise.all([
-      db()
+      db() // TODO: convert to firestore v9
         .collection('piggybanks')
         .doc(newPiggybankName)
         .set(newPiggybankData),
