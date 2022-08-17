@@ -177,7 +177,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                     mx={3}
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "block" : "none"}
                                 >
-                                    <FormControl isRequired>
+                                    <FormControl>
                                         <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
                                         <Input
                                             id={`address-input-${watchedData.paymentMethodId}`}
@@ -185,6 +185,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                             ref={register()}
                                             defaultValue={item.address}
                                             isInvalid={containsInvalidAddress && isAddressTouched}
+                                            isRequired
                                         />
                                         <Box>
                                             <Checkbox
