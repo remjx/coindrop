@@ -5,6 +5,7 @@ import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testin
 import { UserSettingsPage, UserDataForm } from './index';
 import useUserModule from '../../utils/auth/useUser';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
+import { User } from 'firebase/auth';
 
 jest.mock('../../utils/auth/useUser');
 jest.mock('swr');
@@ -27,10 +28,9 @@ jest.mock('../../src/db/mutations/user/update-user', () => {
 beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
         user: {
-            id: "some-uid",
+            uid: "some-uid",
             email: "test@user.com",
-            token: "some-token",
-        },
+        } as User,
         logout: null,
     }));
 });

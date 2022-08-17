@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
+import { User } from 'firebase/auth';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import DeleteAccount from './DeleteAccount';
 import useUserModule from '../../utils/auth/useUser';
@@ -24,9 +25,8 @@ test('Happy path account deletion', async () => {
   jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
     user: {
       email,
-      token,
-      id: "irrelevant",
-    },
+      uid: "irrelevant",
+    } as User,
     logout: null,
   }));
   render(<DeleteAccount />, {});
@@ -51,9 +51,8 @@ test('Error in API call', async () => {
   jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
     user: {
       email,
-      token,
-      id: "irrelevant",
-    },
+      uid: "irrelevant",
+    } as User,
     logout: null,
   }));
   render(<DeleteAccount />, {});

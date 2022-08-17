@@ -21,10 +21,10 @@ const Dashboard: FunctionComponent = () => {
             <NextSeo
                 title="Dashboard | Coindrop"
             />
-            {user?.id
+            {user?.uid
             ? (
                 <UserOwnedPiggybanks
-                    uid={user.id}
+                    uid={user.uid}
                 />
             ) : (
                 <Text>You are not logged in. Redirecting...</Text>
