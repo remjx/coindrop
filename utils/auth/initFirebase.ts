@@ -27,7 +27,9 @@ if (
   const analytics = getAnalytics(firebaseApp);
 }
 
-const appCheck = initializeAppCheck(firebaseApp, {
-  provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY),
-  isTokenAutoRefreshEnabled: true,
-});
+if (typeof window !== 'undefined') {
+  const appCheck = initializeAppCheck(firebaseApp, {
+    provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY),
+    isTokenAutoRefreshEnabled: true,
+  });
+}
