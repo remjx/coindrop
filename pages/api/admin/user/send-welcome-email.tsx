@@ -14,7 +14,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
         const Body: FC = () => (
           <>
           <Paragraph>
-              Coindrop&apos;s mission is to make it easy to receive tips and donations anywhere.
+              Coindrop&apos;s mission is to make it frictionless to receive tips, donations, or payments anywhere.
           </Paragraph>
           <Paragraph>
               As you begin to use Coindrop, I&apos;d love to hear your feedback. What could be improved? You can reply directly to any of our e-mails.
@@ -23,7 +23,7 @@ const sendWelcomeEmail: NextApiHandler = async (req: NextApiRequest, res: NextAp
               Coindrop is 100% open-source on <a href={githubUrl} style={{color: "gray"}}>Github</a> so any contributions and ideas are open and welcome.
           </Paragraph>
           <Paragraph>
-              Thanks and enjoy zero-fee payments!
+              Thanks and enjoy!
           </Paragraph>
           <Paragraph>
               - Mark Jackson, Founder of Coindrop
