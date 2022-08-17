@@ -191,7 +191,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                                 name={`${fieldArrayName}[${index}].isPreferred`}
                                                 ref={register()}
                                                 defaultValue={item?.isPreferred ? 1 : 0}
-                                                defaultIsChecked={item?.isPreferred}
+                                                defaultChecked={item?.isPreferred}
                                                 mt={1}
                                                 colorScheme="yellow"
                                             >
