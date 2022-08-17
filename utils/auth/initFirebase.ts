@@ -1,5 +1,6 @@
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getAnalytics } from 'firebase/analytics';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -16,11 +17,11 @@ export const firebaseApp = getApps().length === 0 ? initializeApp(config) : getA
 
 export const firebaseAuth = getAuth(firebaseApp);
 
-// if (
-//   process.env.NODE_ENV !== 'development'
-//   && process.env.NODE_ENV !== 'test'
-//   && typeof window !== 'undefined'
-//   && !window.Cypress
-// ) {
-//   analytics();
-// }
+if (
+  process.env.NODE_ENV !== 'development'
+  && process.env.NODE_ENV !== 'test'
+  && typeof window !== 'undefined'
+  && !window.Cypress
+) {
+  const analytics = getAnalytics(firebaseApp);
+}

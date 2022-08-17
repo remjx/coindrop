@@ -2,11 +2,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { User } from 'firebase/auth';
 import { firebaseAuth } from './initFirebase';
-import {
-  removeUserCookie,
-  setUserCookie,
-  getUserFromCookie,
-} from './userCookies';
 
 type UseUser = {
   user: User | null,
@@ -22,29 +17,19 @@ const useUser = (): UseUser => {
       .then(() => {
         router.push('/');
       });
-      // // TODO: How to handle this? use async/await instead of .then?
-      // .catch((e) => {
-      //   console.error('logout error', e);
-      // });
 
   useEffect(() => {
-    // Firebase updates the id token every hour, this
-    // makes sure the react state and the cookie are
-    // both kept up to date
-    const cancelAuthListener = firebaseAuth.onIdTokenChanged((_user) => {
+    const onAuthStateChanged = firebaseAuth.onAuthStateChanged(_user => {
+      console.log('authState changed', _user);
       if (_user) {
-        setUserCookie(_user);
         setUser(_user);
       } else {
-        removeUserCookie();
         setUser(null);
       }
     });
-    const userFromCookie = getUserFromCookie();
-    setUser(userFromCookie);
 
     return () => {
-      cancelAuthListener();
+      onAuthStateChanged();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
