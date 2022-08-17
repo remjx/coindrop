@@ -17,7 +17,7 @@ const TipCards: FunctionComponent = () => (
             <Image src={tipCardPng} height="225" width="225" />
         </Center>
         <Center>
-            <a href="/shop"> {/* TODO: Check that href preview is active on element */}
+            <a href="/shop">
                 <Button
                     mt={4}
                     leftIcon={<Icon as={CgShoppingCart} />}

@@ -63,7 +63,7 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
                         justify="center"
                     >
                         {addressIsUrl ? (
-                            <Link href={paymentMethodValue} isExternal> {/* TODO: Check that href preview is active on element */}
+                            <Link href={paymentMethodValue} isExternal>
                                 <Button
                                     leftIcon={<ExternalLinkIcon />}
                                     mr={2}
