@@ -1,11 +1,11 @@
 /* eslint-disable arrow-body-style */
 import '@testing-library/jest-dom/extend-expect';
 import useSWR from 'swr';
+import { User } from 'firebase/auth';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import { UserSettingsPage, UserDataForm } from './index';
 import useUserModule from '../../utils/auth/useUser';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
-import { User } from 'firebase/auth';
 
 jest.mock('../../utils/auth/useUser');
 jest.mock('swr');

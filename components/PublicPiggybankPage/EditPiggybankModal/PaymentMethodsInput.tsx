@@ -121,7 +121,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         <Flex>
                                             <StarIcon
                                                 ml={2}
-                                                size="16px"
+                                                boxSize="16px"
                                                 color={colors.yellow['400']}
                                             />
                                             <Text
@@ -177,7 +177,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                     mx={3}
                                     display={paymentMethodNames[watchedData?.paymentMethodId] ? "block" : "none"}
                                 >
-                                    <FormControl isRequired>
+                                    <FormControl>
                                         <FormLabel htmlFor={`${fieldArrayName}[${index}].address`}>Address</FormLabel>
                                         <Input
                                             id={`address-input-${watchedData.paymentMethodId}`}
@@ -185,13 +185,14 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                             ref={register()}
                                             defaultValue={item.address}
                                             isInvalid={containsInvalidAddress && isAddressTouched}
+                                            isRequired
                                         />
                                         <Box>
                                             <Checkbox
                                                 name={`${fieldArrayName}[${index}].isPreferred`}
                                                 ref={register()}
                                                 defaultValue={item?.isPreferred ? 1 : 0}
-                                                defaultIsChecked={item?.isPreferred}
+                                                defaultChecked={item?.isPreferred}
                                                 mt={1}
                                                 colorScheme="yellow"
                                             >

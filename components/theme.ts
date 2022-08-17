@@ -13,8 +13,7 @@ export const publicPiggybankThemeColorOptions = [
 ];
 
 const theme = extendTheme({
-  useSystemColorMode: true,
-  initialColorMode: "light",
+  initialColorMode: "system",
   colors: {
     black: '#16161D',
     logoPrimary: '#FFB655',

@@ -7,7 +7,7 @@ type ContentContainerHeadingProps = {
     withThroughline?: boolean
 }
 
-export const ContentContainerHeading: FC<ContentContainerHeadingProps> = ({ headingProps, withThroughline = false, children }) => (
+export const ContentContainerHeading: FC<ContentContainerHeadingProps & { children: React.ReactNode }> = ({ headingProps, withThroughline = false, children }) => (
     <Heading
         as="h2"
         size="xl"

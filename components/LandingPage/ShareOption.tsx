@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useColorMode, Flex, Heading, Text } from '@chakra-ui/react';
 
-export const ShareOption: FC<{title: string, description: string, bg: string}> = ({ bg, description, title, children }) => {
+export const ShareOption: FC<{title: string, description: string, bg: string} & { children: React.ReactNode }> = ({ bg, description, title, children }) => {
     const { colorMode } = useColorMode();
     return (
         <Flex

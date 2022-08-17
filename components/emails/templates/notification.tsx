@@ -15,7 +15,7 @@ type Data = {
 
 type Props = Omit<Data, "Body">;
 
-const NotificationEmailContent: FC<Props> = ({
+const NotificationEmailContent: FC<Props & { children: React.ReactNode }> = ({
     title,
     previewText,
     children,

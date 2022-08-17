@@ -8,7 +8,7 @@ import { piggybankPathRegex } from '../../src/settings';
 import { CoindropRequirements } from '../CoindropRequirements/CoindropRequirements';
 import { CreateCoindropError } from './CreateCoindropError';
 
-const BoxMargin: FunctionComponent = ({ children }) => (
+const BoxMargin: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
     <Box mt={2}>
         {children}
     </Box>

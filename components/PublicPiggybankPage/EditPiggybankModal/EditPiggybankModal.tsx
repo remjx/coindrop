@@ -22,7 +22,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { useForm, useFieldArray } from "react-hook-form";
 import axios from 'axios';
 import { mutate } from 'swr';
-import { collection, deleteDoc, doc, setDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankThemeColorOptions as themeColorOptions } from '../../theme';
 import PaymentMethodsInput from './PaymentMethodsInput';

@@ -31,6 +31,7 @@ const alwaysEnabledEmailLists = [
 
 type SectionHeadingProps = {
     size: "sm" | "md" | "lg"
+    children: React.ReactNode
 }
 
 const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
@@ -42,7 +43,7 @@ const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
     </Box>
 );
 
-const SectionContainer: FC = ({ children }) => (
+const SectionContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
     <Box mx={4}>
         {children}
     </Box>

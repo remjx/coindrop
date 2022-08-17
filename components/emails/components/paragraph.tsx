@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-const Paragraph: FC = ({ children }) => (
+const Paragraph: FC<{ children: React.ReactNode }> = ({ children }) => (
     <div
         style={{
             fontSize: "14px",

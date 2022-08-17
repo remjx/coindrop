@@ -5,7 +5,7 @@ type ContentContainerProps = {
     boxProps?: BoxProps
 }
 
-export const ContentContainer: FC<ContentContainerProps> = ({ boxProps, children }) => {
+export const ContentContainer: FC<ContentContainerProps & { children: React.ReactNode }> = ({ boxProps, children }) => {
     const theme = useTheme();
     return (
     <Container
