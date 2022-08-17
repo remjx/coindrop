@@ -1,6 +1,7 @@
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -25,3 +26,8 @@ if (
 ) {
   const analytics = getAnalytics(firebaseApp);
 }
+
+const appCheck = initializeAppCheck(firebaseApp, {
+  provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY),
+  isTokenAutoRefreshEnabled: true,
+});
