@@ -60,12 +60,7 @@ const LandingPage: FC<Props> = ({
     const { user } = useUser();
     useEffect(() => {
         if (user) {
-            const pendingLoginCreatePiggybankPath = cookies.get('pendingLoginCreatePiggybankPath');
-            if (pendingLoginCreatePiggybankPath) {
-                router.push('/create');
-            } else {
-                router.push('/dashboard');
-            }
+            router.push('/dashboard');
         }
     }, [user]);
     useEffect(() => {

@@ -48,7 +48,6 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
         } else if (user) {
             setIsCreateTriggered(true);
         } else if (router.pathname === '/') {
-            cookies.set('pendingLoginCreatePiggybankPath', candidatePiggybankPath);
             router.push('/?auth=1', undefined, { shallow: true });
         }
     }
