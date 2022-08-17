@@ -20,7 +20,6 @@ const DataRefetcher: FC = () => {
     const { data, error } = useSWR(['publicPiggybankData', piggybankName], fetchPublicPiggybankData);
     useEffect(() => {
         if (data) {
-            console.log('setting piggybank db data because change', data);
             setPiggybankDbData(data);
         }
     }, [data]);
