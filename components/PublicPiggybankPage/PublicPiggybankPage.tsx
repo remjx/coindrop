@@ -1,8 +1,7 @@
 import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
 import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
@@ -37,7 +36,7 @@ const PublicPiggybankPage: FunctionComponent = () => {
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
-    const WrapGroup: FunctionComponent = ({ children }) => (
+    const WrapGroup: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
         <Wrap
             justify="center"
         >

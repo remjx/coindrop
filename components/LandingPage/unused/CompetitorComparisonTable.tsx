@@ -101,7 +101,7 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                             <th>
                                 <Flex align="center">
                                     {coindropData.displayName}
-                                    <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
+                                    <PiggyLogoIcon ml={1} boxSize="19px" color={logoOutlineColor} />
                                 </Flex>
                             </th>
                             {competitorData.map(obj => (
@@ -162,7 +162,7 @@ const CompetitorComparisonTable: FunctionComponent = () => {
                                 <th>
                                     <Flex align="center">
                                         Coindrop
-                                        <PiggyLogoIcon ml={1} size="19px" color={logoOutlineColor} />
+                                        <PiggyLogoIcon ml={1} boxSize="19px" color={logoOutlineColor} />
                                     </Flex>
                                 </th>
                                 <th>

@@ -10,6 +10,7 @@ import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalVa
 type LinkButtonProps = {
     href: string
     buttonProps: ButtonProps
+    children: React.ReactNode
 }
 const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, children, buttonProps }) => (
     <NextLink href={href} passHref>
@@ -76,7 +77,8 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                     </Button>
                 </Box>
                 <Box
-                    align="center"
+                    alignItems="center"
+                    alignContent="center"
                     mt={2}
                 >
                     <ShareButtonModal

@@ -121,7 +121,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         <Flex>
                                             <StarIcon
                                                 ml={2}
-                                                size="16px"
+                                                boxSize="16px"
                                                 color={colors.yellow['400']}
                                             />
                                             <Text

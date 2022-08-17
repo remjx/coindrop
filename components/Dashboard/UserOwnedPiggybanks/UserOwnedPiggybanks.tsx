@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import useSWR from 'swr';
 import { Box, Text, Stack, Skeleton } from '@chakra-ui/react';
+import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import PageTitle from '../../Title/Title';
-import { collection, getDocs, where, query } from 'firebase/firestore';
 
 const Title = () => <PageTitle title="My Coindrops" />;
 
