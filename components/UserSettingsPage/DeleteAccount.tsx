@@ -1,11 +1,11 @@
 import { Button, Box, Input, Text, Spinner } from '@chakra-ui/react';
 import { FC, useState, Dispatch, SetStateAction } from 'react';
+import { User } from 'firebase/auth';
 import axios from 'axios';
 import { useUser } from '../../utils/auth/useUser';
-import { User } from '../../utils/auth/mapUserData';
 
 const deleteUser = async (user: User) => {
-    const { token } = user;
+    const token = await user.getIdToken();
     try {
         await axios.get('/api/user/delete', { headers: { token }});
         return;
@@ -37,7 +37,7 @@ const handleDelete = async (
 
 const DeleteAccount: FC = () => {
     const { user, logout } = useUser();
-    const id = user?.id;
+    const id = user?.uid;
     const email = user?.email;
     const [status, setStatus] = useState<Status>('initial');
     const [confirmingInput, setConfirmingInput] = useState('');
@@ -104,9 +104,18 @@ const DeleteAccount: FC = () => {
     }
     if (status === 'error') {
         return (
-            <Text textAlign="center">
-                ⚠️ Error deleting account. Please try again and contact support if you continue to receive this error.
-            </Text>
+            <Box>
+                <Button
+                    colorScheme="red"
+                    variant="outline"
+                    onClick={() => setStatus('user-confirmation')}
+                >
+                    Delete Account
+                </Button>
+                <Text textAlign="center">
+                    ⚠️ Error deleting account. Please try again and contact support if you continue to receive this error.
+                </Text>
+            </Box>
         );
     }
     return null;

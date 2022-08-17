@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
-import { User } from '../auth/mapUserData';
+import { User } from 'firebase/auth';
 
 type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -32,7 +32,7 @@ function useCreatePiggybank(
             newPiggybankName: candidatePiggybankPath,
         };
         const headers = {
-            token: user.token,
+            token: await user.getIdToken(),
         };
         try {
             await axios.post('/api/createPiggybank', data, { headers });

@@ -1,5 +1,5 @@
 import cookies from 'js-cookie';
-import { User } from './mapUserData';
+import { User } from 'firebase/auth';
 
 export const getUserFromCookie = (): User | undefined => {
   const cookie = cookies.get('auth');

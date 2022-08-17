@@ -1,6 +1,6 @@
 import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Container, Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
+import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import { useRouter } from 'next/router';
@@ -12,7 +12,6 @@ import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
-import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
 
 export const getAccentColorLevelInitial = (colorMode: ColorMode): string => (colorMode === 'light' ? '500' : '300');
@@ -78,8 +77,8 @@ const PublicPiggybankPage: FunctionComponent = () => {
             maxW={theme.breakpoints.lg}
             mx="auto"
         >
-            {user?.id
-            && user.id === owner_uid
+            {user?.uid
+            && user.uid === owner_uid
             && (
                 <>
                 <DataRefetcher />

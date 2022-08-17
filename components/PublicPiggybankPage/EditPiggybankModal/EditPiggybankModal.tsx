@@ -104,7 +104,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             const dataToSubmit = {
                 ...formData,
                 paymentMethods: convertPaymentMethodsFieldArrayToDbMap(formData.paymentMethods ?? []),
-                owner_uid: user.id,
+                owner_uid: user.uid,
                 avatar_storage_id: currentAvatarStorageId ?? null,
             };
             if (isUrlUnchanged) {
@@ -121,7 +121,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                     },
                     {
                         headers: {
-                            token: user.token,
+                            token: await user.getIdToken(),
                         },
                     },
                 );

@@ -147,7 +147,7 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
 
 export const UserSettingsPage: FC = () => {
     const { user } = useUser();
-    const userId = user?.id;
+    const userId = user?.uid;
     const fetcher = () => getUserData(userId);
     const { data: userData, error: fetchError, mutate } = useSWR(
         userId ? 'user-data' : null,

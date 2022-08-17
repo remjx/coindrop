@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 const config = {
@@ -12,7 +12,7 @@ const config = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 };
 
-export const firebaseApp = initializeApp(config);
+export const firebaseApp = getApps().length === 0 ? initializeApp(config) : getApp();
 
 export const firebaseAuth = getAuth(firebaseApp);
 

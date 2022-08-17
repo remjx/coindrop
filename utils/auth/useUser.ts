@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { User } from 'firebase/auth';
 import { firebaseAuth } from './initFirebase';
-import 'firebase/auth';
 import {
   removeUserCookie,
   setUserCookie,
   getUserFromCookie,
 } from './userCookies';
-import { mapUserData, User } from './mapUserData';
 
 type UseUser = {
   user: User | null,
@@ -32,11 +31,10 @@ const useUser = (): UseUser => {
     // Firebase updates the id token every hour, this
     // makes sure the react state and the cookie are
     // both kept up to date
-    const cancelAuthListener = firebaseAuth.onIdTokenChanged((googleTokenObject) => {
-      if (googleTokenObject) {
-        const userData = mapUserData(googleTokenObject);
-        setUserCookie(userData);
-        setUser(userData);
+    const cancelAuthListener = firebaseAuth.onIdTokenChanged((_user) => {
+      if (_user) {
+        setUserCookie(_user);
+        setUser(_user);
       } else {
         removeUserCookie();
         setUser(null);

@@ -39,7 +39,7 @@ const AvatarInput: FunctionComponent = () => {
     const { query: { piggybankName: piggybankNameQuery } } = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
     const { user } = useUser();
-    const uid = user?.id;
+    const uid = user?.uid;
     const piggybankRef = doc(db, 'piggybanks', piggybankName);
     const fileSizeError = "Image too large";
     const contentTypeError = "Only images are accepted";
@@ -47,15 +47,20 @@ const AvatarInput: FunctionComponent = () => {
     const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
     const setAvatar = async (newAvatarStorageId) => {
-      Promise.all([
-        setDoc(piggybankRef, { avatar_storage_id: newAvatarStorageId }, { merge: true }),
-        deleteImage({
-          storageId: currentAvatarStorageId,
-          ownerUid: uid,
-          piggybankName,
-        }),
-      ]);
-      mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
+      // TODO: add loading state
+      try {
+        await Promise.all([
+          setDoc(piggybankRef, { avatar_storage_id: newAvatarStorageId }, { merge: true }),
+          deleteImage({
+            storageId: currentAvatarStorageId,
+            ownerUid: uid,
+            piggybankName,
+          }),
+        ]);
+        mutate(['publicPiggybankData', piggybankName]);
+      } catch (err) {
+        console.error('Error setting avatar', err);
+      }
     };
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
@@ -69,7 +74,7 @@ const AvatarInput: FunctionComponent = () => {
           if (!contentType.startsWith("image/")) {
             throw new Error(contentTypeError);
           }
-          if (file.size > 1000000) {
+          if (file.size > 1_000_000) {
             throw new Error(fileSizeError);
           }
           const { width, height } = await getImageDimensions(file);
@@ -83,6 +88,7 @@ const AvatarInput: FunctionComponent = () => {
           clearInput();
           setAvatar(newAvatarStorageId);
         } catch (err) {
+          console.error('Error in image upload', err);
           const { message } = err;
           if (message === fileSizeError) {
             setFileSelectErrorMessage("Image too large. Please resize image to < 1MB.");

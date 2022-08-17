@@ -1,9 +1,8 @@
 import { useEffect, useState, FunctionComponent } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Spinner } from "@chakra-ui/react";
-import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider, User } from 'firebase/auth';
 import { setUserCookie } from '../../utils/auth/userCookies';
-import { mapUserData } from '../../utils/auth/mapUserData';
 import { firebaseAuth } from '../../utils/auth/initFirebase';
 
 const firebaseAuthConfig = {
@@ -21,9 +20,8 @@ const firebaseAuthConfig = {
   callbacks: {
     // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
     // TODO: What is the TS type for this function?
-    signInSuccessWithAuthResult: ({ user }) => {
-      const userData = mapUserData(user);
-      setUserCookie(userData);
+    signInSuccessWithAuthResult: ({ user }: { user: User }) => {
+      setUserCookie(user);
       return false;
     },
   },

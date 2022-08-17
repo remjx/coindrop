@@ -1,5 +1,4 @@
-// import { credential, apps, initializeApp, auth, firestore } from 'firebase-admin';
-import { initializeApp, cert } from 'firebase-admin/app';
+import { initializeApp, cert, getApp, getApps } from 'firebase-admin/app';
 import { getAuth, DecodedIdToken } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 
@@ -10,19 +9,18 @@ export const CREDENTIAL = cert({
   privateKey: firebasePrivateKey?.replace(/\\n/g, '\n'), // https://stackoverflow.com/a/41044630/1332513
 });
 
-const firebaseAdminApp = initializeApp({
+const firebaseAdminApp = getApps().length === 0 ? initializeApp({
   credential: CREDENTIAL,
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-});
+}) : getApp();
 
 export const firebaseAdminAuth = getAuth(firebaseAdminApp);
 
-export const verifyIdToken = (token: string): Promise<DecodedIdToken> => {
-  return firebaseAdminAuth
+export const verifyIdToken = (token: string): Promise<DecodedIdToken> => firebaseAdminAuth
     .verifyIdToken(token)
     .catch((error) => {
+      console.error(error);
       throw error;
     });
-};
 
 export const db = getFirestore(firebaseAdminApp);

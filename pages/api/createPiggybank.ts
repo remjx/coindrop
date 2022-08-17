@@ -2,7 +2,6 @@ import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidV4 } from 'uuid';
-import { collection, doc, setDoc } from 'firebase/firestore';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';

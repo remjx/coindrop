@@ -5,7 +5,10 @@ service firebase.storage {
       allow read: if request.auth != null;
     }
     match /images/users/{ownerUid}/{allPaths=**} {
-      allow write, delete: if request.auth.uid == ownerUid;
+      allow write: if request.auth.uid == ownerUid
+        && request.resource.size < 5 * 1024 * 1024 // 5MB
+        && request.resource.contentType.matches('image/.*');
+      allow delete: if request.auth.uid == ownerUid;
     }
   }
 }
