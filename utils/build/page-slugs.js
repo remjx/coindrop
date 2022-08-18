@@ -6,6 +6,7 @@ const rootPageNames = readdirSync(join(process.cwd(), 'pages'))
     .replace('.tsx', '')
     .replace('.jsx', '')
     .replace('.ts', '')
+    .replace('.json', '')
     .replace('.js', ''));
 
 const dir = './pages/page-slugs.json';

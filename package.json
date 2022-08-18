@@ -4,7 +4,7 @@
   "license": "GPL-3.0-only",
   "scripts": {
     "dev:local": "yarn run expose:blog:content && yarn run expose:page:slugs && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/next dev",
-    "dev:vercel": "yarn run expose:blog:content && yarn run expose:page:slugs && cross-env NODE_OPTIONS='--inspect' ./node_modules/.bin/vercel dev",
+    "dev:vercel": "yarn run expose:blog:content && yarn run expose:page:slugs && yarn vercel env pull .env.local && yarn next dev",
     "expose:blog:content": "node ./src/lib/blog/generate-static-files.js",
     "expose:page:slugs": "node ./utils/build/page-slugs.js",
     "generate:static:files": "node ./src/embed-button/generate.js && yarn run expose:blog:content && yarn run expose:page:slugs",
@@ -93,6 +93,6 @@
     "short-unique-id": "^3.2.3",
     "ts-jest": "^26.4.4",
     "typescript": "^4.7.4",
-    "vercel": "^21.1.0"
+    "vercel": "^28.1.0"
   }
 }
