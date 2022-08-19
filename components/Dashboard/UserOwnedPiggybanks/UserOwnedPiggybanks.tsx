@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import useSWR from 'swr';
-import { Box, Text, Stack, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Stack, Skeleton, Center } from '@chakra-ui/react';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
@@ -53,7 +53,9 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         console.error(error);
-        return <Text>Error getting data, please try refreshing the page.</Text>;
+        return <Center mt={10}>
+                <Text>Error getting data, please try refreshing the page.</Text>
+            </Center>
     }
     if (data) {
         const numActivePiggybanks = data.length;

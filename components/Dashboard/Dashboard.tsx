@@ -11,6 +11,7 @@ const Dashboard: FunctionComponent = () => {
     const { user } = useUser();
     useEffect(() => {
         if (!user) {
+            console.log('redirecting to / from dashboard router', router);
             router.push('/');
         }
     }, [user]);
