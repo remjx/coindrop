@@ -50,7 +50,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ reactHookFormProps }) => {
     const { register: reactHookFormRegister, value: reactHookFormValue } = reactHookFormProps || {};
     const { query: { piggybankName }} = useRouter();
     const currentPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
-    const [nonReactHookFormValue, setNonReactHookFormValue] = useState(reactHookFormValue ?? '');
+    const [nonReactHookFormValue, setNonReactHookFormValue] = useState('');
     const value = reactHookFormValue ?? nonReactHookFormValue;
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);

@@ -16,7 +16,7 @@ export const ShareOptionsDefault: FC = () => {
         >
             <ShareOption
                 title="URL"
-                description="For literally anywhere"
+                description="For anywhere"
                 bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
             >
                 <b>
@@ -30,7 +30,7 @@ export const ShareOptionsDefault: FC = () => {
             </ShareOption>
             <ShareOption
                 title="Button"
-                description="For websites"
+                description="For your website"
                 bg={colorMode === 'light' ? 'green.400' : 'green.300'}
             >
                 <>
@@ -43,7 +43,7 @@ export const ShareOptionsDefault: FC = () => {
             </ShareOption>
             <ShareOption
                 title="QR Code"
-                description="For smartphones"
+                description="For smartphone camera scanning"
                 bg={yellow}
             >
                 <QRCodeExample />

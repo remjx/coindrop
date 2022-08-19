@@ -111,7 +111,7 @@ const LandingPage: FC<Props> = ({
             </Container>
             <ContentContainer>
                 <ContentContainerHeading withThroughline>
-                    ➀ Pick a custom URL
+                    ➀ Pick a Custom URL
                 </ContentContainerHeading>
                     <AdditionalValidationProvider>
 
@@ -125,7 +125,7 @@ const LandingPage: FC<Props> = ({
             </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading withThroughline>
-                    ➁ Add your payment methods
+                    ➁ Add Your Payment Methods
                 </ContentContainerHeading>
                 <Flex
                     direction={['column', 'row']}
@@ -175,7 +175,7 @@ const LandingPage: FC<Props> = ({
             )}
             <ContentContainer>
                 <ContentContainerHeading>
-                    Get started 🤑
+                    Get Started 🤑
                 </ContentContainerHeading>
                 <Text textAlign="center" fontSize="lg">
                     {getStartedText}

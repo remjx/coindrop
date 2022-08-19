@@ -2,6 +2,8 @@ import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import Cookies from 'js-cookie';
+import { cookies } from '../../src/cookies';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -17,6 +19,14 @@ const config = {
 export const firebaseApp = getApps().length === 0 ? initializeApp(config) : getApp();
 
 export const firebaseAuth = getAuth(firebaseApp);
+
+firebaseAuth.onAuthStateChanged(user => {
+  if (user) {
+    Cookies.set(cookies.isFirebaseUserAuthenticated, 'true');
+  } else {
+    Cookies.remove(cookies.isFirebaseUserAuthenticated);
+  }
+});
 
 if (
   process.env.NODE_ENV !== 'development'

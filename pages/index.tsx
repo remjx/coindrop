@@ -21,7 +21,7 @@ const Home: NextPage = () => {
                 smartphoneMockupImagePublicPath={`/landing-page/smartphone-mockup-${colorMode}.png`}
                 showSubscriptionPlatforms
                 ShareOptions={ShareOptionsDefault}
-                shareOptionsHeading="Share anywhere &amp; get paid"
+                shareOptionsHeading="Share &amp; Get Paid"
                 advertiseOpenSource
                 getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
                 smartphoneMockupImageWidth={305}

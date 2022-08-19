@@ -44,3 +44,5 @@ serviceAccount.json
 public/embed-button.js
 public/blog-content/**
 /pages/page-slugs.json
+
+tsconfig.tsbuildinfo
