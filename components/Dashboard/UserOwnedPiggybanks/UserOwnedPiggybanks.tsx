@@ -53,9 +53,11 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         console.error(error);
-        return <Center mt={10}>
+        return (
+            <Center mt={10}>
                 <Text>Error getting data, please try refreshing the page.</Text>
             </Center>
+        );
     }
     if (data) {
         const numActivePiggybanks = data.length;
