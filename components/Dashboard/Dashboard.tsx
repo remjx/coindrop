@@ -27,7 +27,7 @@ const Dashboard: FunctionComponent = () => {
                 />
             ) : (
                 <Center mt={10}>
-                    <Spinner />;
+                    <Spinner />
                 </Center>
             )}
         </>
