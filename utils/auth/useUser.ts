@@ -15,7 +15,6 @@ const useUser = (): UseUser => {
       .signOut()
       .then(() => {
         setUser(null);
-        console.log('redirecting to / from useUser', router);
         router.push('/');
       })
       .catch(error => {

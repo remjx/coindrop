@@ -47,8 +47,6 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
             setIsCreateTriggered(true);
-        } else if (router.pathname === '/') {
-            router.push('/?auth=1', undefined, { shallow: true });
         }
     }
     function onSubmit(event) {
