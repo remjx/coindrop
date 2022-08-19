@@ -1,10 +1,9 @@
 import { useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
-import { Container, useDisclosure, Center, Box, Flex, Text, Link, Button } from '@chakra-ui/react';
+import { Container, useDisclosure, Center, Flex, Text, Link, Button } from '@chakra-ui/react';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import AuthModal from '../Auth/AuthModal';
-import { useUser } from '../../utils/auth/useUser';
 import Footer from '../Footer/Footer';
 import { Navbar } from '../Navbar/Navbar';
 import { GithubIcon } from '../Icons/CustomIcons';
@@ -56,12 +55,6 @@ const LandingPage: FC<Props> = ({
         onClose: onAuthClose,
     } = useDisclosure();
     const router = useRouter();
-    const { user } = useUser();
-    useEffect(() => {
-        if (user) {
-            router.push('/dashboard');
-        }
-    }, [user]);
     useEffect(() => {
         if (router.query.auth) {
             onAuthOpen();
