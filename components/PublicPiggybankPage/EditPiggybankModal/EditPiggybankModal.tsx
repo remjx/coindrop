@@ -169,8 +169,10 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                         >
                             <FormLabel htmlFor="input-piggybankId">URL</FormLabel>
                             <EditUrlInput
-                                register={register}
-                                value={watchedPiggybankId}
+                                reactHookFormProps={{
+                                    register,
+                                    value: watchedPiggybankId,
+                                }}
                             />
                         </FormControl>
                         <FormControl

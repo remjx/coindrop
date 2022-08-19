@@ -1,10 +1,9 @@
 import { useEffect, FC } from 'react';
 import { useRouter } from 'next/router';
-import { Container, useDisclosure, Center, Box, Flex, Text, Link } from '@chakra-ui/react';
-import cookies from 'js-cookie';
+import { Container, useDisclosure, Center, Box, Flex, Text, Link, Button } from '@chakra-ui/react';
 import Image from 'next/image';
+import NextLink from 'next/link';
 import AuthModal from '../Auth/AuthModal';
-import { CreatePiggybankInput } from '../CreatePiggybankInput/CreatePiggybankInput';
 import { useUser } from '../../utils/auth/useUser';
 import Footer from '../Footer/Footer';
 import { Navbar } from '../Navbar/Navbar';
@@ -15,6 +14,8 @@ import { HeaderFooterContainer } from './HeaderFooterContainer';
 import { ContentContainer } from './ContentContainer';
 import { ContentContainerHeading } from './ContentContainerHeading';
 import { HeadingTextPrimary } from './HeadingTextPrimary';
+import EditUrlInput from '../PublicPiggybankPage/EditPiggybankModal/EditUrlInput';
+import { AdditionalValidationProvider } from '../PublicPiggybankPage/EditPiggybankModal/AdditionalValidationContext';
 
 type Props = {
     headingTextPrimaryPreUnderline: string
@@ -30,7 +31,6 @@ type Props = {
     getStartedText: string
     smartphoneMockupImageWidth: number
     smartphoneMockupImageHeight: number
-    createCoindropInputPlaceholder: string
     logoSubtitle: string | null
 }
 
@@ -48,7 +48,6 @@ const LandingPage: FC<Props> = ({
     getStartedText,
     smartphoneMockupImageWidth,
     smartphoneMockupImageHeight,
-    createCoindropInputPlaceholder,
     logoSubtitle,
 }) => {
     const {
@@ -114,17 +113,15 @@ const LandingPage: FC<Props> = ({
                 <ContentContainerHeading withThroughline>
                     ➀ Pick a custom URL
                 </ContentContainerHeading>
-                <Box
+                    <AdditionalValidationProvider>
+
+                <Center
                     mt={8}
                 >
-                    <CreatePiggybankInput
-                        createButtonColorScheme="orange"
-                        onCancel={null}
-                        instanceId="top"
-                        buttonText="Check availability"
-                        placeholder={createCoindropInputPlaceholder}
-                    />
-                </Box>
+                        <EditUrlInput />
+
+                </Center>
+                    </AdditionalValidationProvider>
             </ContentContainer>
             <ContentContainer>
                 <ContentContainerHeading withThroughline>
@@ -136,10 +133,10 @@ const LandingPage: FC<Props> = ({
                     maxW="80%"
                     mx="auto"
                 >
-                    <PaymentMethodContainer title="Digital wallets" paymentMethodCategory="digital-wallet" />
-                    <PaymentMethodContainer title="Digital assets" paymentMethodCategory="digital-asset" />
+                    <PaymentMethodContainer title="Payment Apps" paymentMethodCategory="digital-wallet" />
+                    <PaymentMethodContainer title="Digital Assets" paymentMethodCategory="digital-asset" />
                     {showSubscriptionPlatforms && (
-                        <PaymentMethodContainer title="Subscription platforms" paymentMethodCategory="subscription-platform" />
+                        <PaymentMethodContainer title="Subscription Platforms" paymentMethodCategory="subscription-platform" />
                     )}
                 </Flex>
             </ContentContainer>
@@ -170,7 +167,7 @@ const LandingPage: FC<Props> = ({
                         >
                             {'The source code for Coindrop is publicly available on '}
                             <Link isExternal href={githubUrl}>
-                                Github
+                                <u>Github</u>
                             </Link>
                         </Text>
                     </Flex>
@@ -178,20 +175,20 @@ const LandingPage: FC<Props> = ({
             )}
             <ContentContainer>
                 <ContentContainerHeading>
-                    Get started 🚀
+                    Get started 🤑
                 </ContentContainerHeading>
                 <Text textAlign="center" fontSize="lg">
                     {getStartedText}
                 </Text>
-                <Box mt={2}>
-                    <CreatePiggybankInput
-                        createButtonColorScheme="orange"
-                        onCancel={null}
-                        instanceId="bottom"
-                        buttonText="Create"
-                        placeholder={createCoindropInputPlaceholder}
-                    />
-                </Box>
+                <Center mt={4}>
+                    <NextLink href="/?auth=1" shallow>
+                        <Button
+                            colorScheme="green"
+                        >
+                            Create a Coindrop
+                        </Button>
+                    </NextLink>
+                </Center>
             </ContentContainer>
         </Container>
         <HeaderFooterContainer>

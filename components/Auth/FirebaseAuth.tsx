@@ -5,8 +5,8 @@ import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider } from 'fir
 import { firebaseAuth } from '../../utils/auth/initFirebase';
 
 const firebaseAuthConfig = {
-  signInFlow: 'redirect',
-  signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
+  signInFlow: 'popup',
+  signInOptions: [
     GoogleAuthProvider.PROVIDER_ID,
     FacebookAuthProvider.PROVIDER_ID,
     {
@@ -15,12 +15,10 @@ const firebaseAuthConfig = {
     },
   ],
   credentialHelper: 'none',
-  signInSuccessUrl: '/', // TODO: change to dashboard
+  signInSuccessUrl: '/dashboard',
 };
 
 const FirebaseAuth: FunctionComponent = () => {
-  // Do not SSR FirebaseUI, because it is not supported.
-  // https://github.com/firebase/firebaseui-web/issues/213
   const [renderAuth, setRenderAuth] = useState(false);
   useEffect(() => {
     if (typeof window !== 'undefined') {

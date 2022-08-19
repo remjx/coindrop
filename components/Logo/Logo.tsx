@@ -28,6 +28,7 @@ const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
             color={fontColor}
             ml={2}
             lineHeight={["1.5rem", "2.5rem"]}
+            cursor="default"
         >
             {text}
         </Text>

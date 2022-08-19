@@ -15,7 +15,7 @@ export const ShareOptionsDefault: FC = () => {
             wrap="wrap"
         >
             <ShareOption
-                title="Custom URL"
+                title="URL"
                 description="For literally anywhere"
                 bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
             >

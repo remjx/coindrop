@@ -106,7 +106,7 @@ const LogInSignUpButton: FC = () => {
             <Button
                 id="log-in-button"
                 mr={2}
-                colorScheme={pathname === '/' ? undefined : "orange"}
+                colorScheme={pathname === '/' ? "green" : "orange"}
             >
                 Log in / Sign up
             </Button>
@@ -128,13 +128,9 @@ export const Navbar: FC<Props> = ({ logoSubtitle }) => {
             wrap="wrap"
         >
             <Flex mx={childFlexMx}>
-                <NextLink href="/" passHref>
-                    <a>
-                        <Logo
-                            subtitle={logoSubtitle}
-                        />
-                    </a>
-                </NextLink>
+                <Logo
+                    subtitle={logoSubtitle}
+                />
             </Flex>
             <Flex align="center" mx={childFlexMx}>
                 <DashboardButton />
