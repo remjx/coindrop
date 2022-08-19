@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Center, Spinner, Text } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
 import { useUser } from '../../utils/auth/useUser';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';

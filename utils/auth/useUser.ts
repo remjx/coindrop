@@ -15,6 +15,7 @@ const useUser = (): UseUser => {
   const logout = async () => firebaseAuth
       .signOut()
       .then(() => {
+        setUser(null);
         router.push('/');
       });
 
