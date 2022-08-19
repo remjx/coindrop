@@ -9,12 +9,12 @@ import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 const Dashboard: FunctionComponent = () => {
     const router = useRouter();
     const { user } = useUser();
-    useEffect(() => {
-        if (!user) {
-            console.log('redirecting to / from dashboard router', router);
-            router.push('/');
-        }
-    }, [user]);
+    // useEffect(() => {
+    //     if (!user) {
+    //         console.log('redirecting to / from dashboard router', router);
+    //         router.push('/');
+    //     }
+    // }, [user]);
 
     return (
         <>
