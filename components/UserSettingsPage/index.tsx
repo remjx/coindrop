@@ -155,7 +155,7 @@ export const UserSettingsPage: FC = () => {
         fetcher,
     );
     const email = user?.email;
-    const Settings = () => {
+    function Settings() {
         if (fetchError) {
             return (
                 <Text>
@@ -177,7 +177,7 @@ export const UserSettingsPage: FC = () => {
                 <Spinner data-testid="no-user-data-spinner" />
             </Center>
         );
-    };
+    }
     if (!user) {
         return (
             <Center mt={10}>

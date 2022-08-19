@@ -20,8 +20,9 @@ type Props = {
 const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
     const theme = useTheme();
     const fontColor = useColorModeValue(theme.colors.gray['600'], theme.colors.gray['50']);
-    const LogoText = () => (
-        <Text
+    function LogoText() {
+  return (
+<Text
             fontSize={["4xl", "5xl"]}
             fontFamily="Changa, system-ui, sans-serif"
             fontWeight={500}
@@ -29,10 +30,11 @@ const Logo: FC<Props> = ({ text = 'coindrop', subtitle }) => {
             ml={2}
             lineHeight={["1.5rem", "2.5rem"]}
             cursor="default"
-        >
+>
             {text}
-        </Text>
-    );
+</Text>
+);
+}
     return (
         <Flex
             ml={1}

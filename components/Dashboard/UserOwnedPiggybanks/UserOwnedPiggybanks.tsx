@@ -8,7 +8,9 @@ import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import PageTitle from '../../Title/Title';
 
-const Title = () => <PageTitle title="My Coindrops" />;
+function Title() {
+  return <PageTitle title="My Coindrops" />;
+}
 
 function SkeletonArray(n: number): number[] {
     const a = new Array(n);
@@ -57,7 +59,6 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
         const numActivePiggybanks = data.length;
         const userHasPiggybanks = numActivePiggybanks > 0;
         return (
-            <>
             <Stack spacing={4} mb={4} id="user-owned-coindrops">
                 {
                 userHasPiggybanks
@@ -84,7 +85,6 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                     numActivePiggybanks={numActivePiggybanks}
                 />
             </Stack>
-            </>
         );
     }
     return (

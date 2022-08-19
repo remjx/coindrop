@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 import { SWRConfig } from "swr";
 import theme from '../../components/theme';
 
-const AllTheProviders = ({ children }) => {
+function AllTheProviders({ children }) {
   return (
     <SWRConfig value={{ dedupingInterval: 0 }}>
       <ChakraProvider theme={theme}>
@@ -12,7 +12,7 @@ const AllTheProviders = ({ children }) => {
       </ChakraProvider>
     </SWRConfig>
   );
-};
+}
 
 const customRender = (ui, options) => render(ui, { wrapper: AllTheProviders, ...options });
 

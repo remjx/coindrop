@@ -120,7 +120,13 @@
         "import/no-unresolved": "error",
         "import/no-named-as-default": "off",
         "import/no-named-as-default-member": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "error",
+        "react/function-component-definition": "off",
+        "react/no-unstable-nested-components": "warn",
+        "react/jsx-no-constructed-context-values": "warn",
+        "react/require-default-props": "warn"
     },
       "settings": {
           "import/resolver": {

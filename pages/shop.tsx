@@ -15,13 +15,13 @@ import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
     // add/remove script on page changes https://nextjs.org/docs/api-reference/next/router
 
 class ProductData {
-    buyButtonCode: () => ({ __html: string })
+    buyButtonCode: () => ({ __html: string });
 
-    quantity: number
+    quantity: number;
 
-    price: number
+    price: number;
 
-    pricePer: string
+    pricePer: string;
 
     constructor({ buyButtonCode, quantity, price }) {
         this.buyButtonCode = buyButtonCode;

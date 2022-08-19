@@ -10,7 +10,7 @@ import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import { useUser } from '../../utils/auth/useUser';
 
-export const UserMenu = () => {
+export function UserMenu() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { logout } = useUser();
     const router = useRouter();
@@ -32,8 +32,6 @@ export const UserMenu = () => {
                         </MenuItem>
                     </NextLink>
                 )}
-                {/* This is an external link to ensure Ecwid scripts run on page changes */}
-                {/* Should figure out a way to trigger the scripts manually within /shop */}
                 {router.pathname !== '/shop' && (
                     <Link href="/shop" style={{textDecoration: "none"}}>
                         <MenuItem>
@@ -83,13 +81,13 @@ export const UserMenu = () => {
             </MenuList>
         </Menu>
     );
-};
+}
 
-const Options = () => {
+function Options() {
     const { user } = useUser();
     if (!user) return <ToggleColorModeButton />;
     return <UserMenu />;
-};
+}
 
 const DashboardButton: FC = () => {
     const { user } = useUser();

@@ -9,13 +9,15 @@ type PaymentMethodTagsProps = {
     category: Category
 }
 
-const PaymentMethodTagAndManyMore = () => (
-    <PaymentMethodTag
+function PaymentMethodTagAndManyMore() {
+  return (
+<PaymentMethodTag
         label="... and many more"
         color="gray"
         tagColorScheme="gray"
-    />
+/>
 );
+}
 
 export const PaymentMethodTags: FunctionComponent<PaymentMethodTagsProps> = ({ category }) => (
     <>
