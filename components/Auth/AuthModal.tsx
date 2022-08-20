@@ -15,6 +15,7 @@ const AuthModal: FunctionComponent<Props> = ({ isOpen }) => {
             id="auth-modal"
             isOpen={isOpen}
             onClose={onClose}
+            isCentered
         >
             <ModalOverlay />
             <ModalContent>

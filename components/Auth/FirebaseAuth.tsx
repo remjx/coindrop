@@ -19,21 +19,12 @@ const firebaseAuthConfig = {
 };
 
 const FirebaseAuth: FunctionComponent = () => {
-  const [renderAuth, setRenderAuth] = useState(false);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setRenderAuth(true);
-    }
-  }, []);
+  if (typeof window === 'undefined') return null;
   return (
-    <div>
-      {renderAuth ? (
-        <StyledFirebaseAuth
-          uiConfig={firebaseAuthConfig}
-          firebaseAuth={firebaseAuth}
-        />
-      ) : <Spinner />}
-    </div>
+    <StyledFirebaseAuth
+      uiConfig={firebaseAuthConfig}
+      firebaseAuth={firebaseAuth}
+    />
   );
 };
 
