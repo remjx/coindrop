@@ -1,12 +1,13 @@
 import { useState, FunctionComponent, createRef, useEffect, MouseEventHandler } from 'react';
 import { Box, Flex, Input, InputGroup, InputLeftAddon, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
-import cookies from 'js-cookie';
-import { useUser } from '../../utils/auth/useUser';
-import useCreatePiggybank from '../../utils/hooks/useCreatePiggybank';
 import { piggybankPathRegex } from '../../src/settings';
 import { CoindropRequirements } from '../CoindropRequirements/CoindropRequirements';
 import { CreateCoindropError } from './CreateCoindropError';
+import { createPiggybank } from 'db/mutations/createPiggybank';
+import {useUser} from '../../utils/auth/useUser';
+
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 const BoxMargin: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
     <Box mt={2}>
@@ -16,46 +17,44 @@ const BoxMargin: FunctionComponent<{ children: React.ReactNode }> = ({ children 
 
 type Props = {
     onCancel: () => void | null
-    createButtonColorScheme: "orange" | "green"
-    instanceId: string
-    buttonText: string
-    placeholder: string
 }
 
 export const CreatePiggybankInput: FunctionComponent<Props> = ({
-    buttonText,
-    instanceId,
     onCancel,
-    createButtonColorScheme,
-    placeholder,
 }) => {
-    const { user } = useUser();
     const router = useRouter();
     const inputRef = createRef<HTMLInputElement>();
     useEffect(() => {
-        if (router.pathname === '/dashboard') {
             inputRef.current.focus();
-        }
     }, []);
+    const { user } = useUser();
     const [candidatePiggybankPath, setCandidatePiggybankPath] = useState('');
     const [isCandidatePiggybankPathInvalid, setIsCandidatePiggybankPathInvalid] = useState(false);
-    const [isCreateTriggered, setIsCreateTriggered] = useState(false);
-    const { submitStatus, error, setError } = useCreatePiggybank(candidatePiggybankPath, setCandidatePiggybankPath, user, isCreateTriggered, setIsCreateTriggered);
+    const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+    const [submitError, setSubmitError] = useState('');
     async function handleCreateUrl() {
         const isInvalid = !candidatePiggybankPath.match(piggybankPathRegex);
         if (isInvalid) {
             setIsCandidatePiggybankPathInvalid(true);
-        } else if (user) {
-            setIsCreateTriggered(true);
+        } else {
+            setSubmitStatus('submitting');
+            try {
+                await createPiggybank(candidatePiggybankPath, user)
+                setSubmitStatus('success');
+                router.push(`/${candidatePiggybankPath}`);
+            } catch (error) {
+                setSubmitStatus('error');
+                setSubmitError(error.message);
+            }
         }
     }
     function onSubmit(event) {
         event.preventDefault();
         handleCreateUrl();
     }
-    const inputName = `create-coindrop-input-${instanceId}`;
+    const inputName = `create-coindrop-input`;
     return (
-        <form id={`create-coindrop-form-${instanceId}`} onSubmit={onSubmit}>
+        <form id={`create-coindrop-form`} onSubmit={onSubmit}>
             <Flex
                 align="center"
                 justify="center"
@@ -72,14 +71,14 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                             id={inputName}
                             maxLength={32}
                             roundedLeft="0"
-                            placeholder={placeholder}
                             onChange={(e) => {
-                                setError(null);
+                                setSubmitError(null);
+                                setSubmitStatus(null);
                                 setCandidatePiggybankPath(e.target.value);
                                 setIsCandidatePiggybankPathInvalid(false);
                             }}
                             value={candidatePiggybankPath}
-                            isInvalid={isCandidatePiggybankPathInvalid || !!error}
+                            isInvalid={isCandidatePiggybankPathInvalid || !!submitError}
                             ref={inputRef}
                         />
                     </InputGroup>
@@ -87,14 +86,14 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                 <BoxMargin>
                     <Button
                         ml={1}
-                        colorScheme={createButtonColorScheme}
+                        colorScheme="green"
                         isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || submitStatus === 'success'}
                         isLoading={submitStatus === 'submitting' || submitStatus === 'success'}
                         loadingText="Creating"
                         onClick={(event) => onSubmit(event)}
                         type="submit"
                     >
-                        {buttonText}
+                        Create
                     </Button>
                 </BoxMargin>
                 {onCancel && (
@@ -102,15 +101,16 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                         <Button
                             onClick={onCancel}
                             ml={1}
+                            isDisabled={submitStatus === 'submitting' || submitStatus === 'success'}
                         >
                             Cancel
                         </Button>
                     </BoxMargin>
                 )}
             </Flex>
-            {error && (
+            {submitError && (
                 <CreateCoindropError
-                    error={error}
+                    error={submitError}
                 />
             )}
             {isCandidatePiggybankPathInvalid && (
