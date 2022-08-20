@@ -1,0 +1,14 @@
+.imageWrapper {
+  overflow: hidden;
+}
+
+.imageWrapperLoading img {
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+
+.image {
+  border-radius: 50%;
+  object-fit: cover;
+}

@@ -5,13 +5,13 @@ import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
-import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
 import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
+import { Avatar } from '../Avatar/Avatar';
 
 export const getAccentColorLevelInitial = (colorMode: ColorMode): string => (colorMode === 'light' ? '500' : '300');
 export const getAccentColorLevelHover = (colorMode: ColorMode): string => (colorMode === 'light' ? '600' : '400');

@@ -1,11 +1,12 @@
-import { FunctionComponent, useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from 'next/image';
+import { AvatarLoading } from "./AvatarLoading";
 import styles from './Avatar.module.css';
-import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
-import { publicPiggybankImageURL } from '../../../utils/storage/image-paths';
+import { publicPiggybankImageURL } from "../../utils/storage/image-paths";
+import { PublicPiggybankDataContext } from '../PublicPiggybankPage/PublicPiggybankDataContext';
 
-export const Avatar: FunctionComponent = () => {
+export function Avatar(): JSX.Element {
     const { piggybankDbData: { owner_uid: ownerUid, avatar_storage_id } } = useContext(PublicPiggybankDataContext);
     const { query: { piggybankName: piggybankNameQuery }} = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
@@ -15,10 +16,20 @@ export const Avatar: FunctionComponent = () => {
         imageAs: "avatar",
         imageStorageId: avatar_storage_id,
     });
+    const [isLoading, setIsLoading] = useState(true);
+    useEffect(() => {
+        if (avatar_storage_id) {
+            setIsLoading(true);
+        } else {
+            setIsLoading(false);
+        }
+    }, [avatar_storage_id]);
     if (!avatar_storage_id) return null;
     return (
+        <>
+        {isLoading && <AvatarLoading />}
         <div
-            className={styles.imageWrapper}
+            className={isLoading ? styles.imageWrapperLoading : styles.imageWrapper}
             data-cy="coindrop-avatar"
         >
             <Image
@@ -27,7 +38,11 @@ export const Avatar: FunctionComponent = () => {
                 className={styles.image}
                 width={200}
                 height={200}
+                onLoadingComplete={() => {
+                    setIsLoading(false);
+                }}
             />
         </div>
+        </>
     );
-};
+}

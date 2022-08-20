@@ -1,5 +1,5 @@
-import { useState, useRef, useContext, FunctionComponent } from "react";
-import { Flex, FormLabel, Center, Box, Button, Stack, Text } from "@chakra-ui/react";
+import { useState, useRef, useContext, FunctionComponent, useEffect } from "react";
+import { Flex, FormLabel, Center, Box, Button, Stack, Text, Spinner } from "@chakra-ui/react";
 // Conflict with built-in Javascript Image class:
 // eslint-disable-next-line import/no-named-default
 import { default as NextImage } from 'next/image';
@@ -12,11 +12,12 @@ import { mutate } from 'swr';
 import { useUser } from '../../../utils/auth/useUser';
 import { firebaseStorage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
-import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
+import { AvatarLoading } from "../../Avatar/AvatarLoading";
+import { Avatar } from "../../Avatar/Avatar";
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -46,8 +47,9 @@ const AvatarInput: FunctionComponent = () => {
     const imageDimensionsError = "Image height and width must be >= 250px";
     const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
+    const [isDataLoading, setIsDataLoading] = useState(false);
     const setAvatar = async (newAvatarStorageId) => {
-      // TODO: add loading state
+      setIsDataLoading(true);
       try {
         await Promise.all([
           setDoc(piggybankRef, { avatar_storage_id: newAvatarStorageId }, { merge: true }),
@@ -57,9 +59,11 @@ const AvatarInput: FunctionComponent = () => {
             piggybankName,
           }),
         ]);
-        mutate(['publicPiggybankData', piggybankName]);
+        mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
       } catch (err) {
         console.error('Error setting avatar', err);
+      } finally {
+        setIsDataLoading(false);
       }
     };
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,17 +113,21 @@ const AvatarInput: FunctionComponent = () => {
         <Stack id="avatar-input-container">
           <Box mx="auto">
             {
-              currentAvatarStorageId
+              isDataLoading ? <AvatarLoading />
+              : currentAvatarStorageId
               ? <Avatar />
               : (
-                <NextImage
-                  id="avatar-img"
-                  width={200}
-                  height={200}
-                  src="/avatar-placeholder.png"
-                  alt="avatar placeholder"
-                  data-cy="avatar-placeholder"
-                />
+                <Box w={200} h={200} borderRadius="50%">
+                  <NextImage
+                    id="avatar-img"
+                    width={200}
+                    height={200}
+                    src="/avatar-placeholder.png"
+                    alt="avatar placeholder"
+                    data-cy="avatar-placeholder"
+                    style={{borderRadius: '50%'}}
+                  />
+                </Box>
               )
             }
           </Box>
