@@ -12,11 +12,12 @@ import { mutate } from 'swr';
 import { useUser } from '../../../utils/auth/useUser';
 import { firebaseStorage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
-import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
+import { AvatarLoading } from "../../Avatar/AvatarLoading";
+import { Avatar } from "../../Avatar/Avatar";
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -47,14 +48,8 @@ const AvatarInput: FunctionComponent = () => {
     const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
     const [isDataLoading, setIsDataLoading] = useState(false);
-    // const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const setAvatar = async (newAvatarStorageId) => {
       setIsDataLoading(true);
-      // if (newAvatarStorageId) {
-      //   setIsImageLoading(true);
-      // } else {
-      //   setIsImageLoading(false);
-      // }
       try {
         await Promise.all([
           setDoc(piggybankRef, { avatar_storage_id: newAvatarStorageId }, { merge: true }),
@@ -118,17 +113,7 @@ const AvatarInput: FunctionComponent = () => {
         <Stack id="avatar-input-container">
           <Box mx="auto">
             {
-              isDataLoading ? (
-                <Box
-                  w={200}
-                  h={200}
-                  borderRadius="50%"
-                >
-                  <Center h="100%" w="100%" backgroundColor="#e1e1e1" borderRadius="50%">
-                    <Spinner size="lg" color="#a3a3a3" />
-                  </Center>
-                </Box>
-              ) :
+              isDataLoading ? <AvatarLoading /> :
               currentAvatarStorageId
               ? <Avatar />
               : (

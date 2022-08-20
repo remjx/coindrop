@@ -1,8 +1,0 @@
-.imageWrapper {
-  overflow: hidden;
-}
-
-.image {
-  border-radius: 50%;
-  object-fit: cover;
-}
