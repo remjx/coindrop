@@ -2,10 +2,6 @@
   overflow: hidden;
 }
 
-.imageWrapperLoading {
-  overflow: hidden;
-}
-
 .imageWrapperLoading img {
     visibility: hidden !important;
     height: 0 !important;
