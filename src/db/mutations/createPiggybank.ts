@@ -4,7 +4,7 @@ import { User } from 'firebase/auth';
 export async function createPiggybank(
     candidatePiggybankPath: string,
     user: User,
-){
+) {
     const headers = {
         token: await user.getIdToken(),
     };
@@ -30,4 +30,3 @@ export async function createPiggybank(
         }
     }
 }
-

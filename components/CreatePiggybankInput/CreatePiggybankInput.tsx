@@ -1,10 +1,10 @@
 import { useState, FunctionComponent, createRef, useEffect, MouseEventHandler } from 'react';
 import { Box, Flex, Input, InputGroup, InputLeftAddon, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
+import { createPiggybank } from '../../src/db/mutations/createPiggybank';
 import { piggybankPathRegex } from '../../src/settings';
 import { CoindropRequirements } from '../CoindropRequirements/CoindropRequirements';
 import { CreateCoindropError } from './CreateCoindropError';
-import { createPiggybank } from 'db/mutations/createPiggybank';
 import {useUser} from '../../utils/auth/useUser';
 
 type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
@@ -39,7 +39,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
         } else {
             setSubmitStatus('submitting');
             try {
-                await createPiggybank(candidatePiggybankPath, user)
+                await createPiggybank(candidatePiggybankPath, user);
                 setSubmitStatus('success');
                 router.push(`/${candidatePiggybankPath}`);
             } catch (error) {
@@ -54,7 +54,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
     }
     const inputName = `create-coindrop-input`;
     return (
-        <form id={`create-coindrop-form`} onSubmit={onSubmit}>
+        <form id="create-coindrop-form" onSubmit={onSubmit}>
             <Flex
                 align="center"
                 justify="center"
