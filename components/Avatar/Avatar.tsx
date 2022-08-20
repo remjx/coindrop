@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { AvatarLoading } from "./AvatarLoading";
 import styles from './Avatar.module.css';
 import { publicPiggybankImageURL } from "../../utils/storage/image-paths";
-import { PublicPiggybankDataContext } from '../PublicPiggybankPage/PublicPiggybankDataContext'
+import { PublicPiggybankDataContext } from '../PublicPiggybankPage/PublicPiggybankDataContext';
 
 export function Avatar(): JSX.Element {
     const { piggybankDbData: { owner_uid: ownerUid, avatar_storage_id } } = useContext(PublicPiggybankDataContext);
@@ -23,7 +23,7 @@ export function Avatar(): JSX.Element {
         } else {
             setIsLoading(false);
         }
-    }, [avatar_storage_id])
+    }, [avatar_storage_id]);
     if (!avatar_storage_id) return null;
     return (
         <>
@@ -39,10 +39,10 @@ export function Avatar(): JSX.Element {
                 width={200}
                 height={200}
                 onLoadingComplete={() => {
-                    setIsLoading(false)
+                    setIsLoading(false);
                 }}
             />
         </div>
         </>
     );
-};
+}

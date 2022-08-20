@@ -11,5 +11,5 @@ export function AvatarLoading() {
             <Spinner size="lg" color="#a3a3a3" />
           </Center>
         </Box>
-      )
+      );
 }

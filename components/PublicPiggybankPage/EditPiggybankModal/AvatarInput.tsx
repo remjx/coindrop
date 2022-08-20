@@ -60,7 +60,7 @@ const AvatarInput: FunctionComponent = () => {
           }),
         ]);
         mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
-      } catch (err) { 
+      } catch (err) {
         console.error('Error setting avatar', err);
       } finally {
         setIsDataLoading(false);
@@ -113,8 +113,8 @@ const AvatarInput: FunctionComponent = () => {
         <Stack id="avatar-input-container">
           <Box mx="auto">
             {
-              isDataLoading ? <AvatarLoading /> :
-              currentAvatarStorageId
+              isDataLoading ? <AvatarLoading />
+              : currentAvatarStorageId
               ? <Avatar />
               : (
                 <Box w={200} h={200} borderRadius="50%">
