@@ -15,6 +15,7 @@ import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
+import { setDoc } from "firebase/firestore";
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -47,17 +48,6 @@ const AvatarInput: FunctionComponent = () => {
     const [isDataLoading, setIsDataLoading] = useState(false);
     // const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const setAvatar = async (newAvatarStorageId) => {
-<<<<<<< Updated upstream
-      Promise.all([
-        piggybankRef.set({ avatar_storage_id: newAvatarStorageId }, { merge: true }),
-        deleteImage({
-          storageId: currentAvatarStorageId,
-          ownerUid: uid,
-          piggybankName,
-        }),
-      ]);
-      mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
-=======
       setIsDataLoading(true);
       // if (newAvatarStorageId) {
       //   setIsImageLoading(true);
@@ -73,13 +63,12 @@ const AvatarInput: FunctionComponent = () => {
             piggybankName,
           }),
         ]);
-        mutate(['publicPiggybankData', piggybankName]);
+        mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
       } catch (err) { 
         console.error('Error setting avatar', err);
       } finally {
         setIsDataLoading(false);
       }
->>>>>>> Stashed changes
     };
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
