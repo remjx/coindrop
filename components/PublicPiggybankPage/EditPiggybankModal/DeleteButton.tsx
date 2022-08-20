@@ -57,7 +57,7 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
             id="delete-coindrop-button"
             leftIcon={<DeleteIcon />}
             colorScheme={awaitingDeleteConfirmation ? "red" : undefined}
-            onClick={handleDelete}
+            onClick={() => handleDelete()}
             isLoading={isDeleting}
             loadingText="Deleting"
         >

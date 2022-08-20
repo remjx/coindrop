@@ -1,6 +1,8 @@
+/* eslint-disable import/no-unresolved */
 import { initializeApp, cert, getApp, getApps } from 'firebase-admin/app';
 import { getAuth, DecodedIdToken } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
+/* eslint-enable import/no-unresolved */
 
 const firebasePrivateKey = process.env.FIREBASE_PRIVATE_KEY;
 export const CREDENTIAL = cert({

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import useSWR from 'swr';
-import { Box, Text, Stack, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Stack, Skeleton, Center } from '@chakra-ui/react';
 import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
@@ -8,7 +8,9 @@ import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import PageTitle from '../../Title/Title';
 
-const Title = () => <PageTitle title="My Coindrops" />;
+function Title() {
+  return <PageTitle title="My Coindrops" />;
+}
 
 function SkeletonArray(n: number): number[] {
     const a = new Array(n);
@@ -51,13 +53,16 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         console.error(error);
-        return <Text>Error getting data, please try refreshing the page.</Text>;
+        return (
+            <Center mt={10}>
+                <Text>Error getting data, please try refreshing the page.</Text>
+            </Center>
+        );
     }
     if (data) {
         const numActivePiggybanks = data.length;
         const userHasPiggybanks = numActivePiggybanks > 0;
         return (
-            <>
             <Stack spacing={4} mb={4} id="user-owned-coindrops">
                 {
                 userHasPiggybanks
@@ -84,7 +89,6 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                     numActivePiggybanks={numActivePiggybanks}
                 />
             </Stack>
-            </>
         );
     }
     return (

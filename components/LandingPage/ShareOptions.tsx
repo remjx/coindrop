@@ -15,8 +15,8 @@ export const ShareOptionsDefault: FC = () => {
             wrap="wrap"
         >
             <ShareOption
-                title="Custom URL"
-                description="For literally anywhere"
+                title="URL"
+                description="For anywhere"
                 bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
             >
                 <b>
@@ -30,20 +30,18 @@ export const ShareOptionsDefault: FC = () => {
             </ShareOption>
             <ShareOption
                 title="Button"
-                description="For websites"
+                description="For your website"
                 bg={colorMode === 'light' ? 'green.400' : 'green.300'}
             >
-                <>
                 <Box w="228px" h="57px">
                     <Link href="https://coindrop.to/satoshi-nakamoto" isExternal>
                         <img src="/embed-button.png" style={{borderRadius: "10px", height: "57px", width: "229px"}} alt="Coindrop.to me" />
                     </Link>
                 </Box>
-                </>
             </ShareOption>
             <ShareOption
                 title="QR Code"
-                description="For smartphones"
+                description="For smartphone camera scanning"
                 bg={yellow}
             >
                 <QRCodeExample />

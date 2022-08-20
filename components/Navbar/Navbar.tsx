@@ -3,43 +3,47 @@ import { Link, Icon, Flex, Button, Menu, MenuButton, MenuList, MenuItem, useColo
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { SunIcon, MoonIcon, SettingsIcon } from "@chakra-ui/icons";
-import { AiOutlineShopping } from 'react-icons/ai';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { CgShoppingCart } from 'react-icons/cg';
 import { LogoutIcon, HamburgerMenuIcon } from '../Icons/CustomIcons';
 import Logo from '../Logo/Logo';
 import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import { useUser } from '../../utils/auth/useUser';
 
-const UserMenu = () => {
+export function UserMenu() {
     const { colorMode, toggleColorMode } = useColorMode();
     const { logout } = useUser();
+    const router = useRouter();
     return (
         <Menu placement="bottom-end">
-            <MenuButton as={Button} variant="ghost">
+            <MenuButton as={Button}>
                 <HamburgerMenuIcon />
             </MenuButton>
             <MenuList>
-                <NextLink href="/account">
-                    <MenuItem>
-                        <Flex
-                            align="center"
-                        >
-                            <SettingsIcon mr={2} />
-                            My Account
-                        </Flex>
-                    </MenuItem>
-                </NextLink>
-                {/* This is an external link to ensure Ecwid scripts run on page changes */}
-                {/* Should figure out a way to trigger the scripts manually within /shop */}
-                {/* <Link href="/shop" style={{textDecoration: "none"}}>
-                    <MenuItem>
-                        <Flex
-                            align="center"
-                        >
-                            <Icon mr={2} as={AiOutlineShopping} />
-                            Shop
-                        </Flex>
-                    </MenuItem>
-                </Link> */}
+                {router.pathname !== '/dashboard' && (
+                    <NextLink href="/dashboard">
+                        <MenuItem>
+                            <Flex
+                                align="center"
+                            >
+                                <Icon mr={2} as={AiOutlineUnorderedList} />
+                                My Coindrops
+                            </Flex>
+                        </MenuItem>
+                    </NextLink>
+                )}
+                {router.pathname !== '/shop' && (
+                    <Link href="/shop" style={{textDecoration: "none"}}>
+                        <MenuItem>
+                            <Flex
+                                align="center"
+                            >
+                                <Icon mr={2} as={CgShoppingCart} />
+                                Shop
+                            </Flex>
+                        </MenuItem>
+                    </Link>
+                )}
                 <MenuItem
                     onClick={toggleColorMode}
                 >
@@ -50,6 +54,18 @@ const UserMenu = () => {
                         {colorMode === 'dark' ? 'Light mode' : 'Dark mode'}
                     </Flex>
                 </MenuItem>
+                {router.pathname !== '/account' && (
+                    <NextLink href="/account">
+                        <MenuItem>
+                            <Flex
+                                align="center"
+                            >
+                                <SettingsIcon mr={2} />
+                                Settings
+                            </Flex>
+                        </MenuItem>
+                    </NextLink>
+                )}
                 <MenuItem
                     onClick={() => {
                         logout();
@@ -65,13 +81,13 @@ const UserMenu = () => {
             </MenuList>
         </Menu>
     );
-};
+}
 
-const Options = () => {
+function Options() {
     const { user } = useUser();
     if (!user) return <ToggleColorModeButton />;
     return <UserMenu />;
-};
+}
 
 const DashboardButton: FC = () => {
     const { user } = useUser();
@@ -106,7 +122,7 @@ const LogInSignUpButton: FC = () => {
             <Button
                 id="log-in-button"
                 mr={2}
-                colorScheme={pathname === '/' ? undefined : "orange"}
+                colorScheme={pathname === '/' ? "green" : "orange"}
             >
                 Log in / Sign up
             </Button>
@@ -128,13 +144,9 @@ export const Navbar: FC<Props> = ({ logoSubtitle }) => {
             wrap="wrap"
         >
             <Flex mx={childFlexMx}>
-                <NextLink href="/" passHref>
-                    <a>
-                        <Logo
-                            subtitle={logoSubtitle}
-                        />
-                    </a>
-                </NextLink>
+                <Logo
+                    subtitle={logoSubtitle}
+                />
             </Flex>
             <Flex align="center" mx={childFlexMx}>
                 <DashboardButton />

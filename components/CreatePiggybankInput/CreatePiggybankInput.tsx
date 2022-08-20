@@ -1,4 +1,4 @@
-import { useState, FunctionComponent, createRef, useEffect } from 'react';
+import { useState, FunctionComponent, createRef, useEffect, MouseEventHandler } from 'react';
 import { Box, Flex, Input, InputGroup, InputLeftAddon, Button } from "@chakra-ui/react";
 import { useRouter } from 'next/router';
 import cookies from 'js-cookie';
@@ -47,9 +47,6 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
             setIsCandidatePiggybankPathInvalid(true);
         } else if (user) {
             setIsCreateTriggered(true);
-        } else if (router.pathname === '/') {
-            cookies.set('pendingLoginCreatePiggybankPath', candidatePiggybankPath);
-            router.push('/?auth=1', undefined, { shallow: true });
         }
     }
     function onSubmit(event) {
@@ -94,7 +91,7 @@ export const CreatePiggybankInput: FunctionComponent<Props> = ({
                         isDisabled={isCandidatePiggybankPathInvalid || submitStatus === 'submitting' || submitStatus === 'success'}
                         isLoading={submitStatus === 'submitting' || submitStatus === 'success'}
                         loadingText="Creating"
-                        onClick={onSubmit}
+                        onClick={(event) => onSubmit(event)}
                         type="submit"
                     >
                         {buttonText}

@@ -57,8 +57,6 @@ function useCreatePiggybank(
             } else {
                 setError('Error sending request. Please try again.');
             }
-        } finally {
-            cookies.remove('pendingLoginCreatePiggybankPath');
         }
     }
     useEffect(() => {

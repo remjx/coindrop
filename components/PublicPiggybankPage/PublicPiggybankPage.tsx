@@ -16,6 +16,14 @@ import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
 export const getAccentColorLevelInitial = (colorMode: ColorMode): string => (colorMode === 'light' ? '500' : '300');
 export const getAccentColorLevelHover = (colorMode: ColorMode): string => (colorMode === 'light' ? '600' : '400');
 
+const WrapGroup: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
+    <Wrap
+        justify="center"
+    >
+        {children}
+    </Wrap>
+);
+
 const PublicPiggybankPage: FunctionComponent = () => {
     const { query: { piggybankName } } = useRouter();
     const { piggybankDbData } = useContext(PublicPiggybankDataContext);
@@ -36,13 +44,6 @@ const PublicPiggybankPage: FunctionComponent = () => {
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
-    const WrapGroup: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
-        <Wrap
-            justify="center"
-        >
-            {children}
-        </Wrap>
-    );
 
     type PaymentMethodButtonsFromEntriesProps = {
         entries: PaymentMethodDbObjEntry[]

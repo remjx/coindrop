@@ -10,7 +10,7 @@ export const CoindropRequirements: FC = () => (
             <ListItem>Start with a letter</ListItem>
             <ListItem>Only include letters, numbers, dashes (-), and underscores (_)</ListItem>
             <ListItem>End with a letter or number</ListItem>
-            <ListItem>Between 3 and 32 characters in length</ListItem>
+            <ListItem>Be between 3 and 32 characters in length</ListItem>
         </UnorderedList>
     </Box>
 );
