@@ -1,5 +1,5 @@
-import { useState, useRef, useContext, FunctionComponent } from "react";
-import { Flex, FormLabel, Center, Box, Button, Stack, Text } from "@chakra-ui/react";
+import { useState, useRef, useContext, FunctionComponent, useEffect } from "react";
+import { Flex, FormLabel, Center, Box, Button, Stack, Text, Spinner } from "@chakra-ui/react";
 // Conflict with built-in Javascript Image class:
 // eslint-disable-next-line import/no-named-default
 import { default as NextImage } from 'next/image';
@@ -44,7 +44,10 @@ const AvatarInput: FunctionComponent = () => {
     const imageDimensionsError = "Image height and width must be >= 250px";
     const [fileSelectErrorMessage, setFileSelectErrorMessage] = useState("");
     function clearInput() { inputRef.current.value = null; }
+    const [isDataLoading, setIsDataLoading] = useState(false);
+    // const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
     const setAvatar = async (newAvatarStorageId) => {
+<<<<<<< Updated upstream
       Promise.all([
         piggybankRef.set({ avatar_storage_id: newAvatarStorageId }, { merge: true }),
         deleteImage({
@@ -54,6 +57,29 @@ const AvatarInput: FunctionComponent = () => {
         }),
       ]);
       mutate(['publicPiggybankData', piggybankName], { ...piggybankDbData, avatar_storage_id: newAvatarStorageId });
+=======
+      setIsDataLoading(true);
+      // if (newAvatarStorageId) {
+      //   setIsImageLoading(true);
+      // } else {
+      //   setIsImageLoading(false);
+      // }
+      try {
+        await Promise.all([
+          setDoc(piggybankRef, { avatar_storage_id: newAvatarStorageId }, { merge: true }),
+          deleteImage({
+            storageId: currentAvatarStorageId,
+            ownerUid: uid,
+            piggybankName,
+          }),
+        ]);
+        mutate(['publicPiggybankData', piggybankName]);
+      } catch (err) { 
+        console.error('Error setting avatar', err);
+      } finally {
+        setIsDataLoading(false);
+      }
+>>>>>>> Stashed changes
     };
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
@@ -99,17 +125,31 @@ const AvatarInput: FunctionComponent = () => {
         <Stack id="avatar-input-container">
           <Box mx="auto">
             {
+              isDataLoading ? (
+                <Box
+                  w={200}
+                  h={200}
+                  borderRadius="50%"
+                >
+                  <Center h="100%" w="100%" backgroundColor="#e1e1e1" borderRadius="50%">
+                    <Spinner size="lg" color="#a3a3a3" />
+                  </Center>
+                </Box>
+              ) :
               currentAvatarStorageId
               ? <Avatar />
               : (
-                <NextImage
-                  id="avatar-img"
-                  width={200}
-                  height={200}
-                  src="/avatar-placeholder.png"
-                  alt="avatar placeholder"
-                  data-cy="avatar-placeholder"
-                />
+                <Box w={200} h={200} borderRadius="50%">
+                  <NextImage
+                    id="avatar-img"
+                    width={200}
+                    height={200}
+                    src="/avatar-placeholder.png"
+                    alt="avatar placeholder"
+                    data-cy="avatar-placeholder"
+                    style={{borderRadius: '50%'}}
+                  />
+                </Box>
               )
             }
           </Box>

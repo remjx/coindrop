@@ -1,11 +1,11 @@
-import { FunctionComponent, useContext } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from 'next/image';
 import styles from './Avatar.module.css';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { publicPiggybankImageURL } from '../../../utils/storage/image-paths';
 
-export const Avatar: FunctionComponent = () => {
+export function Avatar(): JSX.Element {
     const { piggybankDbData: { owner_uid: ownerUid, avatar_storage_id } } = useContext(PublicPiggybankDataContext);
     const { query: { piggybankName: piggybankNameQuery }} = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
