@@ -6,16 +6,17 @@ import { default as NextImage } from 'next/image';
 import { DeleteIcon, WarningIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { v4 as uuidV4 } from 'uuid';
+import { doc, setDoc } from "firebase/firestore";
+import { ref, uploadBytes } from 'firebase/storage';
 import { mutate } from 'swr';
 import { useUser } from '../../../utils/auth/useUser';
-import { storage } from '../../../utils/client/storage';
+import { firebaseStorage } from '../../../utils/client/storage';
 import { piggybankImageStoragePath } from '../../../utils/storage/image-paths';
 import { Avatar } from '../avatar/Avatar';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { db } from '../../../utils/client/db';
 import { FileInput, FileInputRef } from '../../Buttons/file-input/FileInput';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
-import { setDoc } from "firebase/firestore";
 
 function getImageDimensions(file: File): Promise<{ width: number, height: number }> {
   return new Promise((resolve, reject) => {
@@ -38,8 +39,8 @@ const AvatarInput: FunctionComponent = () => {
     const { query: { piggybankName: piggybankNameQuery } } = useRouter();
     const piggybankName = typeof piggybankNameQuery === 'string' ? piggybankNameQuery : piggybankNameQuery[0];
     const { user } = useUser();
-    const uid = user?.id;
-    const piggybankRef = db.collection('piggybanks').doc(piggybankName);
+    const uid = user?.uid;
+    const piggybankRef = doc(db, 'piggybanks', piggybankName);
     const fileSizeError = "Image too large";
     const contentTypeError = "Only images are accepted";
     const imageDimensionsError = "Image height and width must be >= 250px";
@@ -73,27 +74,30 @@ const AvatarInput: FunctionComponent = () => {
     const onInputChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
       setFileSelectErrorMessage(null);
       const file = event?.target?.files?.[0];
-      const storageRef = storage.ref();
       const newAvatarStorageId = uuidV4();
       const newAvatarPath = piggybankImageStoragePath({ ownerUid: uid, piggybankName, imageAs: "avatar", imageStorageId: newAvatarStorageId });
-      const newAvatarRef = storageRef.child(newAvatarPath);
+      const newAvatarRef = ref(firebaseStorage, newAvatarPath);
       if (file) {
         try {
           const contentType = file.type;
           if (!contentType.startsWith("image/")) {
             throw new Error(contentTypeError);
           }
-          if (file.size > 1000000) {
+          if (file.size > 1_000_000) {
             throw new Error(fileSizeError);
           }
           const { width, height } = await getImageDimensions(file);
           if (width < 250 || height < 250) {
             throw new Error(imageDimensionsError);
           }
-          await newAvatarRef.put(file);
+          const metadata = {
+            contentType,
+          };
+          await uploadBytes(newAvatarRef, file, metadata);
           clearInput();
           setAvatar(newAvatarStorageId);
         } catch (err) {
+          console.error('Error in image upload', err);
           const { message } = err;
           if (message === fileSizeError) {
             setFileSelectErrorMessage("Image too large. Please resize image to < 1MB.");

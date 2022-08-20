@@ -8,17 +8,14 @@ import requireAdminPassword from '../../../server/middleware/requireAdminPasswor
 const getEmailListSubscribers: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { listId }: { listId: EmailListIds } = req.body;
-        const ref = db()
-            .collection('users')
-            .where('email_lists', 'array-contains', listId);
-        const querySnapshot = await ref.get();
+        const users = await db.collection('users').where('email_lists', 'array-contains', listId).get();
         const emailAddresses = [];
-        querySnapshot.forEach(doc => {
+        users.forEach(doc => {
             emailAddresses.push(doc.data().email);
         });
         return res.status(200).send(emailAddresses.join('\n'));
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return res.status(400).end();
     }
 };

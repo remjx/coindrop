@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useState, useContext } from 'react';
 import { Button } from '@chakra-ui/react';
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useRouter } from 'next/router';
+import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../utils/client/db';
 import { PublicPiggybankDataContext } from '../PublicPiggybankDataContext';
 import { deleteImage } from '../../../src/db/mutations/delete-image';
@@ -26,13 +27,14 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
         }
         try {
             setIsDeleting(true);
+            const piggybanks = collection(db, 'piggybanks');
             await Promise.all([
                 deleteImage({
                     storageId: avatar_storage_id,
                     ownerUid,
                     piggybankName,
                 }),
-                db.collection('piggybanks').doc(piggybankName).delete(),
+                deleteDoc(doc(piggybanks, piggybankName)),
             ]);
             fetch(`/${piggybankName}`, { headers: { isToForceStaticRegeneration: "true" }});
             push('/dashboard');
@@ -55,7 +57,7 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
             id="delete-coindrop-button"
             leftIcon={<DeleteIcon />}
             colorScheme={awaitingDeleteConfirmation ? "red" : undefined}
-            onClick={handleDelete}
+            onClick={() => handleDelete()}
             isLoading={isDeleting}
             loadingText="Deleting"
         >

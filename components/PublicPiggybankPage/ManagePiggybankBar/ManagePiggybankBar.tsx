@@ -6,10 +6,12 @@ import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps } fro
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
 import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalValidationContext';
+import { UserMenu } from '../../Navbar/Navbar';
 
 type LinkButtonProps = {
     href: string
     buttonProps: ButtonProps
+    children: React.ReactNode
 }
 const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, children, buttonProps }) => (
     <NextLink href={href} passHref>
@@ -61,10 +63,10 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                             loadingText: "Loading",
                         }}
                     >
-                        Dashboard
+                        My Coindrops
                     </LinkButton>
                 </Box>
-                <Box mx={3} mt={2}>
+                <Flex mx={3} mt={2} gap={4}>
                     <Button
                         id="configure-coindrop-button"
                         leftIcon={editButtonOptions.icon}
@@ -74,14 +76,16 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                     >
                         {editButtonOptions.text}
                     </Button>
-                </Box>
-                <Box
-                    align="center"
-                    mt={2}
-                >
                     <ShareButtonModal
                         buttonColor={initialSetupComplete ? 'green' : undefined}
                     />
+                </Flex>
+                <Box
+                    alignItems="center"
+                    alignContent="center"
+                    mt={2}
+                >
+                    <UserMenu />
                 </Box>
             </Flex>
             <hr />

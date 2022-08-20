@@ -26,7 +26,6 @@ const LandingPageForRestaurants: NextPage = () => {
                 getStartedText="Coindrop is 100% free and open-source."
                 smartphoneMockupImageWidth={800}
                 smartphoneMockupImageHeight={606}
-                createCoindropInputPlaceholder="restaurant-name"
                 logoSubtitle="for restaurants"
             />
         </>

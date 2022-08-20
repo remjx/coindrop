@@ -43,3 +43,6 @@ serviceAccount.json
 # files generated during yarn build
 public/embed-button.js
 public/blog-content/**
+/pages/page-slugs.json
+
+tsconfig.tsbuildinfo

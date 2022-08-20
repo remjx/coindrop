@@ -36,6 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     ]);
     const pageTotal = Math.ceil(posts.length / postsPerPage);
     posts = posts
+        .filter(post => post.slug !== 'privacy-policy' && post.slug !== 'terms-of-service')
         .sort((post1, post2) => (new Date(post1.datePublished) > new Date(post2.datePublished) ? -1 : 1))
         .slice((pageNum - 1) * postsPerPage, pageNum * postsPerPage);
     return {

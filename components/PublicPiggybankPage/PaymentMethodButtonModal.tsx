@@ -66,7 +66,6 @@ const PaymentMethodButtonModal: FunctionComponent<Props> = ({ isOpen, onClose, p
                             <Link href={paymentMethodValue} isExternal>
                                 <Button
                                     leftIcon={<ExternalLinkIcon />}
-                                    href={paymentMethodValue}
                                     mr={2}
                                 >
                                     Open

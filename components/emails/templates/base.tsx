@@ -6,7 +6,7 @@ type Props = {
     previewText: string | null
 }
 
-const BaseEmailTemplate: FC<Props> = ({ children, previewText }) => {
+const BaseEmailTemplate: FC<Props & { children: React.ReactNode }> = ({ children, previewText }) => {
     return (
         <html lang="en">
             <head>

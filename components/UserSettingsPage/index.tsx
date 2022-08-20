@@ -31,6 +31,7 @@ const alwaysEnabledEmailLists = [
 
 type SectionHeadingProps = {
     size: "sm" | "md" | "lg"
+    children: React.ReactNode
 }
 
 const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
@@ -42,7 +43,7 @@ const SectionHeading: FC<SectionHeadingProps> = ({ size, children }) => (
     </Box>
 );
 
-const SectionContainer: FC = ({ children }) => (
+const SectionContainer: FC<{ children: React.ReactNode }> = ({ children }) => (
     <Box mx={4}>
         {children}
     </Box>
@@ -147,14 +148,14 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
 
 export const UserSettingsPage: FC = () => {
     const { user } = useUser();
-    const userId = user?.id;
+    const userId = user?.uid;
     const fetcher = () => getUserData(userId);
     const { data: userData, error: fetchError, mutate } = useSWR(
         userId ? 'user-data' : null,
         fetcher,
     );
     const email = user?.email;
-    const Settings = () => {
+    function Settings() {
         if (fetchError) {
             return (
                 <Text>
@@ -172,13 +173,17 @@ export const UserSettingsPage: FC = () => {
             );
         }
         return (
-            <Center>
+            <Center mt={10}>
                 <Spinner data-testid="no-user-data-spinner" />
             </Center>
         );
-    };
+    }
     if (!user) {
-        return <Spinner data-testid="no-user-spinner" />;
+        return (
+            <Center mt={10}>
+                <Spinner data-testid="no-user-spinner" />;
+            </Center>
+        );
     }
     return (
         <Box>

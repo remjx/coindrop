@@ -20,7 +20,6 @@ const TipCards: FunctionComponent = () => (
             <a href="/shop">
                 <Button
                     mt={4}
-                    href="/shop"
                     leftIcon={<Icon as={CgShoppingCart} />}
                     colorScheme="green"
                 >
