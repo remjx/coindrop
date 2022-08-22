@@ -20,7 +20,9 @@
     "test:local": "jest --watch",
     "test": "jest",
     "test:firestore:rules": "firebase emulators:exec --project coindropto-dev \"npx jest --env=node --runTestsByPath src/firebase/firestore/__tests/firestore-rules.test.ts --testPathIgnorePatterns=[]\"",
-    "cleaninstall": "rm -rf ./node_modules && yarn"
+    "cleaninstall": "rm -rf ./node_modules && yarn",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
@@ -64,9 +66,19 @@
     "zod": "^1.11.11"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.10",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.12.10",
+    "@chakra-ui/storybook-addon": "^4.0.8",
     "@firebase/rules-unit-testing": "^1.1.8",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@types/js-cookie": "^2.2.6",
@@ -76,6 +88,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "babel-jest": "^26.3.0",
+    "babel-loader": "^8.2.5",
     "cross-env": "^7.0.3",
     "cypress": "6.3.0",
     "cypress-file-upload": "^5.0.1",
