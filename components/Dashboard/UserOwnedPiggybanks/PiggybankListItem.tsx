@@ -1,44 +1,40 @@
-import { Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import NextLink from 'next/link';
 import { Spinner, Box, Flex, Heading, useTheme, useColorModeValue } from '@chakra-ui/react';
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 type Props = {
     id: string
-    setLoadingCoindropId: Dispatch<SetStateAction<string>>
-    loadingCoindropId: string;
 }
 
-const PiggybankListItem: FunctionComponent<Props> = ({ id, loadingCoindropId, setLoadingCoindropId }) => {
+const PiggybankListItem: FunctionComponent<Props> = ({ id }) => {
     const { colors } = useTheme();
+    const [isLoading, setIsLoading] = useState(false);
     const hoverBg = useColorModeValue(colors.gray['100'], colors.gray['600']);
-    const isThisItemLoading = loadingCoindropId === id;
-    const isAnyItemLoading = !!loadingCoindropId;
-    const isOtherItemLoading = loadingCoindropId && loadingCoindropId !== id;
-    const textOpacity = isOtherItemLoading ? 0.5 : undefined;
+    const activeBg = useColorModeValue(colors.gray['200'], colors.gray['700']);
     return (
         <Box
-            onClick={() => {
-                if (!isAnyItemLoading) {
-                    setLoadingCoindropId(id);
-                }
-            }}
+            onClick={() => setIsLoading(true)}
+            cursor="pointer"
             mt={3}
-            cursor={isThisItemLoading ? "default" : isAnyItemLoading ? "not-allowed" : "pointer"}
+            bg={isLoading ? hoverBg : undefined}
             _hover={{
-                bg: !isAnyItemLoading ? hoverBg : undefined,
+                bg: hoverBg,
                 textDecoration: "none",
             }}
-            borderWidth="1px"
-            borderRadius="10px"
+            _active={{
+                bg: activeBg,
+            }}
         >
-            <NextLink href={`/${loadingCoindropId || id}`} passHref>
-                <a id={`link-to-coindrop-${id}`} style={{cursor: "inherit"}}>
+            <NextLink href={`/${id}`} passHref>
+                <a id={`link-to-coindrop-${id}`}>
                     <Box
                         py={5}
                         shadow="md"
+                        borderWidth="1px"
+                        borderRadius="10px"
                     >
-                        {isThisItemLoading ? (
+                        {isLoading ? (
                             <Flex align="center" justify="center">
                                 <Spinner boxSize="32px" />
                                 <Heading ml={2} fontSize="xl">
@@ -51,11 +47,11 @@ const PiggybankListItem: FunctionComponent<Props> = ({ id, loadingCoindropId, se
                                 align="center"
                                 mx={4}
                             >
-                                <Heading fontSize="xl" wordBreak="break-word" opacity={textOpacity}>
+                                <Heading fontSize="xl" wordBreak="break-word">
                                     coindrop.to/
                                     {id}
                                 </Heading>
-                                <ChevronRightIcon boxSize="32px" opacity={textOpacity} />
+                                <ChevronRightIcon boxSize="32px" />
                             </Flex>
                         )}
                     </Box>
