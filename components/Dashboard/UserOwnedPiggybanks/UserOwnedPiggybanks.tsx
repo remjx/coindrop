@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import useSWR from 'swr';
 import { Box, Text, Stack, Skeleton, Center } from '@chakra-ui/react';
 import { collection, getDocs, where, query } from 'firebase/firestore';
@@ -50,6 +50,7 @@ type Props = {
 }
 
 const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
+    const [loadingCoindropId, setLoadingCoindropId] = useState('');
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         console.error(error);
@@ -73,6 +74,8 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                         <PiggybankListItem
                             key={piggybankDocumentID}
                             id={piggybankDocumentID}
+                            setLoadingCoindropId={setLoadingCoindropId}
+                            loadingCoindropId={loadingCoindropId}
                         />
                     ))}
                     </>
