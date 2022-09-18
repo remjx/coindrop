@@ -1,11 +1,11 @@
 import { useEffect, useState, FunctionComponent } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Spinner } from "@chakra-ui/react";
-import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider, isSignInWithEmailLink } from 'firebase/auth';
 import { firebaseAuth } from '../../utils/auth/initFirebase';
 
 const firebaseAuthConfig = {
-  signInFlow: 'popup',
+  signInFlow: typeof window !== 'undefined' && isSignInWithEmailLink(firebaseAuth, window.location.href) ? 'redirect' : 'popup',
   signInOptions: [
     GoogleAuthProvider.PROVIDER_ID,
     FacebookAuthProvider.PROVIDER_ID,
