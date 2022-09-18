@@ -1,6 +1,5 @@
-import { useEffect, useState, FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { Spinner } from "@chakra-ui/react";
 import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider, isSignInWithEmailLink } from 'firebase/auth';
 import { firebaseAuth } from '../../utils/auth/initFirebase';
 
