@@ -209,7 +209,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                 >
                                     {watchedData?.paymentMethodId === 'default-blank' && (
                                         <Text fontSize="xs" ml={1}>
-                                            <Link href="/blog/payment-method-request" isExternal>
+                                            <Link href="/blog/custom-payment-methods" isExternal>
                                                 Payment method not listed?
                                             </Link>
                                         </Text>
