@@ -1,7 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/storage';
-import 'firebase/analytics';
+import { initializeApp, getApp, getApps } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getAnalytics } from 'firebase/analytics';
+import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import Cookies from 'js-cookie';
+import { cookies } from '../../src/cookies';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_PUBLIC_API_KEY,
@@ -14,16 +16,30 @@ const config = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
 };
 
-export default function initFirebase(): void {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-    if (
-      process.env.NODE_ENV !== 'development'
-      && process.env.NODE_ENV !== 'test'
-      && typeof window !== 'undefined'
-      && !window.Cypress
-    ) {
-      firebase.analytics();
-    }
+export const firebaseApp = getApps().length === 0 ? initializeApp(config) : getApp();
+
+export const firebaseAuth = getAuth(firebaseApp);
+
+firebaseAuth.onAuthStateChanged(user => {
+  if (user) {
+    Cookies.set(cookies.isFirebaseUserAuthenticated, 'true');
+  } else {
+    Cookies.remove(cookies.isFirebaseUserAuthenticated);
   }
+});
+
+if (
+  process.env.NODE_ENV !== 'development'
+  && process.env.NODE_ENV !== 'test'
+  && typeof window !== 'undefined'
+  && !window.Cypress
+) {
+  const analytics = getAnalytics(firebaseApp);
+}
+
+if (typeof window !== 'undefined') {
+  const appCheck = initializeAppCheck(firebaseApp, {
+    provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY),
+    isTokenAutoRefreshEnabled: true,
+  });
 }

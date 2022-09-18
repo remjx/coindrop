@@ -22,7 +22,7 @@ type PublicPiggybankDataContextValue = {
     setPiggybankDbData: Dispatch<SetStateAction<PublicPiggybankDataType>>
 }
 
-export const PublicPiggybankDataProvider: FunctionComponent<Props> = ({ initialPiggybankDbData, children }) => {
+export const PublicPiggybankDataProvider: FunctionComponent<Props & { children: React.ReactNode }> = ({ initialPiggybankDbData, children }) => {
     const [piggybankDbData, setPiggybankDbData] = useState<PublicPiggybankDataType>(initialPiggybankDbData);
     const value: PublicPiggybankDataContextValue = {
         piggybankDbData,

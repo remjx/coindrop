@@ -1,55 +1,30 @@
 import { useEffect, useState, FunctionComponent } from 'react';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import firebase from 'firebase/app';
 import { Spinner } from "@chakra-ui/react";
-import 'firebase/auth';
-import initFirebase from '../../utils/auth/initFirebase';
-import { setUserCookie } from '../../utils/auth/userCookies';
-import { mapUserData } from '../../utils/auth/mapUserData';
-
-initFirebase();
+import { GoogleAuthProvider, FacebookAuthProvider, EmailAuthProvider } from 'firebase/auth';
+import { firebaseAuth } from '../../utils/auth/initFirebase';
 
 const firebaseAuthConfig = {
-  signInFlow: 'redirect',
-  signInOptions: [ // https://github.com/firebase/firebaseui-web#configure-oauth-providers
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  signInFlow: 'popup',
+  signInOptions: [
+    GoogleAuthProvider.PROVIDER_ID,
+    FacebookAuthProvider.PROVIDER_ID,
     {
-      provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
+      provider: EmailAuthProvider.PROVIDER_ID,
+      signInMethod: EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD,
     },
   ],
   credentialHelper: 'none',
-  signInSuccessUrl: '/',
-  callbacks: {
-    // related: https://stackoverflow.com/questions/63349204/signinsuccesswithauthresult-return-value-in-firebase-ui-callbacks
-    // TODO: What is the TS type for this function?
-    signInSuccessWithAuthResult: ({ user }) => {
-      const userData = mapUserData(user);
-      setUserCookie(userData);
-      return false;
-    },
-  },
+  signInSuccessUrl: '/dashboard',
 };
 
 const FirebaseAuth: FunctionComponent = () => {
-  // Do not SSR FirebaseUI, because it is not supported.
-  // https://github.com/firebase/firebaseui-web/issues/213
-  const [renderAuth, setRenderAuth] = useState(false);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setRenderAuth(true);
-    }
-  }, []);
+  if (typeof window === 'undefined') return null;
   return (
-    <div>
-      {renderAuth ? (
-        <StyledFirebaseAuth
-          uiConfig={firebaseAuthConfig}
-          firebaseAuth={firebase.auth()}
-        />
-      ) : <Spinner />}
-    </div>
+    <StyledFirebaseAuth
+      uiConfig={firebaseAuthConfig}
+      firebaseAuth={firebaseAuth}
+    />
   );
 };
 

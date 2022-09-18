@@ -1,33 +1,29 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
-import { Text } from '@chakra-ui/react';
+import { Center, Spinner } from '@chakra-ui/react';
 import { useUser } from '../../utils/auth/useUser';
-import useDidMountEffect from '../../utils/hooks/useDidMountEffect';
 import UserOwnedPiggybanks from './UserOwnedPiggybanks/UserOwnedPiggybanks';
 import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 
 const Dashboard: FunctionComponent = () => {
     const router = useRouter();
     const { user } = useUser();
-    useDidMountEffect(() => {
-        if (!user) {
-            router.push('/');
-        }
-    }, [user]);
 
     return (
         <>
             <NextSeo
-                title="Dashboard | Coindrop"
+                title="My Coindrops"
             />
-            {user?.id
+            {user
             ? (
                 <UserOwnedPiggybanks
-                    uid={user.id}
+                    uid={user.uid}
                 />
             ) : (
-                <Text>You are not logged in. Redirecting...</Text>
+                <Center mt={10}>
+                    <Spinner />
+                </Center>
             )}
         </>
     );

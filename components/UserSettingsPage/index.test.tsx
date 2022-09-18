@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import '@testing-library/jest-dom/extend-expect';
 import useSWR from 'swr';
+import { User } from 'firebase/auth';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import { UserSettingsPage, UserDataForm } from './index';
 import useUserModule from '../../utils/auth/useUser';
@@ -27,10 +28,9 @@ jest.mock('../../src/db/mutations/user/update-user', () => {
 beforeEach(() => {
     jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
         user: {
-            id: "some-uid",
+            uid: "some-uid",
             email: "test@user.com",
-            token: "some-token",
-        },
+        } as User,
         logout: null,
     }));
 });

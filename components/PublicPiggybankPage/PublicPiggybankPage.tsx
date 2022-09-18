@@ -1,22 +1,28 @@
 import { FunctionComponent, useContext } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Container, Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
-import { Avatar } from './avatar/Avatar';
 import PaymentMethodButton from './PaymentMethodButton';
 import ManagePiggybankBar from './ManagePiggybankBar/ManagePiggybankBar';
 import PoweredByCoindropLink from './PoweredByCoindropLink';
 import { PublicPiggybankDataContext } from './PublicPiggybankDataContext';
 import { PaymentMethodDbObjEntry, sortArrayByEntriesKeyAlphabetical } from './util';
-import { ToggleColorModeButton } from '../ColorMode/ToggleColorModeButton';
 import DataRefetcher from './ManagePiggybankBar/DataRefetcher';
+import { Avatar } from '../Avatar/Avatar';
 
 export const getAccentColorLevelInitial = (colorMode: ColorMode): string => (colorMode === 'light' ? '500' : '300');
 export const getAccentColorLevelHover = (colorMode: ColorMode): string => (colorMode === 'light' ? '600' : '400');
+
+const WrapGroup: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
+    <Wrap
+        justify="center"
+    >
+        {children}
+    </Wrap>
+);
 
 const PublicPiggybankPage: FunctionComponent = () => {
     const { query: { piggybankName } } = useRouter();
@@ -38,13 +44,6 @@ const PublicPiggybankPage: FunctionComponent = () => {
     const pagePaymentMethodsDataEntries = Object.entries(piggybankDbData.paymentMethods ?? {});
     const preferredAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => paymentMethodData.isPreferred);
     const otherAddresses = pagePaymentMethodsDataEntries.filter(([, paymentMethodData]: any) => !paymentMethodData.isPreferred);
-    const WrapGroup: FunctionComponent = ({ children }) => (
-        <Wrap
-            justify="center"
-        >
-            {children}
-        </Wrap>
-    );
 
     type PaymentMethodButtonsFromEntriesProps = {
         entries: PaymentMethodDbObjEntry[]
@@ -78,8 +77,8 @@ const PublicPiggybankPage: FunctionComponent = () => {
             maxW={theme.breakpoints.lg}
             mx="auto"
         >
-            {user?.id
-            && user.id === owner_uid
+            {user?.uid
+            && user.uid === owner_uid
             && (
                 <>
                 <DataRefetcher />

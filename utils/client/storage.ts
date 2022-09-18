@@ -1,7 +1,4 @@
-import firebase from "firebase/app";
-import "firebase/storage";
-import initFirebase from '../auth/initFirebase';
+import { getStorage } from "firebase/storage";
+import { firebaseApp } from '../auth/initFirebase';
 
-initFirebase();
-
-export const storage = firebase.storage();
+export const firebaseStorage = getStorage(firebaseApp);

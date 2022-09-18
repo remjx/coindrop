@@ -1,5 +1,5 @@
 import { FunctionComponent, useState, useEffect } from 'react';
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, Center } from '@chakra-ui/react';
 import { AddIcon } from "@chakra-ui/icons";
 import { maxPiggybanksPerUser } from '../../../../src/settings';
 import { CreatePiggybankInput } from '../../../CreatePiggybankInput/CreatePiggybankInput';
@@ -16,16 +16,18 @@ const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks })
     if (numActivePiggybanks < maxPiggybanksPerUser) {
         if (!showInput) {
             return (
-                <Button
-                    id="create-new-coindrop-button"
-                    leftIcon={<AddIcon />}
-                    borderRadius="10px"
-                    mt={3}
-                    onClick={() => setShowInput(true)}
-                    colorScheme="green"
-                >
-                    Create new
-                </Button>
+                <Center>
+                    <Button
+                        id="create-new-coindrop-button"
+                        leftIcon={<AddIcon />}
+                        borderRadius="10px"
+                        mt={3}
+                        onClick={() => setShowInput(true)}
+                        colorScheme="green"
+                    >
+                        Create New
+                    </Button>
+                </Center>
             );
         }
         return (
@@ -41,10 +43,6 @@ const AddPiggybankListItem: FunctionComponent<Props> = ({ numActivePiggybanks })
             >
                 <CreatePiggybankInput
                     onCancel={() => setShowInput(false)}
-                    createButtonColorScheme="green"
-                    instanceId=""
-                    buttonText="Create"
-                    placeholder="your-name"
                 />
             </Flex>
         );

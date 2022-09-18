@@ -1,13 +1,16 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import useSWR from 'swr';
-import { Box, Text, Stack, Skeleton } from '@chakra-ui/react';
+import { Box, Text, Stack, Skeleton, Center } from '@chakra-ui/react';
+import { collection, getDocs, where, query } from 'firebase/firestore';
 import { db } from '../../../utils/client/db';
 import PiggybankListItem from './PiggybankListItem';
 import AddPiggybankListItem from './AddPiggybankListItem/AddPiggybankListItem';
 import PiggybankLimitUtilization from './PiggybankLimitUtilization';
 import PageTitle from '../../Title/Title';
 
-const Title = () => <PageTitle title="My Coindrops" />;
+function Title() {
+  return <PageTitle title="My Coindrops" />;
+}
 
 function SkeletonArray(n: number): number[] {
     const a = new Array(n);
@@ -29,10 +32,9 @@ const LoadingSkeleton: FC = () => (
 type PiggybankDocumentID = string
 
 async function fetchUserOwnedPiggybanks(uid: string): Promise<PiggybankDocumentID[]> {
-    const piggybanks = await db
-        .collection('piggybanks')
-        .where('owner_uid', '==', uid)
-        .get();
+    const col = collection(db, 'piggybanks');
+    const q = query(col, where('owner_uid', '==', uid));
+    const piggybanks = await getDocs(q);
     if (piggybanks.empty) {
         return [];
     }
@@ -48,16 +50,20 @@ type Props = {
 }
 
 const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
+    const [loadingCoindropId, setLoadingCoindropId] = useState('');
     const { data, error }: { data?: PiggybankDocumentID[], error?: any} = useSWR(uid, fetchUserOwnedPiggybanks);
     if (error) {
         console.error(error);
-        return <Text>Error getting data, please try refreshing the page.</Text>;
+        return (
+            <Center mt={10}>
+                <Text>Error getting data, please try refreshing the page.</Text>
+            </Center>
+        );
     }
     if (data) {
         const numActivePiggybanks = data.length;
         const userHasPiggybanks = numActivePiggybanks > 0;
         return (
-            <>
             <Stack spacing={4} mb={4} id="user-owned-coindrops">
                 {
                 userHasPiggybanks
@@ -68,6 +74,8 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                         <PiggybankListItem
                             key={piggybankDocumentID}
                             id={piggybankDocumentID}
+                            setLoadingCoindropId={setLoadingCoindropId}
+                            loadingCoindropId={loadingCoindropId}
                         />
                     ))}
                     </>
@@ -84,7 +92,6 @@ const UserOwnedPiggybanks: FC<Props> = ({ uid }) => {
                     numActivePiggybanks={numActivePiggybanks}
                 />
             </Stack>
-            </>
         );
     }
     return (

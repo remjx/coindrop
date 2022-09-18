@@ -23,6 +23,7 @@ const StatusIcon: FunctionComponent<StatusIconProps> = ({
     isValid,
     currentPiggybankId,
 }) => {
+    if (!value) return null;
     if (isValidating || value !== debouncedValue) {
         return (
             <Box>
@@ -39,21 +40,34 @@ const StatusIcon: FunctionComponent<StatusIconProps> = ({
 };
 
 type Props = {
-    register: any // from react-hook-form useForm
-    value: string
+    reactHookFormProps?: {
+        register: any
+        value: string
+    }
 }
 
-const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
+const EditUrlInput: FunctionComponent<Props> = ({ reactHookFormProps }) => {
+    const { register: reactHookFormRegister, value: reactHookFormValue } = reactHookFormProps || {};
     const { query: { piggybankName }} = useRouter();
     const currentPiggybankId = Array.isArray(piggybankName) ? piggybankName[0] : piggybankName;
+    const [nonReactHookFormValue, setNonReactHookFormValue] = useState('');
+    const value = reactHookFormValue ?? nonReactHookFormValue;
     const [isValidating, setIsValidating] = useState(false);
     const [isValid, setIsValid] = useState(false);
     const [error, setError] = useState<'Invalid input' | 'Id taken' | 'Network error'>();
     const debouncedValue = useDebounce(value, 1500);
     const { setIsPiggybankIdAvailable } = useContext(AdditionalValidation);
     const isUrlUnchanged = value === currentPiggybankId;
-    const isInvalid = !debouncedValue.match(piggybankPathRegex);
+    const isInvalid = (!!currentPiggybankId && !debouncedValue.match(piggybankPathRegex))
+        || (!currentPiggybankId && debouncedValue && !debouncedValue.match(piggybankPathRegex));
     const validateIsAvailable = async () => {
+        if (!currentPiggybankId && !value) {
+            setIsValid(true);
+            setError(null);
+            setIsValidating(false);
+            setIsPiggybankIdAvailable(true);
+            return;
+        }
         if (isUrlUnchanged) {
             setIsValid(true);
             setIsPiggybankIdAvailable(true);
@@ -94,7 +108,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
         setIsValidating(false);
     }, []);
     return (
-        <>
+        <Box>
         <InputGroup>
             <InputLeftAddon>
                 coindrop.to/
@@ -103,8 +117,9 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
                 id="input-piggybankId"
                 maxLength={32}
                 roundedLeft="0"
-                isInvalid={!isValid && !isValidating && value === debouncedValue && !isUrlUnchanged}
-                ref={register}
+                isInvalid={isValid === false && !isValidating && value === debouncedValue && !isUrlUnchanged}
+                ref={reactHookFormRegister}
+                onChange={!reactHookFormRegister ? (event) => setNonReactHookFormValue(event.target.value) : undefined}
                 name="piggybankId"
             />
             <InputRightElement>
@@ -130,7 +145,7 @@ const EditUrlInput: FunctionComponent<Props> = ({ register, value }) => {
                 error="Error checking availability, please try again"
             />
         )}
-        </>
+        </Box>
     );
 };
 

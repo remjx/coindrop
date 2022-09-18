@@ -1,11 +1,11 @@
-import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+import { auth } from "firebase-functions";
+import { initializeApp, firestore } from "firebase-admin";
 import {getDefaultUserData} from "../../../db/schema/user";
 
-admin.initializeApp();
-const db = admin.firestore();
+initializeApp();
+const db = firestore();
 
-export const initializeUser = functions.auth.user().onCreate((user) => {
+export const initializeUser = auth.user().onCreate((user) => {
   const {uid, email} = user;
   const userRef = db
       .collection("users")

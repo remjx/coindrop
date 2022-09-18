@@ -61,7 +61,7 @@ const JavascriptEmbedButton: FunctionComponent<Props> = ({ publicUrl, piggybankN
     useEffect(() => {
         setCustomText(shuffleTextArray[shuffleCustomTextIndex]);
     }, [shuffleCustomTextIndex]);
-    const ButtonPreview: FunctionComponent<ButtonPreviewProps> = ({ text = "coindrop.to me", isHtmlOnly = false }) => (
+    const ButtonPreview: FunctionComponent<ButtonPreviewProps> = ({ text, isHtmlOnly }) => (
         <a href={`${fullBaseUrl}${piggybankName}`} target="_blank" rel="noreferrer">
             <button type="button" className={isHtmlOnly ? `${styles["coindrop-button"]} ${styles["coindrop-html-button"]}` : styles["coindrop-button"]}>
                 <div className={styles["coindrop-button-content"]}>
@@ -71,6 +71,10 @@ const JavascriptEmbedButton: FunctionComponent<Props> = ({ publicUrl, piggybankN
             </button>
         </a>
     );
+    ButtonPreview.defaultProps = {
+        text: "coindrop.to me",
+        isHtmlOnly: false,
+    };
     return (
         <Box>
             <Box textAlign="center" mt={3}>

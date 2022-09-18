@@ -22,10 +22,7 @@ async function isPiggybankNameNonexistant(piggybankName: string) {
   if (rootPageSlugs.includes(piggybankName)) {
     throw new Error(piggybankExistsErrorMessage);
   }
-  const piggybank = await db()
-    .collection('piggybanks')
-    .doc(piggybankName)
-    .get();
+  const piggybank = await db.collection('piggybanks').doc(piggybankName).get();
   if (piggybank.exists) {
     throw new Error(piggybankExistsErrorMessage);
   }
@@ -34,10 +31,7 @@ async function isPiggybankNameNonexistant(piggybankName: string) {
 
 const userOverPiggybankLimitErrorMessage = 'Piggybank limit has been reached.';
 async function isUserUnderPiggybankLimit(uid: string): Promise<boolean | Error> {
-  const piggybanks = await db()
-    .collection('piggybanks')
-    .where('owner_uid', '==', uid)
-    .get();
+  const piggybanks = await db.collection('piggybanks').where('owner_uid', '==', uid).get();
   if (piggybanks.size >= maxPiggybanksPerUser) {
     throw new Error(userOverPiggybankLimitErrorMessage);
   }
@@ -96,10 +90,7 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
       avatar_storage_id: newAvatarStorageId,
     };
     await Promise.all([
-      db()
-        .collection('piggybanks')
-        .doc(newPiggybankName)
-        .set(newPiggybankData),
+      db.collection('piggybanks').doc(newPiggybankName).set(newPiggybankData),
       renameAvatarFile({ ownerUid: uid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }),
     ]);
     return res.status(200).end();
