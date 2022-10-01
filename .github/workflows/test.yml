@@ -15,8 +15,7 @@ env:
   EMAIL_TOKENS_CRYPTR_SECRET: ${{ secrets.EMAIL_TOKENS_CRYPTR_SECRET }}
 
 on:
-  pull_request:
-    branches: [ master ]
+  push
 
 jobs:
   build:
