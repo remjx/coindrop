@@ -42,6 +42,7 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
     - run: yarn install
+    - run: yarn run generate:static:files
     - run: yarn run lint
     - run: yarn run lint:tsc
     - run: yarn run lint:tsc:cypress
