@@ -2,18 +2,18 @@
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
 import { User } from 'firebase/auth';
+import {expect, jest, test} from '@jest/globals';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config';
 import DeleteAccount from './DeleteAccount';
-import useUserModule from '../../utils/auth/useUser';
 
 jest.mock('axios');
-jest.mock('../../utils/auth/useUser');
+jest.mock<typeof import('../../utils/auth/useUser')>('../../utils/auth/useUser', () => {
+  return {
+    useUser: () => ({ logout: () => undefined, user: null })
+  };
+});
 
-test('Show Spinner until user data is loaded', async () => {
-  jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
-    user: null,
-    logout: null,
-  }));
+test.only('Show Spinner until user data is loaded', async () => {
   const { getByTestId } = render(<DeleteAccount />, {});
   getByTestId("no-user-spinner");
 });
