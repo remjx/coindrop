@@ -24,13 +24,13 @@ describe('Upload Coindrop avatar', () => {
         cy.contains('Upload image');
         cy.get('[data-cy="file-input"]')
             .attachFile('test-avatar.png');
-        cy.get('[data-cy="coindrop-avatar"]', { timeout: 15000 });
+        cy.get('[data-cy="coindrop-avatar"]', { timeout: 10_000 });
         cy.get('[data-cy="avatar-placeholder"]').should('not.exist');
         cy.contains('Upload new image');
-        cy.get('[data-cy="remove-image-btn"]')
-            .click();
-        cy.get('[data-cy="avatar-placeholder"]');
-        cy.get('[data-cy="coindrop-avatar"]').should('not.exist');
+        // cy.get('[data-cy="remove-image-btn"]')
+        //     .click();
+        // cy.get('[data-cy="avatar-placeholder"]', { timeout: 10_000 });
+        // cy.get('[data-cy="coindrop-avatar"]').should('not.exist');
     });
 });
 

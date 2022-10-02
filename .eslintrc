@@ -114,7 +114,8 @@
                 "**/*.spec.js",
                 "**/*.test.jsx",
                 "**/*.test.tsx",
-                "**/react-testing-library-config.tsx"
+                "**/react-testing-library-config.tsx",
+                "cypress.config.ts",
             ]}
         ],
         "import/no-unresolved": "error",
