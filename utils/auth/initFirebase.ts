@@ -34,11 +34,8 @@ if (
   && typeof window !== 'undefined'
   && !window.Cypress
 ) {
-  const analytics = getAnalytics(firebaseApp);
-}
-
-if (typeof window !== 'undefined') {
-  const appCheck = initializeAppCheck(firebaseApp, {
+  getAnalytics(firebaseApp);
+  initializeAppCheck(firebaseApp, {
     provider: new ReCaptchaV3Provider(process.env.NEXT_PUBLIC_GOOGLE_RECAPTCHA_V3_SITE_KEY),
     isTokenAutoRefreshEnabled: true,
   });
