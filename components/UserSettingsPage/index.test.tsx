@@ -3,6 +3,7 @@ import '@testing-library/jest-dom/extend-expect';
 import useSWR from 'swr';
 import { User } from 'firebase/auth';
 import { act } from 'react-dom/test-utils';
+// import { expect } from '@jest/globals';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config'; // TODO: alias this from the normal react testing library
 // import { render as ogRender } from '@testing-library/react';
 import { UserSettingsPage, UserDataForm } from './index';

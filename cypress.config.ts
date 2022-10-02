@@ -1,6 +1,11 @@
 import { defineConfig } from 'cypress';
 import { plugin as cypressFirebasePlugin } from 'cypress-firebase';
-import { initializeApp, cert, getApp, getApps, ServiceAccount } from 'firebase-admin/app';
+import { initializeApp, ServiceAccount } from 'firebase-admin';
+
+// https://stackoverflow.com/a/69959606/711672
+// eslint-disable-next-line import/no-unresolved
+import { cert, getApp, getApps } from 'firebase-admin/app';
+
 import dotenv from 'dotenv';
 
 dotenv.config();

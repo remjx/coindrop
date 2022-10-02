@@ -2,7 +2,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
 import { User } from 'firebase/auth';
-import {expect, jest, test} from '@jest/globals';
 import { render, fireEvent, screen, waitFor } from '../../../../src/tests/react-testing-library-config';
 import DeleteAccount from '../DeleteAccount';
 

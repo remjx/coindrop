@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom/extend-expect';
-import { jest, test} from '@jest/globals';
 import { render } from '../../../../src/tests/react-testing-library-config';
 import DeleteAccount from '../DeleteAccount';
 
