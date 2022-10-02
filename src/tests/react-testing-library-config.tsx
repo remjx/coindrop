@@ -6,15 +6,15 @@ import theme from '../../components/theme';
 
 function AllTheProviders({ children }) {
   return (
-    <SWRConfig value={{ dedupingInterval: 0 }}>
+    // <SWRConfig value={{ dedupingInterval: 0 }}>
       <ChakraProvider theme={theme}>
-          {children}
+        {children}
       </ChakraProvider>
-    </SWRConfig>
+    // </SWRConfig>
   );
 }
 
-const customRender = (ui, options) => render(ui, { wrapper: AllTheProviders, ...options });
+const customRender = (ui, options?) => render(ui, { wrapper: AllTheProviders, ...options });
 
 export * from '@testing-library/react';
 

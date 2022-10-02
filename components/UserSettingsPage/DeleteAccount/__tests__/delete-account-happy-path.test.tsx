@@ -2,10 +2,9 @@
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
 import { User } from 'firebase/auth';
-import {expect, jest, test} from '@jest/globals';
 import { render, fireEvent, screen, waitFor } from '../../../../src/tests/react-testing-library-config';
 import DeleteAccount from '../DeleteAccount';
-import useUserModule from '../../../../utils/auth/useUser';
+// import useUserModule from '../../../../utils/auth/useUser';
 
 jest.mock('axios');
 jest.mock<typeof import('../../../../utils/auth/useUser')>('../../../../utils/auth/useUser', () => {
@@ -31,13 +30,13 @@ test.skip('Happy path account deletion', async () => {
   const axiosSpy = jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve());
   const email = 'test@user.com';
   const token = "some-auth-token";
-  jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
-    user: {
-      email,
-      uid: "irrelevant",
-    } as User,
-    logout: null,
-  }));
+  // jest.spyOn(useUserModule, 'useUser').mockImplementation(() => ({
+  //   user: {
+  //     email,
+  //     uid: "irrelevant",
+  //   } as User,
+  //   logout: null,
+  // }));
   render(<DeleteAccount />, {});
   fireEvent.click(screen.getByText('Delete Account'));
   await waitFor(() => screen.getByPlaceholderText(email));
