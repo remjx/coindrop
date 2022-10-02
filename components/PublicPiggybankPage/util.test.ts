@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { expect } from '@jest/globals';
 import { sortArrayByEntriesKeyAlphabetical, PaymentMethodDbObjEntry } from './util';
 
 describe('sortArrayByEntriesKeyAlphabetical', () => {
@@ -16,6 +14,6 @@ describe('sortArrayByEntriesKeyAlphabetical', () => {
             ['ethereum', {}],
             ['tezos', {}],
         ];
-        expect(input.sort(sortArrayByEntriesKeyAlphabetical)).toMatchObject(output);
+        expect(input.sort(sortArrayByEntriesKeyAlphabetical)).toEqual(output);
     });
 });

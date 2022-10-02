@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import router from 'next/router';
 import { User } from 'firebase/auth';
 import { firebaseAuth } from './initFirebase';
-
-type UseUser = {
-  user: User | null,
-  logout: () => void,
-}
+import { UseUser } from './useUser.types';
 
 const useUser = (): UseUser => {
   const [user, setUser] = useState<User>(null);
@@ -41,5 +37,3 @@ const useUser = (): UseUser => {
 };
 
 export { useUser };
-
-export default { useUser };

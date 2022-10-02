@@ -2,7 +2,7 @@ import { Button, Box, Input, Text, Spinner } from '@chakra-ui/react';
 import { FC, useState, Dispatch, SetStateAction } from 'react';
 import { User } from 'firebase/auth';
 import axios from 'axios';
-import { useUser } from '../../utils/auth/useUser';
+import { useUser } from '../../../utils/auth/useUser';
 
 const deleteUser = async (user: User) => {
     const token = await user.getIdToken();
