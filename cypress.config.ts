@@ -1,27 +1,27 @@
 import { defineConfig } from 'cypress';
 import { plugin as cypressFirebasePlugin } from 'cypress-firebase';
-import { initializeApp, ServiceAccount } from 'firebase-admin';
+import * as admin from 'firebase-admin';
 
 // https://stackoverflow.com/a/69959606/711672
 // eslint-disable-next-line import/no-unresolved
-import { cert, getApp, getApps } from 'firebase-admin/app';
+import * as adminApp from 'firebase-admin/app';
 
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const serviceAccount: ServiceAccount = {
+const serviceAccount: admin.ServiceAccount = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'), // https://stackoverflow.com/a/41044630/1332513
 };
 
-export const CREDENTIAL = cert(serviceAccount);
+export const CREDENTIAL = adminApp.cert(serviceAccount);
 
-export const firebaseAdminApp = getApps().length === 0 ? initializeApp({
+export const firebaseAdminApp = adminApp.getApps().length === 0 ? admin.initializeApp({
   credential: CREDENTIAL,
   databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-}) : getApp();
+}) : adminApp.getApp();
 
 export default defineConfig({
   projectId: 'gjafub',
