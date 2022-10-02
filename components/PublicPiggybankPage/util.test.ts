@@ -16,6 +16,6 @@ describe('sortArrayByEntriesKeyAlphabetical', () => {
             ['ethereum', {}],
             ['tezos', {}],
         ];
-        expect(input.sort(sortArrayByEntriesKeyAlphabetical)).toMatchObject(output);
+        expect(input.sort(sortArrayByEntriesKeyAlphabetical)).toEqual(output);
     });
 });
