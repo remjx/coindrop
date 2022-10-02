@@ -25,7 +25,8 @@
     "global.d.ts",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/tests/setupAfterEnv.js"
   ],
   "exclude": [
     "node_modules",

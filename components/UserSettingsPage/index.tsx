@@ -19,7 +19,7 @@ import { withDefaultLayout } from '../Layout/DefaultLayoutHOC';
 import { getUserData } from '../../src/db/queries/user/get-user-data';
 import { EmailListIds } from '../../src/db/schema/user';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
-import DeleteAccount from './DeleteAccount';
+import DeleteAccount from './DeleteAccount/DeleteAccount';
 
 const optionalEmailLists: Record<EmailListIds, string> = {
     newsletter: "Coindrop Newsletter",

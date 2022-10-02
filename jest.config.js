@@ -35,4 +35,7 @@ module.exports = {
       '^.+\\.[jt]sx?$': 'babel-jest',
     },
     testEnvironment: "jest-environment-jsdom",
+    setupFilesAfterEnv: [
+      '<rootDir>/src/tests/setupAfterEnv.js',
+    ],
 };
