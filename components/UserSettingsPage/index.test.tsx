@@ -2,11 +2,11 @@
 import '@testing-library/jest-dom/extend-expect';
 import useSWR from 'swr';
 import { User } from 'firebase/auth';
+import { act } from 'react-dom/test-utils';
 import { render, fireEvent, screen, waitFor } from '../../src/tests/react-testing-library-config'; // TODO: alias this from the normal react testing library
 // import { render as ogRender } from '@testing-library/react';
 import { UserSettingsPage, UserDataForm } from './index';
 import { updateUserData } from '../../src/db/mutations/user/update-user';
-import { act } from 'react-dom/test-utils';
 
 jest.mock<typeof import('../../utils/auth/useUser')>('../../utils/auth/useUser', () => ({
     useUser: () => ({
