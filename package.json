@@ -34,7 +34,7 @@
     "@google-cloud/storage": "^5.7.2",
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
-    "aws-sdk": "^2.828.0",
+    "aws-sdk": "^2.1272.0",
     "axios": "^0.27.2",
     "cryptr": "^6.0.2",
     "dayjs": "^1.10.3",
