@@ -135,7 +135,6 @@ export const UserDataForm: FC<UserDataFormProps> = ({ userData, mutate, userId }
                     <Button
                         colorScheme="green"
                         type="submit"
-                        onClick={() => console.log('CLIKD!!!!!!')}
                         isDisabled={!isDirty || isSubmitting}
                         leftIcon={isSubmitting ? <Spinner size="sm" /> : undefined}
                     >
