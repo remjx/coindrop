@@ -118,6 +118,26 @@ export const PiggyLogoIconDarkMode = createIcon({
     viewBox: "0 -4 512.00074 512",
 });
 
+export const WowneroIcon = createIcon({
+    displayName: "WowneroIcon",
+    path: (
+        <g fillRule="evenodd">
+            <circle cx="12" cy="12" r="11" fill="#purple" />
+            <text
+                x="12"
+                y="17"
+                fontSize="12px"
+                fill="white"
+                textAnchor="middle"
+                fontFamily="sans-serif"
+            >
+                W
+            </text>
+        </g>
+    ),
+    viewBox: "0 0 24 24",
+});
+
 export const PiggyLogoIcon = createIcon({
     displayName: "PiggyLogoIcon",
     path: (
