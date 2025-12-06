@@ -80,7 +80,7 @@
     "@typescript-eslint/parser": "^5.33.1",
     "babel-jest": "^29.1.2",
     "cross-env": "^7.0.3",
-    "cypress": "^10.9.0",
+    "cypress": "^15",
     "cypress-file-upload": "5.x",
     "cypress-firebase": "2.2.2",
     "eslint": "^8.22.0",
