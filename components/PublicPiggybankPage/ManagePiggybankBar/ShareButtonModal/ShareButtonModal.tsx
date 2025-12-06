@@ -17,7 +17,7 @@ import { ShareIcon } from '../../../Icons/CustomIcons';
 import CopyLinkShareButton from './CopyLinkShareButton';
 import PiggybankQRCode from './PiggybankQRCode';
 import ShareEmbedButton from './ShareEmbedButton';
-import TipCards from './TipCards';
+// import TipCards from './TipCards';
 
 type Props = {
     buttonColor: string
