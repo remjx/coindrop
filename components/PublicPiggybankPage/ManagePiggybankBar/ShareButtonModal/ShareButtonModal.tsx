@@ -70,7 +70,7 @@ const ShareButtonModal: FunctionComponent<Props> = ({ buttonColor }) => {
                         fullPublicUrl={fullPublicUrl}
                         publicUrl={publicUrl}
                     />
-                    <TipCards />
+                    {/* <TipCards /> */}
                 </ModalBody>
                 <ModalFooter />
             </ModalContent>
