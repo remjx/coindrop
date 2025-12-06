@@ -17,7 +17,7 @@
   },
   "main": "lib/firebase/functions/src/index.js",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.30.2",
     "cryptr": "^6.0.2",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0"
