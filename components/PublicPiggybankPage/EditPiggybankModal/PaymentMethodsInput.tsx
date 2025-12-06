@@ -20,6 +20,7 @@ import {
 import { useWatch, Control } from "react-hook-form";
 import paymentMethods, { paymentMethodNames, paymentMethodIcons } from '../../../src/paymentMethods';
 import { AdditionalValidation } from './AdditionalValidationContext';
+import { PaymentMethodItem } from './PaymentMethodItem';
 
 export type PaymentMethod = {
     address: string
@@ -92,14 +93,22 @@ const PaymentMethodsInput: FC<Props> = (props) => {
                 {
                 fields
                     .map((item, index) => {
-                    return (
-                        <PaymentMethodItem
-                            register={register}
-                            fieldArrayName={fieldArrayName}
-                            containsInvalidAddress={containsInvalidAddress}
-                            isAddressTouched={isAddressTouched}
-                        />
-                    );
+                        console.log('');
+                        return (
+                            <PaymentMethodItem
+                                register={register}
+                                fieldArrayName={fieldArrayName}
+                                containsInvalidAddress={containsInvalidAddress}
+                                isAddressTouched={isAddressTouched}
+                                index={index}
+                                item={item}
+                                openAccordionItemIndex={openAccordionItemIndex}
+                                paymentMethodsDataWatch={paymentMethodsDataWatch}
+                                setIsAddressTouched={setIsAddressTouched}
+                                setOpenAccordionItemIndex={setOpenAccordionItemIndex}
+                                remove={remove}
+                            />
+                        );
                 })
 }
             </Accordion>

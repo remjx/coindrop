@@ -30,13 +30,14 @@ type PaymentMethodItemProps = {
     fieldArrayName: string;
     containsInvalidAddress: boolean;
     isAddressTouched: boolean;
+    remove: (index: number) => void
 }
 
 export const PaymentMethodItem: FC<PaymentMethodItemProps> = (props) => {
-    const { item, setIsAddressTouched, openAccordionItemIndex, index, paymentMethodsDataWatch, setOpenAccordionItemIndex, register, fieldArrayName, containsInvalidAddress, isAddressTouched } = props;
+    const { item, remove, setIsAddressTouched, openAccordionItemIndex, index, paymentMethodsDataWatch, setOpenAccordionItemIndex, register, fieldArrayName, containsInvalidAddress, isAddressTouched } = props;
     const watchedData = paymentMethodsDataWatch.find(watchedPaymentMethod => watchedPaymentMethod.id === item.id);
     const PaymentMethodIcon = paymentMethodIcons[watchedData?.paymentMethodId]; // TODO: or use custom svg
-    const [isCustomPaymentMethod, setIsCustomPaymentMethod] = useState();
+    const [isCustomPaymentMethod, setIsCustomPaymentMethod] = useState(false);
     const { colors } = useTheme();
     return (
         <AccordionItem
@@ -152,7 +153,7 @@ export const PaymentMethodItem: FC<PaymentMethodItemProps> = (props) => {
                     align="center"
                 >
                     {watchedData?.paymentMethodId === 'default-blank' && (
-                        <Button onClick={switchToCustomPaymentMethod}>
+                        <Button onClick={() => setIsCustomPaymentMethod(true)}>
                             Add custom payment method
                         </Button>
                     )}
@@ -170,5 +171,5 @@ export const PaymentMethodItem: FC<PaymentMethodItemProps> = (props) => {
                 </Flex>
             </AccordionPanel>
         </AccordionItem>
-    )
-);
+    );
+};
