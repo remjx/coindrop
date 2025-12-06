@@ -31,6 +31,7 @@ const PiggybankQRCode: FunctionComponent<Props> = ({ publicUrl, fullPublicUrl })
                     id="coindrop-qr-code"
                     value={fullPublicUrl}
                     size={225}
+                    level="H"
                     imageSettings={{
                         src: '/logo/piggy-64.png',
                         x: null,
