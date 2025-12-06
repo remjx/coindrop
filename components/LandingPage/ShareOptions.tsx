@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Center, Flex, Button, Text, Box, Link, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { QRCodeExample } from './QRCodeExample';
 import { ShareOption } from './ShareOption';
-import tipCardPng from '../../public/shop/tip-card.png';
+// import tipCardPng from '../../public/shop/tip-card.png';
 import tipCardRestaurantPng from '../../public/landing-page/tip-card-generic-restaurant.png';
 
 export const ShareOptionsDefault: FC = () => {
@@ -15,7 +15,7 @@ export const ShareOptionsDefault: FC = () => {
             wrap="wrap"
         >
             <ShareOption
-                title="URL"
+                title="Link"
                 description="For anywhere"
                 bg={colorMode === 'light' ? 'logoPrimary' : 'orange.300'}
             >
@@ -46,13 +46,13 @@ export const ShareOptionsDefault: FC = () => {
             >
                 <QRCodeExample />
             </ShareOption>
-            <ShareOption
+            {/* <ShareOption
                 title="Tip Cards"
                 description="For the real world"
                 bg='#BBCBCB'
             >
                 <Image src={tipCardPng} alt="Tip Card example" height="150px" width="150px" />
-            </ShareOption>
+            </ShareOption> */}
         </Flex>
     );
 };
@@ -71,11 +71,12 @@ export const ShareOptionsForRestaurants: FC = () => (
                 <a
                     href="/shop"
                 >
-                    <Button>
+                    <Button colorScheme="green" disabled>
                         Order Now
                     </Button>
                 </a>
             </Center>
+            <Center><Text marginTop={2} color='orange'>Sold Out</Text></Center>
         </Box>
     </Center>
 );

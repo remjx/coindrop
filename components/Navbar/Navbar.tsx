@@ -32,7 +32,7 @@ export function UserMenu() {
                         </MenuItem>
                     </NextLink>
                 )}
-                {router.pathname !== '/shop' && (
+                {/* {router.pathname !== '/shop' && (
                     <Link href="/shop" style={{textDecoration: "none"}}>
                         <MenuItem>
                             <Flex
@@ -43,7 +43,7 @@ export function UserMenu() {
                             </Flex>
                         </MenuItem>
                     </Link>
-                )}
+                )} */}
                 <MenuItem
                     onClick={toggleColorMode}
                 >

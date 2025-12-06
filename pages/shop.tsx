@@ -7,7 +7,17 @@ import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
 
+export async function getServerSideProps() {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+}
+
 // script execution issue references...
+// current solution is to not use next/link to navigate to this page
     // https://github.com/vercel/next.js/issues/4477
     // https://www.npmjs.com/package/react-load-script
     // https://medium.com/better-programming/loading-third-party-scripts-dynamically-in-reactjs-458c41a7013d

@@ -22,7 +22,7 @@ const Home: NextPage = () => {
                 showSubscriptionPlatforms
                 ShareOptions={ShareOptionsDefault}
                 shareOptionsHeading="Share &amp; Get Paid"
-                advertiseOpenSource
+                advertiseOpenSource={false}
                 getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
                 smartphoneMockupImageWidth={305}
                 smartphoneMockupImageHeight={606}
