@@ -51,7 +51,7 @@ export const ShareOptionsDefault: FC = () => {
                 description="For the real world"
                 bg='#BBCBCB'
             >
-                <Image src={tipCardPng} alt="Tip Card example" height="150px" width="150px" />
+                <Image src={tipCardPng} alt="Tip Card example" height={150} width={150} />
             </ShareOption> */}
         </Flex>
     );
@@ -60,7 +60,7 @@ export const ShareOptionsDefault: FC = () => {
 export const ShareOptionsForRestaurants: FC = () => (
     <Center>
         <Box mt={6}>
-            <Image src={tipCardRestaurantPng} height="350px" width="350px" />
+            <Image src={tipCardRestaurantPng} height={350} width={350} alt="Tip Card example" />
             <Text mt={2} mb={2} textAlign="center">
                 Text and design can be customized
             </Text>

@@ -11,7 +11,7 @@ import {
     Container,
     Heading,
     Text,
-    Link,
+    Link as ChakraLink,
     useColorModeValue,
     UnorderedList,
     ListItem,
@@ -64,12 +64,12 @@ const accordionText: AccordionText[] = [
         body: (
             <Text>
                 {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
-                <Link
+                <ChakraLink
                     href={githubAddPaymentMethodRequest}
                     isExternal
                 >
                     <u>here</u>
-                </Link>
+                </ChakraLink>
                 .
             </Text>
         ),
@@ -79,12 +79,12 @@ const accordionText: AccordionText[] = [
         body: (
             <Box>
                 <Text>
-                    <Link
+                    <ChakraLink
                         href={`${markJacksonWebsite}/about`}
                         isExternal
                     >
                         <u>Mark Jackson</u>
-                    </Link>
+                    </ChakraLink>
                 </Text>
             </Box>
         ),
@@ -94,9 +94,9 @@ const accordionText: AccordionText[] = [
         body: (
             <Text>
                 {'Submit feature requests, report bugs, and contribute code on our public '}
-                <Link href={githubUrl} isExternal>
+                <ChakraLink href={githubUrl} isExternal>
                     <u>Github</u>
-                </Link>
+                </ChakraLink>
                 {' page.'}
             </Text>
         ),
@@ -107,17 +107,17 @@ const accordionText: AccordionText[] = [
             <>
             <Text>
                 {'Donate at '}
-                <NextLink href="/coindrop" passHref>
-                    <Link>
+                <NextLink href="/coindrop">
+                    <ChakraLink as="span">
                         <u>coindrop.to/coindrop</u>
-                    </Link>
+                    </ChakraLink>
                 </NextLink>
             </Text>
             <Text>
                 {'Give us a Like on '}
-                <Link href="https://alternativeto.net/software/coindrop/" isExternal>
+                <ChakraLink href="https://alternativeto.net/software/coindrop/" isExternal>
                     <u>AlternativeTo.net</u>
-                </Link>
+                </ChakraLink>
             </Text>
             <Text mt={2}>
                 Thank you! 🙏
@@ -164,9 +164,9 @@ const FAQ: FunctionComponent = () => {
             </Container>
             <Text textAlign="center" mt={4} fontSize="sm">
                 {"Do you have a question that's not answered here? Send it to "}
-                <Link href={`mailto:${coindropEmail}`} isExternal>
+                <ChakraLink href={`mailto:${coindropEmail}`} isExternal>
                     {coindropEmail}
-                </Link>
+                </ChakraLink>
             </Text>
         </Box>
     );

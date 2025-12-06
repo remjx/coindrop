@@ -17,10 +17,8 @@ const LatestPostsItem: FunctionComponent<LatestPostsItemProps> = ({ post, isLast
     const { slug, title, description, coverImage, coverImageDescr } = post;
     const coverImageUrl = `/blog-content/${slug}/${coverImage}`;
     const Link: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => (
-        <NextLink href={`/blog/${slug}`}>
-            <a className={styles.link}>
-                {children}
-            </a>
+        <NextLink href={`/blog/${slug}`} className={styles.link}>
+            {children}
         </NextLink>
     );
     return (
@@ -87,24 +85,20 @@ export const LatestPosts: FunctionComponent<LatestPostsProps> = ({ posts, page, 
             <Flex justify="space-around" align="center">
                 {/* TODO: is this bad for SEO? remove link if on last page? */}
                 <NextLink href={`/blog/page/${page - 1}`}>
-                    <a>
-                        <Button
-                            disabled={page <= 1}
-                        >
-                            Newer
-                        </Button>
-                    </a>
+                    <Button
+                        disabled={page <= 1}
+                    >
+                        Newer
+                    </Button>
                 </NextLink>
                 <Text>Page {page} of {pageTotal}</Text> {/* eslint-disable-line react/jsx-one-expression-per-line */}
                 {/* TODO: is this bad for SEO? remove link if on last page? */}
                 <NextLink href={`/blog/page/${page + 1}`}>
-                    <a>
-                        <Button
-                            disabled={page >= pageTotal}
-                        >
-                            Older
-                        </Button>
-                    </a>
+                    <Button
+                        disabled={page >= pageTotal}
+                    >
+                        Older
+                    </Button>
                 </NextLink>
             </Flex>
         </>

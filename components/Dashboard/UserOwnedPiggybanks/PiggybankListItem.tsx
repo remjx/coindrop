@@ -32,34 +32,32 @@ const PiggybankListItem: FunctionComponent<Props> = ({ id, loadingCoindropId, se
             borderWidth="1px"
             borderRadius="10px"
         >
-            <NextLink href={`/${loadingCoindropId || id}`} passHref>
-                <a id={`link-to-coindrop-${id}`} style={{cursor: "inherit"}}>
-                    <Box
-                        py={5}
-                        shadow="md"
-                    >
-                        {isThisItemLoading ? (
-                            <Flex align="center" justify="center">
-                                <Spinner boxSize="32px" />
-                                <Heading ml={2} fontSize="xl">
-                                    Loading
-                                </Heading>
-                            </Flex>
-                        ) : (
-                            <Flex
-                                justify="space-between"
-                                align="center"
-                                mx={4}
-                            >
-                                <Heading fontSize="xl" wordBreak="break-word" opacity={textOpacity}>
-                                    coindrop.to/
-                                    {id}
-                                </Heading>
-                                <ChevronRightIcon boxSize="32px" opacity={textOpacity} />
-                            </Flex>
-                        )}
-                    </Box>
-                </a>
+            <NextLink href={`/${loadingCoindropId || id}`} passHref id={`link-to-coindrop-${id}`} style={{cursor: "inherit"}}>
+                <Box
+                    py={5}
+                    shadow="md"
+                >
+                    {isThisItemLoading ? (
+                        <Flex align="center" justify="center">
+                            <Spinner boxSize="32px" />
+                            <Heading ml={2} fontSize="xl">
+                                Loading
+                            </Heading>
+                        </Flex>
+                    ) : (
+                        <Flex
+                            justify="space-between"
+                            align="center"
+                            mx={4}
+                        >
+                            <Heading fontSize="xl" wordBreak="break-word" opacity={textOpacity}>
+                                coindrop.to/
+                                {id}
+                            </Heading>
+                            <ChevronRightIcon boxSize="32px" opacity={textOpacity} />
+                        </Flex>
+                    )}
+                </Box>
             </NextLink>
         </Box>
     );

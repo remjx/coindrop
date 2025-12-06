@@ -9,12 +9,10 @@ describe('Landing page', () => {
     cy.callFirestore("delete", `piggybanks/${testCoindropName_jwylti}`);
     cy.visit('/');
     cy.get('#log-in-button').click();
-    cy.get("#chakra-modal-auth-modal")
-      .contains("Sign in to continue");
-    cy.get("#firebaseui_container")
-      .contains("Sign in with Google");
-    cy.get("#firebaseui_container")
-    .contains("Sign in with Facebook");
+    cy.contains("Sign in to continue");
+    cy.contains("Sign in with Google");
+    cy.contains("Sign in with Facebook");
+    cy.contains("Sign in with email");
   });
 });
 

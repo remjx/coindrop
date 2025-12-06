@@ -120,7 +120,7 @@ const Shop: FC = () => {
                     align={["center", "start"]}
                 >
                     <Flex>
-                        <Image src="/shop/tip-card.png" height="300" width="300" />
+                        <Image src="/shop/tip-card.png" height={300} width={300} alt="Tip Card example" />
                     </Flex>
                     <Box ml={4}>
                         <Heading

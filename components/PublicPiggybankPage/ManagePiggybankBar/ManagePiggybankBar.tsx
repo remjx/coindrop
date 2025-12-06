@@ -2,26 +2,11 @@
 import { FunctionComponent, useState } from 'react';
 import NextLink from 'next/link';
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { Box, Link as ChakraLink, Button, Flex, useDisclosure, ButtonProps } from '@chakra-ui/react';
+import { Box, Button, Flex, useDisclosure } from '@chakra-ui/react';
 import EditPiggybankModal from '../EditPiggybankModal/EditPiggybankModal';
 import ShareButtonModal from './ShareButtonModal/ShareButtonModal';
 import { AdditionalValidationProvider } from '../EditPiggybankModal/AdditionalValidationContext';
 import { UserMenu } from '../../Navbar/Navbar';
-
-type LinkButtonProps = {
-    href: string
-    buttonProps: ButtonProps
-    children: React.ReactNode
-}
-const LinkButton: FunctionComponent<LinkButtonProps> = ({ href, children, buttonProps }) => (
-    <NextLink href={href} passHref>
-        <ChakraLink style={{textDecoration: "none"}}>
-            <Button {...buttonProps}>
-                {children}
-            </Button>
-        </ChakraLink>
-    </NextLink>
-);
 
 type Props = {
     editButtonOptions: {
@@ -55,16 +40,15 @@ const ManagePiggybankBar: FunctionComponent<Props> = ({ editButtonOptions, initi
                     onClick={() => setIsDashboardLoading(true)}
                     mt={2}
                 >
-                    <LinkButton
-                        href="/dashboard"
-                        buttonProps={{
-                            leftIcon: <ArrowBackIcon />,
-                            isLoading: isDashboardLoading,
-                            loadingText: "Loading",
-                        }}
-                    >
-                        My Coindrops
-                    </LinkButton>
+                    <NextLink href="/dashboard">
+                        <Button
+                            leftIcon={<ArrowBackIcon />}
+                            isLoading={isDashboardLoading}
+                            loadingText="Loading"
+                        >
+                            My Coindrops
+                        </Button>
+                    </NextLink>
                 </Box>
                 <Flex mx={3} mt={2} gap={4}>
                     <Button

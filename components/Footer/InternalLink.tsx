@@ -14,12 +14,11 @@ export const InternalLink: FunctionComponent<Props> = ({ href, text, prefetch = 
         <Link
             href={href}
             prefetch={prefetch}
+            className={styles.link}
         >
-            <a className={styles.link}>
-                <FooterText>
-                    {text}
-                </FooterText>
-            </a>
+            <FooterText>
+                {text}
+            </FooterText>
         </Link>
     </Box>
 );

@@ -14,7 +14,7 @@ const TipCards: FunctionComponent = () => (
             Physical Cards
         </Heading>
         <Center mt={4}>
-            <Image src={tipCardPng} height="225" width="225" />
+            <Image src={tipCardPng} height={225} width={225} alt="Tip Card example" />
         </Center>
         <Center>
             <a href="/shop">

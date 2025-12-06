@@ -10,26 +10,24 @@ const PoweredByCoindropLink: FunctionComponent = () => {
             textAlign="center"
             my={6}
         >
-            <NextLink href="/" passHref>
-                <ChakraLink style={{textDecoration: "none"}}>
-                    <Button
-                        variant="ghost"
-                        _hover={{
-                            bg: bgHover,
-                        }}
+            <NextLink href="/">
+                <Button
+                    variant="ghost"
+                    _hover={{
+                        bg: bgHover,
+                    }}
+                >
+                    <Flex
+                        align="center"
+                        justify="center"
                     >
-                        <Flex
-                            align="center"
-                            justify="center"
-                        >
-                            <PiggyLogo mr={1} boxSize="2rem" />
-                            <Text>
-                                Powered by Coindrop
-                            </Text>
-                        </Flex>
+                        <PiggyLogo mr={1} boxSize="2rem" />
+                        <Text>
+                            Powered by Coindrop
+                        </Text>
+                    </Flex>
 
-                    </Button>
-                </ChakraLink>
+                </Button>
             </NextLink>
         </Box>
     );
