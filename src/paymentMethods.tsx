@@ -2,7 +2,7 @@
 // TODO: add officialWebsite to the object properties
 
 import { createIcon, ComponentWithAs, IconProps } from "@chakra-ui/react";
-import { BuyMeACoffeeIcon, PatreonIcon, KofiIcon, WowneroIcon } from '../components/Icons/CustomIcons';
+import { BuyMeACoffeeIcon, PatreonIcon, KofiIcon } from '../components/Icons/CustomIcons';
 
 export type Category = 'digital-wallet' | 'digital-asset' | 'subscription-platform'
 
