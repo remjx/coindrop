@@ -1,8 +1,7 @@
 import { FunctionComponent, useContext, useEffect } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Container, Flex, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode, useDisclosure } from '@chakra-ui/react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode, useDisclosure } from '@chakra-ui/react';
+import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { useUser } from '../../utils/auth/useUser';
