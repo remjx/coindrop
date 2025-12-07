@@ -1,6 +1,6 @@
-import { FunctionComponent, useContext } from 'react';
+import { FunctionComponent, useContext, useEffect } from 'react';
 import { SettingsIcon } from '@chakra-ui/icons';
-import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode } from '@chakra-ui/react';
+import { Container, Center, Heading, Box, Link, useTheme, Wrap, WrapItem, useColorMode, ColorMode, useDisclosure } from '@chakra-ui/react';
 import { css } from '@emotion/react';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
@@ -67,6 +67,12 @@ const PublicPiggybankPage: FunctionComponent = () => {
     );
     const piggybankExists = !!owner_uid;
     const initialSetupComplete = name && accentColor && verb && pagePaymentMethodsDataEntries.length > 0;
+    const configureModalDisclosure = useDisclosure();
+    useEffect(() => {
+        if (!initialSetupComplete) {
+            configureModalDisclosure.onOpen();
+        }
+    }, []);
     return (
         <>
         <NextSeo
@@ -86,16 +92,17 @@ const PublicPiggybankPage: FunctionComponent = () => {
                     editButtonOptions={
                         initialSetupComplete
                         ? ({
-                            text: 'Configure',
+                            text: 'Settings',
                             color: undefined,
                             icon: <SettingsIcon />,
                         }) : ({
-                            text: 'Set up',
+                            text: 'Settings',
                             color: 'green',
                             icon: <SettingsIcon />,
                         })
                     }
                     initialSetupComplete={initialSetupComplete}
+                    configureModalDisclosure={configureModalDisclosure}
                 />
                 </>
             )}
