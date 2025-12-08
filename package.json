@@ -29,7 +29,6 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@google-cloud/firestore": "^4.2.0",
     "@google-cloud/storage": "^5.7.2",
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
