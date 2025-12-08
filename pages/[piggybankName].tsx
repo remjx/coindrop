@@ -27,11 +27,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const piggybankDocumentReferences = await db.collection('piggybanks').listDocuments();
-  const piggybankIds = piggybankDocumentReferences.map(ref => ref.id);
-  const paths = piggybankIds.map(piggybankId => ({ params: { piggybankName: piggybankId } }));
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 };
