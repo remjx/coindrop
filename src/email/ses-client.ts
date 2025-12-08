@@ -1,15 +1,15 @@
-import AWS from 'aws-sdk';
+import * as AWS from '@aws-sdk/client-sesv2';
 
 const accessKeyId = process.env.AWS_IAM_ADMIN_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_IAM_ADMIN_ACCESS_KEY;
 
-AWS.config.update({
-    accessKeyId,
-    secretAccessKey,
+const ses = new AWS.SESv2({
     region: 'us-east-1',
+    credentials: {
+        accessKeyId,
+        secretAccessKey,
+    },
 });
-
-const ses = new AWS.SESV2({ apiVersion: '2019-09-27' });
 
 type Msg = {
     to: string
@@ -38,5 +38,5 @@ export const sesSend = (msg: Msg): Promise<any> => {
         FromEmailAddress: 'Coindrop <coindrop.to@gmail.com>',
     };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return ses.sendEmail(params).promise();
+    return ses.sendEmail(params);
 };

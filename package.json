@@ -24,6 +24,7 @@
     "vercel:dev:pull-env": "vercel pull --environment=development"
   },
   "dependencies": {
+    "@aws-sdk/client-sesv2": "^3.946.0",
     "@chakra-ui/icons": "^1.0.3",
     "@chakra-ui/react": "^2.2.8",
     "@emotion/core": "^11.0.0",
@@ -32,7 +33,6 @@
     "@google-cloud/storage": "^5.7.2",
     "@next/bundle-analyzer": "^10.0.5",
     "@types/chai": "^4.2.14",
-    "aws-sdk": "^2.828.0",
     "axios": "^0.30.2",
     "cryptr": "^6.0.2",
     "dayjs": "^1.10.3",
