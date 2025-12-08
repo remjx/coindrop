@@ -13,8 +13,6 @@ describe('Delete Coindrop', () => {
         });
         cy.visit(`/${testCoindropName}`);
         cy.contains('This Coindrop has not been set up yet');
-        cy.get('#configure-coindrop-button')
-            .click();
         cy.get('button#delete-coindrop-button')
             .contains('Delete')
             .click();

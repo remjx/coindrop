@@ -22,9 +22,6 @@ describe('Configure Coindrop', () => {
         cy.callFirestore("set", `piggybanks/${testCoindropName_qee1vc}`, { owner_uid: Cypress.env("TEST_UID") });
         cy.visit(`/${testCoindropName_qee1vc}`);
         cy.contains('This Coindrop has not been set up yet.');
-        cy.get('#configure-coindrop-button')
-            .click();
-        // Configure
         cy.get('#avatar-input-container')
             .find('img#avatar-img')
             .should('have.attr', 'alt', 'avatar placeholder');

@@ -36,7 +36,8 @@ const DeleteButton: FunctionComponent<Props> = ({ piggybankName }) => {
                 }),
                 deleteDoc(doc(piggybanks, piggybankName)),
             ]);
-            fetch(`/${piggybankName}`, { headers: { isToForceStaticRegeneration: "true" }});
+            await new Promise((resolve) => { setTimeout(resolve, 1001); }); // to exceed static regeneration `revalidate: 1` threshold. this is a hacky solution to fix tests but forces delete to take an extra 1s for actual users.
+            fetch(`/${piggybankName}`); // trigger static regeneration
             push('/dashboard');
         } catch (err) {
             setAwaitingDeleteConfirmation(false);

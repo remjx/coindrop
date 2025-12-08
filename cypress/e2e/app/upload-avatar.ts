@@ -17,8 +17,6 @@ describe('Upload Coindrop avatar', () => {
         });
         cy.visit(`/${testCoindropName}`);
         cy.contains('This Coindrop has not been set up yet');
-        cy.get('#configure-coindrop-button')
-            .click();
         cy.get('[data-cy="avatar-placeholder"]');
         cy.get('[data-cy="coindrop-avatar"]').should('not.exist');
         cy.contains('Upload image');
