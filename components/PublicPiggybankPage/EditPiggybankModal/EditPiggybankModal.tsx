@@ -133,7 +133,7 @@ const EditPiggybankModal: FunctionComponent<Props> = ({ isOpen, onClose }) => {
                 }
                 routerPush(`/${formData.piggybankId}`);
             }
-            fetch(`/${initialPiggybankId}`, { headers: { isToForceStaticRegeneration: "true" }});
+            fetch(`/${initialPiggybankId}`);
             onClose();
         } catch (error) {
             setIsSubmitting(false);

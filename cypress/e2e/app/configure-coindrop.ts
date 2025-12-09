@@ -14,9 +14,6 @@ describe('Configure Coindrop', () => {
         cy.intercept({
             method: 'GET',
             url: `/${testCoindropName_qee1vc}`,
-            headers: {
-                isToForceStaticRegeneration: "true",
-            },
         }).as('triggerStaticRegenerationAfterSubmit');
         cy.callFirestore("delete", `piggybanks/${testCoindropName_qee1vc}`);
         cy.callFirestore("set", `piggybanks/${testCoindropName_qee1vc}`, { owner_uid: Cypress.env("TEST_UID") });
