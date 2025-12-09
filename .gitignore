@@ -47,3 +47,5 @@ public/blog-content/**
 /pages/page-slugs.json
 
 tsconfig.tsbuildinfo
+
+.agent
