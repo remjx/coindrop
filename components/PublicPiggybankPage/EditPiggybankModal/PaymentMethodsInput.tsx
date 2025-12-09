@@ -59,30 +59,29 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
     }, [paymentMethodsDataWatch]);
     const containsInvalidAddress = paymentMethodsDataWatch.some(paymentMethod => !paymentMethod.address);
     const { isAddressTouched, setIsAddressTouched } = useContext(AdditionalValidation);
-    // optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853
-        // const optionsGroup = (category: Category) => {
-        //     const optgroupLabels: Record<Category, string> = {
-        //         "digital-wallet": 'Digital Wallets',
-        //         "digital-asset": "Digital Assets",
-        //         "subscription-platform": "Subscription Platforms",
-        //     };
-        //     return (
-        //         <optgroup label={optgroupLabels[category]}>
-        //             {paymentMethods
-        //             .filter(paymentMethod => paymentMethod.category === category)
-        //             .sort((a, b) => (a.id < b.id ? -1 : 1))
-        //             .map(({ id, displayName }) => (
-        //                 <option
-        //                     key={id}
-        //                     value={id}
-        //                     style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
-        //                 >
-        //                     {displayName}
-        //                 </option>
-        //             ))}
-        //         </optgroup>
-        //     );
-        // };
+    const OptionsGroup = ({ category }: { category: Category }) => {
+        const optgroupLabels: Record<Category, string> = {
+            "digital-wallet": 'Wallets',
+            "digital-asset": "Cryptocurrencies",
+            "subscription-platform": "Platforms",
+        };
+        return (
+            <optgroup label={optgroupLabels[category]}>
+                {paymentMethods
+                .filter(paymentMethod => paymentMethod.category === category)
+                .sort((a, b) => (a.id < b.id ? -1 : 1))
+                .map(({ id, displayName }) => (
+                    <option
+                        key={id}
+                        value={id}
+                        style={{display: paymentMethodsDataWatch.map(paymentMethodDataWatch => paymentMethodDataWatch.paymentMethodId).includes(id) ? "none" : undefined }}
+                    >
+                        {displayName}
+                    </option>
+                ))}
+            </optgroup>
+        );
+    };
     return (
         <>
         {fields.length < 1
@@ -155,22 +154,9 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                         onChange={() => setIsAddressTouched(false)}
                                     >
                                         <option hidden disabled value="default-blank">Select...</option>
-                                        {/* optgroup not compatible with Chakra dark mode: https://github.com/chakra-ui/chakra-ui/issues/2853 */}
-                                        {Object.entries(paymentMethodNames)
-                                            .sort((a, b) => {
-                                                const [aId] = a;
-                                                const [bId] = b;
-                                                return aId < bId ? -1 : 1;
-                                            })
-                                            .map(([paymentMethodId, paymentMethodDisplayName]) => (
-                                                <option
-                                                    key={paymentMethodId}
-                                                    value={paymentMethodId}
-                                                    style={{display: paymentMethodsDataWatch.map(paymentMethod => paymentMethod.paymentMethodId).includes(paymentMethodId) ? "none" : undefined }}
-                                                >
-                                                    {paymentMethodDisplayName}
-                                                </option>
-                                            ))}
+                                        <OptionsGroup category="digital-asset" />
+                                        <OptionsGroup category="digital-wallet" />
+                                        <OptionsGroup category="subscription-platform" />
                                     </Select>
                                 </Box>
                                 <Box
