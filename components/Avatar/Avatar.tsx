@@ -41,6 +41,7 @@ export function Avatar(): JSX.Element {
                 onLoadingComplete={() => {
                     setIsLoading(false);
                 }}
+                unoptimized
             />
         </div>
         </>
