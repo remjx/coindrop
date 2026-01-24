@@ -2,6 +2,7 @@ import nc from 'next-connect';
 import { Storage } from '@google-cloud/storage';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { v4 as uuidV4 } from 'uuid';
+import { z } from 'zod';
 import requireFirebaseToken from '../../server/middleware/requireFirebaseToken';
 import { db } from '../../utils/auth/firebaseAdmin';
 import { maxPiggybanksPerUser, piggybankPathRegex } from '../../src/settings';
@@ -46,6 +47,16 @@ function isNameValid(piggybankName: string): Error | true {
   return true;
 }
 
+const invalidWebsiteErrorMessage = 'Website URL is invalid.';
+function isWebsiteValid(website?: string): Error | true {
+  if (!website) return true;
+  const result = z.string().url().startsWith('http').safeParse(website);
+  if (!result.success) {
+    throw new Error(invalidWebsiteErrorMessage);
+  }
+  return true;
+}
+
 async function renameAvatarFile({ ownerUid, oldPiggybankName, oldAvatarStorageId, newPiggybankName, newAvatarStorageId }: {
   ownerUid: string
   oldPiggybankName: string
@@ -67,7 +78,7 @@ type ReqBody = {
   piggybankData?: PublicPiggybankDataType
 }
 
-const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
+export const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const {
       oldPiggybankName,
@@ -83,6 +94,7 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
       isPiggybankNameNonexistant(newPiggybankName),
       isUserUnderPiggybankLimit(uid),
       isNameValid(newPiggybankName),
+      isWebsiteValid(piggybankData?.website),
     ]);
     const newPiggybankData: PublicPiggybankDataType = {
       ...piggybankData,
@@ -103,6 +115,9 @@ const createPiggybank = async (req: NextApiRequest, res: NextApiResponse) => {
     }
     if (error.message === nameInvalidErrorMessage) {
       return res.status(400).send(nameInvalidErrorMessage);
+    }
+    if (error.message === invalidWebsiteErrorMessage) {
+      return res.status(400).send(invalidWebsiteErrorMessage);
     }
     return res.status(500).end();
   }

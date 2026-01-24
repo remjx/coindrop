@@ -99,7 +99,7 @@
     "vercel": "^28.1.0"
   },
   "engines": {
-    "node": "^24.11.1"
+    "node": ">=18.0.0"
   },
   "packageManager": "yarn@1.22.22"
 }
