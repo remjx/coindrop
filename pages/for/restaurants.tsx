@@ -23,7 +23,6 @@ const LandingPageForRestaurants: NextPage = () => {
                 shareOptionsHeading="Include tip cards with orders &amp; get tipped"
                 ShareOptions={ShareOptionsForRestaurants}
                 advertiseOpenSource={false}
-                getStartedText="Coindrop is 100% free and open-source."
                 smartphoneMockupImageWidth={800}
                 smartphoneMockupImageHeight={606}
                 logoSubtitle="for restaurants"

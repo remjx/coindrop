@@ -27,7 +27,6 @@ type Props = {
     ShareOptions: FC
     shareOptionsHeading: string
     advertiseOpenSource: boolean
-    getStartedText: string
     smartphoneMockupImageWidth: number
     smartphoneMockupImageHeight: number
     logoSubtitle: string | null
@@ -44,7 +43,6 @@ const LandingPage: FC<Props> = ({
     ShareOptions,
     shareOptionsHeading,
     advertiseOpenSource,
-    getStartedText,
     smartphoneMockupImageWidth,
     smartphoneMockupImageHeight,
     logoSubtitle,
@@ -170,9 +168,6 @@ const LandingPage: FC<Props> = ({
                 <ContentContainerHeading>
                     Get Started 🤑
                 </ContentContainerHeading>
-                <Text textAlign="center" fontSize="lg">
-                    {getStartedText}
-                </Text>
                 <Center mt={4}>
                     <NextLink href="/?auth=1" shallow>
                         <Button

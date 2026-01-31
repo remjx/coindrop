@@ -9,7 +9,7 @@ const Home: NextPage = () => {
     return (
         <>
             <NextSeo
-                title="Coindrop - Accept payments and donations 100% Free with Zero Fees"
+                title="Coindrop - Create a custom webpage for accepting payments/donations/tips"
                 description="Create your page. Let the sender choose how to pay you. Supports all payment apps and cryptocurrencies."
             />
             <LandingPage
@@ -23,7 +23,6 @@ const Home: NextPage = () => {
                 ShareOptions={ShareOptionsDefault}
                 shareOptionsHeading="Share &amp; Get Paid"
                 advertiseOpenSource={false}
-                getStartedText="Coindrops are 100% free and only take ~2 minutes to set up."
                 smartphoneMockupImageWidth={305}
                 smartphoneMockupImageHeight={606}
                 logoSubtitle={null}

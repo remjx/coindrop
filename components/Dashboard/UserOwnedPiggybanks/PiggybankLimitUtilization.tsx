@@ -39,7 +39,7 @@ const PiggybankLimitUtilization: FunctionComponent<Props> = ({ numActivePiggyban
                         <Link href={`mailto:${coindropEmail}`} target="_blank" rel="noreferrer">
                             <u>Contact us</u>
                         </Link>
-                        {" to request a limit increase (it's free)"}
+                        {" to request a limit increase"}
                     </Text>
                 </Flex>
             </Box>

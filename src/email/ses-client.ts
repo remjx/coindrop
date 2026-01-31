@@ -35,7 +35,7 @@ export const sesSend = (msg: Msg): Promise<any> => {
         Destination: {
             ToAddresses: [to],
         },
-        FromEmailAddress: 'Coindrop <coindrop.to@gmail.com>',
+        FromEmailAddress: 'Coindrop <admin@coindrop.to>',
     };
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return ses.sendEmail(params);

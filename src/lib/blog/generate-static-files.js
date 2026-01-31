@@ -4,7 +4,7 @@ For convenience, all blog post content is kept in one place: /blog/[slug]/public
 To expose public content to the web (e.g. images), this script copies all content to the next.js /public/blog-content/[slug]/ folder.
 */
 
-const { readdirSync, readdir, copyFile, mkdirSync } = require('fs');
+const { readdirSync, readdir, copyFile, mkdirSync, existsSync } = require('fs');
 const path = require('path');
 
 async function generateStaticFiles() {
@@ -14,6 +14,11 @@ async function generateStaticFiles() {
     postSlugs.forEach(postSlug => {
         const postLocalContentDir = path.join(postsDir, postSlug, 'public');
         const postPublicDir = path.join(process.cwd(), 'public', 'blog-content', postSlug);
+
+        if (!existsSync(postLocalContentDir)) {
+            return;
+        }
+
         mkdirSync(postPublicDir, { recursive: true });
         readdir(postLocalContentDir, (err, files) => {
             if (postLocalContentDir.includes('terms-of-service') || postLocalContentDir.includes('privacy-policy')) {

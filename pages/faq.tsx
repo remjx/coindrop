@@ -18,7 +18,7 @@ import {
     useTheme,
 } from "@chakra-ui/react";
 import { withDefaultLayout } from '../components/Layout/DefaultLayoutHOC';
-import { coindropEmail, githubUrl, markJacksonWebsite, githubAddPaymentMethodRequest } from '../src/settings';
+import { coindropEmail, githubUrl, markJacksonWebsite } from '../src/settings';
 
 type AccordionText = {
     title: string
@@ -53,9 +53,6 @@ const accordionText: AccordionText[] = [
                 <Text mb="1rem">
                     To cover costs and fund development of this site, we may display relevant advertisements, offers, and affiliate links.
                 </Text>
-                <Text>
-                    Keep in mind the code to this website is open-source so if we ever implemented obtrusive monetization tactics, you could always fork the project on Github :)
-                </Text>
             </Box>
         ),
     },
@@ -65,7 +62,7 @@ const accordionText: AccordionText[] = [
             <Text>
                 {"We will add any payment method option as long as it's safe and not against the law. Submit a request "}
                 <ChakraLink
-                    href={githubAddPaymentMethodRequest}
+                    href={`mailto:${coindropEmail}`}
                     isExternal
                 >
                     <u>here</u>

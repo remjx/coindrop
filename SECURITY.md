@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-Master branch is the only supported version, which is deployed to https://coindrop.to automatically via Vercel integration.
+This repository is archived and no longer maintained. No versions are officially supported.
 
 ## Reporting a Vulnerability
 
-Please contact us directly via the support email on our website.
+If you discover a security vulnerability, please contact us via the support email on our website. Although the project is archived, we still appreciate reports to help us understand potential risks in the historical code.

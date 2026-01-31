@@ -22,7 +22,7 @@ import { useWatch, Control } from "react-hook-form";
 import paymentMethods, { paymentMethodNames, paymentMethodIcons, Category } from '../../../src/paymentMethods';
 // TODO: dynamically import icons to decrease load
 import { AdditionalValidation } from './AdditionalValidationContext';
-import { githubAddPaymentMethodRequest } from '../../../src/settings';
+import { coindropEmail } from '../../../src/settings';
 
 // TODO: fix bugginess of accordion toggling. expected behavior: on payment method add, focus to address. test with a preexisting accordion item open.
 
@@ -196,7 +196,7 @@ const PaymentMethodsInput: FC<Props> = ({ fieldArrayName, fields, control, regis
                                 >
                                     {watchedData?.paymentMethodId === 'default-blank' && (
                                         <Text fontSize="xs" ml={1}>
-                                            <Link href="/blog/custom-payment-methods" isExternal>
+                                            <Link href={`mailto:${coindropEmail}?subject=${encodeURIComponent("Coindrop New Payment Method Request")}&body=${encodeURIComponent("Payment method name: \nPayment method website: ")}`} isExternal>
                                                 Payment method not listed?
                                             </Link>
                                         </Text>

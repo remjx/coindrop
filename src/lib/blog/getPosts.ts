@@ -6,7 +6,7 @@ import { PostFrontMatter, PostType } from './types';
 const postsDirectory = join(process.cwd(), 'blog/posts');
 
 export function getPostSlugs(): string[] {
-  return fs.readdirSync(postsDirectory);
+  return fs.readdirSync(postsDirectory).filter(slug => !slug.startsWith('.'));
 }
 
 export function getPostBySlug(slug: string, fields: string[]): Partial<PostType> {
