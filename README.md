@@ -1,3 +1,5 @@
+> **Note:** This is an archive of the old Coindrop. Check out latest version of Coindrop [here](https://coindrop.to).
+
 # Coindrop 💰
 
 Create a custom webpage for accepting payments/donations/tips at [coindrop.to](https://coindrop.to).
